@@ -1,0 +1,94 @@
+.sidebar {
+  position: fixed;
+  top: 10vh;
+  left: 0;
+  width: 40vh; /* Largura da sidebar */
+  height: 90vh; /* Ocupa toda a altura da tela */
+  background-color: #FFFFFF; /* Cor de fundo da sidebar */
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Sombra para dar destaque */
+  z-index: 90; /* Para garantir que fique acima de outros conteúdos */
+}
+
+.divlogo {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.iconLogo {
+  width: 140px;
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.navItem img {
+  width: 24px;
+  height: 24px;
+  margin-right: 15px;
+}
+
+.navItem span, .navItem a {
+  color: #000; /* Cor padrão do texto */
+  text-decoration: none;
+  font-size: 18px; /* Fonte igual para todas as opções */
+  transition: color 0.3s ease;
+}
+
+.navItem:hover {
+  background-color: #f3f3f3;
+}
+
+.selected {
+  background-color: #F3F3F3; /* Fundo da opção selecionada */
+}
+
+.selected a, .selected span {
+  color: #000;
+  font-weight: bold;
+}
+
+.dropdownMenu {
+  list-style: none;
+  padding-left: 40px; /* Indenta as opções do dropdown */
+  margin-top: 5px;
+}
+
+.dropdownItem {
+  padding: 8px 0;
+}
+
+.dropdownToggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Espaça a seta da palavra "Leitores" */
+}
+
+.rotated {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .navItem span, .navItem a {
+    font-size: 16px;
+  }
+}

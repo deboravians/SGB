@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./login.module.css";
+import { Link } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,7 +14,7 @@ const Login: React.FC = () => {
       <div className={styles.loginBox}>
         <div className={styles.conteudo}>
           <img
-            src="src/assets/logoMinhaBiblioteca.svg"
+            src="./public/assets/logoMinhaBiblioteca.svg"
             alt="Logo Minha Biblioteca"
             className={styles.logo}
           />
@@ -45,9 +46,11 @@ const Login: React.FC = () => {
                 </button>
               </div>
             </div>
+            <Link to="/home">
             <button type="submit" className={styles.btn}>
               Entrar
             </button>
+            </Link>
           </form>
         </div>
       </div>

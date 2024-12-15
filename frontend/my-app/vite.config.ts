@@ -5,6 +5,13 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './',  // Para garantir que os caminhos relativos funcionem corretamente no build
+  build: {
+    rollupOptions: {
+      input: 'src/index.html',
+    },
+    outDir: 'dist',
+  },
   plugins: [
     react(),
     electron({
@@ -27,3 +34,4 @@ export default defineConfig({
     }),
   ],
 })
+
