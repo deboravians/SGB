@@ -21,7 +21,7 @@ public class UsuarioService{
 
         }
 
-        if((usuarioLogado.getLogin().equals("admin")) && (usuarioLogado.getSenha().equals("admin"))){
+        if((usuarioLogado.getLogin().equals(usuario.getLogin())) && (usuarioLogado.getSenha().equals(usuario.getSenha()))){
 
             return "1";
 
