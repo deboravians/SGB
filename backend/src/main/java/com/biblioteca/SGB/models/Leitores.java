@@ -15,15 +15,11 @@ public abstract class Leitores {
     @Column(name = "Telefone")
     private String telefone;
 
-
     @Column(name = "Rua")
     private String rua;
 
     @Column(name= "Bairro")
     private String bairro;
-
-    @Column(name = "cidade")
-    private String cidade;
 
     public Long getId() {
         return id;
@@ -45,11 +41,6 @@ public abstract class Leitores {
         return bairro;
     }
 
-    public String getCidade() {
-        return cidade;
-    }
-
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -68,10 +59,6 @@ public abstract class Leitores {
 
     public void setBairro(String bairro) {
         this.bairro = bairro;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
     }
 
 }

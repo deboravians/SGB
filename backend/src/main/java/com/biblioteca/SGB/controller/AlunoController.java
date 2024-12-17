@@ -1,7 +1,7 @@
 package com.biblioteca.SGB.controller;
 
 import com.biblioteca.SGB.models.Aluno;
-import com.biblioteca.SGB.repository.AlunoRepository;
+import com.biblioteca.SGB.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.*;
 public class AlunoController {
 
     @Autowired
-    private AlunoRepository alunoRepository;
+    private AlunoService alunoService;
+
 
     @PostMapping()
     public Aluno cadastrarAluno(@RequestBody Aluno aluno){
-        return alunoRepository.save(aluno);
+
+        return alunoService.cadastrarAluno(aluno);
+
     }
 
 }
