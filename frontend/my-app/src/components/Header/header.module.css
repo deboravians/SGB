@@ -1,0 +1,21 @@
+.divHeader {
+    position: fixed; 
+    top:0; 
+    left: 0;
+    background-image: linear-gradient(to left, #11431E, #2AA94B);
+    height: 10vh;
+    max-height: 20%;
+    width: 100%;
+    justify-content: start;
+}
+
+.iconLogo {
+    margin-left: 10px;
+    max-width: 200px;
+    max-height: 70px; /* Ajusta o tamanho máximo da logo */
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    cursor: pointer;
+}
+

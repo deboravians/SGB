@@ -1,14 +1,18 @@
-import './App.css'
+import { Outlet } from "react-router-dom";
+import SideBar from "./components/Sidebar/Sidebar";
+import Header from "./components/Header/Header";
+// import styles from "./App.css";
 
 function App() {
-
   return (
     <>
-      <div>
-        <h1>Hello!</h1>
-      </div>
+      
+      <Header />
+      <SideBar />
+      <Outlet />
+    
     </>
-  )
+  );
 }
 
-export default App
+export default App;
