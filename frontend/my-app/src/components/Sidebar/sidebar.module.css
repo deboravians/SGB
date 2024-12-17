@@ -2,7 +2,7 @@
   position: fixed;
   top: 10vh;
   left: 0;
-  width: 40vh; /* Largura da sidebar */
+  width: 35vh; /* Largura da sidebar */
   height: 90vh; /* Ocupa toda a altura da tela */
   background-color: #FFFFFF; /* Cor de fundo da sidebar */
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Sombra para dar destaque */
