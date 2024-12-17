@@ -4,6 +4,60 @@ import styles from "./LeitoresProfessores.module.css";
 
 
 function CadastroProfessores() {
+
+    const [nome, setNome] = useState("");
+    const [disciplina, setDisciplina] = useState("");
+    const [telefone, setTelefone] = useState("");
+    const [rua, setRua] = useState("");
+    const [numero, setNumero] = useState("");
+    const [bairro, setBairro] = useState("");
+
+    const [successMessage, setSuccessMessage] = useState(""); // Estado para mensagens de sucesso
+    const [errorMessage, setErrorMessage] = useState(""); // Estado para mensagens de erro
+
+    const handleCadastroProfessor = async (e: React.FormEvent) => {
+
+        e.preventDefault(); // Previne o comportamento padrão do formulário
+        setSuccessMessage(""); // Limpa mensagens de sucesso anteriores
+        setErrorMessage(""); // Limpa mensagens de erro anteriores
+
+        // Validação básica dos campos
+        if (!nome || !disciplina || !telefone || !rua || !numero || !bairro){
+
+        setErrorMessage("Todos os campos são obrigatórios.");
+        return;
+
+        }
+
+        try{
+
+        const response = await fetch("http://localhost:8080/professores",{
+
+            method: "POST",
+            headers: { "Content-Type": "application/json", },
+            body: JSON.stringify({ nome, disciplina, telefone,  rua, numero, bairro }), // Envia os dados no corpo da requisição
+
+        });
+
+        if(response.ok){
+
+            setSuccessMessage("Cadastro realizado com sucesso!");
+            console.log("Aluno cadastrado com sucesso.");
+
+        } else {
+
+            setErrorMessage("Erro ao realizar o cadastro. Verifique os dados e tente novamente.");
+            console.error("Erro no cadastro. Status:", response.status);
+
+        }
+        }catch (error){
+
+        console.error("Erro ao conectar com o servidor:", error);
+        setErrorMessage("Erro de conexão. Tente novamente.");
+
+        }
+    };
+
     const [isModalOpen, setIsModalOpen] = useState(false); // Controle da Modal
 
     const toggleModal = () => {
@@ -48,7 +102,7 @@ function CadastroProfessores() {
                     <div className={styles.modalOverlay}>
                         <div className={styles.modalContent}>
                             <h2 className={styles.modalTitle}>Cadastrar Professor</h2>
-                            <form>
+                            <form onSubmit={handleCadastroProfessor}>
                                 <h3 className={styles.sectionTitle}>Informações Gerais</h3>
                                 <div className={styles.generalInfo}>
                                     <div className={styles.formGroup}>
@@ -56,6 +110,8 @@ function CadastroProfessores() {
                                         <input
                                             type="text"
                                             id="nome"
+                                            value={nome}
+                                            onChange={(e) => setNome(e.target.value)}
                                             placeholder="Digite o nome do professor"
                                             className={styles.inputField}
                                         />
@@ -66,6 +122,8 @@ function CadastroProfessores() {
                                         <input
                                             type="text"
                                             id="disciplins"
+                                            value={disciplina}
+                                            onChange={(e) => setDisciplina(e.target.value)}
                                             placeholder="Matematica"
                                             className={styles.inputFild}
                                         />
@@ -76,6 +134,8 @@ function CadastroProfessores() {
                                             <input
                                                 type="text"
                                                 id="telefone"
+                                                value={telefone}
+                                                onChange={(e) => setTelefone(e.target.value)}
                                                 placeholder="(00) 00000-0000"
                                                 className={styles.inputFild}
                                             />
@@ -91,6 +151,8 @@ function CadastroProfessores() {
                                             <input
                                                 type="text"
                                                 id="rua"
+                                                value={rua}
+                                                onChange={(e) => setRua(e.target.value)}
                                                 placeholder="Digite a rua"
                                                 className={styles.inputField}
                                             />
@@ -100,6 +162,8 @@ function CadastroProfessores() {
                                             <input
                                                 type="text"
                                                 id="numero"
+                                                value={numero}
+                                                onChange={(e) => setNumero(e.target.value)}
                                                 placeholder="0000"
                                                 className={styles.inputFieldd}
                                             />
@@ -110,6 +174,8 @@ function CadastroProfessores() {
                                         <input
                                             type="text"
                                             id="bairro"
+                                            value={bairro}
+                                            onChange={(e) => setBairro(e.target.value)}
                                             placeholder="Digite o bairro"
                                             className={styles.inputFild}
                                         />
@@ -130,6 +196,8 @@ function CadastroProfessores() {
                                     </button>
                                 </div>
                             </form>
+                            {errorMessage && <p className={styles.error}>{errorMessage}</p>} {/* Exibe erros */}
+                            {successMessage && <p className={styles.error}>{successMessage}</p>} {/* Exibe sucessos */}
                         </div>
                     </div>
                 )}
