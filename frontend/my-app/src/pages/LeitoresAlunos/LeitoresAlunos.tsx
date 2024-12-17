@@ -3,7 +3,64 @@ import { Link } from "react-router-dom";
 import styles from "./LeitoresAlunos.module.css";
 
 
-function CadastroAlunos() {
+function CadastroAlunos(){
+
+  const [nome, setNome] = useState("");
+  const [matricula, setMatricula] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [serie, setSerie] = useState("");
+  const [turma, setTurma] = useState(""); 
+  const [anoLetivo, setAnoLetivo] = useState("");
+  const [rua, setRua] = useState("");
+  const [numero, setNumero] = useState("");
+  const [bairro, setBairro] = useState("");
+
+  const [successMessage, setSuccessMessage] = useState(""); // Estado para mensagens de sucesso
+  const [errorMessage, setErrorMessage] = useState(""); // Estado para mensagens de erro
+
+  const handleCadastroAluno = async (e: React.FormEvent) => {
+
+    e.preventDefault(); // Previne o comportamento padrão do formulário
+    setSuccessMessage(""); // Limpa mensagens de sucesso anteriores
+    setErrorMessage(""); // Limpa mensagens de erro anteriores
+
+    // Validação básica dos campos
+    if (!nome || !matricula || !telefone || !serie || !turma || !anoLetivo || !rua || !numero || !bairro){
+
+      setErrorMessage("Todos os campos são obrigatórios.");
+      return;
+
+    }
+
+    try{
+
+      const response = await fetch("http://localhost:8080/alunos",{
+
+        method: "POST",
+        headers: { "Content-Type": "application/json", },
+        body: JSON.stringify({ nome, matricula, telefone, serie, turma, anoLetivo, rua, numero, bairro }), // Envia os dados no corpo da requisição
+
+      });
+
+      if(response.ok){
+
+        setSuccessMessage("Cadastro realizado com sucesso!");
+        console.log("Aluno cadastrado com sucesso.");
+
+      } else {
+
+        setErrorMessage("Erro ao realizar o cadastro. Verifique os dados e tente novamente.");
+        console.error("Erro no cadastro. Status:", response.status);
+
+      }
+    }catch (error){
+
+      console.error("Erro ao conectar com o servidor:", error);
+      setErrorMessage("Erro de conexão. Tente novamente.");
+
+    }
+  };
+
   const [isModalOpen, setIsModalOpen] = useState(false); // Controle da Modal
 
   const toggleModal = () => {
@@ -56,7 +113,7 @@ function CadastroAlunos() {
           <div className={styles.modalOverlay}>
             <div className={styles.modalContent}>
               <h2 className={styles.modalTitle}>Cadastrar Aluno</h2>
-              <form>
+              <form onSubmit={handleCadastroAluno}>
                 <h3 className={styles.sectionTitle}>Informações Gerais</h3>
                 <div className={styles.generalInfo}>
                   <div className={styles.formGroup}>
@@ -64,6 +121,8 @@ function CadastroAlunos() {
                     <input
                       type="text"
                       id="nome"
+                      value={nome}
+                      onChange={(e) => setNome(e.target.value)}
                       placeholder="Digite o nome do aluno"
                       className={styles.inputField}
                     />
@@ -74,6 +133,8 @@ function CadastroAlunos() {
                       <input
                         type="text"
                         id="matricula"
+                        value={matricula}
+                        onChange={(e) => setMatricula(e.target.value)}
                         placeholder="1111111"
                         className={styles.inputFild}
                       />
@@ -84,6 +145,8 @@ function CadastroAlunos() {
                       <input
                         type="text"
                         id="telefone"
+                        value={telefone}
+                        onChange={(e) => setTelefone(e.target.value)}
                         placeholder="(00) 00000-0000"
                         className={styles.inputFild}
                       />
@@ -93,6 +156,8 @@ function CadastroAlunos() {
                       <input
                         type="text"
                         id="serie"
+                        value={serie}
+                        onChange={(e) => setSerie(e.target.value)}
                         placeholder="1"
                         className={styles.inputFieldd}
                       />
@@ -102,6 +167,8 @@ function CadastroAlunos() {
                       <input
                         type="text"
                         id="turma"
+                        value={turma}
+                        onChange={(e) => setTurma(e.target.value)}
                         placeholder="A"
                         className={styles.inputFieldd}
                       />
@@ -111,6 +178,8 @@ function CadastroAlunos() {
                       <input
                         type="text"
                         id="anoLetivo"
+                        value={anoLetivo}
+                        onChange={(e) => setAnoLetivo(e.target.value)}
                         placeholder="0000"
                         className={styles.inputFieldd}
                       />
@@ -126,6 +195,8 @@ function CadastroAlunos() {
                       <input
                         type="text"
                         id="rua"
+                        value={rua}
+                        onChange={(e) => setRua(e.target.value)}
                         placeholder="Digite a rua"
                         className={styles.inputField}
                       />
@@ -135,6 +206,8 @@ function CadastroAlunos() {
                       <input
                         type="text"
                         id="numero"
+                        value={numero}
+                        onChange={(e) => setNumero(e.target.value)}
                         placeholder="0000"
                         className={styles.inputFieldd}
                       />
@@ -145,6 +218,8 @@ function CadastroAlunos() {
                     <input
                       type="text"
                       id="bairro"
+                      value={bairro}
+                      onChange={(e) => setBairro(e.target.value)}
                       placeholder="Digite o bairro"
                       className={styles.inputFild}
                     />
@@ -164,6 +239,8 @@ function CadastroAlunos() {
                   </button>
                 </div>
               </form>
+              {errorMessage && <p className={styles.error}>{errorMessage}</p>} {/* Exibe erros */}
+              {successMessage && <p className={styles.error}>{successMessage}</p>} {/* Exibe sucessos */}
             </div>
           </div>
         )}
