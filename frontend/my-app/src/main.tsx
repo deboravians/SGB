@@ -6,6 +6,7 @@ import './index.css'
 import App from './App'
 import Home from './pages/Home/Home'
 import LeitoresAlunos from './pages/LeitoresAlunos/LeitoresAlunos'
+import LeitoresProfessores from './pages/LeitoresProfessores/LeitoresProfessores'
 
 
 const router = createBrowserRouter([
@@ -25,7 +26,10 @@ const router = createBrowserRouter([
         path: "/leitores/alunos",
         element: <LeitoresAlunos />
       },
-      
+      {
+        path: "/leitores/professores",
+        element: <LeitoresProfessores />
+      },
     ],
   },
 ])
