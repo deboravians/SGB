@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import styles from "./LeitoresAlunos.module.css";
 
 
-function CadastroAlunos(){
+function CadastroAlunos() {
 
   const [nome, setNome] = useState("");
   const [matricula, setMatricula] = useState("");
   const [telefone, setTelefone] = useState("");
   const [serie, setSerie] = useState("");
-  const [turma, setTurma] = useState(""); 
+  const [turma, setTurma] = useState("");
   const [anoLetivo, setAnoLetivo] = useState("");
   const [rua, setRua] = useState("");
   const [numero, setNumero] = useState("");
@@ -25,16 +25,16 @@ function CadastroAlunos(){
     setErrorMessage(""); // Limpa mensagens de erro anteriores
 
     // Validação básica dos campos
-    if (!nome || !matricula || !telefone || !serie || !turma || !anoLetivo || !rua || !numero || !bairro){
+    if (!nome || !matricula || !telefone || !serie || !turma || !anoLetivo || !rua || !numero || !bairro) {
 
       setErrorMessage("Todos os campos são obrigatórios.");
       return;
 
     }
 
-    try{
+    try {
 
-      const response = await fetch("http://localhost:8080/alunos",{
+      const response = await fetch("http://localhost:8080/alunos", {
 
         method: "POST",
         headers: { "Content-Type": "application/json", },
@@ -42,7 +42,7 @@ function CadastroAlunos(){
 
       });
 
-      if(response.ok){
+      if (response.ok) {
 
         setSuccessMessage("Cadastro realizado com sucesso!");
         console.log("Aluno cadastrado com sucesso.");
@@ -53,7 +53,7 @@ function CadastroAlunos(){
         console.error("Erro no cadastro. Status:", response.status);
 
       }
-    }catch (error){
+    } catch (error) {
 
       console.error("Erro ao conectar com o servidor:", error);
       setErrorMessage("Erro de conexão. Tente novamente.");
@@ -78,14 +78,6 @@ function CadastroAlunos(){
           <div className={`${styles.card} ${styles.cardVerde}`}>
             <strong className={styles.strong}>50</strong>
             <span>Alunos Cadastrados</span>
-          </div>
-          <div className={`${styles.card} ${styles.cardVerde}`}>
-            <strong className={styles.strong}>20</strong>
-            <span>Livros Emprestados</span>
-          </div>
-          <div className={`${styles.card} ${styles.cardVerde}`}>
-            <strong className={styles.strong}>15</strong>
-            <span>Livros em Atraso</span>
           </div>
         </div>
 
@@ -127,18 +119,18 @@ function CadastroAlunos(){
                       className={styles.inputField}
                     />
                   </div>
-                  
+
                   <div className={styles.formGroup}>
-                      <label htmlFor="matricula">Matricula:</label>
-                      <input
-                        type="text"
-                        id="matricula"
-                        value={matricula}
-                        onChange={(e) => setMatricula(e.target.value)}
-                        placeholder="1111111"
-                        className={styles.inputFild}
-                      />
-                    </div>
+                    <label htmlFor="matricula">Matricula:</label>
+                    <input
+                      type="text"
+                      id="matricula"
+                      value={matricula}
+                      onChange={(e) => setMatricula(e.target.value)}
+                      placeholder="1111111"
+                      className={styles.inputFild}
+                    />
+                  </div>
                   <div className={styles.row}>
                     <div className={styles.formGroup}>
                       <label htmlFor="telefone">Telefone:</label>
@@ -227,15 +219,15 @@ function CadastroAlunos(){
                 </div>
 
                 <div className={styles.modalActions}>
-                  <button type="submit" className={styles.botaoCadastrar}>
-                    Salvar
-                  </button>
                   <button
                     type="button"
                     className={styles.botaoCancelar}
                     onClick={toggleModal} // Fecha a modal
                   >
                     Cancelar
+                  </button>
+                  <button type="submit" className={styles.botaoCadastrar}>
+                    Salvar
                   </button>
                 </div>
               </form>

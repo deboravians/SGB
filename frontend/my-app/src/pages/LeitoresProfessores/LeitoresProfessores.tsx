@@ -22,14 +22,6 @@ function CadastroProfessores() {
                         <strong className={styles.strong}>50</strong>
                         <span>Professores Cadastrados</span>
                     </div>
-                    <div className={`${styles.card} ${styles.cardVerde}`}>
-                        <strong className={styles.strong}>20</strong>
-                        <span>Livros Emprestados</span>
-                    </div>
-                    <div className={`${styles.card} ${styles.cardVerde}`}>
-                        <strong className={styles.strong}>15</strong>
-                        <span>Livros em Atraso</span>
-                    </div>
                 </div>
 
                 <div className={styles.acoesContainer}>
@@ -130,6 +122,7 @@ function CadastroProfessores() {
                                         className={styles.botaoCancelar}
                                         onClick={toggleModal} // Fecha a modal
                                     >
+
                                         Cancelar
                                     </button>
                                     <button type="submit" className={styles.botaoCadastrar}>
