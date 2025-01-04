@@ -2,11 +2,16 @@
   position: fixed;
   top: 10vh;
   left: 0;
-  width: 35vh; /* Largura da sidebar */
-  height: 90vh; /* Ocupa toda a altura da tela */
-  background-color: #FFFFFF; /* Cor de fundo da sidebar */
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Sombra para dar destaque */
-  z-index: 90; /* Para garantir que fique acima de outros conteúdos */
+  width: 35vh;
+  /* Largura da sidebar */
+  height: 90vh;
+  /* Ocupa toda a altura da tela */
+  background-color: #FFFFFF;
+  /* Cor de fundo da sidebar */
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  /* Sombra para dar destaque */
+  z-index: 90;
+  /* Para garantir que fique acima de outros conteúdos */
 }
 
 .divlogo {
@@ -40,10 +45,13 @@
   margin-right: 15px;
 }
 
-.navItem span, .navItem a {
-  color: #000; /* Cor padrão do texto */
+.navItem span,
+.navItem a {
+  color: #000;
+  /* Cor padrão do texto */
   text-decoration: none;
-  font-size: 18px; /* Fonte igual para todas as opções */
+  font-size: 18px;
+  /* Fonte igual para todas as opções */
   transition: color 0.3s ease;
 }
 
@@ -52,17 +60,20 @@
 }
 
 .selected {
-  background-color: #F3F3F3; /* Fundo da opção selecionada */
+  background-color: #F3F3F3;
+  /* Fundo da opção selecionada */
 }
 
-.selected a, .selected span {
+.selected a,
+.selected span {
   color: #000;
   font-weight: bold;
 }
 
 .dropdownMenu {
   list-style: none;
-  padding-left: 40px; /* Indenta as opções do dropdown */
+  padding-left: 40px;
+  /* Indenta as opções do dropdown */
   margin-top: 5px;
 }
 
@@ -74,7 +85,8 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Espaça a seta da palavra "Leitores" */
+  justify-content: space-between;
+  /* Espaça a seta da palavra "Leitores" */
 }
 
 .rotated {
@@ -88,7 +100,8 @@
     width: 200px;
   }
 
-  .navItem span, .navItem a {
+  .navItem span,
+  .navItem a {
     font-size: 16px;
   }
 }

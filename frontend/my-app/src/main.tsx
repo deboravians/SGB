@@ -11,13 +11,13 @@ import LeitoresProfessores from './pages/LeitoresProfessores/LeitoresProfessores
 
 const router = createBrowserRouter([
   {
-  path: "/",
-  element:<Login/>
+    path: "/",
+    element: <Login />
   },
   {
     path: "/",
-    element: <App/>,
-    children:[
+    element: <App />,
+    children: [
       {
         path: "/home",
         element: <Home />
@@ -36,6 +36,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )

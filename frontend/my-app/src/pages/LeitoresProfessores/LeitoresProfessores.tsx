@@ -22,38 +22,38 @@ function CadastroProfessores() {
         setErrorMessage(""); // Limpa mensagens de erro anteriores
 
         // Validação básica dos campos
-        if (!nome || !disciplina || !telefone || !rua || !numero || !bairro){
+        if (!nome || !disciplina || !telefone || !rua || !numero || !bairro) {
 
-        setErrorMessage("Todos os campos são obrigatórios.");
-        return;
-
-        }
-
-        try{
-
-        const response = await fetch("http://localhost:8080/professores",{
-
-            method: "POST",
-            headers: { "Content-Type": "application/json", },
-            body: JSON.stringify({ nome, disciplina, telefone,  rua, numero, bairro }), // Envia os dados no corpo da requisição
-
-        });
-
-        if(response.ok){
-
-            setSuccessMessage("Cadastro realizado com sucesso!");
-            console.log("Aluno cadastrado com sucesso.");
-
-        } else {
-
-            setErrorMessage("Erro ao realizar o cadastro. Verifique os dados e tente novamente.");
-            console.error("Erro no cadastro. Status:", response.status);
+            setErrorMessage("Todos os campos são obrigatórios.");
+            return;
 
         }
-        }catch (error){
 
-        console.error("Erro ao conectar com o servidor:", error);
-        setErrorMessage("Erro de conexão. Tente novamente.");
+        try {
+
+            const response = await fetch("http://localhost:8080/professores", {
+
+                method: "POST",
+                headers: { "Content-Type": "application/json", },
+                body: JSON.stringify({ nome, disciplina, telefone, rua, numero, bairro }), // Envia os dados no corpo da requisição
+
+            });
+
+            if (response.ok) {
+
+                setSuccessMessage("Cadastro realizado com sucesso!");
+                console.log("Aluno cadastrado com sucesso.");
+
+            } else {
+
+                setErrorMessage("Erro ao realizar o cadastro. Verifique os dados e tente novamente.");
+                console.error("Erro no cadastro. Status:", response.status);
+
+            }
+        } catch (error) {
+
+            console.error("Erro ao conectar com o servidor:", error);
+            setErrorMessage("Erro de conexão. Tente novamente.");
 
         }
     };

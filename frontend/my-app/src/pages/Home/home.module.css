@@ -1,16 +1,24 @@
 .telaHome {
     position: fixed;
-    top: 11vh; /* Mantém o espaçamento superior */
-    left: 41vh; /* Alinha a imagem ao canto esquerdo */
+    top: 11vh;
+    /* Mantém o espaçamento superior */
+    left: 41vh;
+    /* Alinha a imagem ao canto esquerdo */
     display: flex;
- /* Alinha a imagem horizontalmente no centro */
-    overflow: hidden; /* Evita que o conteúdo ultrapasse a tela */
+    /* Alinha a imagem horizontalmente no centro */
+    overflow: hidden;
+    /* Evita que o conteúdo ultrapasse a tela */
 }
 
 .imagemMain {
-    width: 100%; /* Ajusta a imagem à largura da tela */
-    height: auto; /* Mantém a proporção da imagem */
-    max-width: 100%; /* Evita que a imagem ultrapasse a tela */
-    max-height: calc(100vh - 11vh); /* Garante que a imagem caiba no espaço restante da tela */
-    object-fit: contain; /* Mantém a proporção da imagem */
+    width: 100%;
+    /* Ajusta a imagem à largura da tela */
+    height: auto;
+    /* Mantém a proporção da imagem */
+    max-width: 100%;
+    /* Evita que a imagem ultrapasse a tela */
+    max-height: calc(100vh - 11vh);
+    /* Garante que a imagem caiba no espaço restante da tela */
+    object-fit: contain;
+    /* Mantém a proporção da imagem */
 }
