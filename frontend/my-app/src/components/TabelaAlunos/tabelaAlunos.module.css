@@ -1,0 +1,29 @@
+.tabela {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .tabela th {
+    background-color: #f1f1f1;
+    /* Fundo cinza claro */
+    text-align: center;
+    padding: 8px;
+  }
+  
+  .tabela td {
+    background-color: #fafafa;
+    /* Fundo alternado */
+    border-bottom: 1px solid #dcdcdc;
+    /* Linha de divisão */
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .icone {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 15px;
+    grid-gap: 5px;
+  }
