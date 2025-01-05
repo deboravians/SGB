@@ -1,0 +1,17 @@
+.card {
+    flex: 1;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #D7F4DF;
+    text-align: center;
+  }
+  
+  .strong {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  p {
+    display: inline;
+    padding-right: 5px;
+  }
