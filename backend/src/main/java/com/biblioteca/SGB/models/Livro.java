@@ -8,7 +8,7 @@ public class Livro {
 
     @Id
     @Column(unique = true, nullable = false)
-    private String ISBN;
+    private String isbn;
 
     @Column(nullable = false)
     private String titulo;
@@ -17,7 +17,7 @@ public class Livro {
     private String autor;
 
     @Column(nullable = false)
-    private String AnoPublicacao;
+    private String anoPublicacao;
 
     @Column(nullable = false, name = "quantidade_em_estoque")
     private int qtdEstoque;
@@ -26,12 +26,24 @@ public class Livro {
     @JoinColumn(name = "classificacao_codigo", nullable = false) // Altere para o nome esperado
     private Classificacao classificacao;
 
+    //variavel usada  apenas para receber o codigo, não vai para o bd e depois é "descartada"
+    @Transient
+    private String classificacaoCodigo;
+
+    public String getClassificacaoCodigo() {
+        return classificacaoCodigo;
+    }
+
+    public void setClassificacaoCodigo(String classificacaoCodigo) {
+        this.classificacaoCodigo = classificacaoCodigo;
+    }
+
     public void setClassificacao(Classificacao classificacao) {
         this.classificacao = classificacao;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public void setTitulo(String titulo) {
@@ -43,7 +55,7 @@ public class Livro {
     }
 
     public void setAnoPublicacao(String anoPublicacao) {
-        AnoPublicacao = anoPublicacao;
+        this.anoPublicacao = anoPublicacao;
     }
 
     public void setQtdEstoque(int qtdEstoque) {
@@ -54,8 +66,8 @@ public class Livro {
         return classificacao;
     }
 
-    public String getISBN() {
-        return ISBN;
+    public String getIsbn() {
+        return isbn;
     }
 
     public String getTitulo() {
@@ -67,10 +79,12 @@ public class Livro {
     }
 
     public String getAnoPublicacao() {
-        return AnoPublicacao;
+        return anoPublicacao;
     }
 
     public int getQtdEstoque() {
         return qtdEstoque;
     }
+
+
 }
