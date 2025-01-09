@@ -1,9 +1,12 @@
 package com.biblioteca.SGB.services;
 
+import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.models.Professor;
 import com.biblioteca.SGB.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProfessorService {
@@ -14,5 +17,7 @@ public class ProfessorService {
     public Professor cadastrarProfessor(Professor professor) {
         return professorRepository.save(professor);
     }
+
+    public List<Professor> listarProfessores(){ return professorRepository.findAll(); }
 
 }

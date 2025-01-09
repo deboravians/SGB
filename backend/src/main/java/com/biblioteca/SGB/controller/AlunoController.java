@@ -5,6 +5,8 @@ import com.biblioteca.SGB.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/alunos")
 public class AlunoController {
@@ -17,6 +19,13 @@ public class AlunoController {
     public Aluno cadastrarAluno(@RequestBody Aluno aluno){
 
         return alunoService.cadastrarAluno(aluno);
+
+    }
+
+    @GetMapping
+    public List<Aluno> listarAlunos(){
+
+        return alunoService.listarAlunos();
 
     }
 
