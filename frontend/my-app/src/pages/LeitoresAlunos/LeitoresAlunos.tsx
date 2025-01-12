@@ -1,23 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./LeitoresAlunos.module.css";
 import ModalCadastroAluno from "../../components/ModalCadastroAluno/ModalCadastroAluno";
 import CardInfors from "../../components/CardInfors/CardInfors";
 import TabelaAlunos from "../../components/TabelaAlunos/TabelaAlunos";
 import { Aluno } from "../../types/alunos";
+import { listarAlunos, cadastrarAluno } from "../../api/alunos";
 
 const LeitoresAlunos: React.FC = () => {
 
-  const [isModalOpen, setIsModalOpen] = useState(false); // Controle da Modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [alunos, setAlunos] = useState<Aluno[]>([
-    { matricula: "1598767", nome: "Debora Silva Viana", serie: "3º", turma: "A", bairro: "Mangueiral", rua: "Rafael Santos", telefone: "88992875222", anoLetivo: "2024", numero: "1022" },
-  ]);
+  const [alunos, setAlunos] = useState<Aluno[]>([]);
+
+  const [loading, setLoading] = useState(true);
+
+  const carregarAlunos = async () => {
+    try {
+      setLoading(true);
+      const dados = await listarAlunos();
+      setAlunos(dados);
+    } catch (error) {
+      alert("Erro ao carregar os alunos.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const salvarAluno = async (aluno: Aluno) => {
+    try {
+      const novoAluno = await cadastrarAluno(aluno);
+      setAlunos((prevAlunos) => [...prevAlunos, novoAluno]); // Atualiza a lista local
+      setIsModalOpen(false); // Fecha o modal
+    } catch (error) {
+      alert("Erro ao cadastrar o aluno.");
+    }
+  };
+
+  useEffect(() => {
+    carregarAlunos();
+  }, []);
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
-
-  const adicionarAluno = (novoAluno: Aluno) => {
-    setAlunos([...alunos, novoAluno]);
-  };
 
   return (
     <>
@@ -57,11 +80,16 @@ const LeitoresAlunos: React.FC = () => {
           {isModalOpen && (
             <ModalCadastroAluno
               fecharModal={toggleModal}
-              salvarAluno={adicionarAluno}
+              salvarAluno={salvarAluno}
             />
           )}
 
-          <TabelaAlunos alunos={alunos} />
+          {/* Tabela */}
+          {loading ? (
+            <p>Carregando alunos...</p>
+          ) : (
+            <TabelaAlunos alunos={alunos} />
+          )}
 
         </div>
       </div>
