@@ -65,16 +65,14 @@ function SideBar() {
               <li
                 className={`${style.navItem} ${selectedItem === "leitores-alunos" ? style.selected : ""
                   }`}
-                onClick={() => handleSelection("leitores-alunos")}
               >
-                <Link to="/leitores/alunos">Alunos</Link>
+                <Link to="/leitores/alunos" onClick={() => handleSelection("leitores-alunos")}>Alunos</Link>
               </li>
               <li
                 className={`${style.navItem} ${selectedItem === "leitores-professores" ? style.selected : ""
                   }`}
-                onClick={() => handleSelection("leitores-professores")}
               >
-                <Link to="/leitores/professores">Professores</Link>
+                <Link to="/leitores/professores" onClick={() => handleSelection("leitores-professores")}>Professores</Link>
               </li>
             </ul>
           )}

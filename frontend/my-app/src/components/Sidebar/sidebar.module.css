@@ -39,6 +39,12 @@
   cursor: pointer;
 }
 
+.navItem a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .navItem img {
   width: 24px;
   height: 24px;
