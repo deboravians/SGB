@@ -15,3 +15,13 @@ export const cadastrarAluno = async (aluno: Aluno): Promise<Aluno> => {
 
   return response.json();
 };
+
+export const listarAlunos = async () : Promise<Aluno[]> => {
+  const response = await fetch("http://localhost:8080/alunos");
+
+  if(!response.ok) {
+    throw new Error("Erro ao buscar os alunos.");
+  }
+
+  return response.json();
+}
