@@ -5,6 +5,8 @@ import com.biblioteca.SGB.services.LivroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/livros")
 public class LivroController {
@@ -14,6 +16,15 @@ public class LivroController {
 
     @PostMapping
     public Livro cadastraLivro(@RequestBody Livro livro) {
+
         return livroService.cadastrarLivro(livro);
+
+    }
+
+    @GetMapping
+    public List<Livro> listarLivros(){
+
+        return livroService.listarLivros();
+
     }
 }

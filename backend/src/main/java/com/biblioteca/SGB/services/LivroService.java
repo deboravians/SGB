@@ -7,6 +7,8 @@ import com.biblioteca.SGB.repository.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LivroService {
 
@@ -24,5 +26,9 @@ public class LivroService {
         livro.setClassificacao(classificacao);
 
         return livroRepository.save(livro);
+    }
+
+    public List<Livro> listarLivros(){
+        return livroRepository.findAll();
     }
 }
