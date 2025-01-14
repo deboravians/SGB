@@ -5,6 +5,8 @@ import com.biblioteca.SGB.repository.ClassificacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ClassificacaoService {
 
@@ -14,4 +16,11 @@ public class ClassificacaoService {
     public Classificacao cadastrarClassificacao(Classificacao classificacao) {
         return classificacaoRepository.save(classificacao);
     }
+
+    public List<Classificacao> listarClassificacoes(){
+
+        return classificacaoRepository.findAll();
+
+    }
+
 }
