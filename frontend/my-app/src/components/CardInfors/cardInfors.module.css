@@ -4,6 +4,10 @@
     border-radius: 8px;
     background-color: #D7F4DF;
     text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    height: 100%;
   }
   
   .strong {
