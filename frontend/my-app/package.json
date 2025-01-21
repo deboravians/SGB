@@ -1,7 +1,9 @@
 {
   "name": "my-app",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Sistema de Gerenciamento de Biblioteca (SGB)",
+  "author": "Anaildo do Nascimento Silva\nCamile Isidorio Araújo\nDebora Silva Viana\nFrancisco Werley da Silva",
   "type": "module",
   "scripts": {
     "electron": "ELECTRON_DISABLE_SECURITY_WARNINGS=true electron .",
