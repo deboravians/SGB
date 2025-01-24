@@ -2,6 +2,8 @@ package com.biblioteca.SGB.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Edicoes")
 public class Edicao{
@@ -26,8 +28,11 @@ public class Edicao{
     private int qtdEstoque;
 
     @ManyToOne
-    @JoinColumn(name = "classificacao") // Altere para o nome esperado
+    @JoinColumn(name = "classificacao")
     private Classificacao classificacao;
+
+    @OneToMany(mappedBy = "edicao")
+    private List<Copia> copias;
 
     // Métodos Sets
 
