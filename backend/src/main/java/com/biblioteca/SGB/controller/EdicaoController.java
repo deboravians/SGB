@@ -15,12 +15,15 @@ public class EdicaoController {
     private EdicaoService edicaoService;
 
     @PostMapping
-    public Livro cadastraEdicao(@RequestBody Edicao edicao) {
+    public Edicao cadastraEdicao(@RequestBody Edicao edicao) {
 
         //Settar quantidade como zero
-        //Settar status como indisponivel
+        edicao.setQtdEstoque(0);
 
-        return EdicaoService.cadastrarEdicao(edicao);
+        //Settar status como indisponivel
+        edicao.setStatus("Indisponível");
+
+        return edicaoService.cadastrarEdicao(edicao);
 
     }
 

@@ -10,7 +10,7 @@ public class Edicao{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String titulo;
 
     @Column(nullable = false)

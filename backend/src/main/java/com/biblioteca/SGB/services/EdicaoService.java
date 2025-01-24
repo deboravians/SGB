@@ -18,9 +18,9 @@ public class EdicaoService {
     @Autowired
     private ClassificacaoRepository classificacaoRepository;
 
-    public Edicao cadastrarLivro(Edicao edicao) {
+    public Edicao cadastrarEdicao(Edicao edicao) {
 
-        Classificacao classificacao = classificacaoRepository.findById(livro.getClassificacaoCodigo())
+        Classificacao classificacao = classificacaoRepository.findById(edicao.getClassificacaoCodigo())
                 .orElseThrow(() -> new RuntimeException("Classificação não encontrada"));
 
         edicao.setClassificacao(classificacao);
