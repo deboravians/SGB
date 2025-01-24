@@ -19,25 +19,17 @@ public class Edicao{
     @Column(nullable = false)
     private String anoPublicacao;
 
-    @Column(nullable = false)
+    @Column
     private String status;
 
-    @Column(nullable = false, name = "quantidade_em_estoque")
+    @Column(name = "quantidade_em_estoque")
     private int qtdEstoque;
 
     @ManyToOne
-    @JoinColumn(name = "classificacao_codigo", nullable = false) // Altere para o nome esperado
+    @JoinColumn(name = "classificacao") // Altere para o nome esperado
     private Classificacao classificacao;
 
-    //variavel usada  apenas para receber o codigo, não vai para o bd e depois é "descartada"
-    @Transient
-    private String classificacaoCodigo;
-
     // Métodos Sets
-
-    public void setClassificacaoCodigo(String classificacaoCodigo) {
-        this.classificacaoCodigo = classificacaoCodigo;
-    }
 
     public void setClassificacao(Classificacao classificacao) {
         this.classificacao = classificacao;
@@ -85,10 +77,6 @@ public class Edicao{
 
     public int getQtdEstoque() {
         return qtdEstoque;
-    }
-
-    public String getClassificacaoCodigo() {
-        return classificacaoCodigo;
     }
 
     public String getStatus() { return status; }
