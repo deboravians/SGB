@@ -34,13 +34,11 @@ Certifique-se de que as ferramentas abaixo estão instaladas no seu ambiente:
 
 ## 📦 Como Executar o Back-end com Docker Compose
 
-- Clone o repositório
-
-Depois deve-se construir a imagem usando o comando:
+Com o repositório já clonado, deve-se construir a imagem usando o comando:
 
     - "docker-compose build"
 
-Depois subir o container, usando o comando:
+Depois, suba o container, usando o comando:
 
     - "docker-compose up"
 
@@ -61,3 +59,23 @@ Instale as dependências do Front-end, usando o comando:
 Por fim, execute, usando o comando:
 
     - "npm run dev"
+
+---
+
+## 📃 Como Acessar a Documentação da API no Swagger
+
+No terminal da IDE, entre na pasta backend, usando o comando:
+
+    - "cd backend"
+
+Depois, rode o spring diretamente dessa pasta, usando o comando:
+
+    - "./mvnw spring-boot:run"
+
+- Acesse o Swagger: A documentação estará disponível em http://localhost:8080/swagger-ui/index.html.
+
+Se não funcionar, tente re-sincronizar as dependencias do maven, usando o comando:
+ 
+        - "./mvnw clean install -U"
+
+Depois, rode o spring novamente
