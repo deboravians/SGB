@@ -3,12 +3,12 @@ package com.biblioteca.SGB.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Livros")
-public class Livro{
+@Table(name = "Edicoes")
+public class Edicao{
 
     @Id
-    @Column(unique = true, nullable = false)
-    private String isbn;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @Column(nullable = false)
     private String titulo;
@@ -18,6 +18,9 @@ public class Livro{
 
     @Column(nullable = false)
     private String anoPublicacao;
+
+    @Column(nullable = false)
+    private String status;
 
     @Column(nullable = false, name = "quantidade_em_estoque")
     private int qtdEstoque;
@@ -30,9 +33,7 @@ public class Livro{
     @Transient
     private String classificacaoCodigo;
 
-    public String getClassificacaoCodigo() {
-        return classificacaoCodigo;
-    }
+    // Métodos Sets
 
     public void setClassificacaoCodigo(String classificacaoCodigo) {
         this.classificacaoCodigo = classificacaoCodigo;
@@ -42,9 +43,7 @@ public class Livro{
         this.classificacao = classificacao;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
+    public void setId(int id) { this.id = id; }
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
@@ -62,13 +61,15 @@ public class Livro{
         this.qtdEstoque = qtdEstoque;
     }
 
+    public void setStatus(String status) { this.status = status; }
+
+    // Métodos Gets
+
     public Classificacao getClassificacao() {
         return classificacao;
     }
 
-    public String getIsbn() {
-        return isbn;
-    }
+    public int getId(){ return id; }
 
     public String getTitulo() {
         return titulo;
@@ -86,5 +87,11 @@ public class Livro{
         return qtdEstoque;
     }
 
+    public String getClassificacaoCodigo() {
+        return classificacaoCodigo;
+    }
+
+    public String getStatus() { return status; }
 
 }
+

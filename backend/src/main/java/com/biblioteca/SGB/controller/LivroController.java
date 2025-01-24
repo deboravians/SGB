@@ -17,6 +17,8 @@ public class LivroController {
     @PostMapping
     public Livro cadastraLivro(@RequestBody Livro livro) {
 
+        //Settar quantidade como zero
+
         return livroService.cadastrarLivro(livro);
 
     }
