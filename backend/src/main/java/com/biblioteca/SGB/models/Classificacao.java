@@ -12,10 +12,10 @@ public class Classificacao {
     private String codigo;
 
     @Column(nullable = false, unique = true)
-    private String titulo ;
+    private String titulo;
 
     @OneToMany(mappedBy = "classificacao")
-    private List<Livro> livros;
+    private List<Edicao> edicoes;
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
