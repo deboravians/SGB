@@ -23,11 +23,11 @@ public class Emprestimo{
     @Column()
     private String status;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn
     private Aluno aluno;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn
     private Professor professor;
 
