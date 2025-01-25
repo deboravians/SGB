@@ -28,7 +28,7 @@ public class Edicao{
     private int qtdEstoque;
 
     @ManyToOne
-    @JoinColumn(name = "classificacao")
+    @JoinColumn()
     private Classificacao classificacao;
 
     @OneToMany(mappedBy = "edicao")
