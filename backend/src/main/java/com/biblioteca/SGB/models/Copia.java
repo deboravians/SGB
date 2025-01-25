@@ -7,9 +7,6 @@ import jakarta.persistence.*;
 public class Copia {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
     @Column(unique = true, nullable = false)
     private String isbn;
 
@@ -18,10 +15,6 @@ public class Copia {
     @ManyToOne
     @JoinColumn(name = "edicao_id")
     private Edicao edicao;
-
-    public int getId() {
-        return id;
-    }
 
     public String getIsbn() {
         return isbn;
@@ -33,10 +26,6 @@ public class Copia {
 
     public Edicao getEdicao() {
         return edicao;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setIsbn(String isbn) {
