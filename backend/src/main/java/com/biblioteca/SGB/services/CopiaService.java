@@ -16,9 +16,9 @@ public class CopiaService {
     @Autowired
     private EdicaoRepository edicaoRepository;
 
-    public Copia cadastarCopia(Copia copia, String tituloEdicao) {
+    public Copia cadastarCopia(Copia copia, String isbnEdicao) {
 
-        Edicao edicao = edicaoRepository.findByTitulo(tituloEdicao)
+        Edicao edicao = edicaoRepository.findById(isbnEdicao)
                 .orElseThrow(() -> new RuntimeException("livro não encontrado"));
 
         copia.setEdicao(edicao);

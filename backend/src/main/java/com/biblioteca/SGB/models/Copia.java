@@ -8,7 +8,7 @@ public class Copia {
 
     @Id
     @Column(unique = true, nullable = false)
-    private String isbn;
+    private Integer id;
 
     private String status;
 
@@ -16,8 +16,8 @@ public class Copia {
     @JoinColumn(name = "edicao_id")
     private Edicao edicao;
 
-    public String getIsbn() {
-        return isbn;
+    public Integer getId() {
+        return id;
     }
 
     public String getStatus() {
@@ -28,8 +28,8 @@ public class Copia {
         return edicao;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public void setid(Integer id) {
+        this.id = id;
     }
 
     public void setStatus(String status) {
