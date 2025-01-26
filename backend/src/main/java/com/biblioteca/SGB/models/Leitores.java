@@ -8,7 +8,7 @@ public abstract class Leitores {
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 15)
     private String telefone;
 
     @Column(nullable = false)

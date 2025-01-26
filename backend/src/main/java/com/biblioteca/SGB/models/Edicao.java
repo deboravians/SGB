@@ -9,30 +9,27 @@ import java.util.List;
 public class Edicao{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(nullable = false, unique = true, length = 20)
+    private String isbn;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false, unique = true)
     private String titulo;
 
     @Column(nullable = false)
     private String autor;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 4)
     private String anoPublicacao;
 
-    @Column
+    @Transient
     private String status;
 
-    @Column(name = "quantidade_em_estoque")
-    private int qtdEstoque;
+    @Transient
+    private int qtdCopias;
 
     @ManyToOne
-    @JoinColumn()
+    @JoinColumn(name = "classificacao_codigo")
     private Classificacao classificacao;
-
-    @OneToMany(mappedBy = "edicao")
-    private List<Copia> copias;
 
     // Métodos Sets
 
@@ -40,7 +37,7 @@ public class Edicao{
         this.classificacao = classificacao;
     }
 
-    public void setId(int id) { this.id = id; }
+    public void setisbn(String isbn) { this.isbn = isbn; }
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
@@ -54,8 +51,8 @@ public class Edicao{
         this.anoPublicacao = anoPublicacao;
     }
 
-    public void setQtdEstoque(int qtdEstoque) {
-        this.qtdEstoque = qtdEstoque;
+    public void setQtdCopias(int qtdCopias) {
+        this.qtdCopias = qtdCopias;
     }
 
     public void setStatus(String status) { this.status = status; }
@@ -66,7 +63,7 @@ public class Edicao{
         return classificacao;
     }
 
-    public int getId(){ return id; }
+    public String getIsbn(){ return isbn; }
 
     public String getTitulo() {
         return titulo;
@@ -81,7 +78,7 @@ public class Edicao{
     }
 
     public int getQtdEstoque() {
-        return qtdEstoque;
+        return qtdCopias;
     }
 
     public String getStatus() { return status; }

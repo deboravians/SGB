@@ -14,13 +14,13 @@ public class EmprestimoAlunoController{
 
     @PostMapping
     public Emprestimo cadastrarEmprestimo(@RequestBody Emprestimo emprestimo,
-                                          @RequestParam String isbnCopia,
+                                          @RequestParam Integer idCopia,
                                           @RequestParam String matriculaAluno) {
 
         emprestimo.setStatus("Pendente");
         emprestimo.setDataPrevistaDevolucao(emprestimo.getDataEmprestimo().plusDays(7));
 
-        return emprestimoAlunoService.cadastrarEmprestimo(emprestimo, isbnCopia, matriculaAluno);
+        return emprestimoAlunoService.cadastrarEmprestimo(emprestimo, idCopia, matriculaAluno);
     }
 
 }

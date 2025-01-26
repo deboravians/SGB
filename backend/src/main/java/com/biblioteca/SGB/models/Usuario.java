@@ -3,15 +3,18 @@ package com.biblioteca.SGB.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "Usuarios")
 public class Usuario{
-
-    private String login;
-    private String senha;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
+
+    @Column(nullable = false, unique = true, length = 5)
+    private String login;
+
+    @Column(nullable = false,unique = true, length = 5)
+    private String senha;
 
     public Usuario() {
 
@@ -28,7 +31,7 @@ public class Usuario{
         return login;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -44,7 +47,7 @@ public class Usuario{
         this.senha = senha;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }

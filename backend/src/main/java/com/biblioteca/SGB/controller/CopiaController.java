@@ -13,10 +13,10 @@ public class CopiaController {
     private CopiaService copiaService;
 
     @PostMapping
-    public Copia cadastrarCopia(@RequestBody Copia copia, @RequestParam String titulo_edicao) {
+    public Copia cadastrarCopia(@RequestBody Copia copia, @RequestParam String isbnEdicao) {
         copia.setStatus("Disponivel");
 
-        return copiaService.cadastarCopia(copia, titulo_edicao);
+        return copiaService.cadastarCopia(copia, isbnEdicao);
     }
 
 }

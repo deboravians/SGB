@@ -18,7 +18,7 @@ public class EdicaoController {
     public Edicao cadastraEdicao(@RequestBody Edicao edicao, @RequestParam String classificacao_codigo) {
 
         //Settar quantidade como zero
-        edicao.setQtdEstoque(0);
+        edicao.setQtdCopias(0);
 
         //Settar status como indisponivel
         edicao.setStatus("Indisponível");
