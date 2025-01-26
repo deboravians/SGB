@@ -10,16 +10,16 @@ import jakarta.persistence.Table;
 public class Aluno extends Leitores {
 
     @Id
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = 50)
     private String matricula;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String serie;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String turma;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String anoLetivo;
 
     public String getMatricula() {

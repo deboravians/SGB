@@ -1,21 +1,17 @@
 package com.biblioteca.SGB.models;
 
 import jakarta.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "Classificações")
-public class Classificacao {
+@Table(name = "Classificacoes")
+public class Classificacao{
 
     @Id
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 50)
     private String codigo;
 
     @Column(nullable = false, unique = true)
     private String titulo;
-
-    @OneToMany(mappedBy = "classificacao")
-    private List<Edicao> edicoes;
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;

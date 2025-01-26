@@ -9,30 +9,30 @@ public class Emprestimo{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false)
     private LocalDate dataEmprestimo;
 
-    @Column()
+    @Transient
     private LocalDate dataPrevistaDevolucao;
 
     @Column()
     private LocalDate dataDevolucao;
 
-    @Column()
+    @Column(nullable = false, length = 20)
     private String status;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "aluno_matricula")
     private Aluno aluno;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "professor_cpf")
     private Professor professor;
 
     @OneToOne
-    @JoinColumn
+    @JoinColumn(name = "copia_id", nullable = false)
     private Copia copia;
 
     public Aluno getAluno() {
@@ -51,11 +51,11 @@ public class Emprestimo{
         this.professor = professor;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
