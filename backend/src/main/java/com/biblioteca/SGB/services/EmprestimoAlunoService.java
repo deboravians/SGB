@@ -33,21 +33,14 @@ public class EmprestimoAlunoService {
         Copia copia = copiaRepository.findById(isbnCopia)
                 .orElseThrow(() -> new IllegalStateException("copia não encontrada no banco de dados"));
 
-        try{
-
-            if(copia.getStatus().equals("Emprestada")) {
-
-                throw new IllegalStateException("A cópia já está emprestada!");
-
-            }
-
-            copia.setStatus("Emprestada"); // Tem q fazer um update na tabela copias?
-            emprestimo.setCopia(copia);
-
-        } catch (IllegalStateException e) {
-            System.out.println("A cópia já está emprestada! " + e.getMessage());
-
+        if ("Emprestada".equals(copia.getStatus())) {
+            throw new IllegalStateException("A cópia já está emprestada!");
         }
+
+        copia.setStatus("Emprestada");
+        copiaRepository.save(copia);
+
+        emprestimo.setCopia(copia);
 
         return emprestimoRepository.save(emprestimo);
     }
