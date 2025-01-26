@@ -22,15 +22,15 @@ public class EmprestimoProfessorService {
     private ProfessorRepository professorRepository;
 
     public Emprestimo cadastrarEmprestimo(Emprestimo emprestimo,
-                                          String isbnCopia,
+                                          Integer idCopia,
                                           String cpfProfessor) {
 
         Professor professor = professorRepository.findById(cpfProfessor)
-                .orElseThrow(() -> new IllegalStateException("copia não encontrada no banco de dados"));
+                .orElseThrow(() -> new IllegalStateException("professor não encontrado no banco de dados"));
 
         emprestimo.setProfessor(professor);
 
-        Copia copia = copiaRepository.findById(isbnCopia)
+        Copia copia = copiaRepository.findById(idCopia)
                 .orElseThrow(() -> new IllegalStateException("copia não encontrada no banco de dados"));
 
         if ("Emprestada".equals(copia.getStatus())) {
