@@ -7,8 +7,7 @@ import App from './App'
 import Home from './pages/Home/Home'
 import LeitoresAlunos from './pages/LeitoresAlunos/LeitoresAlunos'
 import LeitoresProfessores from './pages/LeitoresProfessores/LeitoresProfessores'
-
-
+import GerenciamentoAcervo from './pages/GerenciamentoDoAcervo/GerenciamentoDoAcervo'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,6 +29,13 @@ const router = createBrowserRouter([
         path: "/leitores/professores",
         element: <LeitoresProfessores />
       },
+
+      {
+        path: "/livros",
+        element: <GerenciamentoAcervo />
+      },
+  
+      
     ],
   },
 ])

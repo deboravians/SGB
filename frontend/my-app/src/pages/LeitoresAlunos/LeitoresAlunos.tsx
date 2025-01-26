@@ -52,7 +52,7 @@ const LeitoresAlunos: React.FC = () => {
           <p className={styles.descricao}>Visão geral dos alunos cadastrados</p>
 
           <div className={styles.resumo}>
-            <CardInfors quantidade={alunos.length} descricao="Alunos Cadastrados" />
+            <CardInfors quantidade={alunos.length} descricao="Alunos cadastrados" />
           </div>
 
           <div className={styles.acoesContainer}>

@@ -1,0 +1,19 @@
+
+
+.card {
+    flex: 1;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #e0f7fa;
+    text-align: center;
+  }
+  
+  .cardVerde {
+    background-color: #D7F4DF;
+  }
+  
+  .strong {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
