@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface EdicaoRepository extends JpaRepository<Edicao, Integer> {
+public interface EdicaoRepository extends JpaRepository<Edicao, String> {
     Optional<Edicao> findByTitulo(String titulo);}
 

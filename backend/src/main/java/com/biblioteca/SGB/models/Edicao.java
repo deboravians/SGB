@@ -9,8 +9,7 @@ import java.util.List;
 public class Edicao{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String isbn;
 
     @Column(unique = true, nullable = false)
     private String titulo;
@@ -40,7 +39,7 @@ public class Edicao{
         this.classificacao = classificacao;
     }
 
-    public void setId(int id) { this.id = id; }
+    public void setisbn(String isbn) { this.isbn = isbn; }
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
@@ -66,7 +65,7 @@ public class Edicao{
         return classificacao;
     }
 
-    public int getId(){ return id; }
+    public String getIsbn(){ return isbn; }
 
     public String getTitulo() {
         return titulo;
