@@ -40,6 +40,8 @@ public class EmprestimoProfessorService {
         copia.setStatus("Emprestada");
         copiaRepository.save(copia);
 
+        emprestimo.setCopia(copia);
+
         return emprestimoRepository.save(emprestimo);
     }
 
