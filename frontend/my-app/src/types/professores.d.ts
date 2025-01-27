@@ -3,6 +3,7 @@ export interface Professor {
     nome: string;              
     rua: string;       
     telefone: string;       
-    disciplina: string;            
+    disciplina: string;
+    cpf: string;            
   }
   

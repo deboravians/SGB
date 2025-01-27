@@ -18,6 +18,7 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
     rua: "",
     telefone: "",
     disciplina: "",
+    cpf: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -87,6 +88,17 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
                   id="disciplina"
                   placeholder="Português"
                   className={styles.inputField3}
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="cpf">CPF:</label>
+                <input
+                  value={formData.cpf}
+                  onChange={handleChange}
+                  type="text"
+                  id="cpf"
+                  placeholder="000.000.000-00"
+                  className={styles.inputField2}
                 />
               </div>
             </div>
