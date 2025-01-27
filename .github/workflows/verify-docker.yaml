@@ -23,7 +23,7 @@ jobs:
         run: chmod +x ./backend/mvnw
 
       - name: Clear Maven Cache
-        run:
+        run: |
           cd backend
           ./mvnw clean install -U
           cd ..
