@@ -7,6 +7,8 @@ import com.biblioteca.SGB.repository.EdicaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CopiaService {
 
@@ -25,4 +27,10 @@ public class CopiaService {
 
         return copiaRepository.save(copia);
     }
+
+    public List<Copia> listarCopias(Edicao edicao) {
+
+        return copiaRepository.findAllByedicao(edicao);
+    }
+
 }
