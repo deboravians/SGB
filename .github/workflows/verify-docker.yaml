@@ -16,6 +16,9 @@ jobs:
       - name: Set permissions for Maven Wrapper
         run: chmod +x ./backend/mvnw
 
+      - name: Clear Maven Cache
+        run: ./mvnw clean install -U
+
       - name: Build JAR file
         run: |
           cd backend
