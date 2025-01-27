@@ -13,11 +13,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '23'
+          distribution: 'temurin'
+
       - name: Set permissions for Maven Wrapper
         run: chmod +x ./backend/mvnw
 
       - name: Clear Maven Cache
-        run: ./mvnw clean install -U
+        run:
+          cd backend
+          ./mvnw clean install -U
+          cd ..
 
       - name: Build JAR file
         run: |
