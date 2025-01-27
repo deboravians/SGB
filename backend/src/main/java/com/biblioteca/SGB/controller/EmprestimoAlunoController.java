@@ -18,7 +18,6 @@ public class EmprestimoAlunoController{
                                           @RequestParam String matriculaAluno) {
 
         emprestimo.setStatus("Pendente");
-        emprestimo.setDataPrevistaDevolucao(emprestimo.getDataEmprestimo().plusDays(7));
 
         return emprestimoAlunoService.cadastrarEmprestimo(emprestimo, idCopia, matriculaAluno);
     }

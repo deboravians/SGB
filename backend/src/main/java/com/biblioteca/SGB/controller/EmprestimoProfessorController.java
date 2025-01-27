@@ -18,7 +18,6 @@ public class EmprestimoProfessorController{
                                           @RequestParam String cpfProfessor) {
 
         emprestimo.setStatus("Pendente");
-        emprestimo.setDataPrevistaDevolucao(emprestimo.getDataEmprestimo().plusDays(7));
 
         return emprestimoProfessorService.cadastrarEmprestimo(emprestimo, idCopia, cpfProfessor);
     }
