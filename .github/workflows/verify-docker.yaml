@@ -39,4 +39,12 @@ jobs:
 
       - name: Build and validate container
         run: |
-          docker compose -f docker-compose.yml up --build --exit-code-from backend --abort-on-container-exit
+          docker-compose -f docker-compose.yml up --build -d
+          sleep 25
+
+      - name: Check if Spring Boot is running
+        run: |
+          curl --fail http://localhost:8080 || exit 1
+
+      - name: Stop and remove containers
+        run: docker-compose down
