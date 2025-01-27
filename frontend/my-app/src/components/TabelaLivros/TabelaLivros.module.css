@@ -33,7 +33,7 @@
     margin-bottom: 20px;
   }
   
-  .gerenciarCopias {
+  .gerenciarCopias, .gerenciarCopiass{
     padding: 5px 10px;
     background-color: #4caf50;
     color: white;
@@ -45,7 +45,7 @@
     text-align: center;
   }
   
-  .gerenciarCopias:hover {
+  .gerenciarCopiass:hover {
     background-color: #45a049;
     /* Cor mais escura ao passar o mouse */
   }

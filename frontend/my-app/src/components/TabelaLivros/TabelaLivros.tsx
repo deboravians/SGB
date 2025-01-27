@@ -56,9 +56,9 @@ const TabelaLivros: React.FC<TabelaLivrosProps> = ({ livros }) => {
                 <img src="/public/assets/iconlixeira.svg" alt="Apagar" />
               </button>
             </td>
-            <td className={styles.gerenciarCopias}> {/* Nova célula para o botão */}
+            <td className={styles.gerenciarCopias}> 
         <button
-          className={styles.gerenciarCopias}
+          className={styles.gerenciarCopiass}
           onClick={() => alert("Gerenciar Cópias")}
         >
           <img

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CardLivros from "../../components/CardLivros/CardLivros";
 import TabelaLivros from "../../components/TabelaLivros/TabelaLivros";
 import styles from "./GerenciamentoDoAcervo.module.css";
@@ -9,6 +9,12 @@ const livros = [
 ];
 
 function GerenciamentoAcervo() {
+  const [isModalOpen, setIsModalOpen] = useState(false); // Controle da Modal
+  
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <div className={styles.mainContent}>
       <div className={styles.cadastroLivros}>
@@ -28,7 +34,9 @@ function GerenciamentoAcervo() {
             placeholder="Pesquisar livros..."
             className={styles.campoPesquisa}
           />
-          <button className={styles.botaoCadastrar}>
+          <button 
+            className={styles.botaoCadastrar}
+            onClick={toggleModal}>
             <img
               src="/public/assets/iconCadastrar.svg"
               alt="Cadastrar"
@@ -38,14 +46,12 @@ function GerenciamentoAcervo() {
           </button>
         </div>
 
-        {/* Modal de Cadastrar Edição - Comentado */}
-        {/* Modal de Gerenciar Cópias - Comentado */}
-
         <TabelaLivros livros={livros} />
+
+        {/* Modal */}
       </div>
     </div>
   );
 }
 
 export default GerenciamentoAcervo;
-
