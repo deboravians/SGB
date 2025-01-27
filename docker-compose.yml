@@ -19,6 +19,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    container_name: backend
     environment:
       SPRING_APPLICATION_NAME: SGB
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/SGB
