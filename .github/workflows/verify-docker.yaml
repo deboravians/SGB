@@ -16,7 +16,7 @@ jobs:
       - name: Build JAR file
         run: |
           cd backend
-          mvn clean package
+          ./mvnw clean package
           cd ..
 
       - name: Set up Docker
