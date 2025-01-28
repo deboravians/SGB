@@ -32,7 +32,7 @@ public class Edicao{
     @JoinColumn(name = "classificacao_codigo")
     private Classificacao classificacao;
 
-    Edicao(){
+    public Edicao(){
     }
 
     public Edicao(String isbn, String titulo, String autor, String anoPublicacao) {
@@ -48,7 +48,7 @@ public class Edicao{
         this.classificacao = classificacao;
     }
 
-    public void setisbn(String isbn) { this.isbn = isbn; }
+    public void setIsbn(String isbn) { this.isbn = isbn; }
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;

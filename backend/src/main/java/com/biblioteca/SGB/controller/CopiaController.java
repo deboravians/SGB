@@ -1,6 +1,7 @@
 package com.biblioteca.SGB.controller;
 
-import com.biblioteca.SGB.models.Classificacao;
+import com.biblioteca.SGB.dto.CopiaDTO;
+import com.biblioteca.SGB.dto.EdicaoDTO;
 import com.biblioteca.SGB.models.Copia;
 import com.biblioteca.SGB.models.Edicao;
 import com.biblioteca.SGB.services.CopiaService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/copias")
@@ -17,17 +19,31 @@ public class CopiaController {
     private CopiaService copiaService;
 
     @PostMapping
-    public Copia cadastrarCopia(@RequestBody Copia copia, @RequestParam String isbnEdicao) {
-        copia.setStatus("Disponivel");
+    public CopiaDTO cadastrarCopia(@RequestBody CopiaDTO copiaDTO, @RequestParam String isbnEdicao) {
 
-        return copiaService.cadastarCopia(copia, isbnEdicao);
+        Copia copia = new Copia();
+        copia.setId(copiaDTO.getId());
+        copia.setStatus("Disponível");
+
+        Copia novaCopia = copiaService.cadastarCopia(copia, isbnEdicao);
+
+        return CopiaDTO.fromCopia(novaCopia);
     }
 
     @GetMapping
-    public List<Copia> listarCopias(@RequestBody Edicao edicao){
+    public List<CopiaDTO> listarCopias(@RequestBody EdicaoDTO edicaoDTO) {
 
-        return copiaService.listarCopias(edicao);
+        Edicao edicao = new Edicao();
+        edicao.setIsbn(edicaoDTO.getIsbn());
+        edicao.setTitulo(edicaoDTO.getTitulo());
+        edicao.setAnoPublicacao(edicaoDTO.getAnoPublicacao());
+        edicao.setQtdCopias(edicaoDTO.getQtdCopias());
+        edicao.setStatus(edicaoDTO.getStatus());
 
+        List<Copia> copias = copiaService.listarCopias(edicao);
+
+        return copias.stream()
+                .map(CopiaDTO::fromCopia)
+                .collect(Collectors.toList());
     }
-
 }
