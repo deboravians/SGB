@@ -1,23 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "./TabelaLivros.module.css";
+import styles from "./TabelaEdicoes.module.css";
+import { Edicao } from "../../types/edicoes";
 
 
-interface Livro {
-  id: number;
-  isbn: string;
-  titulo: string;
-  status: string;
+interface TabelaEdicoesProps {
+  edicoes: Edicao[];
 }
 
-
-interface TabelaLivrosProps {
-  livros: Livro[];
-}
-
-const TabelaLivros: React.FC<TabelaLivrosProps> = ({ livros }) => {
+const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({ edicoes }) => {
   return (
-    <table className={styles.tabelaLivros}>
+    <table className={styles.tabelaEdicoes}>
       <thead>
         <tr>
           <th>ISBN</th>
@@ -28,20 +21,20 @@ const TabelaLivros: React.FC<TabelaLivrosProps> = ({ livros }) => {
         </tr>
       </thead>
       <tbody>
-        {livros.map((livro, index) => (
+        {edicoes.map((edicao, index) => (
           <tr key={index}>
-            <td>{livro.isbn}</td>
-            <td>{livro.titulo}</td>
-            <td>{livro.status}</td>
+            <td>{edicao.isbn}</td>
+            <td>{edicao.titulo}</td>
+            <td>{edicao.status}</td>
             <td className={styles.acoes}>
-              <Link to={`/visualizar/${livro.id}`} title="Visualizar">
+              <Link to={`/visualizar/${edicao.isbn}`} title="Visualizar">
                 <img
                   src="/public/assets/iconOlho.svg"
                   alt="Visualizar"
                   className={styles.icone}
                 />
               </Link>
-              <Link to={`/editar/${livro.id}`} title="Editar">
+              <Link to={`/editar/${edicao.isbn}`} title="Editar">
                 <img
                   src="/public/assets/iconLapis.svg"
                   alt="Editar"
@@ -76,4 +69,4 @@ const TabelaLivros: React.FC<TabelaLivrosProps> = ({ livros }) => {
   );
 };
 
-export default TabelaLivros;
+export default TabelaEdicoes;

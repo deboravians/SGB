@@ -58,20 +58,20 @@
     grid-gap: 5px;
   }
   
-  .tabelaLivros {
+  .tabelaEdicoes {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
   }
   
-  .tabelaLivros th {
+  .tabelaEdicoes th {
     background-color: #f1f1f1;
     /* Fundo cinza claro */
     text-align: center;
     padding: 8px;
   }
   
-  .tabelaLivros td {
+  .tabelaEdicoes td {
     background-color: #fafafa;
     /* Fundo alternado */
     border-bottom: 1px solid #dcdcdc;
