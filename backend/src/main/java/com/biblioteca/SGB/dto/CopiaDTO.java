@@ -18,7 +18,6 @@ public class CopiaDTO {
         this.edicao = edicao;
     }
 
-    // Método para mapear um objeto Copia para um DTO
     public static CopiaDTO fromCopia(Copia copia) {
         return new CopiaDTO(
                 copia.getId(),
