@@ -37,8 +37,7 @@ public class CopiaController {
         edicao.setIsbn(edicaoDTO.getIsbn());
         edicao.setTitulo(edicaoDTO.getTitulo());
         edicao.setAnoPublicacao(edicaoDTO.getAnoPublicacao());
-        edicao.setQtdCopias(edicaoDTO.getQtdCopias());
-        edicao.setStatus(edicaoDTO.getStatus());
+        edicao.setAutor(edicaoDTO.getAutor());
 
         List<Copia> copias = copiaService.listarCopias(edicao);
 
