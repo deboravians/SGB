@@ -36,7 +36,12 @@ public class DevolucaoService {
 
         if (livroExtraviado != null && livroExtraviado) {
             emprestimo.setStatus("Extraviado");
-        } else {
+
+            Copia copia = emprestimo.getCopia();
+            copia.setStatus("Extraviado");
+            copiaRepository.save(copia);
+        }
+        else {
             emprestimo.setStatus("Devolvido");
 
             Copia copia = emprestimo.getCopia();
