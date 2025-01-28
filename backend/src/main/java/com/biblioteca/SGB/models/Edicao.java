@@ -1,5 +1,6 @@
 package com.biblioteca.SGB.models;
 
+import com.biblioteca.SGB.services.CopiaService;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -30,6 +31,16 @@ public class Edicao{
     @ManyToOne
     @JoinColumn(name = "classificacao_codigo")
     private Classificacao classificacao;
+
+    Edicao(){
+    }
+
+    public Edicao(String isbn, String titulo, String autor, String anoPublicacao) {
+        this.isbn = isbn;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.anoPublicacao = anoPublicacao;
+    }
 
     // Métodos Sets
 
@@ -77,11 +88,18 @@ public class Edicao{
         return anoPublicacao;
     }
 
-    public int getQtdCopias() {
-        return qtdCopias;
+    public int getQtdCopias(CopiaService copiaService, Edicao edicao) {
+        return copiaService.listarCopias(edicao).size();
     }
 
-    public String getStatus() { return status; }
+    public String getStatus(CopiaService copiaService, Edicao edicao) {
+        List<Copia> copias = copiaService.listarCopias(edicao);
+
+        int cont = 0;
+        for(Copia copia : copias){ if(copia.getStatus().equals("Emprestado")){ cont++; } }
+
+        return cont <= getQtdCopias(copiaService, edicao) ? "Disponivel" : "Indisponivel";
+    }
 
 }
 

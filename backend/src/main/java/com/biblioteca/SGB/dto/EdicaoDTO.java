@@ -2,6 +2,7 @@ package com.biblioteca.SGB.dto;
 
 import com.biblioteca.SGB.models.Classificacao;
 import com.biblioteca.SGB.models.Edicao;
+import com.biblioteca.SGB.services.CopiaService;
 
 public class EdicaoDTO {
 
@@ -26,16 +27,16 @@ public class EdicaoDTO {
         this.classificacao = classificacao;
     }
 
-    // Método para mapear um objeto Edicao para um DTO
-    public static EdicaoDTO fromEdicao(Edicao edicao) {
+    public static EdicaoDTO fromEdicao(Edicao edicao, CopiaService copiaService) {
         return new EdicaoDTO(
                 edicao.getIsbn(),
                 edicao.getTitulo(),
                 edicao.getAutor(),
                 edicao.getAnoPublicacao(),
-                edicao.getStatus(),
-                edicao.getQtdCopias(),
+                edicao.getStatus(copiaService, edicao),
+                edicao.getQtdCopias(copiaService, edicao),
                 edicao.getClassificacao()
+
         );
     }
 

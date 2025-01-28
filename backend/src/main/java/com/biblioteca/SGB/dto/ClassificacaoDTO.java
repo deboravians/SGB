@@ -15,7 +15,6 @@ public class ClassificacaoDTO {
         this.titulo = titulo;
     }
 
-    // Método para mapear um objeto Classificacao para um DTO
     public static ClassificacaoDTO fromClassificacao(Classificacao classificacao) {
         return new ClassificacaoDTO(
                 classificacao.getCodigo(),
