@@ -29,4 +29,11 @@ public class AlunoController {
 
     }
 
+    @DeleteMapping("/{matricula}")
+    public void excluirAluno(@PathVariable String matricula){
+        alunoService.excluirAluno(matricula);
+    }
+
+
+
 }

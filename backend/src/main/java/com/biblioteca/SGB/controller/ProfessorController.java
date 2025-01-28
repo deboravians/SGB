@@ -29,6 +29,11 @@ public class ProfessorController {
 
     }
 
+    @DeleteMapping("/{cpf}")
+    public void excluirProfessor(@PathVariable String cpf){
+        professorService.excluirProfessor(cpf);
+    }
+
 }
 
 

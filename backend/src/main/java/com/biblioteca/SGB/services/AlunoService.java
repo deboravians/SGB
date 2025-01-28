@@ -19,4 +19,12 @@ public class AlunoService {
 
     public List<Aluno> listarAlunos(){ return alunoRepository.findAll(); }
 
+    public void excluirAluno(String matricula){
+        if(!alunoRepository.existsById(matricula)){
+            throw new IllegalStateException("Aluno com matricula " + matricula + " não encontrado.");
+        }
+        alunoRepository.deleteById(matricula);
+    }
+
+
 }

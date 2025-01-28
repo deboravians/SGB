@@ -20,4 +20,10 @@ public class ProfessorService {
 
     public List<Professor> listarProfessores(){ return professorRepository.findAll(); }
 
+    public void excluirProfessor(String cpf) {
+        if(!professorRepository.existsById(cpf)){
+            throw new IllegalStateException("Professor com CPF " + cpf + " não encontrado.");
+        }
+        professorRepository.deleteById(cpf);
+    }
 }

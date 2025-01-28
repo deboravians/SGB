@@ -72,3 +72,4 @@ CREATE TABLE Emprestimos (
     FOREIGN KEY (professor_cpf) REFERENCES Professores(cpf),
     FOREIGN KEY (copia_id) REFERENCES Copias(id)
 );
+
