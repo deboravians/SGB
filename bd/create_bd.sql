@@ -68,8 +68,8 @@ CREATE TABLE Emprestimos (
     professor_cpf VARCHAR(14),
     copia_id INT NOT NULL,
 
-    FOREIGN KEY (aluno_matricula) REFERENCES Alunos(matricula),
-    FOREIGN KEY (professor_cpf) REFERENCES Professores(cpf),
+    FOREIGN KEY (aluno_matricula) REFERENCES Alunos(matricula) ON DELETE CASCADE,
+    FOREIGN KEY (professor_cpf) REFERENCES Professores(cpf) ON DELETE CASCADE,
     FOREIGN KEY (copia_id) REFERENCES Copias(id)
 );
 
