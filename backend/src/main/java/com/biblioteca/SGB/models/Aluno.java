@@ -1,9 +1,8 @@
 package com.biblioteca.SGB.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "Alunos")
@@ -21,6 +20,9 @@ public class Aluno extends Leitores {
 
     @Column(nullable = false, length = 50)
     private String anoLetivo;
+
+    @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Emprestimo> emprestimos;
 
     public String getMatricula() {
         return matricula;
