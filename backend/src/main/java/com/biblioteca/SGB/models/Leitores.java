@@ -17,6 +17,16 @@ public abstract class Leitores {
     @Column(nullable = false)
     private String bairro;
 
+    public Leitores() {
+    }
+
+    public Leitores(String nome, String telefone, String rua, String bairro) {
+        this.nome = nome;
+        this.telefone = telefone;
+        this.rua = rua;
+        this.bairro = bairro;
+    }
+
     public String getNome() {
         return nome;
     }

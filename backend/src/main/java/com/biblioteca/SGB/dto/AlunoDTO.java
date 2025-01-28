@@ -13,11 +13,9 @@ public class AlunoDTO {
     private String turma;
     private String anoLetivo;
 
-    // Construtor padrão
     public AlunoDTO() {
     }
 
-    // Construtor com todos os atributos
     public AlunoDTO(String nome, String telefone, String rua, String bairro, String matricula, String serie, String turma, String anoLetivo) {
         this.nome = nome;
         this.telefone = telefone;
@@ -29,7 +27,6 @@ public class AlunoDTO {
         this.anoLetivo = anoLetivo;
     }
 
-    // Método para mapear um objeto Aluno para um DTO
     public static AlunoDTO fromAluno(Aluno aluno) {
         return new AlunoDTO(
                 aluno.getNome(),
@@ -43,7 +40,6 @@ public class AlunoDTO {
         );
     }
 
-    // Métodos getters e setters
     public String getNome() {
         return nome;
     }
