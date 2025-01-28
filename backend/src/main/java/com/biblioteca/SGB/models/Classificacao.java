@@ -13,6 +13,14 @@ public class Classificacao{
     @Column(nullable = false, unique = true)
     private String titulo;
 
+    public Classificacao() {
+    }
+
+    public Classificacao(String codigo, String titulo) {
+        this.codigo = codigo;
+        this.titulo = titulo;
+    }
+
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
