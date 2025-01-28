@@ -19,9 +19,8 @@ function SideBar() {
       <nav>
         <ul className={style.navList}>
           <li
-            className={`${style.navItem} ${
-              selectedItem === "livros" ? style.selected : ""
-            }`}
+            className={`${style.navItem} ${selectedItem === "livros" ? style.selected : ""
+              }`}
             onClick={() => handleSelection("livros")}
           >
             <img
@@ -31,9 +30,8 @@ function SideBar() {
             <Link to="/livros">Livros</Link>
           </li>
           <li
-            className={`${style.navItem} ${
-              selectedItem === "emprestimos" ? style.selected : ""
-            }`}
+            className={`${style.navItem} ${selectedItem === "emprestimos" ? style.selected : ""
+              }`}
             onClick={() => handleSelection("emprestimos")}
           >
             <img
@@ -43,9 +41,8 @@ function SideBar() {
             <Link to="/emprestimos">Empréstimos</Link>
           </li>
           <li
-            className={`${style.navItem} ${
-              selectedItem?.includes("leitores") ? style.selected : ""
-            }`}
+            className={`${style.navItem} ${selectedItem?.includes("leitores") ? style.selected : ""
+              }`}
             onClick={toggleDropdown}
           >
             <div className={style.dropdownToggle}>
@@ -66,27 +63,22 @@ function SideBar() {
           {dropdownOpen && (
             <ul className={style.dropdownMenu}>
               <li
-                className={`${style.navItem} ${
-                  selectedItem === "leitores-alunos" ? style.selected : ""
-                }`}
-                onClick={() => handleSelection("leitores-alunos")}
+                className={`${style.navItem} ${selectedItem === "leitores-alunos" ? style.selected : ""
+                  }`}
               >
-                <Link to="/leitores/alunos">Alunos</Link>
+                <Link to="/leitores/alunos" onClick={() => handleSelection("leitores-alunos")}>Alunos</Link>
               </li>
               <li
-                className={`${style.navItem} ${
-                  selectedItem === "leitores-professores" ? style.selected : ""
-                }`}
-                onClick={() => handleSelection("leitores-professores")}
+                className={`${style.navItem} ${selectedItem === "leitores-professores" ? style.selected : ""
+                  }`}
               >
-                <Link to="/leitores/professores">Professores</Link>
+                <Link to="/leitores/professores" onClick={() => handleSelection("leitores-professores")}>Professores</Link>
               </li>
             </ul>
           )}
           <li
-            className={`${style.navItem} ${
-              selectedItem === "relatorios" ? style.selected : ""
-            }`}
+            className={`${style.navItem} ${selectedItem === "relatorios" ? style.selected : ""
+              }`}
             onClick={() => handleSelection("relatorios")}
           >
             <img

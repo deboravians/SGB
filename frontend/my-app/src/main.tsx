@@ -7,17 +7,16 @@ import App from './App'
 import Home from './pages/Home/Home'
 import LeitoresAlunos from './pages/LeitoresAlunos/LeitoresAlunos'
 import LeitoresProfessores from './pages/LeitoresProfessores/LeitoresProfessores'
-
-
+import GerenciamentoAcervo from './pages/GerenciamentoDoAcervo/GerenciamentoDoAcervo'
 const router = createBrowserRouter([
   {
-  path: "/",
-  element:<Login/>
+    path: "/",
+    element: <Login />
   },
   {
     path: "/",
-    element: <App/>,
-    children:[
+    element: <App />,
+    children: [
       {
         path: "/home",
         element: <Home />
@@ -30,12 +29,19 @@ const router = createBrowserRouter([
         path: "/leitores/professores",
         element: <LeitoresProfessores />
       },
+
+      {
+        path: "/livros",
+        element: <GerenciamentoAcervo />
+      },
+  
+      
     ],
   },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )

@@ -1,0 +1,82 @@
+
+.mainContent {
+    margin: 15px auto;
+    /* Espaço em relação às bordas */
+    padding: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    /* Alinha os elementos verticalmente */
+    justify-content: center;
+    /* Centraliza horizontalmente o conteúdo interno */
+    align-items: center;
+    /* Centraliza verticalmente o conteúdo interno */
+    height: calc(100vh - 80px);
+    /* Altura da tela menos header */
+    margin-left: 250px;
+    /* Espaço para a sidebar */
+    margin-top: 60px;
+    /* Espaço para o header */
+    min-width: 480px;
+    /* Define uma largura mínima */
+  }
+  .acoesContainer {
+    display: grid;
+    grid-template-columns: 1fr auto; /* Primeira coluna ocupa o restante, segunda é automática */
+    gap: 15px; /* Aproxima as colunas */
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .gerenciarCopias, .gerenciarCopiass{
+    padding: 5px 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  .gerenciarCopiass:hover {
+    background-color: #45a049;
+    /* Cor mais escura ao passar o mouse */
+  }
+  
+  .icone {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 15px;
+    grid-gap: 5px;
+  }
+  
+  .tabelaEdicoes {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .tabelaEdicoes th {
+    background-color: #f1f1f1;
+    /* Fundo cinza claro */
+    text-align: center;
+    padding: 8px;
+  }
+  
+  .tabelaEdicoes td {
+    background-color: #fafafa;
+    /* Fundo alternado */
+    border-bottom: 1px solid #dcdcdc;
+    /* Linha de divisão */
+    padding: 8px;
+    text-align: center;
+  }
+  

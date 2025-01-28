@@ -1,16 +1,80 @@
-.telaHome {
-    position: fixed;
-    top: 11vh; /* Mantém o espaçamento superior */
-    left: 41vh; /* Alinha a imagem ao canto esquerdo */
+.mainContent {
+    margin: 15px auto;
+    padding: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
     display: flex;
- /* Alinha a imagem horizontalmente no centro */
-    overflow: hidden; /* Evita que o conteúdo ultrapasse a tela */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 80px);
+    margin-left: 250px;
+    margin-top: 60px;
+    min-width: 480px;
 }
 
-.imagemMain {
-    width: 100%; /* Ajusta a imagem à largura da tela */
-    height: auto; /* Mantém a proporção da imagem */
-    max-width: 100%; /* Evita que a imagem ultrapasse a tela */
-    max-height: calc(100vh - 11vh); /* Garante que a imagem caiba no espaço restante da tela */
-    object-fit: contain; /* Mantém a proporção da imagem */
+.home {
+    width: 100%;
+    max-width: 1200px;
+    min-width: 600px;
+    height: 100%;
+    max-height: calc(100vh - 120px);
+    background-color: white;
+    padding: 30px;
+    padding-bottom: 80px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    justify-content: space-between;
+}
+
+.content {
+    display: flex;
+    height: 100%;
+    gap: 30px;
+}
+
+.cards {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+  .header {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .titulo {
+    font-size: 24px;
+    color: #333;
+    display: inline;
+  }
+
+  .titulo2 {
+    font-size: 20px;
+    color: #333;
+    display: inline;
+  }
+  
+  .divisao {
+    border-bottom: 2px solid #e0e0e0;
+    margin: 10px 0;
+  }
+
+  .icone {
+    width: 35px;
+  }
+
+  .imagemContainer {
+    right: 100%;
+    width: 100%;
+  }
+
+.imagem {
+    width: auto;
+    height: 100%;
 }

@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import style from './header.module.css';
 
 const Header = () => {
-    return ( 
-            <header className={style.divHeader}>
+    return (
+        <header className={style.divHeader}>
             <Link to="/home">
                 <div className={style.divlogo}>
                     <img
@@ -13,8 +13,8 @@ const Header = () => {
                     />
                 </div>
             </Link>
-            </header>
+        </header>
     );
 }
- 
+
 export default Header;

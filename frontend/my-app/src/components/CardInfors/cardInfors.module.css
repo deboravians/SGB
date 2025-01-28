@@ -1,0 +1,21 @@
+.card {
+    flex: 1;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #D7F4DF;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    height: 100%;
+  }
+  
+  .strong {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  p {
+    display: inline;
+    padding-right: 5px;
+  }

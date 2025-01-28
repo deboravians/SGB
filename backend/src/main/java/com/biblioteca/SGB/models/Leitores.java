@@ -5,24 +5,26 @@ import jakarta.persistence.*;
 @MappedSuperclass
 public abstract class Leitores {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "nome")
+    @Column(nullable = false)
     private String nome;
 
-    @Column(name = "Telefone")
+    @Column(nullable = false, length = 15)
     private String telefone;
 
-    @Column(name = "Rua")
+    @Column(nullable = false)
     private String rua;
 
-    @Column(name= "Bairro")
+    @Column(nullable = false)
     private String bairro;
 
-    public Long getId() {
-        return id;
+    public Leitores() {
+    }
+
+    public Leitores(String nome, String telefone, String rua, String bairro) {
+        this.nome = nome;
+        this.telefone = telefone;
+        this.rua = rua;
+        this.bairro = bairro;
     }
 
     public String getNome() {
@@ -39,10 +41,6 @@ public abstract class Leitores {
 
     public String getBairro() {
         return bairro;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public void setNome(String nome) {

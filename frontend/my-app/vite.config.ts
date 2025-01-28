@@ -8,7 +8,7 @@ export default defineConfig({
   base: './',  // Para garantir que os caminhos relativos funcionem corretamente no build
   build: {
     rollupOptions: {
-      input: 'src/index.html',
+      input: 'index.html',
     },
     outDir: 'dist',
   },

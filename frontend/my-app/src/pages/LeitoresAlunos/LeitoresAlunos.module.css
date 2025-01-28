@@ -1,6 +1,5 @@
 .mainContent {
   margin: 15px auto;
-  /* Espaço em relação às bordas */
   padding: 8px;
   background-color: #f9f9f9;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -49,7 +48,6 @@
 
 .divisao {
   border-bottom: 2px solid #e0e0e0;
-  /* Linha clara */
   margin: 10px 0;
 }
 
@@ -64,44 +62,23 @@
   margin: 20px 0;
 }
 
-.strong {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.card {
-  flex: 1;
-  padding: 15px;
-  border-radius: 8px;
-  background-color: #e0f7fa;
-  text-align: center;
-}
-
-.cardVerde {
-  background-color: #D7F4DF;
-}
-
 .acoesContainer {
   display: flex;
   gap: 10px;
   align-items: center;
   border: 1px solid #e0e0e0;
-  /* Borda leve */
   border-radius: 8px;
-  /* Cantos arredondados */
   padding: 15px;
   margin-bottom: 20px;
-  /* Espaço abaixo do container */
 }
 
 .campoPesquisa {
   flex: 1;
-  /* Ocupa todo o espaço disponível */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #f1f1f1;
-  /* Fundo cinza claro */
+  outline-color: #c9c6c6;
 }
 
 .botaoCadastrar {
@@ -120,128 +97,18 @@
   /* Cor mais escura ao passar o mouse */
 }
 
-.tabelaAlunos {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-.tabelaAlunos th {
-  background-color: #f1f1f1;
-  /* Fundo cinza claro */
-  text-align: center;
-  padding: 8px;
-}
-
-.tabelaAlunos td {
-  background-color: #fafafa;
-  /* Fundo alternado */
-  border-bottom: 1px solid #dcdcdc;
-  /* Linha de divisão */
-  padding: 8px;
-  text-align: center;
-  
-}
-
 .icone {
-  background: none;
   border: none;
   cursor: pointer;
-  margin-right: 15px;
-  grid-gap: 5px;
 }
 
-.modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+.textAndIcon {
   display: flex;
-  justify-content: center;
+  gap: 10px;
   align-items: center;
-  z-index: 1000;
-}
-
-.modalContent {
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
-  width: 600px;
-  height: 600px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.modalActions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.botaoCancelar {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.botaoCancelar:hover {
-  background-color: #d32f2f;
-}
-
-
-.sectionTitle {
-  font-size: 1.2rem;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  color: #555;
-}
-
-.generalInfo,
-.addressInfo {
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 20px;
 }
 
 .row {
   display: flex;
   gap: 10px;
-}
-
-.formGroup {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.inputField {
-  padding: 8px;
-  width: 250px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #f9f9f9;
-}
-
-.inputFild {
-  padding: 8px;
-  width: 120px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #f9f9f9;
-}
-
-.inputFieldd {
-  padding: 8px;
-  width: 80px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #f9f9f9;
 }
