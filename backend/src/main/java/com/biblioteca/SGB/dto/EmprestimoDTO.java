@@ -4,6 +4,7 @@ import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.models.Professor;
 import com.biblioteca.SGB.models.Copia;
+import com.biblioteca.SGB.services.EmprestimoService;
 
 import java.time.LocalDate;
 
@@ -22,7 +23,7 @@ public class EmprestimoDTO {
     }
 
     // Construtor para empréstimos feitos por um Aluno
-    public EmprestimoDTO(Integer id, LocalDate dataEmprestimo, LocalDate dataPrevistaDevolucao, LocalDate dataDevolucao, String status, Aluno aluno, Copia copia) {
+    public EmprestimoDTO(Aluno aluno, Integer id, LocalDate dataEmprestimo, LocalDate dataPrevistaDevolucao, LocalDate dataDevolucao, String status, Copia copia) {
         this.id = id;
         this.dataEmprestimo = dataEmprestimo;
         this.dataPrevistaDevolucao = dataPrevistaDevolucao;
@@ -33,7 +34,7 @@ public class EmprestimoDTO {
     }
 
     // Construtor para empréstimos feitos por um Professor
-    public EmprestimoDTO(Integer id, LocalDate dataEmprestimo, LocalDate dataPrevistaDevolucao, LocalDate dataDevolucao, String status, Professor professor, Copia copia) {
+    public EmprestimoDTO( Professor professor, Integer id, LocalDate dataEmprestimo, LocalDate dataPrevistaDevolucao, LocalDate dataDevolucao, String status, Copia copia) {
         this.id = id;
         this.dataEmprestimo = dataEmprestimo;
         this.dataPrevistaDevolucao = dataPrevistaDevolucao;
@@ -44,25 +45,25 @@ public class EmprestimoDTO {
     }
 
     // Método para mapear um objeto Emprestimo para um DTO
-    public static EmprestimoDTO fromEmprestimo(Emprestimo emprestimo) {
+    public static EmprestimoDTO fromEmprestimo(Emprestimo emprestimo, EmprestimoService emprestimoService) {
         if (emprestimo.getAluno() != null) {
             return new EmprestimoDTO(
+                    emprestimo.getAluno(),
                     emprestimo.getId(),
                     emprestimo.getDataEmprestimo(),
                     emprestimo.getDataPrevistaDevolucao(),
                     emprestimo.getDataDevolucao(),
-                    emprestimo.getStatus(),
-                    emprestimo.getAluno(),
+                    emprestimo.getStatus(emprestimoService),
                     emprestimo.getCopia()
             );
         } else if (emprestimo.getProfessor() != null) {
             return new EmprestimoDTO(
+                    emprestimo.getProfessor(),
                     emprestimo.getId(),
                     emprestimo.getDataEmprestimo(),
                     emprestimo.getDataPrevistaDevolucao(),
                     emprestimo.getDataDevolucao(),
-                    emprestimo.getStatus(),
-                    emprestimo.getProfessor(),
+                    emprestimo.getStatus(emprestimoService),
                     emprestimo.getCopia()
             );
         }

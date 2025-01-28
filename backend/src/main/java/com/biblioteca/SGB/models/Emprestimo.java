@@ -1,5 +1,6 @@
 package com.biblioteca.SGB.models;
 
+import com.biblioteca.SGB.services.EmprestimoService;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -35,6 +36,14 @@ public class Emprestimo{
     @JoinColumn(name = "copia_id", nullable = false)
     private Copia copia;
 
+    public Emprestimo() {
+    }
+
+    public Emprestimo(LocalDate dataEmprestimo, String status) {
+        this.dataEmprestimo = dataEmprestimo;
+        this.status = status;
+    }
+
     public Aluno getAluno() {
         return aluno;
     }
@@ -68,7 +77,7 @@ public class Emprestimo{
     }
 
     public LocalDate getDataPrevistaDevolucao() {
-        return dataPrevistaDevolucao;
+        return getProfessor() == null ? getDataEmprestimo().plusDays(7) : getDataEmprestimo().plusDays(30);
     }
 
     public void setDataPrevistaDevolucao(LocalDate dataPrevistaDevolucao) {
@@ -83,8 +92,17 @@ public class Emprestimo{
         this.dataDevolucao = dataDevolucao;
     }
 
-    public String getStatus() {
+    public String getStatus(){
         return status;
+    }
+
+    public String getStatus(EmprestimoService emprestimoService) {
+
+        if(emprestimoService.getEmprestimoById(getId()).getStatus().equals("Extraviado")){ return "Extraviado";}
+
+        if(getDataPrevistaDevolucao().isBefore(LocalDate.now()) && getDataDevolucao() == null){ return "Atrasado"; }
+
+        return "Pendente";
     }
 
     public void setStatus(String status) {

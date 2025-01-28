@@ -16,4 +16,6 @@ public class EmprestimoService {
 
     public List<Emprestimo> listarEmprestimos(){ return emprestimoRepository.findAll(); }
 
+    public Emprestimo getEmprestimoById(int id){ return emprestimoRepository.findById(id).get(); }
+
 }

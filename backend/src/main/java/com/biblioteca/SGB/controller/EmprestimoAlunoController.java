@@ -1,26 +1,35 @@
 package com.biblioteca.SGB.controller;
 
+import com.biblioteca.SGB.dto.EmprestimoDTO;
 import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.services.EmprestimoAlunoService;
+import com.biblioteca.SGB.services.EmprestimoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/emprestimos/alunos")
-public class EmprestimoAlunoController{
+public class EmprestimoAlunoController {
 
     @Autowired
     private EmprestimoAlunoService emprestimoAlunoService;
 
+    @Autowired
+    private EmprestimoService emprestimoService;
+
     @PostMapping
-    public Emprestimo cadastrarEmprestimo(@RequestBody Emprestimo emprestimo,
-                                          @RequestParam Integer idCopia,
-                                          @RequestParam String matriculaAluno) {
+    public EmprestimoDTO cadastrarEmprestimo(@RequestBody EmprestimoDTO emprestimoDTO,
+                                             @RequestParam Integer idCopia,
+                                             @RequestParam String matriculaAluno) {
 
-        emprestimo.setStatus("Pendente");
+        Emprestimo emprestimo = new Emprestimo(
+                emprestimoDTO.getDataEmprestimo(),
+                "Pendente"
+        );
 
-        return emprestimoAlunoService.cadastrarEmprestimo(emprestimo, idCopia, matriculaAluno);
+        Emprestimo novoEmprestimo = emprestimoAlunoService.cadastrarEmprestimo(emprestimo, idCopia, matriculaAluno);
+
+        return EmprestimoDTO.fromEmprestimo(novoEmprestimo, emprestimoService);
     }
-
 }
 
