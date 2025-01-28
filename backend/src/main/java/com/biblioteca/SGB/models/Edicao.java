@@ -77,7 +77,7 @@ public class Edicao{
         return anoPublicacao;
     }
 
-    public int getQtdEstoque() {
+    public int getQtdCopias() {
         return qtdCopias;
     }
 
