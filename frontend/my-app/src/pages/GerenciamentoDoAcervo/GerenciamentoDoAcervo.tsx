@@ -1,19 +1,44 @@
-import React, { useState } from "react";
-import CardLivros from "../../components/CardLivros/CardLivros";
-import TabelaLivros from "../../components/TabelaLivros/TabelaLivros";
+import { useState, useEffect } from "react";
+import TabelaEdicoes from "../../components/TabelaEdicoes/TabelaEdicoes";
 import styles from "./GerenciamentoDoAcervo.module.css";
-
-const livros = [
-  { id: 1, isbn: "000-00-00000-00-0", titulo: "O pequeno príncipe", status: "" },
-  { id: 2, isbn: "000-00-00000-00-0", titulo: "O pequeno príncipe", status: "" },
-];
+import { Edicao } from "../../types/edicoes";
+import CardInfors from "../../components/CardInfors/CardInfors";
+import { listarEdicoes } from "../../api/edicoes";
 
 function GerenciamentoAcervo() {
-  const [isModalOpen, setIsModalOpen] = useState(false); // Controle da Modal
-  
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [edicoes, setEdicoes] = useState<Edicao[]>([]);
+
+  const [loading, setLoading] = useState(true);
+
+  const carregarEdicoes = async () => {
+    try {
+      setLoading(true);
+      const dados = await listarEdicoes();
+      setEdicoes(dados);
+    } catch (error) {
+      alert("Erro ao carregar as edições.");
+    } finally {
+      setLoading(false);
+    }
   };
+
+  // const salvarEdicao = async (edicao: Edicao) => {
+  //   try {
+  //     const novaEdicao = await cadastrarEdicao(edicao);
+  //     setEdicoes((prevEdicoes) => [...prevEdicoes, novaEdicao]); // Atualiza a lista local
+  //     setIsModalOpen(false); // Fecha o modal
+  //   } catch (error) {
+  //     alert("Erro ao cadastrar a edição.");
+  //   }
+  // };
+
+  useEffect(() => {
+    carregarEdicoes();
+  }, []);
+
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
 
   return (
     <div className={styles.mainContent}>
@@ -23,9 +48,9 @@ function GerenciamentoAcervo() {
         <p className={styles.descricao}>Visão geral do acervo</p>
 
         <div className={styles.resumo}>
-          <CardLivros value="50" label="Livros disponíveis" />
-          <CardLivros value="35" label="Livros Emprestados" />
-          <CardLivros value="15" label="Empréstimos em atraso" />
+          <CardInfors quantidade={50} descricao="Livros disponíveis" />
+          <CardInfors quantidade={35} descricao="Livros Emprestados" />
+          <CardInfors quantidade={15} descricao="Empréstimos em atraso" />
         </div>
 
         <div className={styles.acoesContainer}>
@@ -34,7 +59,7 @@ function GerenciamentoAcervo() {
             placeholder="Pesquisar livros..."
             className={styles.campoPesquisa}
           />
-          <button 
+          <button
             className={styles.botaoCadastrar}
             onClick={toggleModal}>
             <img
@@ -46,9 +71,14 @@ function GerenciamentoAcervo() {
           </button>
         </div>
 
-        <TabelaLivros livros={livros} />
+        {/* Tabela */}
+        {loading ? (
+          <p>Carregando edições...</p>
+        ) : (
+          <TabelaEdicoes edicoes={edicoes} />
+        )}
 
-        {/* Modal */}
+
       </div>
     </div>
   );
