@@ -2,6 +2,9 @@ package com.biblioteca.SGB.models;
 
 import com.biblioteca.SGB.services.EmprestimoService;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.time.LocalDate;
 
 @Entity
@@ -26,10 +29,12 @@ public class Emprestimo{
 
     @ManyToOne
     @JoinColumn(name = "aluno_matricula")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Aluno aluno;
 
     @ManyToOne
     @JoinColumn(name = "professor_cpf")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Professor professor;
 
     @OneToOne

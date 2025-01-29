@@ -17,6 +17,15 @@ public class Copia {
     @JoinColumn(name = "edicao_isbn")
     private Edicao edicao;
 
+    public Copia(){
+    }
+
+    public Copia(Integer id, String status, Edicao edicao) {
+        this.id = id;
+        this.status = status;
+        this.edicao = edicao;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -29,7 +38,7 @@ public class Copia {
         return edicao;
     }
 
-    public void setid(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

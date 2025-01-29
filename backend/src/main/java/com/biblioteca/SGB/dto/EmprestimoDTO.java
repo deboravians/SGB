@@ -44,7 +44,6 @@ public class EmprestimoDTO {
         this.copia = copia;
     }
 
-    // Método para mapear um objeto Emprestimo para um DTO
     public static EmprestimoDTO fromEmprestimo(Emprestimo emprestimo, EmprestimoService emprestimoService) {
         if (emprestimo.getAluno() != null) {
             return new EmprestimoDTO(

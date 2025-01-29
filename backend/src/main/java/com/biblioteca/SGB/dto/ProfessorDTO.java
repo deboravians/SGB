@@ -11,11 +11,9 @@ public class ProfessorDTO {
     private String cpf;
     private String disciplina;
 
-    // Construtor padrão
     public ProfessorDTO() {
     }
 
-    // Construtor com todos os atributos
     public ProfessorDTO(String nome, String telefone, String rua, String bairro, String cpf, String disciplina) {
         this.nome = nome;
         this.telefone = telefone;
@@ -25,7 +23,6 @@ public class ProfessorDTO {
         this.disciplina = disciplina;
     }
 
-    // Método para mapear um objeto Professor para um DTO
     public static ProfessorDTO fromProfessor(Professor professor) {
         return new ProfessorDTO(
                 professor.getNome(),
@@ -37,7 +34,6 @@ public class ProfessorDTO {
         );
     }
 
-    // Métodos getters e setters
     public String getNome() {
         return nome;
     }
