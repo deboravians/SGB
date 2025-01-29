@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import styles from "./ModalCadastroDeEdicoes.module.css";
+import ModalCadastroDeClassificacao from "../../components/ModalCadastroDeClassificacao/ModalCadastroDeClassificacao";
+
 
 const DropdownClassificacao = () => {
+  
   const classificacoes = [
     "076-345 Ficção Científica",
     "076-345 Romance",
@@ -18,6 +21,8 @@ const DropdownClassificacao = () => {
   ];
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
 
   return (
     
@@ -37,9 +42,12 @@ const DropdownClassificacao = () => {
           </a>
           {dropdownOpen && (
             <div className={styles.dropdownContent}>
-              <button id="button" className={styles.buttonCadastrar}>
+              <button id="button" className={styles.buttonCadastrar}
+              onClick={toggleModal} >
                 <img src="/public/assets/iconCadastrar.svg" alt="" />Cadastrar classificação
+                <ModalCadastroDeClassificacao isOpen={isModalOpen} onClose={toggleModal} />
               </button>
+              
               {classificacoes.map((item, index) => (
                 <div key={index} className={styles.classificationItem}>
                   <span>{item}</span>
