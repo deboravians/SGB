@@ -4,6 +4,7 @@ import styles from "./GerenciamentoDoAcervo.module.css";
 import { Edicao } from "../../types/edicoes";
 import CardInfors from "../../components/CardInfors/CardInfors";
 import { listarEdicoes } from "../../api/edicoes";
+import ModalCadastroDeEdicoes from "../../components/ModalCadastroDeEdicoes/ModalCadastroDeEdicoes";
 
 function GerenciamentoAcervo() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -70,7 +71,8 @@ function GerenciamentoAcervo() {
             Cadastrar Edição
           </button>
         </div>
-
+        <ModalCadastroDeEdicoes isOpen={isModalOpen} onClose={toggleModal} />
+        
         {/* Tabela */}
         {loading ? (
           <p>Carregando edições...</p>
