@@ -1,6 +1,11 @@
 package com.biblioteca.SGB.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 
 @Entity
 @Table(name = "Classificacoes")
@@ -19,21 +24,5 @@ public class Classificacao{
     public Classificacao(String codigo, String titulo) {
         this.codigo = codigo;
         this.titulo = titulo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public String getCodigo() {
-        return codigo;
     }
 }

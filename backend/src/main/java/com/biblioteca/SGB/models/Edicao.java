@@ -2,8 +2,13 @@ package com.biblioteca.SGB.models;
 
 import com.biblioteca.SGB.services.CopiaService;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
+
+@Getter
+@Setter
 
 @Entity
 @Table(name = "Edicoes")
@@ -42,52 +47,6 @@ public class Edicao{
         this.anoPublicacao = anoPublicacao;
     }
 
-    // Métodos Sets
-
-    public void setClassificacao(Classificacao classificacao) {
-        this.classificacao = classificacao;
-    }
-
-    public void setIsbn(String isbn) { this.isbn = isbn; }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
-    public void setAnoPublicacao(String anoPublicacao) {
-        this.anoPublicacao = anoPublicacao;
-    }
-
-    public void setQtdCopias(int qtdCopias) {
-        this.qtdCopias = qtdCopias;
-    }
-
-    public void setStatus(String status) { this.status = status; }
-
-    // Métodos Gets
-
-    public Classificacao getClassificacao() {
-        return classificacao;
-    }
-
-    public String getIsbn(){ return isbn; }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public String getAutor() {
-        return autor;
-    }
-
-    public String getAnoPublicacao() {
-        return anoPublicacao;
-    }
-
     public int getQtdCopias(CopiaService copiaService, Edicao edicao) {
         return copiaService.listarCopias(edicao).size();
     }
@@ -100,6 +59,4 @@ public class Edicao{
 
         return cont <= getQtdCopias(copiaService, edicao) ? "Disponivel" : "Indisponivel";
     }
-
 }
-

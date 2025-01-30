@@ -2,10 +2,15 @@ package com.biblioteca.SGB.models;
 
 import com.biblioteca.SGB.services.EmprestimoService;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
+
+@Getter
+@Setter
 
 @Entity
 @Table(name = "Emprestimos")
@@ -37,7 +42,7 @@ public class Emprestimo{
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Professor professor;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "copia_id", nullable = false)
     private Copia copia;
 
@@ -49,56 +54,8 @@ public class Emprestimo{
         this.status = status;
     }
 
-    public Aluno getAluno() {
-        return aluno;
-    }
-
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
-    }
-
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public LocalDate getDataEmprestimo() {
-        return dataEmprestimo;
-    }
-
-    public void setDataEmprestimo(LocalDate dataEmprestimo) {
-        this.dataEmprestimo = dataEmprestimo;
-    }
-
     public LocalDate getDataPrevistaDevolucao() {
         return getProfessor() == null ? getDataEmprestimo().plusDays(7) : getDataEmprestimo().plusDays(30);
-    }
-
-    public void setDataPrevistaDevolucao(LocalDate dataPrevistaDevolucao) {
-        this.dataPrevistaDevolucao = dataPrevistaDevolucao;
-    }
-
-    public LocalDate getDataDevolucao() {
-        return dataDevolucao;
-    }
-
-    public void setDataDevolucao(LocalDate dataDevolucao) {
-        this.dataDevolucao = dataDevolucao;
-    }
-
-    public String getStatus(){
-        return status;
     }
 
     public String getStatus(EmprestimoService emprestimoService) {
@@ -110,17 +67,5 @@ public class Emprestimo{
         if(getDataPrevistaDevolucao().isBefore(LocalDate.now()) && getDataDevolucao() == null){ return "Atrasado"; }
 
         return "Pendente";
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Copia getCopia() {
-        return copia;
-    }
-
-    public void setCopia(Copia copia) {
-        this.copia = copia;
     }
 }
