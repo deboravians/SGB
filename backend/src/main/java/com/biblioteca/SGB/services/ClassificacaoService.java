@@ -14,6 +14,9 @@ public class ClassificacaoService {
     private ClassificacaoRepository classificacaoRepository;
 
     public Classificacao cadastrarClassificacao(Classificacao classificacao) {
+        if (classificacaoRepository.findById(classificacao.getCodigo()).isPresent()) {
+            throw new IllegalArgumentException("Já existe uma classificaço cadastrada com esse codigo.");
+        }
         return classificacaoRepository.save(classificacao);
     }
 
