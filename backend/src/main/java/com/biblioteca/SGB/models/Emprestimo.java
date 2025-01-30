@@ -52,7 +52,7 @@ public class Emprestimo{
     public Emprestimo(LocalDate dataEmprestimo, String status, LocalDate dataPrevistaDevolucao) {
         this.dataEmprestimo = dataEmprestimo;
         this.status = status;
-        this.dataDevolucao = dataPrevistaDevolucao;
+        this.dataPrevistaDevolucao = dataPrevistaDevolucao;
     }
 
 }
