@@ -41,11 +41,9 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
     }
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
-  };
+  const handleChange = ({ target: { id, value } }: React.ChangeEvent<HTMLInputElement>) => {
+      setFormData(prevData => ({ ...prevData, [id]: value }));
+    };
 
   return (
 
