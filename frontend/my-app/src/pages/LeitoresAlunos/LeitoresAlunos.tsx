@@ -87,7 +87,7 @@ const LeitoresAlunos: React.FC = () => {
           {loading ? (
             <p>Carregando alunos...</p>
           ) : (
-            <TabelaAlunos alunos={alunos} />
+            <TabelaAlunos alunos={alunos} atualizarLista={carregarAlunos} />
           )}
 
         </div>
