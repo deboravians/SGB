@@ -18,39 +18,34 @@ public class DevolucaoService {
     @Autowired
     private CopiaRepository copiaRepository;
 
-    public Emprestimo registrarDevolucao(int id, LocalDate data, Boolean livroExtraviado) {
-        Emprestimo emprestimo = emprestimoRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("Empréstimo não encontrado"));
+    public Emprestimo registrarDevolucao(Emprestimo devolucao, EmprestimoService emprestimoService) {
 
-        if("Devolvido".equalsIgnoreCase(emprestimo.getStatus()) ||
-                "Extraviado".equalsIgnoreCase(emprestimo.getStatus())){
-            throw new IllegalStateException("este empréstimo ja foi finalizado!");
+        if(devolucao.getId() == null){
+            throw new IllegalStateException("emprestimo não encontrado no banco de dados!");
         }
 
-        if(data.isBefore(emprestimo.getDataEmprestimo())){
+        if("Devolvido".equals(devolucao.getStatus(emprestimoService))){
+            throw new IllegalStateException("este empréstimo ja foi devolvido!");
+        }
+
+        if("Extraviado".equals(devolucao.getStatus(emprestimoService))){
+            throw new IllegalStateException("este empréstimo está com status de extraviado!");
+        }
+
+        if(devolucao.getDataDevolucao().isBefore(devolucao.getDataEmprestimo())){
             throw new IllegalArgumentException("a data de devolução não pode ser anterior a data de emprestimo!");
         }
-        if (data.isAfter(LocalDate.now())) {
+        if(devolucao.getDataDevolucao().isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("A data de devolução não pode ser futura.");
         }
 
-        if (livroExtraviado != null && livroExtraviado) {
-            emprestimo.setStatus("Extraviado");
+        Copia copia = devolucao.getCopia();
+        copia.setStatus("Disponivel");
+        copiaRepository.save(copia);
 
-            Copia copia = emprestimo.getCopia();
-            copia.setStatus("Extraviado");
-            copiaRepository.save(copia);
-        }
-        else {
-            emprestimo.setStatus("Devolvido");
+        devolucao.setStatus("Devolvido");
+        devolucao.setCopia(copia);
 
-            Copia copia = emprestimo.getCopia();
-            copia.setStatus("Disponível");
-            copiaRepository.save(copia);
-        }
-
-        emprestimo.setDataDevolucao(data);
-
-        return emprestimoRepository.save(emprestimo);
+        return emprestimoRepository.save(devolucao);
     }
 }

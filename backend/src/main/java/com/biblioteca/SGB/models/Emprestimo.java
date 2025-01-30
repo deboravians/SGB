@@ -105,6 +105,8 @@ public class Emprestimo{
 
         if(emprestimoService.getEmprestimoById(getId()).getStatus().equals("Extraviado")){ return "Extraviado";}
 
+        if(emprestimoService.getEmprestimoById(getId()).getStatus().equals("Devolvido")){ return "Devolvido";}
+
         if(getDataPrevistaDevolucao().isBefore(LocalDate.now()) && getDataDevolucao() == null){ return "Atrasado"; }
 
         return "Pendente";
