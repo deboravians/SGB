@@ -20,6 +20,10 @@ public class EdicaoService {
 
     public Edicao cadastrarEdicao(Edicao edicao, String classificacao_codigo) {
 
+        if (edicaoRepository.findById(edicao.getIsbn()).isPresent()) {
+            throw new IllegalArgumentException("Já existe uma edicao com este ISBN.");
+        }
+
         Classificacao classificacao = classificacaoRepository.findById(classificacao_codigo)
                 .orElseThrow(() -> new RuntimeException("Classificação não encontrada"));
 
