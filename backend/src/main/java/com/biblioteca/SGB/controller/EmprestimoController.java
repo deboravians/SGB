@@ -18,6 +18,15 @@ public class EmprestimoController { // Usar essa classe pra fazer o requisito de
     @Autowired
     private EmprestimoService emprestimoService;
 
+    @PutMapping("/aumentarPrazo")
+    public EmprestimoDTO aumentarPrazo(@RequestParam Integer idEmprestimo) {
+
+        Emprestimo emprestimo = emprestimoService.aumentarPrazo(idEmprestimo);
+
+        return EmprestimoDTO.fromEmprestimo(emprestimo, emprestimoService);
+
+    }
+
     @GetMapping
     public List<EmprestimoDTO> listarEmprestimos() {
         List<Emprestimo> emprestimos = emprestimoService.listarEmprestimos();
