@@ -24,7 +24,8 @@ public class EmprestimoProfessorController {
 
         Emprestimo emprestimo = new Emprestimo(
                 emprestimoDTO.getDataEmprestimo(),
-                "Pendente"
+                "Pendente",
+                emprestimoDTO.getDataEmprestimo().plusDays(30)
         );
 
         Emprestimo novoEmprestimo = emprestimoProfessorService.cadastrarEmprestimo(emprestimo, idCopia, cpfProfessor);

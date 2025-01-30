@@ -24,7 +24,8 @@ public class EmprestimoAlunoController {
 
         Emprestimo emprestimo = new Emprestimo(
                 emprestimoDTO.getDataEmprestimo(),
-                "Pendente"
+                "Pendente",
+                emprestimoDTO.getDataEmprestimo().plusDays(7)
         );
 
         Emprestimo novoEmprestimo = emprestimoAlunoService.cadastrarEmprestimo(emprestimo, idCopia, matriculaAluno);

@@ -26,6 +26,9 @@ public class Emprestimo{
     @Column()
     private LocalDate dataDevolucao;
 
+    @Column()
+    private LocalDate dataPrevistaDevolucao;
+
     @Column(nullable = false, length = 20)
     private String status;
 
@@ -46,13 +49,10 @@ public class Emprestimo{
     public Emprestimo() {
     }
 
-    public Emprestimo(LocalDate dataEmprestimo, String status) {
+    public Emprestimo(LocalDate dataEmprestimo, String status, LocalDate dataPrevistaDevolucao) {
         this.dataEmprestimo = dataEmprestimo;
         this.status = status;
-    }
-
-    public LocalDate getDataPrevistaDevolucao() {
-        return getProfessor() == null ? getDataEmprestimo().plusDays(7) : getDataEmprestimo().plusDays(30);
+        this.dataDevolucao = dataPrevistaDevolucao;
     }
 
 }
