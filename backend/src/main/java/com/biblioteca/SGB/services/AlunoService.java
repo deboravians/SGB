@@ -14,6 +14,9 @@ public class AlunoService {
     private AlunoRepository alunoRepository;
 
     public Aluno cadastrarAluno(Aluno aluno){
+        if (alunoRepository.findById(aluno.getMatricula()).isPresent()) {
+            throw new IllegalArgumentException("Já existe um aluno cadastrado com essa matrícula.");
+        }
         return alunoRepository.save(aluno);
     }
 
