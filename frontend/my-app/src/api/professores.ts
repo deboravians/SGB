@@ -25,3 +25,13 @@ export const listarProfessores = async () : Promise<Professor[]> => {
 
   return response.json();
 }
+
+export const deletarProfessor = async (cpf: string): Promise<void> => {
+  const response = await fetch(`http://localhost:8080/professores/${cpf}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao deletar o professor. Tente novamente.");
+  }
+};
