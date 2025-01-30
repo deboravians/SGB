@@ -20,8 +20,12 @@ public class CopiaService {
 
     public Copia cadastarCopia(Copia copia, String isbnEdicao) {
 
+        if (copiaRepository.findById(copia.getId()).isPresent()) {
+            throw new IllegalArgumentException("Já existe uma copia com esse ID");
+        }
+
         Edicao edicao = edicaoRepository.findById(isbnEdicao)
-                .orElseThrow(() -> new RuntimeException("livro não encontrado"));
+                .orElseThrow(() -> new RuntimeException("edição não encontrada"));
 
         copia.setEdicao(edicao);
 
