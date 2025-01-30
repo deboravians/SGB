@@ -15,6 +15,10 @@ public class ProfessorService {
     private ProfessorRepository professorRepository;
 
     public Professor cadastrarProfessor(Professor professor) {
+        if (professorRepository.findById(professor.getCpf()).isPresent()) {
+            throw new IllegalArgumentException("Já existe um professor cadastrado com esse CPF");
+        }
+
         return professorRepository.save(professor);
     }
 
