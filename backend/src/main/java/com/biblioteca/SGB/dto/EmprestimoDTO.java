@@ -56,7 +56,7 @@ public class EmprestimoDTO {
                     emprestimo.getDataEmprestimo(),
                     emprestimo.getDataPrevistaDevolucao(),
                     emprestimo.getDataDevolucao(),
-                    emprestimo.getStatus(emprestimoService),
+                    emprestimoService.calcularStatus(emprestimo),
                     emprestimo.getCopia()
             );
         } else if (emprestimo.getProfessor() != null) {
@@ -66,7 +66,7 @@ public class EmprestimoDTO {
                     emprestimo.getDataEmprestimo(),
                     emprestimo.getDataPrevistaDevolucao(),
                     emprestimo.getDataDevolucao(),
-                    emprestimo.getStatus(emprestimoService),
+                    emprestimoService.calcularStatus(emprestimo),
                     emprestimo.getCopia()
             );
         }

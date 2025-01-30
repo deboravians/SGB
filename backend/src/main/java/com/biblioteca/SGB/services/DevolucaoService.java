@@ -16,6 +16,9 @@ public class DevolucaoService {
     private EmprestimoRepository emprestimoRepository;
 
     @Autowired
+    private EmprestimoService emprestimoService;
+
+    @Autowired
     private CopiaRepository copiaRepository;
 
     public Emprestimo registrarDevolucao(Emprestimo devolucao, EmprestimoService emprestimoService) {
@@ -24,11 +27,11 @@ public class DevolucaoService {
             throw new IllegalStateException("emprestimo não encontrado no banco de dados!");
         }
 
-        if("Devolvido".equals(devolucao.getStatus(emprestimoService))){
+        if("Devolvido".equals(emprestimoService.calcularStatus(devolucao))){
             throw new IllegalStateException("este empréstimo ja foi devolvido!");
         }
 
-        if("Extraviado".equals(devolucao.getStatus(emprestimoService))){
+        if("Extraviado".equals(emprestimoService.calcularStatus(devolucao))){
             throw new IllegalStateException("este empréstimo está com status de extraviado!");
         }
 

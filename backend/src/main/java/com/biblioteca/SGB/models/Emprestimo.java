@@ -23,9 +23,6 @@ public class Emprestimo{
     @Column(nullable = false)
     private LocalDate dataEmprestimo;
 
-    @Transient
-    private LocalDate dataPrevistaDevolucao;
-
     @Column()
     private LocalDate dataDevolucao;
 
@@ -58,14 +55,4 @@ public class Emprestimo{
         return getProfessor() == null ? getDataEmprestimo().plusDays(7) : getDataEmprestimo().plusDays(30);
     }
 
-    public String getStatus(EmprestimoService emprestimoService) {
-
-        if(emprestimoService.getEmprestimoById(getId()).getStatus().equals("Extraviado")){ return "Extraviado";}
-
-        if(emprestimoService.getEmprestimoById(getId()).getStatus().equals("Devolvido")){ return "Devolvido";}
-
-        if(getDataPrevistaDevolucao().isBefore(LocalDate.now()) && getDataDevolucao() == null){ return "Atrasado"; }
-
-        return "Pendente";
-    }
 }
