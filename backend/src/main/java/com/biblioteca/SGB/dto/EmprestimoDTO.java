@@ -5,8 +5,12 @@ import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.models.Professor;
 import com.biblioteca.SGB.models.Copia;
 import com.biblioteca.SGB.services.EmprestimoService;
-
+import lombok.Getter;
+import lombok.Setter;
 import java.time.LocalDate;
+
+@Getter
+@Setter
 
 public class EmprestimoDTO {
 
@@ -67,69 +71,5 @@ public class EmprestimoDTO {
             );
         }
         return null;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public LocalDate getDataEmprestimo() {
-        return dataEmprestimo;
-    }
-
-    public void setDataEmprestimo(LocalDate dataEmprestimo) {
-        this.dataEmprestimo = dataEmprestimo;
-    }
-
-    public LocalDate getDataPrevistaDevolucao() {
-        return dataPrevistaDevolucao;
-    }
-
-    public void setDataPrevistaDevolucao(LocalDate dataPrevistaDevolucao) {
-        this.dataPrevistaDevolucao = dataPrevistaDevolucao;
-    }
-
-    public LocalDate getDataDevolucao() {
-        return dataDevolucao;
-    }
-
-    public void setDataDevolucao(LocalDate dataDevolucao) {
-        this.dataDevolucao = dataDevolucao;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Aluno getAluno() {
-        return aluno;
-    }
-
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
-    }
-
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
-    }
-
-    public Copia getCopia() {
-        return copia;
-    }
-
-    public void setCopia(Copia copia) {
-        this.copia = copia;
     }
 }

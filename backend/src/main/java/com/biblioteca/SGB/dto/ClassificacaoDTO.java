@@ -1,6 +1,11 @@
 package com.biblioteca.SGB.dto;
 
 import com.biblioteca.SGB.models.Classificacao;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 
 public class ClassificacaoDTO {
 
@@ -20,21 +25,5 @@ public class ClassificacaoDTO {
                 classificacao.getCodigo(),
                 classificacao.getTitulo()
         );
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
     }
 }
