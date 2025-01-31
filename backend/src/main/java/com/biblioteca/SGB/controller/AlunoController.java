@@ -46,4 +46,10 @@ public class AlunoController {
     public void excluirAluno(@PathVariable String matricula) {
         alunoService.excluirAluno(matricula);
     }
+
+    @PutMapping("/{matricula}")
+    public AlunoDTO atualizarAluno(@PathVariable String matricula, @RequestBody AlunoDTO alunoDTO) {
+        Aluno alunoAtualizado = alunoService.atualizarAluno(matricula, alunoDTO);
+        return AlunoDTO.fromAluno(alunoAtualizado);
+    }
 }
