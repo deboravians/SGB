@@ -35,5 +35,12 @@ public class EdicaoService {
     public List<Edicao> listarEdicoes(){
         return edicaoRepository.findAll();
     }
+
+    public void excluirEdicao(String isbn) {
+        if(!edicaoRepository.existsById(isbn)) {
+            throw new IllegalStateException("Edição com ISBN " + isbn + " não encontrada.");
+        }
+        edicaoRepository.deleteById(isbn);
+    }
 }
 

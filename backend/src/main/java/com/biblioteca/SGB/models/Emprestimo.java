@@ -44,6 +44,7 @@ public class Emprestimo{
 
     @ManyToOne
     @JoinColumn(name = "copia_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Copia copia;
 
     public Emprestimo() {

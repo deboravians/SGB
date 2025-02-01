@@ -46,6 +46,11 @@ public class EdicaoController {
                 .map(edicao -> EdicaoDTO.fromEdicao(edicao, copiaService))
                 .collect(Collectors.toList());
     }
+
+    @DeleteMapping("/{isbn}")
+    public void excluirEdicao(@PathVariable String isbn) {
+        edicaoService.excluirEdicao(isbn);
+    }
 }
 
 

@@ -4,6 +4,8 @@ import com.biblioteca.SGB.services.CopiaService;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -35,6 +37,7 @@ public class Edicao{
 
     @ManyToOne
     @JoinColumn(name = "classificacao_codigo")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Classificacao classificacao;
 
     public Edicao(){
