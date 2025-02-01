@@ -37,7 +37,7 @@ const ModalDeCadastrarEdicoes: React.FC<ModalDeCadastrarEdicoesProps> = ({ isOpe
       titulo: nome,
       autor,
       anoPublicacao: ano, 
-      status: "Disponivel", 
+      status: "",
       qtdCopias: 0, 
     };
   

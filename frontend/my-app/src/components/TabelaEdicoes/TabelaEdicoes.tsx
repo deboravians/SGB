@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./TabelaEdicoes.module.css";
 import { Edicao } from "../../types/edicoes";
+import StatusTag from "../StatusTag/StatusTag";
 
 
 interface TabelaEdicoesProps {
@@ -25,7 +26,8 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({ edicoes }) => {
           <tr key={index}>
             <td>{edicao.isbn}</td>
             <td>{edicao.titulo}</td>
-            <td>{edicao.status}</td>
+            <td>
+              <StatusTag status={edicao.status as "Disponivel" | "Indisponivel"} tipo="edicao" /></td>
             <td className={styles.acoes}>
               <Link to={`/visualizar/${edicao.isbn}`} title="Visualizar">
                 <img
