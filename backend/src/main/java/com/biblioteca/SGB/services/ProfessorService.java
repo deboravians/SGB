@@ -1,8 +1,10 @@
 package com.biblioteca.SGB.services;
 
+import com.biblioteca.SGB.dto.ProfessorDTO;
 import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.models.Professor;
 import com.biblioteca.SGB.repository.ProfessorRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,4 +32,32 @@ public class ProfessorService {
         }
         professorRepository.deleteById(cpf);
     }
+
+    public Professor atualizarProfessor(String cpf, ProfessorDTO professorDTO) {
+        Professor professor = professorRepository.findById(cpf)
+                .orElseThrow(() -> new EntityNotFoundException("Professor com CPF " + cpf + " não encontrado"));
+
+        if(professorDTO.getNome() != null){
+            professor.setNome(professorDTO.getNome());
+        }
+        if(professorDTO.getCpf() != null){
+            professor.setCpf(professorDTO.getCpf());
+        }
+        if(professorDTO.getTelefone() != null){
+            professor.setTelefone(professorDTO.getTelefone());
+        }
+        if(professorDTO.getRua() != null){
+            professor.setRua(professorDTO.getRua());
+        }
+        if(professorDTO.getBairro() != null){
+            professor.setBairro(professorDTO.getBairro());
+        }
+        if(professorDTO.getDisciplina() != null){
+            professor.setDisciplina(professorDTO.getDisciplina());
+        }
+
+        return professorRepository.save(professor);
+    }
+
 }
+

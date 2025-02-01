@@ -1,6 +1,8 @@
 package com.biblioteca.SGB.controller;
 
+import com.biblioteca.SGB.dto.AlunoDTO;
 import com.biblioteca.SGB.dto.ProfessorDTO;
+import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.models.Professor;
 import com.biblioteca.SGB.services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,12 @@ public class ProfessorController {
     @DeleteMapping("/{cpf}")
     public void excluirProfessor(@PathVariable String cpf) {
         professorService.excluirProfessor(cpf);
+    }
+
+    @PutMapping("/{cpf}")
+    public ProfessorDTO atualizarProfessor(@PathVariable String cpf, @RequestBody ProfessorDTO professorDTO) {
+        Professor professorAtualizado = professorService.atualizarProfessor(cpf, professorDTO);
+        return ProfessorDTO.fromProfessor(professorAtualizado);
     }
 }
 
