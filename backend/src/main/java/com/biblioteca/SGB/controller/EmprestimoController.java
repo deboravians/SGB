@@ -35,4 +35,9 @@ public class EmprestimoController { // Usar essa classe pra fazer o requisito de
                 .collect(Collectors.toList());
     }
 
+    @DeleteMapping("/{id}")
+    public void excluirEmprestimo(@PathVariable Integer id) {
+        emprestimoService.excluirEmprestimo(id);
+    }
+
 }

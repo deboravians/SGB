@@ -55,4 +55,10 @@ public class EmprestimoService {
         return "Pendente";
     }
 
+    public void excluirEmprestimo(Integer idEmprestimo) {
+        if(!emprestimoRepository.existsById(idEmprestimo)) {
+            throw new IllegalStateException("Empréstimo com  " + idEmprestimo + " não encontrado.");
+        }
+        emprestimoRepository.deleteById(idEmprestimo);
+    }
 }
