@@ -1,85 +1,65 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./ModalCadastroDeEdicoes.module.css";
-import ModalCadastroDeClassificacao from "../../components/ModalCadastroDeClassificacao/ModalCadastroDeClassificacao";
+import DropdownClassificacao from "../DropdownClassificacao/DropdownClassificacao";
+import { Edicao } from "../../types/edicoes";
+import { cadastrarEdicao } from "../../api/edicoes";
+import { Classificacao } from "../../types/classificacoes";
 
+// const verificarStatus = (qtdCopiasEmprestadas: number) => {
+//   return qtdCopiasEmprestadas > 0 ? "indisponível" : "disponível";
+// };
 
-const DropdownClassificacao = () => {
-  
-  const classificacoes = [
-    "076-345 Ficção Científica",
-    "076-345 Romance",
-    "076-345 Fantasia",
-    "076-345 Biografia",
-    "076-345 Autoajuda",
-    "076-345 Autoajuda",
-    "076-345 Autoajuda",
-    "076-345 Autoajuda",
-    "076-345 Autoajuda",
-    "076-345 Autoajuda",
-    "076-345 Autoajuda",
-    "076-345 Autoajuda",
-  ];
+interface ModalDeCadastrarEdicoesProps {
+  isOpen: boolean;
+  onClose: () => void;
+  carregarEdicoes: () => void; // Nova prop para atualizar a tabela
+}
 
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const toggleModal = () => setIsModalOpen(!isModalOpen);
-
-  return (
-    
-    <nav className={styles.dropdownContainer}>
-      <div id="titu" className={styles.titu}> Classificação</div>
-      <ul>
-        <li className={styles.dropdown}>
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              setDropdownOpen(!dropdownOpen);
-            }}
-          >
-        Selecionar Classificação 
-        <img src="/public/assets/iconSeta.svg" alt="" />
-          </a>
-          {dropdownOpen && (
-            <div className={styles.dropdownContent}>
-              <button id="button" className={styles.buttonCadastrar}
-              onClick={toggleModal} >
-                <img src="/public/assets/iconCadastrar.svg" alt="" />Cadastrar classificação
-                <ModalCadastroDeClassificacao isOpen={isModalOpen} onClose={toggleModal} />
-              </button>
-              
-              {classificacoes.map((item, index) => (
-                <div key={index} className={styles.classificationItem}>
-                  <span>{item}</span>
-                  <div className={styles.iconGroup}>
-                    <img
-                      src="/public/assets/iconLapis.svg"
-                      alt="Editar"
-                      title="Editar"
-                      className={styles.icon}
-                    />
-                    <img
-                      src="/public/assets/iconlixeira.svg"
-                      alt="Excluir"
-                      title="Excluir"
-                      className={styles.icon}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </li>
-      </ul>
-    </nav>
-  );
-};
-
-const ModalDeCadastrarEdicoes = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+const ModalDeCadastrarEdicoes: React.FC<ModalDeCadastrarEdicoesProps> = ({ isOpen, onClose, carregarEdicoes }) => {
   const [nome, setNome] = useState("");
   const [isbn, setIsbn] = useState("");
   const [autor, setAutor] = useState("");
   const [ano, setAno] = useState("");
+  const [classificacaoSelecionada, setClassificacaoSelecionada] = useState<Classificacao | null>(null);
+
+  const handleClassificacaoSelecionada = (classificacao: Classificacao) => {
+    setClassificacaoSelecionada(classificacao); 
+  };
+
+  const handleCadastrar = async () => {
+    if (!classificacaoSelecionada) {
+      console.error("Classificação não selecionada.");
+      return;
+    }
+  
+    const novaEdicao: Edicao = {
+      isbn,
+      titulo: nome,
+      autor,
+      anoPublicacao: ano, 
+      status: "Disponivel", 
+      qtdCopias: 0, 
+    };
+  
+    try {
+
+      await cadastrarEdicao(novaEdicao, classificacaoSelecionada.codigo);
+
+      carregarEdicoes();
+  
+      setNome("");
+      setIsbn("");
+      setAutor("");
+      setAno("");
+      setClassificacaoSelecionada(null);
+      onClose();
+  
+      console.log("Edição cadastrada com sucesso");
+    } catch (error) {
+      console.error("Erro ao cadastrar edição:", error);
+    }
+  };
+  
 
   return isOpen ? (
     <div className={styles.modal}>
@@ -134,13 +114,13 @@ const ModalDeCadastrarEdicoes = ({ isOpen, onClose }: { isOpen: boolean; onClose
             </div>
           </div>
           
-          <DropdownClassificacao />
+          <DropdownClassificacao onSelectClassificacao={handleClassificacaoSelecionada} />
         </div>
   
         {/* Botões de Ação no canto inferior direito */}
         <div className={styles.actions}>
           <button className={styles.botaoCancelar} onClick={onClose}>Cancelar</button>
-          <button className={styles.botaoCadastrar}>Cadastrar</button>
+          <button className={styles.botaoCadastrar} onClick={handleCadastrar}>Cadastrar</button>
         </div>
       </div>
     </div>

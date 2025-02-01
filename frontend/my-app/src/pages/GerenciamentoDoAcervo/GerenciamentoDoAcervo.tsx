@@ -25,16 +25,6 @@ function GerenciamentoAcervo() {
     }
   };
 
-  // const salvarEdicao = async (edicao: Edicao) => {
-  //   try {
-  //     const novaEdicao = await cadastrarEdicao(edicao);
-  //     setEdicoes((prevEdicoes) => [...prevEdicoes, novaEdicao]); // Atualiza a lista local
-  //     setIsModalOpen(false); // Fecha o modal
-  //   } catch (error) {
-  //     alert("Erro ao cadastrar a edição.");
-  //   }
-  // };
-
   useEffect(() => {
     carregarEdicoes();
   }, []);
@@ -71,7 +61,7 @@ function GerenciamentoAcervo() {
             Cadastrar Edição
           </button>
         </div>
-        <ModalCadastroDeEdicoes isOpen={isModalOpen} onClose={toggleModal} />
+        <ModalCadastroDeEdicoes isOpen={isModalOpen} onClose={toggleModal} carregarEdicoes={carregarEdicoes}/>
         
         {/* Tabela */}
         {loading ? (
