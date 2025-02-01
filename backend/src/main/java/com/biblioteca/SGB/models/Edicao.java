@@ -60,6 +60,6 @@ public class Edicao{
         int cont = 0;
         for(Copia copia : copias){ if(copia.getStatus().equals("Emprestado")){ cont++; } }
 
-        return cont <= getQtdCopias(copiaService, edicao) ? "Disponivel" : "Indisponivel";
+        return cont <= getQtdCopias(copiaService, edicao) ? "Disponível" : "Indisponível";
     }
 }
