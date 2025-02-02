@@ -7,6 +7,7 @@ import App from './App'
 import Home from './pages/Home/Home'
 import LeitoresAlunos from './pages/LeitoresAlunos/LeitoresAlunos'
 import LeitoresProfessores from './pages/LeitoresProfessores/LeitoresProfessores'
+import GerenciamentoDeEmprestimoseDevolucoes from './pages/GerenciamentoDeEmprestimoseDevolucoes/EmprestimoeDevolucoes';
 import GerenciamentoAcervo from './pages/GerenciamentoDoAcervo/GerenciamentoDoAcervo'
 const router = createBrowserRouter([
   {
@@ -33,6 +34,11 @@ const router = createBrowserRouter([
       {
         path: "/livros",
         element: <GerenciamentoAcervo />
+      },
+  
+      {
+        path: "/emprestimos",
+        element: <GerenciamentoDeEmprestimoseDevolucoes />
       },
   
       
