@@ -30,6 +30,6 @@ public class EmprestimoProfessorController {
 
         Emprestimo novoEmprestimo = emprestimoProfessorService.cadastrarEmprestimo(emprestimo, idCopia, cpfProfessor);
 
-        return EmprestimoDTO.fromEmprestimo(novoEmprestimo, emprestimoService);
+        return EmprestimoDTO.fromEmprestimo(novoEmprestimo, novoEmprestimo.getStatus());
     }
 }

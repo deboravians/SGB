@@ -48,7 +48,7 @@ public class EmprestimoDTO {
         this.copia = copia;
     }
 
-    public static EmprestimoDTO fromEmprestimo(Emprestimo emprestimo, EmprestimoService emprestimoService) {
+    public static EmprestimoDTO fromEmprestimo(Emprestimo emprestimo, String status) {
         if (emprestimo.getAluno() != null) {
             return new EmprestimoDTO(
                     emprestimo.getAluno(),
@@ -56,7 +56,7 @@ public class EmprestimoDTO {
                     emprestimo.getDataEmprestimo(),
                     emprestimo.getDataPrevistaDevolucao(),
                     emprestimo.getDataDevolucao(),
-                    emprestimoService.calcularStatus(emprestimo),
+                    status,
                     emprestimo.getCopia()
             );
         } else if (emprestimo.getProfessor() != null) {
@@ -66,7 +66,7 @@ public class EmprestimoDTO {
                     emprestimo.getDataEmprestimo(),
                     emprestimo.getDataPrevistaDevolucao(),
                     emprestimo.getDataDevolucao(),
-                    emprestimoService.calcularStatus(emprestimo),
+                    status,
                     emprestimo.getCopia()
             );
         }

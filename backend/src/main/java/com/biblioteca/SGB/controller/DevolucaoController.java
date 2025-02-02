@@ -23,8 +23,8 @@ public class DevolucaoController {
         Emprestimo devolucao = emprestimoService.getEmprestimoById(id);
         devolucao.setDataDevolucao(emprestimoDTO.getDataDevolucao());
 
-        Emprestimo novaDevolucao = devolucaoService.registrarDevolucao(devolucao, emprestimoService);
+        Emprestimo novaDevolucao = devolucaoService.registrarDevolucao(devolucao);
 
-        return EmprestimoDTO.fromEmprestimo(novaDevolucao, emprestimoService);
+        return EmprestimoDTO.fromEmprestimo(novaDevolucao, emprestimoService.calcularStatus(novaDevolucao));
     }
 }

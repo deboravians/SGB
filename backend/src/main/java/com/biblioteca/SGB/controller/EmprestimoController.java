@@ -23,7 +23,7 @@ public class EmprestimoController { // Usar essa classe pra fazer o requisito de
 
         Emprestimo emprestimo = emprestimoService.aumentarPrazo(idEmprestimo);
 
-        return EmprestimoDTO.fromEmprestimo(emprestimo, emprestimoService);
+        return EmprestimoDTO.fromEmprestimo(emprestimo, emprestimoService.calcularStatus(emprestimo));
 
     }
 
@@ -31,7 +31,7 @@ public class EmprestimoController { // Usar essa classe pra fazer o requisito de
     public List<EmprestimoDTO> listarEmprestimos() {
         List<Emprestimo> emprestimos = emprestimoService.listarEmprestimos();
         return emprestimos.stream()
-                .map(emprestimo -> EmprestimoDTO.fromEmprestimo(emprestimo, emprestimoService))
+                .map(emprestimo -> EmprestimoDTO.fromEmprestimo(emprestimo, emprestimoService.calcularStatus(emprestimo)))
                 .collect(Collectors.toList());
     }
 

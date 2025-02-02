@@ -21,7 +21,7 @@ public class DevolucaoService {
     @Autowired
     private CopiaRepository copiaRepository;
 
-    public Emprestimo registrarDevolucao(Emprestimo devolucao, EmprestimoService emprestimoService) {
+    public Emprestimo registrarDevolucao(Emprestimo devolucao) {
 
         if(devolucao.getId() == null){
             throw new IllegalStateException("emprestimo não encontrado no banco de dados!");

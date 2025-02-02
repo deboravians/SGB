@@ -30,7 +30,7 @@ public class EmprestimoAlunoController {
 
         Emprestimo novoEmprestimo = emprestimoAlunoService.cadastrarEmprestimo(emprestimo, idCopia, matriculaAluno);
 
-        return EmprestimoDTO.fromEmprestimo(novoEmprestimo, emprestimoService);
+        return EmprestimoDTO.fromEmprestimo(novoEmprestimo, novoEmprestimo.getStatus());
     }
 }
 
