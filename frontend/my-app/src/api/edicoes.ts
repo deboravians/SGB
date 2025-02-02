@@ -16,10 +16,10 @@ export const cadastrarEdicao = async (edicao: Edicao): Promise<Edicao> => {
   return response.json();
 };
 
-export const listarEdicoes = async () : Promise<Edicao[]> => {
+export const listarEdicoes = async (): Promise<Edicao[]> => {
   const response = await fetch("http://localhost:8080/edicoes");
 
-  if(!response.ok) {
+  if (!response.ok) {
     throw new Error("Erro ao buscar as edições.");
   }
 
