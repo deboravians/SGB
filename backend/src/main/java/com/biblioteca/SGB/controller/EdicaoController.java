@@ -31,10 +31,11 @@ public class EdicaoController {
         );
 
         Edicao edicaoCadastrada = edicaoService.cadastrarEdicao(edicao, classificacao_codigo);
-        edicaoCadastrada.setQtdCopias(edicaoCadastrada.getQtdCopias(copiaService, edicaoCadastrada));
-        edicaoCadastrada.setStatus(edicaoCadastrada.getStatus(copiaService, edicaoCadastrada));
 
-        return EdicaoDTO.fromEdicao(edicaoCadastrada, copiaService);
+        return EdicaoDTO.fromEdicao(
+                edicaoCadastrada,
+                edicaoService.calcularStatus(edicaoCadastrada),
+                edicaoService.calcularQtdCopias(edicaoCadastrada));
     }
 
     @GetMapping
@@ -43,7 +44,10 @@ public class EdicaoController {
         List<Edicao> edicoes = edicaoService.listarEdicoes();
 
         return edicoes.stream()
-                .map(edicao -> EdicaoDTO.fromEdicao(edicao, copiaService))
+                .map(edicao -> EdicaoDTO.fromEdicao(
+                        edicao,
+                        edicaoService.calcularStatus(edicao),
+                        edicaoService.calcularQtdCopias(edicao)))
                 .collect(Collectors.toList());
     }
 

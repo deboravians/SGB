@@ -50,16 +50,4 @@ public class Edicao{
         this.anoPublicacao = anoPublicacao;
     }
 
-    public int getQtdCopias(CopiaService copiaService, Edicao edicao) {
-        return copiaService.listarCopias(edicao).size();
-    }
-
-    public String getStatus(CopiaService copiaService, Edicao edicao) {
-        List<Copia> copias = copiaService.listarCopias(edicao);
-
-        int cont = 0;
-        for(Copia copia : copias){ if(copia.getStatus().equals("Emprestado")){ cont++; } }
-
-        return cont <= getQtdCopias(copiaService, edicao) ? "Disponível" : "Indisponível";
-    }
 }

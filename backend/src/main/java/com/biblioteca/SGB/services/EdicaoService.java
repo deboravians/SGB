@@ -1,6 +1,7 @@
 package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.models.Classificacao;
+import com.biblioteca.SGB.models.Copia;
 import com.biblioteca.SGB.models.Edicao;
 import com.biblioteca.SGB.repository.ClassificacaoRepository;
 import com.biblioteca.SGB.repository.EdicaoRepository;
@@ -17,6 +18,9 @@ public class EdicaoService {
 
     @Autowired
     private ClassificacaoRepository classificacaoRepository;
+
+    @Autowired
+    private CopiaService copiaService;
 
     public Edicao cadastrarEdicao(Edicao edicao, String classificacao_codigo) {
 
@@ -42,5 +46,19 @@ public class EdicaoService {
         }
         edicaoRepository.deleteById(isbn);
     }
+
+    public int calcularQtdCopias(Edicao edicao) {
+        return copiaService.listarCopias(edicao).size();
+    }
+
+    public String calcularStatus(Edicao edicao) {
+        List<Copia> copias = copiaService.listarCopias(edicao);
+
+        int cont = 0;
+        for(Copia copia : copias){ if(copia.getStatus().equals("Emprestada")){ cont++; } }
+
+        return cont < calcularQtdCopias(edicao) ? "Disponível" : "Indisponível";
+    }
+
 }
 

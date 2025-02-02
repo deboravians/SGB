@@ -32,14 +32,14 @@ public class EdicaoDTO {
         this.classificacao = classificacao;
     }
 
-    public static EdicaoDTO fromEdicao(Edicao edicao, CopiaService copiaService) {
+    public static EdicaoDTO fromEdicao(Edicao edicao, String status, int qtdCopias) {
         return new EdicaoDTO(
                 edicao.getIsbn(),
                 edicao.getTitulo(),
                 edicao.getAutor(),
                 edicao.getAnoPublicacao(),
-                edicao.getStatus(copiaService, edicao),
-                edicao.getQtdCopias(copiaService, edicao),
+                status,
+                qtdCopias,
                 edicao.getClassificacao()
 
         );
