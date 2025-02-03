@@ -37,4 +37,10 @@ public class ClassificacaoController {
                 .map(ClassificacaoDTO::fromClassificacao)
                 .collect(Collectors.toList());
     }
+
+    @DeleteMapping("/{codigo}")
+    public void excluirClassificacao(@PathVariable String codigo) {
+        classificacaoService.excluirClassificacao(codigo);
+    }
+
 }

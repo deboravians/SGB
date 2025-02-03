@@ -31,7 +31,6 @@ public class AlunoService {
         alunoRepository.deleteById(matricula);
     }
 
-
     public Aluno atualizarAluno(String matricula, AlunoDTO alunoDTO) {
         Aluno aluno = alunoRepository.findById(matricula)
                     .orElseThrow(() -> new EntityNotFoundException("Aluno com matrícula " + matricula + " não encontrado"));

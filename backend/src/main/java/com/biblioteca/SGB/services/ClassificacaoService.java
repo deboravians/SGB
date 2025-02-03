@@ -26,4 +26,11 @@ public class ClassificacaoService {
 
     }
 
+    public void excluirClassificacao(String codigo){
+        if (!classificacaoRepository.findById(codigo).isPresent()) {
+            throw new IllegalArgumentException("Não existe uma classificação com esse codigo.");
+        }
+        classificacaoRepository.deleteById(codigo);
+    }
+
 }
