@@ -2,7 +2,7 @@ import { useState } from "react";
 import TabelaEmprestimos from "../../components/TabelaEmprestimos/TabelaEmprestimos";
 import styles from "./EmprestimoseDevolucoes.module.css";
 import CardInfors from "../../components/CardInfors/CardInfors";
-////import ModalLeitor from "../../components/ModalLeitor/ModalLeitor";
+import ModalLeitor from "../../components/ModalLeitor/ModalLeitor";
             
 const emprestimos = [
   {livro: "O pequeno príncipe", leitor: "Francisco Werley", isbn: "000-00-00000-00-0", status: "", ações:"" },
@@ -31,7 +31,7 @@ function GerenciamentoEmprestimos() {
         <div className={styles.acoesContainer}>
           <input
             type="text"
-            placeholder="Pesquisar livros..."
+            placeholder="Pesquisar Empréstimos..."
             className={styles.campoPesquisa}
           />
           <button
@@ -47,7 +47,12 @@ function GerenciamentoEmprestimos() {
         </div> 
         {/* Tabela */}
         <TabelaEmprestimos emprestimos={emprestimos} />
-
+        {isModalOpen && (
+          <ModalLeitor
+            isOpen={isModalOpen}
+            onClose={toggleModal} 
+          />
+        )}
       </div>
     </div>
   );
