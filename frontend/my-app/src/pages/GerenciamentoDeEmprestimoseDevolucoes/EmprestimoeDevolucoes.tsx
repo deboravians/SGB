@@ -1,8 +1,14 @@
 import { useState } from "react";
-////import TabelaEmprestimos from "../../components/TabelaEmprestimos/TabelaEmprestimos";
+import TabelaEmprestimos from "../../components/TabelaEmprestimos/TabelaEmprestimos";
 import styles from "./EmprestimoseDevolucoes.module.css";
 import CardInfors from "../../components/CardInfors/CardInfors";
 ////import ModalLeitor from "../../components/ModalLeitor/ModalLeitor";
+            
+const emprestimos = [
+  {livro: "O pequeno príncipe", leitor: "Francisco Werley", isbn: "000-00-00000-00-0", status: "", ações:"" },
+  {livro: "O pequeno príncipe", leitor: "Francisco Werley", isbn: "000-00-00000-00-0", status: "", ações:""  },
+];       
+
 
 function GerenciamentoEmprestimos() {
 
@@ -40,6 +46,8 @@ function GerenciamentoEmprestimos() {
           </button>
         </div> 
         {/* Tabela */}
+        <TabelaEmprestimos emprestimos={emprestimos} />
+
       </div>
     </div>
   );
