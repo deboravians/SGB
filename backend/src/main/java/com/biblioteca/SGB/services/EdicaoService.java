@@ -1,10 +1,12 @@
 package com.biblioteca.SGB.services;
 
+import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.models.Classificacao;
 import com.biblioteca.SGB.models.Copia;
 import com.biblioteca.SGB.models.Edicao;
 import com.biblioteca.SGB.repository.ClassificacaoRepository;
 import com.biblioteca.SGB.repository.EdicaoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +47,23 @@ public class EdicaoService {
             throw new IllegalStateException("Edição com ISBN " + isbn + " não encontrada.");
         }
         edicaoRepository.deleteById(isbn);
+    }
+
+    public Edicao atualizarEdicao(String isbn, Edicao edicaoAtualizada, String classificacao_codigo) {
+
+        Edicao edicao = edicaoRepository.findById(isbn)
+                .orElseThrow(() -> new EntityNotFoundException("Não existe uma edição com este ISBN."));
+
+        if(!edicao.getIsbn().equals(edicaoAtualizada.getIsbn())) {
+            throw new IllegalArgumentException("o ISBN não pode ser alterado");
+        }
+
+        Classificacao classificacao = classificacaoRepository.findById(classificacao_codigo)
+                .orElseThrow(() -> new RuntimeException("Classificação não encontrada"));
+
+        edicaoAtualizada.setClassificacao(classificacao);
+
+        return edicaoRepository.save(edicaoAtualizada);
     }
 
     public int calcularQtdCopias(Edicao edicao) {

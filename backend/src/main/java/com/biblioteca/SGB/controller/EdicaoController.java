@@ -1,6 +1,8 @@
 package com.biblioteca.SGB.controller;
 
+import com.biblioteca.SGB.dto.AlunoDTO;
 import com.biblioteca.SGB.dto.EdicaoDTO;
+import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.models.Edicao;
 import com.biblioteca.SGB.services.CopiaService;
 import com.biblioteca.SGB.services.EdicaoService;
@@ -54,6 +56,25 @@ public class EdicaoController {
     @DeleteMapping("/{isbn}")
     public void excluirEdicao(@PathVariable String isbn) {
         edicaoService.excluirEdicao(isbn);
+    }
+
+    @PutMapping("/{isbn}")
+    public EdicaoDTO atualizarEdicao(@PathVariable String isbn, @RequestBody EdicaoDTO edicaoDTO, @RequestParam String classificacao_codigo){
+
+        Edicao edicao = new Edicao(
+                edicaoDTO.getIsbn(),
+                edicaoDTO.getTitulo(),
+                edicaoDTO.getAutor(),
+                edicaoDTO.getAnoPublicacao()
+        );
+
+        Edicao edicaoAtualizada = edicaoService.atualizarEdicao(isbn, edicao, classificacao_codigo);
+
+        return EdicaoDTO.fromEdicao(
+                edicaoAtualizada,
+                edicaoService.calcularStatus(edicaoAtualizada),
+                edicaoService.calcularQtdCopias(edicaoAtualizada));
+
     }
 }
 
