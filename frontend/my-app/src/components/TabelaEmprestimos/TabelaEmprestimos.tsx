@@ -1,7 +1,8 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./TabelaEmprestimos.module.css";
 import StatusTag from "../StatusTag/StatusTag";
+import React, { useState } from "react";
+import ModalExcluirEmprestimo from '../ModalExcluirEmprestimo/ModalExcluirEmprestimo';
 
 interface Emprestimo {
   livro: string;
@@ -15,6 +16,25 @@ interface TabelaEmprestimosProps {
 }
 
 const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedEmprestimo, setSelectedEmprestimo] = useState<Emprestimo | null>(null);
+
+  const handleOpenModal = (emprestimo: Emprestimo) => {
+    setSelectedEmprestimo(emprestimo);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedEmprestimo(null);
+  };
+
+  const handleConfirmDelete = () => {
+    if (selectedEmprestimo) {
+      // Lógica para deletar o aluno via backend pode ser adicionada aqui
+      handleCloseModal();
+    }
+  };
   return (
     <table className={styles.tabelaEmprestimos}>
       <thead>
@@ -58,14 +78,14 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
               <button
                 className={styles.icone}
                 title="Excluir empréstimo"
-         
+                onClick={() => handleOpenModal(emprestimo)}
               >
                 <img src="/public/assets/iconlixeira.svg" alt="Devolvido" />
               </button>
               <button
                 className={styles.icone}
                 title="Marcar como devolvido"
-                onClick={() => alert("Marcar como devolvido")}
+          
               >
                 <img src="/public/assets/iconOk.svg" alt="Devolvido" />
               </button>
@@ -73,7 +93,14 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
           </tr>
         ))}
       </tbody>
+      <ModalExcluirEmprestimo 
+       isOpen={isModalOpen} 
+       onClose={handleCloseModal} 
+       onConfirm={handleConfirmDelete} 
+     />
     </table>
+   
+ 
   );
 };
 
