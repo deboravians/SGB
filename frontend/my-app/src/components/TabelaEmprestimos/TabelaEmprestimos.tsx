@@ -3,6 +3,7 @@ import styles from "./TabelaEmprestimos.module.css";
 import StatusTag from "../StatusTag/StatusTag";
 import React, { useState } from "react";
 import ModalExcluirEmprestimo from '../ModalExcluirEmprestimo/ModalExcluirEmprestimo';
+import ModalProrrogarPrazo from '../ModalProrrogarPrazo/ModalProrrogarPrazo';
 
 interface Emprestimo {
   livro: string;
@@ -16,16 +17,25 @@ interface TabelaEmprestimosProps {
 }
 
 const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isExcluirModalOpen, setIsExcluirModalOpen] = useState(false);
+  const [isProrrogarModalOpen, setIsProrrogarModalOpen] = useState(false);
   const [selectedEmprestimo, setSelectedEmprestimo] = useState<Emprestimo | null>(null);
 
-  const handleOpenModal = (emprestimo: Emprestimo) => {
+  const handleOpenExcluirModal = (emprestimo: Emprestimo) => {
     setSelectedEmprestimo(emprestimo);
-    setIsModalOpen(true);
+    setIsExcluirModalOpen(true);
+    setIsProrrogarModalOpen(false); // Fecha a modal de prorrogação se ela estiver aberta
+  };
+
+  const handleOpenProrrogarModal = (emprestimo: Emprestimo) => {
+    setSelectedEmprestimo(emprestimo);
+    setIsProrrogarModalOpen(true);
+    setIsExcluirModalOpen(false); // Fecha a modal de exclusão se ela estiver aberta
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false);
+    setIsExcluirModalOpen(false);
+    setIsProrrogarModalOpen(false);
     setSelectedEmprestimo(null);
   };
 
@@ -35,6 +45,7 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
       handleCloseModal();
     }
   };
+
   return (
     <table className={styles.tabelaEmprestimos}>
       <thead>
@@ -54,13 +65,15 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
             <td>{emprestimo.isbn}</td>
             <td><StatusTag status={emprestimos.status as "Disponivel" | "Indisponivel"} tipo="edicao" /></td>
             <td className={styles.acoes}>
-              <Link to={`/visualizar/${emprestimo}`} title="Prorrogar prazo">
+              <button         
+                className={styles.icone0}
+                onClick={() => handleOpenProrrogarModal(emprestimo)} // Abre a modal de prorrogação
+                title="Prorrogar prazo">
                 <img
                   src="/public/assets/iconProrrogar.svg"
                   alt="Prorrogar prazo"
-                  className={styles.icone0}
                 />
-              </Link>
+              </button>
               <Link to={`/visualizar/${emprestimo}`} title="Livro extraviado">
                 <img
                   src="/public/assets/iconExtraviado.svg"
@@ -78,14 +91,13 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
               <button
                 className={styles.icone}
                 title="Excluir empréstimo"
-                onClick={() => handleOpenModal(emprestimo)}
+                onClick={() => handleOpenExcluirModal(emprestimo)} // Abre a modal de exclusão
               >
                 <img src="/public/assets/iconlixeira.svg" alt="Devolvido" />
               </button>
               <button
                 className={styles.icone}
                 title="Marcar como devolvido"
-          
               >
                 <img src="/public/assets/iconOk.svg" alt="Devolvido" />
               </button>
@@ -94,24 +106,18 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
         ))}
       </tbody>
       <ModalExcluirEmprestimo 
-       isOpen={isModalOpen} 
-       onClose={handleCloseModal} 
-       onConfirm={handleConfirmDelete} 
-     />
+        isOpen={isExcluirModalOpen} 
+        onClose={handleCloseModal} 
+        onConfirm={handleConfirmDelete} 
+      />
+
+      <ModalProrrogarPrazo 
+        isOpen={isProrrogarModalOpen} 
+        onClose={handleCloseModal} 
+        onConfirm={handleConfirmDelete} 
+      />
     </table>
-   
- 
   );
 };
 
 export default TabelaEmprestimos;
-
-
-
-
- 
-
-
-
-      
-        

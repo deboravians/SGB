@@ -31,7 +31,7 @@ function GerenciamentoEmprestimos() {
         <div className={styles.acoesContainer}>
           <input
             type="text"
-            placeholder="Pesquisar livros..."
+            placeholder="Pesquisar Empréstimos..."
             className={styles.campoPesquisa}
           />
           <button
