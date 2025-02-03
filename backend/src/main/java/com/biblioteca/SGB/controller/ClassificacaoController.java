@@ -1,7 +1,9 @@
 package com.biblioteca.SGB.controller;
 
 import com.biblioteca.SGB.dto.ClassificacaoDTO;
+import com.biblioteca.SGB.dto.EdicaoDTO;
 import com.biblioteca.SGB.models.Classificacao;
+import com.biblioteca.SGB.models.Edicao;
 import com.biblioteca.SGB.services.ClassificacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +43,20 @@ public class ClassificacaoController {
     @DeleteMapping("/{codigo}")
     public void excluirClassificacao(@PathVariable String codigo) {
         classificacaoService.excluirClassificacao(codigo);
+    }
+
+    @PutMapping("/{codigo}")
+    public ClassificacaoDTO atualizarClassificacao(@PathVariable String codigo, @RequestBody ClassificacaoDTO classificacaoDTO){
+
+        Classificacao classificacao = new Classificacao(
+                classificacaoDTO.getCodigo(),
+                classificacaoDTO.getTitulo()
+        );
+
+        Classificacao classificacaoAtualizada = classificacaoService.atualizarClassificacao(codigo, classificacao);
+
+        return ClassificacaoDTO.fromClassificacao(classificacaoAtualizada);
+
     }
 
 }
