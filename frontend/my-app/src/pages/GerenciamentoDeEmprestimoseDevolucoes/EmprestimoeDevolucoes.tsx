@@ -3,18 +3,32 @@ import TabelaEmprestimos from "../../components/TabelaEmprestimos/TabelaEmpresti
 import styles from "./EmprestimoseDevolucoes.module.css";
 import CardInfors from "../../components/CardInfors/CardInfors";
 import ModalLeitor from "../../components/ModalLeitor/ModalLeitor";
-            
+import ModalRealizarEmprestimo from "../../components/ModalRealizarEmprestimo/ModalRealizarEmprestimo";
+
 const emprestimos = [
-  {livro: "O pequeno príncipe", leitor: "Francisco Werley", isbn: "000-00-00000-00-0", status: "", ações:"" },
-  {livro: "O pequeno príncipe", leitor: "Francisco Werley", isbn: "000-00-00000-00-0", status: "", ações:""  },
-];       
+  { livro: "O pequeno príncipe", leitor: "Francisco Werley", isbn: "000-00-00000-00-0", status: "", ações: "" },
+  { livro: "O pequeno príncipe", leitor: "Francisco Werley", isbn: "000-00-00000-00-0", status: "", ações: "" },
+];
 
 
 function GerenciamentoEmprestimos() {
+  const [isModalLeitorOpen, setIsModalLeitorOpen] = useState(false);
+  const [isModalEmprestimoOpen, setIsModalEmprestimoOpen] = useState(false);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const toggleModalLeitor = () => setIsModalLeitorOpen(!isModalLeitorOpen);
+  const toggleModalEmprestimo = () => setIsModalEmprestimoOpen(!isModalEmprestimoOpen);
 
-  const toggleModal = () => setIsModalOpen(!isModalOpen);
+  const handleConfirmLeitor = () => {
+    // Fecha a ModalLeitor e abre a ModalEmprestimo
+    setIsModalLeitorOpen(false);
+    setIsModalEmprestimoOpen(true);
+  };
+
+  const handleConfirmEmprestimo = () => {
+    // Fecha todas as modais
+    setIsModalLeitorOpen(false);
+    setIsModalEmprestimoOpen(false);
+  };
 
   return (
     <div className={styles.mainContent}>
@@ -36,7 +50,7 @@ function GerenciamentoEmprestimos() {
           />
           <button
             className={styles.botaoCadastrar}
-            onClick={toggleModal}>
+            onClick={toggleModalLeitor}>
             <img
               src="/public/assets/iconCadastrar.svg"
               alt="Cadastrar"
@@ -44,13 +58,22 @@ function GerenciamentoEmprestimos() {
             />
             Realizar empréstimo
           </button>
-        </div> 
+        </div>
         {/* Tabela */}
         <TabelaEmprestimos emprestimos={emprestimos} />
-        {isModalOpen && (
+        {isModalLeitorOpen && (
           <ModalLeitor
-            isOpen={isModalOpen}
-            onClose={toggleModal} 
+            isOpen={isModalLeitorOpen}
+            onClose={toggleModalLeitor}
+            onConfirm={handleConfirmLeitor} // Passa a função de confirmação
+          />
+        )}
+
+        {isModalEmprestimoOpen && (
+          <ModalRealizarEmprestimo
+            isOpen={isModalEmprestimoOpen}
+            onClose={toggleModalEmprestimo}
+            onConfirm={handleConfirmEmprestimo} // Passa a função de confirmação
           />
         )}
       </div>
