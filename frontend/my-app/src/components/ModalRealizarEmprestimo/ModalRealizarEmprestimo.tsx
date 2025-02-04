@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./ModalRealizarEmprestimo.module.css";
 import DropdownLivros from "../DropdownLivros/DropdownLivros";
-//import DropdownLeitores from "../../../../../../modais/DropdownLeitores/DropdownLeitores";
+import DropdownLeitores from "../DropdownLeitores/DropdownLeitores";
 
 const ModalRealizarEmprestimo = ({
   isOpen,
@@ -14,10 +14,16 @@ const ModalRealizarEmprestimo = ({
 }) => {
   const [ano, setAno] = useState("");
   const [leitorSelecionado, setLeitorSelecionado] = useState<any>(null);
+  const [livroSelecionado, setLivroSelecionado] = useState<any>(null);
 
    const handleLivroSelecionado = (livro: any) => {
     setLivroSelecionado(livro); // Atualiza o livro selecionado
   };
+ 
+const handleLeitorSelecionado = (leitor: any) => {
+  setLeitorSelecionado(leitor); // Atualiza o leitor selecionado
+};
+
 
   return isOpen ? (
     <div className={styles.modal}>
@@ -28,6 +34,10 @@ const ModalRealizarEmprestimo = ({
           <div className={styles.inputWrapper}>
               <label className={styles.titulo}>Livro</label>
               <DropdownLivros onSelectLivro={handleLivroSelecionado} />
+            </div>
+            <div className={styles.inputWrapper}>
+              <label className={styles.titulo}>Leitor</label>
+              <DropdownLeitores onSelectLeitor={handleLeitorSelecionado} />
             </div>
             <div className={styles.inputWrapper}>
               <label className={styles.titulo}>Data de Empréstimo</label>
