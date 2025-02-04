@@ -3,12 +3,16 @@ import styles from "./DropdownClassificacao.module.css";
 import ModalCadastroDeClassificacao from "../ModalCadastroDeClassificacao/ModalCadastroDeClassificacao";
 import { listarClassificacoes } from "../../api/classificacoes";
 import { Classificacao } from "../../types/classificacoes";
+import ModalEditarClassificacao from "../ModalEditarClassificacao/ModalEditarClassificacao";
 
 const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificacao: (classificacao: Classificacao) => void }) => {
   const [classificacoes, setClassificacoes] = useState<Classificacao[]>([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [classificacaoSelecionada, setClassificacaoSelecionada] = useState<Classificacao | null>(null); // Novo estado
+  const [isModalCadastroOpen, setIsModalCadastroOpen] = useState(false);
+  const [isModalEditarOpen, setIsModalEditarOpen] = useState(false);
+
+  const [classificacaoSelecionada, setClassificacaoSelecionada] = useState<Classificacao | null>(null);
+  const [classificacaoEditar, setClassificacaoEditar] = useState<Classificacao | null>(null);
 
   useEffect(() => {
     const fetchClassificacoes = async () => {
@@ -20,30 +24,24 @@ const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificaca
       }
     };
     fetchClassificacoes();
-  }, []); 
+  }, []);
 
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
 
-  const toggleModal = () => setIsModalOpen(!isModalOpen);
-
-  const handleCadastro = async () => {
-    try {
-      // Atualiza a lista de classificações após cadastrar uma nova
-      const updatedClassificacoes = await listarClassificacoes();
-      setClassificacoes(updatedClassificacoes);
-
-      toggleModal();
-    } catch (error) {
-      console.error("Erro ao cadastrar classificação:", error);
-    }
-  };
+  const toggleModalCadastro = () => setIsModalCadastroOpen(!isModalCadastroOpen);
+  const toggleModalEditar = () => setIsModalEditarOpen(!isModalEditarOpen);
 
   const handleSelectClassificacao = (classificacao: Classificacao) => {
-    setClassificacaoSelecionada(classificacao); // Atualiza o estado da classificação selecionada
-    onSelectClassificacao(classificacao); // Passa a classificação selecionada para o componente pai
-    setDropdownOpen(false); // Fecha o dropdown após a seleção
+    setClassificacaoSelecionada(classificacao);
+    onSelectClassificacao(classificacao);
+    setDropdownOpen(false);
+  };
+
+  const handleEditarClassificacao = (classificacao: Classificacao) => {
+    setClassificacaoEditar(classificacao);
+    toggleModalEditar();
   };
 
   return (
@@ -55,29 +53,40 @@ const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificaca
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              toggleDropdown(); 
+              toggleDropdown();
             }}
           >
-            {classificacaoSelecionada ? `${classificacaoSelecionada.codigo} - ${classificacaoSelecionada.titulo}` : "Selecionar Classificação"} {/* Exibe o nome da classificação selecionada */}
+            {classificacaoSelecionada
+              ? `${classificacaoSelecionada.codigo} - ${classificacaoSelecionada.titulo}`
+              : "Selecionar Classificação"}
             <img src="/public/assets/iconSeta.svg" alt="" />
           </a>
           {dropdownOpen && (
             <div className={styles.dropdownContent}>
-              <button className={styles.buttonCadastrar} onClick={toggleModal}>
+              <button className={styles.buttonCadastrar} onClick={toggleModalCadastro}>
                 <img src="/public/assets/iconCadastrar.svg" alt="" />
                 Cadastrar classificação
               </button>
 
               {classificacoes.map((item) => (
-                <div 
-                  key={item.codigo} 
+                <div
+                  key={item.codigo}
                   className={styles.classificationItem}
-                  onClick={() => handleSelectClassificacao(item)} // Ao clicar, seleciona a classificação
+                  onClick={() => handleSelectClassificacao(item)}
                 >
                   <span>{item.codigo}</span>
                   <span>{item.titulo}</span>
                   <div className={styles.iconGroup}>
-                    <img src="/public/assets/iconLapis.svg" alt="Editar" title="Editar" className={styles.icon} />
+                    <img
+                      src="/public/assets/iconLapis.svg"
+                      alt="Editar"
+                      title="Editar"
+                      className={styles.icon}
+                      onClick={(e) => {
+                        e.stopPropagation(); // Evita a propagação do clique para o dropdown
+                        handleEditarClassificacao(item);
+                      }}
+                    />
                     <img src="/public/assets/iconlixeira.svg" alt="Excluir" title="Excluir" className={styles.icon} />
                   </div>
                 </div>
@@ -86,12 +95,11 @@ const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificaca
           )}
         </li>
       </ul>
-      {isModalOpen && (
-        <ModalCadastroDeClassificacao
-          isOpen={isModalOpen}
-          onClose={toggleModal}
-          onClassificacaoCadastrada={handleCadastro} // Atualiza a lista de classificações após o cadastro
-        />
+      {isModalCadastroOpen && (
+        <ModalCadastroDeClassificacao isOpen={isModalCadastroOpen} onClose={toggleModalCadastro} />
+      )}
+      {isModalEditarOpen && classificacaoEditar && (
+        <ModalEditarClassificacao isOpen={isModalEditarOpen} onClose={toggleModalEditar} />
       )}
     </nav>
   );
