@@ -4,15 +4,17 @@ import ModalCadastroDeClassificacao from "../ModalCadastroDeClassificacao/ModalC
 import { listarClassificacoes } from "../../api/classificacoes";
 import { Classificacao } from "../../types/classificacoes";
 import ModalEditarClassificacao from "../ModalEditarClassificacao/ModalEditarClassificacao";
-
+import ModalExcluirClassificacao from "../ModalExcluirClassificacao/ModalExcluirClassificacao";
 const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificacao: (classificacao: Classificacao) => void }) => {
   const [classificacoes, setClassificacoes] = useState<Classificacao[]>([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isModalCadastroOpen, setIsModalCadastroOpen] = useState(false);
   const [isModalEditarOpen, setIsModalEditarOpen] = useState(false);
+  const [isModalExcluirOpen, setIsModalExcluirOpen] = useState(false);
 
   const [classificacaoSelecionada, setClassificacaoSelecionada] = useState<Classificacao | null>(null);
   const [classificacaoEditar, setClassificacaoEditar] = useState<Classificacao | null>(null);
+  const [classificacaoExcluir, setClassificacaoExcluir] = useState<Classificacao | null>(null);
 
   useEffect(() => {
     const fetchClassificacoes = async () => {
@@ -32,6 +34,7 @@ const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificaca
 
   const toggleModalCadastro = () => setIsModalCadastroOpen(!isModalCadastroOpen);
   const toggleModalEditar = () => setIsModalEditarOpen(!isModalEditarOpen);
+  const toggleModalExcluir = () => setIsModalExcluirOpen(!isModalExcluirOpen);
 
   const handleSelectClassificacao = (classificacao: Classificacao) => {
     setClassificacaoSelecionada(classificacao);
@@ -44,6 +47,10 @@ const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificaca
     toggleModalEditar();
   };
 
+  const handleExcluirClassificacao = (classificacao: Classificacao) => {
+    setClassificacaoExcluir(classificacao);
+    toggleModalExcluir();
+  };
   return (
     <nav className={styles.dropdownContainer}>
       <div className={styles.titu}>Classificação</div>
@@ -83,11 +90,20 @@ const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificaca
                       title="Editar"
                       className={styles.icon}
                       onClick={(e) => {
-                        e.stopPropagation(); // Evita a propagação do clique para o dropdown
+                        e.stopPropagation();
                         handleEditarClassificacao(item);
                       }}
                     />
-                    <img src="/public/assets/iconlixeira.svg" alt="Excluir" title="Excluir" className={styles.icon} />
+                       <img
+                      src="/public/assets/iconlixeira.svg"
+                      alt="Excluir"
+                      title="Excluir"
+                      className={styles.icon}
+                      onClick={(e) => {
+                        e.stopPropagation(); 
+                        handleExcluirClassificacao(item);
+                      }}
+                    />
                   </div>
                 </div>
               ))}
@@ -100,6 +116,9 @@ const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificaca
       )}
       {isModalEditarOpen && classificacaoEditar && (
         <ModalEditarClassificacao isOpen={isModalEditarOpen} onClose={toggleModalEditar} />
+      )}
+        {isModalExcluirOpen && classificacaoExcluir && (
+        <ModalExcluirClassificacao isOpen={isModalExcluirOpen} onClose={toggleModalExcluir} />
       )}
     </nav>
   );

@@ -9,7 +9,7 @@ const ModalEditarClassificacao = ({
   isOpen: boolean;
   onClose: () => void;
 }) => {
-  const [codigo, setCodigo] = useState("");
+
   const [titulo, setTitulo] = useState("");
 
   if (!isOpen) return null;

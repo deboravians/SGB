@@ -14,7 +14,7 @@ const ModalExcluirEmprestimo = ({ isOpen, onClose, onConfirm }: ModalExcluirEmpr
       <div className={styles.modalContent}>
         <h3 className={styles.h3}>Excluir empréstimo</h3>
         <p className={styles.p1}>Tem certeza que deseja excluir esse Empréstimo?</p>
-        <div className={styles.p2}><p>Ao realizar essa ação, as informações do empréstimo serão apagadas permanentemente do banco de dados!</p>
+        <div className={styles.p2}><p>Ao realizar essa ação as informações do empréstimo serão apagadas permanentemente do banco de dados!</p>
         </div>
         <div className={styles.actions}>
           <button className={styles.botaoCancelar} onClick={onClose}>Cancelar</button>
