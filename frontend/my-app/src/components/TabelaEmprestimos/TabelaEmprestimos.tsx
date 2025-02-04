@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import ModalExcluirEmprestimo from '../ModalExcluirEmprestimo/ModalExcluirEmprestimo';
 import ModalProrrogarPrazo from '../ModalProrrogarPrazo/ModalProrrogarPrazo';
 import ModalLivroExtraviado from "../ModalLivroExtraviado/ModalLivroExtraviado";
+import ModalRegistrarDevolucao from "../ModalRegistrarDevolucao/ModalRegistrarDevolucao";
 interface Emprestimo {
   livro: string;
   leitor: string;
@@ -20,33 +21,48 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
   const [isExcluirModalOpen, setIsExcluirModalOpen] = useState(false);
   const [isProrrogarModalOpen, setIsProrrogarModalOpen] = useState(false);
   const [isExtraviadoModalOpen, setIsExtraviadoModalOpen] = useState(false);
+  const [isDevolvidoModalOpen, setIsDevolvidoModalOpen] = useState(false);
   const [selectedEmprestimo, setSelectedEmprestimo] = useState<Emprestimo | null>(null);
 
   const handleOpenExcluirModal = (emprestimo: Emprestimo) => {
     setSelectedEmprestimo(emprestimo);
     setIsExcluirModalOpen(true);
-    setIsProrrogarModalOpen(false); 
-    setIsExtraviadoModalOpen(false); 
+    setIsProrrogarModalOpen(false);
+    setIsExtraviadoModalOpen(false);
+    setIsDevolvidoModalOpen(false);
   };
 
   const handleOpenProrrogarModal = (emprestimo: Emprestimo) => {
     setSelectedEmprestimo(emprestimo);
     setIsProrrogarModalOpen(true);
-    setIsExcluirModalOpen(false); 
-    setIsExtraviadoModalOpen(false); 
+    setIsExcluirModalOpen(false);
+    setIsExtraviadoModalOpen(false);
+    setIsDevolvidoModalOpen(false);
   };
 
   const handleOpenExtraviadoModal = (emprestimo: Emprestimo) => {
     setSelectedEmprestimo(emprestimo);
     setIsProrrogarModalOpen(false);
-    setIsExcluirModalOpen(false); 
-    setIsExtraviadoModalOpen(true); 
+    setIsExcluirModalOpen(false);
+    setIsExtraviadoModalOpen(true);
+    setIsDevolvidoModalOpen(false);
   };
+
+  const handleOpenDevolvidoModal = (emprestimo: Emprestimo) => {
+    setSelectedEmprestimo(emprestimo);
+    setIsProrrogarModalOpen(false);
+    setIsExcluirModalOpen(false);
+    setIsExtraviadoModalOpen(false);
+    setIsDevolvidoModalOpen(true);
+  };
+
+
   const handleCloseModal = () => {
     setIsExcluirModalOpen(false);
     setIsProrrogarModalOpen(false);
     setSelectedEmprestimo(null);
-    setIsExtraviadoModalOpen(false); 
+    setIsExtraviadoModalOpen(false);
+    setIsDevolvidoModalOpen(false);
   };
 
   const handleConfirmDelete = () => {
@@ -75,18 +91,18 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
             <td>{emprestimo.isbn}</td>
             <td><StatusTag status={emprestimos.status as "Disponivel" | "Indisponivel"} tipo="edicao" /></td>
             <td className={styles.acoes}>
-              <button         
+              <button
                 className={styles.icone0}
-                onClick={() => handleOpenProrrogarModal(emprestimo)} 
+                onClick={() => handleOpenProrrogarModal(emprestimo)}
                 title="Prorrogar prazo">
                 <img
                   src="/public/assets/iconProrrogar.svg"
                   alt="Prorrogar prazo"
                 />
               </button>
-              <button         
+              <button
                 className={styles.icone1}
-                onClick={() => handleOpenExtraviadoModal(emprestimo)} 
+                onClick={() => handleOpenExtraviadoModal(emprestimo)}
                 title="Livro Extraviado">
                 <img
                   src="/public/assets/iconExtraviado.svg"
@@ -109,30 +125,39 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
               </button>
               <button
                 className={styles.icone}
-                title="Marcar como devolvido"
-              >
-                <img src="/public/assets/iconOk.svg" alt="Devolvido" />
+                onClick={() => handleOpenDevolvidoModal(emprestimo)}
+                title="Registrar Devolução">
+                <img
+                  src="/public/assets/iconOk.svg"
+                  alt="Registrar Devolução"
+                />
               </button>
             </td>
           </tr>
         ))}
       </tbody>
-      <ModalExcluirEmprestimo 
-        isOpen={isExcluirModalOpen} 
-        onClose={handleCloseModal} 
-        onConfirm={handleConfirmDelete} 
+      <ModalExcluirEmprestimo
+        isOpen={isExcluirModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmDelete}
       />
 
-      <ModalProrrogarPrazo 
-        isOpen={isProrrogarModalOpen} 
-        onClose={handleCloseModal} 
-        onConfirm={handleConfirmDelete} 
+      <ModalProrrogarPrazo
+        isOpen={isProrrogarModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmDelete}
       />
 
-     <ModalLivroExtraviado 
-        isOpen={isExtraviadoModalOpen} 
-        onClose={handleCloseModal} 
-        onConfirm={handleConfirmDelete} 
+      <ModalLivroExtraviado
+        isOpen={isExtraviadoModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmDelete}
+      />
+
+      <ModalRegistrarDevolucao
+        isOpen={isDevolvidoModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmDelete}
       />
     </table>
   );

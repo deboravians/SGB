@@ -1,13 +1,13 @@
 import styles from "./ModalLivroExtraviado.module.css";
 
 
-interface ModalProrrogarPrazoProps {
+interface ModalLivroExtraviadoProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
 }
 
-const ModalProrrogarPrazo = ({ isOpen, onClose, onConfirm }: ModalProrrogarPrazoProps) => {
+const ModalLivroExtraviado = ({ isOpen, onClose, onConfirm }: ModalLivroExtraviadoProps) => {
   if (!isOpen) return null;
 
   return (
@@ -23,4 +23,4 @@ const ModalProrrogarPrazo = ({ isOpen, onClose, onConfirm }: ModalProrrogarPrazo
   );
 };
 
-export default ModalProrrogarPrazo;
+export default ModalLivroExtraviado;
