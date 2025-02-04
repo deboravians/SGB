@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./ModalLeitor.module.css";
 
+
 const DropdownLeitor = () => {
   
   const leitores = [
@@ -39,27 +40,23 @@ const DropdownLeitor = () => {
   );
 };
 
-const ModalLeitor = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const toggleModal = () => setIsModalOpen(!isModalOpen);
+const ModalLeitor = ({ isOpen, onClose, onConfirm }: { isOpen: boolean; onClose: () => void; onConfirm: () => void }) => {
+
 
   return isOpen ? (
     <div className={styles.modal}>
       <div className={styles.modalContent}>
         <h3>Deseja realizar empréstimo para:</h3>
         <div className={styles.form}>
-
           <DropdownLeitor />
         </div>
-  
+
         {/* Botões de Ação no canto inferior direito */}
         <div className={styles.actions}>
           <button className={styles.botaoCancelar} onClick={onClose}>Cancelar</button>
-          <button id="button" className={styles.buttonCadastrar}
-           onClick={toggleModal} >
-      Cadastrar
-  </button>
-
+          <button className={styles.buttonCadastrar} onClick={onConfirm}>
+            Confirmar
+          </button>
         </div>
       </div>
     </div>
@@ -67,3 +64,5 @@ const ModalLeitor = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void
 };
 
 export default ModalLeitor;
+
+
