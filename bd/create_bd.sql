@@ -61,6 +61,7 @@ CREATE TABLE Emprestimos (
 
     id SERIAL PRIMARY KEY,
     data_emprestimo DATE NOT NULL,
+    data_prevista_devolucao DATE,
     data_devolucao DATE,
     status VARCHAR(20) NOT NULL,
 
@@ -72,4 +73,3 @@ CREATE TABLE Emprestimos (
     FOREIGN KEY (professor_cpf) REFERENCES Professores(cpf) ON DELETE CASCADE,
     FOREIGN KEY (copia_id) REFERENCES Copias(id) ON DELETE CASCADE
 );
-
