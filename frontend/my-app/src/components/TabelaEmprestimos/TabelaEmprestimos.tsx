@@ -6,6 +6,7 @@ import ModalExcluirEmprestimo from '../ModalExcluirEmprestimo/ModalExcluirEmpres
 import ModalProrrogarPrazo from '../ModalProrrogarPrazo/ModalProrrogarPrazo';
 import ModalLivroExtraviado from "../ModalLivroExtraviado/ModalLivroExtraviado";
 import ModalRegistrarDevolucao from "../ModalRegistrarDevolucao/ModalRegistrarDevolucao";
+import ModalEditarEmprestimo from "../ModalEditarEmprestimo/ModalEditarEmprestimo";
 interface Emprestimo {
   livro: string;
   leitor: string;
@@ -22,6 +23,7 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
   const [isProrrogarModalOpen, setIsProrrogarModalOpen] = useState(false);
   const [isExtraviadoModalOpen, setIsExtraviadoModalOpen] = useState(false);
   const [isDevolvidoModalOpen, setIsDevolvidoModalOpen] = useState(false);
+  const [isEditarModalOpen, setIsEditarModalOpen] = useState(false);
   const [selectedEmprestimo, setSelectedEmprestimo] = useState<Emprestimo | null>(null);
 
   const handleOpenExcluirModal = (emprestimo: Emprestimo) => {
@@ -30,6 +32,7 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
     setIsProrrogarModalOpen(false);
     setIsExtraviadoModalOpen(false);
     setIsDevolvidoModalOpen(false);
+    setIsEditarModalOpen(false);
   };
 
   const handleOpenProrrogarModal = (emprestimo: Emprestimo) => {
@@ -38,6 +41,7 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
     setIsExcluirModalOpen(false);
     setIsExtraviadoModalOpen(false);
     setIsDevolvidoModalOpen(false);
+    setIsEditarModalOpen(false);
   };
 
   const handleOpenExtraviadoModal = (emprestimo: Emprestimo) => {
@@ -46,6 +50,7 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
     setIsExcluirModalOpen(false);
     setIsExtraviadoModalOpen(true);
     setIsDevolvidoModalOpen(false);
+    setIsEditarModalOpen(false);
   };
 
   const handleOpenDevolvidoModal = (emprestimo: Emprestimo) => {
@@ -54,6 +59,16 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
     setIsExcluirModalOpen(false);
     setIsExtraviadoModalOpen(false);
     setIsDevolvidoModalOpen(true);
+    setIsEditarModalOpen(false);
+  };
+
+  const handleOpenEditarModal = (emprestimo: Emprestimo) => {
+    setSelectedEmprestimo(emprestimo);
+    setIsProrrogarModalOpen(false);
+    setIsExcluirModalOpen(false);
+    setIsExtraviadoModalOpen(false);
+    setIsDevolvidoModalOpen(false);
+    setIsEditarModalOpen(true);
   };
 
 
@@ -63,6 +78,7 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
     setSelectedEmprestimo(null);
     setIsExtraviadoModalOpen(false);
     setIsDevolvidoModalOpen(false);
+    setIsEditarModalOpen(false);
   };
 
   const handleConfirmDelete = () => {
@@ -109,13 +125,15 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
                   alt="Livro Extraviado"
                 />
               </button>
-              <Link to={`/visualizar/${emprestimo}`} title="Editar">
+              <button
+                className={styles.icone1}
+                onClick={() => handleOpenEditarModal(emprestimo)}
+                title="Editar livro">
                 <img
                   src="/public/assets/iconLapis.svg"
-                  alt="Editar"
-                  className={styles.icone}
+                  alt="Editar livro"
                 />
-              </Link>
+              </button>
               <button
                 className={styles.icone}
                 title="Excluir empréstimo"
@@ -156,6 +174,11 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
 
       <ModalRegistrarDevolucao
         isOpen={isDevolvidoModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmDelete}
+      />
+        <ModalEditarEmprestimo
+        isOpen={isEditarModalOpen}
         onClose={handleCloseModal}
         onConfirm={handleConfirmDelete}
       />
