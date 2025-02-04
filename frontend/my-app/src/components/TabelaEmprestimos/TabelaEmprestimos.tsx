@@ -4,7 +4,7 @@ import StatusTag from "../StatusTag/StatusTag";
 import React, { useState } from "react";
 import ModalExcluirEmprestimo from '../ModalExcluirEmprestimo/ModalExcluirEmprestimo';
 import ModalProrrogarPrazo from '../ModalProrrogarPrazo/ModalProrrogarPrazo';
-
+import ModalLivroExtraviado from "../ModalLivroExtraviado/ModalLivroExtraviado";
 interface Emprestimo {
   livro: string;
   leitor: string;
@@ -19,24 +19,34 @@ interface TabelaEmprestimosProps {
 const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) => {
   const [isExcluirModalOpen, setIsExcluirModalOpen] = useState(false);
   const [isProrrogarModalOpen, setIsProrrogarModalOpen] = useState(false);
+  const [isExtraviadoModalOpen, setIsExtraviadoModalOpen] = useState(false);
   const [selectedEmprestimo, setSelectedEmprestimo] = useState<Emprestimo | null>(null);
 
   const handleOpenExcluirModal = (emprestimo: Emprestimo) => {
     setSelectedEmprestimo(emprestimo);
     setIsExcluirModalOpen(true);
-    setIsProrrogarModalOpen(false); // Fecha a modal de prorrogação se ela estiver aberta
+    setIsProrrogarModalOpen(false); 
+    setIsExtraviadoModalOpen(false); 
   };
 
   const handleOpenProrrogarModal = (emprestimo: Emprestimo) => {
     setSelectedEmprestimo(emprestimo);
     setIsProrrogarModalOpen(true);
-    setIsExcluirModalOpen(false); // Fecha a modal de exclusão se ela estiver aberta
+    setIsExcluirModalOpen(false); 
+    setIsExtraviadoModalOpen(false); 
   };
 
+  const handleOpenExtraviadoModal = (emprestimo: Emprestimo) => {
+    setSelectedEmprestimo(emprestimo);
+    setIsProrrogarModalOpen(false);
+    setIsExcluirModalOpen(false); 
+    setIsExtraviadoModalOpen(true); 
+  };
   const handleCloseModal = () => {
     setIsExcluirModalOpen(false);
     setIsProrrogarModalOpen(false);
     setSelectedEmprestimo(null);
+    setIsExtraviadoModalOpen(false); 
   };
 
   const handleConfirmDelete = () => {
@@ -67,20 +77,22 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
             <td className={styles.acoes}>
               <button         
                 className={styles.icone0}
-                onClick={() => handleOpenProrrogarModal(emprestimo)} // Abre a modal de prorrogação
+                onClick={() => handleOpenProrrogarModal(emprestimo)} 
                 title="Prorrogar prazo">
                 <img
                   src="/public/assets/iconProrrogar.svg"
                   alt="Prorrogar prazo"
                 />
               </button>
-              <Link to={`/visualizar/${emprestimo}`} title="Livro extraviado">
+              <button         
+                className={styles.icone1}
+                onClick={() => handleOpenExtraviadoModal(emprestimo)} 
+                title="Livro Extraviado">
                 <img
                   src="/public/assets/iconExtraviado.svg"
-                  alt="Livro extraviado"
-                  className={styles.icone1}
+                  alt="Livro Extraviado"
                 />
-              </Link>
+              </button>
               <Link to={`/visualizar/${emprestimo}`} title="Editar">
                 <img
                   src="/public/assets/iconLapis.svg"
@@ -113,6 +125,12 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
 
       <ModalProrrogarPrazo 
         isOpen={isProrrogarModalOpen} 
+        onClose={handleCloseModal} 
+        onConfirm={handleConfirmDelete} 
+      />
+
+     <ModalLivroExtraviado 
+        isOpen={isExtraviadoModalOpen} 
         onClose={handleCloseModal} 
         onConfirm={handleConfirmDelete} 
       />
