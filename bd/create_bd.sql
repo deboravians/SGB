@@ -18,7 +18,7 @@ CREATE TABLE Edicoes(
 
 CREATE TABLE Copias(
 
-    id INT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     status VARCHAR(50) NOT NULL,
 
     edicao_isbn VARCHAR(20) NOT NULL,
