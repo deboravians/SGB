@@ -1,18 +1,12 @@
-import { Link } from "react-router-dom";
 import styles from "./TabelaEmprestimos.module.css";
 import StatusTag from "../StatusTag/StatusTag";
-import React, { useState } from "react";
+import { useState } from "react";
 import ModalExcluirEmprestimo from '../ModalExcluirEmprestimo/ModalExcluirEmprestimo';
 import ModalProrrogarPrazo from '../ModalProrrogarPrazo/ModalProrrogarPrazo';
 import ModalLivroExtraviado from "../ModalLivroExtraviado/ModalLivroExtraviado";
 import ModalRegistrarDevolucao from "../ModalRegistrarDevolucao/ModalRegistrarDevolucao";
 import ModalEditarEmprestimo from "../ModalEditarEmprestimo/ModalEditarEmprestimo";
-interface Emprestimo {
-  livro: string;
-  leitor: string;
-  isbn: string;
-  status: string;
-}
+import { Emprestimo } from "../../types/emprestimos";
 
 interface TabelaEmprestimosProps {
   emprestimos: Emprestimo[];
@@ -94,18 +88,18 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
         <tr>
           <th>Livro</th>
           <th>Leitor(a)</th>
-          <th>ISBN</th>
+          <th>Data prevista de devolução</th>
           <th>Status</th>
           <th>Ações</th>
         </tr>
       </thead>
       <tbody>
-        {emprestimos.map((emprestimo, index) => (
-          <tr key={index}>
-            <td>{emprestimo.livro}</td>
-            <td>{emprestimo.leitor}</td>
-            <td>{emprestimo.isbn}</td>
-            <td><StatusTag status={emprestimos.status as "Disponivel" | "Indisponivel"} tipo="edicao" /></td>
+        {emprestimos.map((emprestimo) => (
+          <tr key={emprestimo.id}>
+            <td>{emprestimo.copia.edicao.titulo}</td>
+            <td>{emprestimo.aluno?.nome ?? emprestimo.professor?.nome ?? "Não informado"}</td>
+            <td>{emprestimo.dataPrevistaDevolucao}</td>
+            <td><StatusTag status={emprestimo.status as "Atrasado" | "Pendente" | "Extraviado" | "Devolvido"} tipo="emprestimo" /></td>
             <td className={styles.acoes}>
               <button
                 className={styles.icone0}
@@ -177,7 +171,7 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
         onClose={handleCloseModal}
         onConfirm={handleConfirmDelete}
       />
-        <ModalEditarEmprestimo
+      <ModalEditarEmprestimo
         isOpen={isEditarModalOpen}
         onClose={handleCloseModal}
         onConfirm={handleConfirmDelete}

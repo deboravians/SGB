@@ -1,15 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TabelaEmprestimos from "../../components/TabelaEmprestimos/TabelaEmprestimos";
-import styles from "./EmprestimoseDevolucoes.module.css";
+import styles from "./GerenciamentoDeEmprestimoseDevolucoes.module.css";
 import CardInfors from "../../components/CardInfors/CardInfors";
 import ModalLeitor from "../../components/ModalLeitor/ModalLeitor";
 import ModalRealizarEmprestimo from "../../components/ModalRealizarEmprestimo/ModalRealizarEmprestimo";
-
-const emprestimos = [
-  { livro: "O pequeno príncipe", leitor: "Francisco Werley", isbn: "000-00-00000-00-0", status: "", ações: "" },
-  { livro: "O pequeno príncipe", leitor: "Francisco Werley", isbn: "000-00-00000-00-0", status: "", ações: "" },
-];
-
+import { listarEmprestimos } from "../../api/emprestimos";
+import { Emprestimo } from "../../types/emprestimos";
 
 function GerenciamentoDeEmprestimoseDevolucoes() {
   const [isModalLeitorOpen, setIsModalLeitorOpen] = useState(false);
@@ -29,6 +25,25 @@ function GerenciamentoDeEmprestimoseDevolucoes() {
     setIsModalLeitorOpen(false);
     setIsModalEmprestimoOpen(false);
   };
+
+  const [emprestimos, setEmprestimos] = useState<Emprestimo[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const carregarEmprestimos = async () => {
+    try {
+      setLoading(true);
+      const dados = await listarEmprestimos();
+      setEmprestimos(dados);
+    } catch (error) {
+      alert("Erro ao carregar os empréstimos.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    carregarEmprestimos();
+  }, []);
 
   return (
     <div className={styles.mainContent}>
@@ -59,8 +74,14 @@ function GerenciamentoDeEmprestimoseDevolucoes() {
             Realizar empréstimo
           </button>
         </div>
+
         {/* Tabela */}
-        <TabelaEmprestimos emprestimos={emprestimos} />
+        {loading ? (
+          <p>Carregando empréstimos...</p>
+        ) : (
+          <TabelaEmprestimos emprestimos={emprestimos} />
+        )}
+
         {isModalLeitorOpen && (
           <ModalLeitor
             isOpen={isModalLeitorOpen}
