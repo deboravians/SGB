@@ -25,3 +25,13 @@ export const listarClassificacoes = async (): Promise<Classificacao[]> => {
 
     return response.json();
 }
+
+export const deletarClassificacao = async (codigo: string): Promise<void> => {
+    const response = await fetch(`http://localhost:8080/classificacoes/${codigo}`, {
+      method: "DELETE",
+    });
+  
+    if (!response.ok) {
+      throw new Error("Erro ao deletar a classificação. Tente novamente.");
+    }
+  };
