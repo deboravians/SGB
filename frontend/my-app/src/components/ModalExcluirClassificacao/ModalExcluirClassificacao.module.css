@@ -18,16 +18,17 @@
 
 .p1 {
   font-weight: bold;
-  padding: 3px;
-  margin-bottom: 10px;
+  height: 50px;
+  padding: 6px;
+  margin-bottom: 12px;
   /* Ajustando a distância entre os parágrafos */
   line-height: 1.5;
 }
 
 .p2 {
   line-height: 1.5;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  margin-top: 4px;
+  margin-bottom: 20px;
   /* Distância mais generosa abaixo do segundo parágrafo */
 }
 
@@ -35,16 +36,15 @@
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  width: 440px;
-  height: 255px;
+  width: 436px;
 }
 
 .actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: 30px;
+  margin-top: 35px;
   gap: 18px;
-  padding-top: 1px;
+  padding-top: 6px;
 }
 
 .botaoConfirmar,

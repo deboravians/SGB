@@ -4,7 +4,7 @@ import styles from "./ModalCadastroDeClassificacao.module.css";
 import { cadastrarClassificacao } from "../../api/classificacoes";
 import { Classificacao } from "../../types/classificacoes";
 
-const ModalCadastroDeClassificacoes = ({
+const ModalCadastroDeClassificacao = ({
   isOpen,
   onClose,
   onClassificacaoCadastrada,
@@ -100,4 +100,4 @@ const ModalCadastroDeClassificacoes = ({
   );
 };
 
-export default ModalCadastroDeClassificacoes;
+export default ModalCadastroDeClassificacao;

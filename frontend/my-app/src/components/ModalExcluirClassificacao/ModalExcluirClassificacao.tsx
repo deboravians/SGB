@@ -1,24 +1,41 @@
+import { deletarClassificacao } from "../../api/classificacoes";
+import { Classificacao } from "../../types/classificacoes";
 import styles from "./ModalExcluirClassificacao.module.css";
 
 interface ModalExcluirClassificacaoProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: () => void;
+  classificacao: Classificacao;
+  onSuccess: () => void;
 }
 
-const ModalExcluirClassificacao = ({ isOpen, onClose, onConfirm }: ModalExcluirClassificacaoProps) => {
+const ModalExcluirClassificacao = ({ isOpen, onClose, classificacao, onSuccess }: ModalExcluirClassificacaoProps) => {
   if (!isOpen) return null;
+
+  const handleConfirm = async () => {
+    try {
+      await deletarClassificacao(classificacao.codigo);
+      onSuccess();
+      onClose();
+    } catch {
+      alert("Erro ao excluir a classificação. Tente novamente.");
+    }
+  };
 
   return (
     <div className={styles.modal}>
       <div className={styles.modalContent}>
-        <h3 className={styles.h3}>Excluir classificação</h3>
-        <p className={styles.p1}>Tem certeza que deseja excluir essa classificação?</p>
-        <div className={styles.p2}><p>Ao realizar essa ação as informações da classificação serão apagadas permanentemente do banco de dados!</p>
-        </div>
+        <h3>Excluir Classificação</h3>
+        <p>
+          Tem certeza que deseja excluir <strong>{classificacao.titulo}</strong>?
+        </p>
+        <br></br>
+        <p>
+          As informações da classificação com código <strong>{classificacao.codigo}</strong> serão apagadas permanentemente!
+        </p>
         <div className={styles.actions}>
           <button className={styles.botaoCancelar} onClick={onClose}>Cancelar</button>
-          <button className={styles.botaoConfirmar} onClick={onConfirm}>Confirmar</button>
+          <button className={styles.botaoConfirmar} onClick={handleConfirm}>Confirmar</button>
         </div>
       </div>
     </div>
