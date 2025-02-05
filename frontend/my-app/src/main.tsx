@@ -7,7 +7,7 @@ import App from './App'
 import Home from './pages/Home/Home'
 import LeitoresAlunos from './pages/LeitoresAlunos/LeitoresAlunos'
 import LeitoresProfessores from './pages/LeitoresProfessores/LeitoresProfessores'
-import GerenciamentoDeEmprestimoseDevolucoes from './pages/GerenciamentoDeEmprestimoseDevolucoes/EmprestimoeDevolucoes';
+import GerenciamentoDeEmprestimoseDevolucoes from './pages/GerenciamentoDeEmprestimoseDevolucoes/GerenciamentoDeEmprestimoseDevolucoes';
 import GerenciamentoAcervo from './pages/GerenciamentoDoAcervo/GerenciamentoDoAcervo'
 const router = createBrowserRouter([
   {

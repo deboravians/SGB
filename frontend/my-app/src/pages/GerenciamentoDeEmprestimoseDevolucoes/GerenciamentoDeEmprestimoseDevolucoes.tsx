@@ -11,7 +11,7 @@ const emprestimos = [
 ];
 
 
-function GerenciamentoEmprestimos() {
+function GerenciamentoDeEmprestimoseDevolucoes() {
   const [isModalLeitorOpen, setIsModalLeitorOpen] = useState(false);
   const [isModalEmprestimoOpen, setIsModalEmprestimoOpen] = useState(false);
 
@@ -81,4 +81,4 @@ function GerenciamentoEmprestimos() {
   );
 }
 
-export default GerenciamentoEmprestimos;
+export default GerenciamentoDeEmprestimoseDevolucoes;
