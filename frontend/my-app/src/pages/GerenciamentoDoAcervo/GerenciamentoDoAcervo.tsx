@@ -15,7 +15,6 @@ function GerenciamentoAcervo() {
 
   const carregarEdicoes = async () => {
     try {
-      setLoading(true);
       const dados = await listarEdicoes();
       setEdicoes(dados);
     } catch (error) {
@@ -67,7 +66,7 @@ function GerenciamentoAcervo() {
         {loading ? (
           <p>Carregando edições...</p>
         ) : (
-          <TabelaEdicoes edicoes={edicoes} />
+          <TabelaEdicoes edicoes={edicoes} atualizarLista={carregarEdicoes}/>
         )}
 
 

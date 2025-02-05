@@ -16,7 +16,6 @@ const LeitoresAlunos: React.FC = () => {
 
   const carregarAlunos = async () => {
     try {
-      setLoading(true);
       const dados = await listarAlunos();
       setAlunos(dados);
     } catch (error) {
