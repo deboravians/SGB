@@ -27,7 +27,8 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({ edicoes }) => {
             <td>{edicao.isbn}</td>
             <td>{edicao.titulo}</td>
             <td>
-              <StatusTag status={edicao.status as "Disponivel" | "Indisponivel"} tipo="edicao" /></td>
+              <StatusTag status={edicao.status as "Disponível" | "Indisponível"} tipo="edicao" />
+            </td>
             <td className={styles.acoes}>
               <Link to={`/visualizar/${edicao.isbn}`} title="Visualizar">
                 <img
@@ -51,19 +52,19 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({ edicoes }) => {
                 <img src="/public/assets/iconlixeira.svg" alt="Apagar" />
               </button>
             </td>
-            <td className={styles.gerenciarCopias}> 
-        <button
-          className={styles.gerenciarCopiass}
-          onClick={() => alert("Gerenciar Cópias")}
-        >
-          <img
-            src="/public/assets/iconGerenciarcópias.svg"
-            alt="Gerenciar Cópias"
-            className={styles.icone}
-          />
-          Gerenciar cópias
-        </button>
-      </td>
+            <td className={styles.gerenciarCopias}>
+              <button
+                className={styles.gerenciarCopiass}
+                onClick={() => alert("Gerenciar Cópias")}
+              >
+                <img
+                  src="/public/assets/iconGerenciarcópias.svg"
+                  alt="Gerenciar Cópias"
+                  className={styles.icone}
+                />
+                Gerenciar cópias
+              </button>
+            </td>
           </tr>
         ))}
       </tbody>
