@@ -25,7 +25,7 @@ const ModalExcluirEdicao = ({ isOpen, onClose, edicao, onSuccess }: ModalExcluir
   return (
     <div className={styles.modal}>
       <div className={styles.modalContent}>
-        <h3>Excluir Aluno</h3>
+        <h3>Excluir Edição</h3>
         <p>
           Tem certeza que deseja excluir a edição <strong>{edicao.titulo}</strong>?
         </p>
