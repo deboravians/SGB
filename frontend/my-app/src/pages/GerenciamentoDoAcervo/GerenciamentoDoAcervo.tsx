@@ -6,15 +6,15 @@ import CardInfors from "../../components/CardInfors/CardInfors";
 import { listarEdicoes } from "../../api/edicoes";
 import ModalCadastroDeEdicoes from "../../components/ModalCadastroDeEdicoes/ModalCadastroDeEdicoes";
 
-function GerenciamentoAcervo() {
+function GerenciamentoDoAcervo() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [edicoes, setEdicoes] = useState<Edicao[]>([]);
-
   const [loading, setLoading] = useState(true);
+  const [filtro, setFiltro] = useState(""); // Estado do campo de pesquisa
 
   const carregarEdicoes = async () => {
     try {
+      setLoading(true);
       const dados = await listarEdicoes();
       setEdicoes(dados);
     } catch (error) {
@@ -29,6 +29,17 @@ function GerenciamentoAcervo() {
   }, []);
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
+
+  // Função para lidar com a mudança no campo de pesquisa
+  const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFiltro(event.target.value);
+  };
+
+  // Filtrando edições com base no texto digitado (considerando título e ISBN)
+  const edicoesFiltradas = edicoes.filter((edicao) =>
+    edicao.titulo.toLowerCase().includes(filtro.toLowerCase()) ||
+    edicao.isbn.includes(filtro)
+  );
 
   return (
     <div className={styles.mainContent}>
@@ -46,33 +57,28 @@ function GerenciamentoAcervo() {
         <div className={styles.acoesContainer}>
           <input
             type="text"
-            placeholder="Pesquisar livros..."
+            placeholder="Pesquisar por título ou ISBN..."
             className={styles.campoPesquisa}
+            value={filtro}
+            onChange={handleFiltroChange} // Atualiza o estado ao digitar
           />
-          <button
-            className={styles.botaoCadastrar}
-            onClick={toggleModal}>
-            <img
-              src="/public/assets/iconCadastrar.svg"
-              alt="Cadastrar"
-              className={styles.icone}
-            />
+          <button className={styles.botaoCadastrar} onClick={toggleModal}>
+            <img src="/assets/iconCadastrar.svg" alt="Cadastrar" className={styles.icone} />
             Cadastrar Edição
           </button>
         </div>
-        <ModalCadastroDeEdicoes isOpen={isModalOpen} onClose={toggleModal} carregarEdicoes={carregarEdicoes}/>
-        
+
+        <ModalCadastroDeEdicoes isOpen={isModalOpen} onClose={toggleModal} carregarEdicoes={carregarEdicoes} />
+
         {/* Tabela */}
         {loading ? (
           <p>Carregando edições...</p>
         ) : (
-          <TabelaEdicoes edicoes={edicoes} atualizarLista={carregarEdicoes}/>
+          <TabelaEdicoes edicoes={edicoesFiltradas} atualizarLista={carregarEdicoes} />
         )}
-
-
       </div>
     </div>
   );
 }
 
-export default GerenciamentoAcervo;
+export default GerenciamentoDoAcervo;
