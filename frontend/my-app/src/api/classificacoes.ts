@@ -28,10 +28,26 @@ export const listarClassificacoes = async (): Promise<Classificacao[]> => {
 
 export const deletarClassificacao = async (codigo: string): Promise<void> => {
     const response = await fetch(`http://localhost:8080/classificacoes/${codigo}`, {
-      method: "DELETE",
+        method: "DELETE",
     });
-  
+
     if (!response.ok) {
-      throw new Error("Erro ao deletar a classificação. Tente novamente.");
+        throw new Error("Erro ao deletar a classificação. Tente novamente.");
     }
-  };
+};
+
+export const atualizarClassificacao = async (codigo: string, titulo: string): Promise<Classificacao> => {
+    const response = await fetch(`http://localhost:8080/classificacoes/${codigo}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ codigo, titulo }), // Envia o código também
+    });
+
+    if (!response.ok) {
+        throw new Error("Erro ao atualizar a classificação. Tente novamente.");
+    }
+
+    return response.json();
+};
