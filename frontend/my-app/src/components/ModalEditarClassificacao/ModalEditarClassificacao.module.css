@@ -53,7 +53,7 @@
     gap: 10px;
   }
   
-  .botaoCadastrar,
+  .botaoSalvar,
   .botaoCancelar {
     padding: 10px;
     border: none;
@@ -61,7 +61,7 @@
     cursor: pointer;
   }
   
-  .botaoCadastrar {
+  .botaoSalvar {
     background-color: #4caf50;
     color: white;
   }

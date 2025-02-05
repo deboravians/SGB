@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./DropdownClassificacao.module.css";
 import ModalCadastroDeClassificacao from "../ModalCadastroDeClassificacao/ModalCadastroDeClassificacao";
 import ModalExcluirClassificacao from "../ModalExcluirClassificacao/ModalExcluirClassificacao";
+import ModalEditarClassificacao from "../ModalEditarClassificacao/ModalEditarClassificacao";
 import { listarClassificacoes } from "../../api/classificacoes";
 import { Classificacao } from "../../types/classificacoes";
 
@@ -10,6 +11,7 @@ const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificaca
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isModalCadastroOpen, setIsModalCadastroOpen] = useState(false);
   const [classificacaoSelecionada, setClassificacaoSelecionada] = useState<Classificacao | null>(null);
+  const [modalEditar, setModalEditar] = useState<Classificacao | null>(null);
   const [modalExcluir, setModalExcluir] = useState<Classificacao | null>(null);
 
   useEffect(() => {
@@ -28,6 +30,8 @@ const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificaca
   const toggleModalCadastro = () => setIsModalCadastroOpen((prev) => !prev);
   const abrirModalExcluir = (classificacao: Classificacao) => setModalExcluir(classificacao);
   const fecharModalExcluir = () => setModalExcluir(null);
+  const abrirModalEditar = (classificacao: Classificacao) => setModalEditar(classificacao);
+  const fecharModalEditar = () => setModalEditar(null);
 
   const handleSelectClassificacao = (classificacao: Classificacao) => {
     setClassificacaoSelecionada(classificacao);
@@ -55,7 +59,13 @@ const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificaca
                   <span>{item.codigo}</span>
                   <span>{item.titulo}</span>
                   <div className={styles.iconGroup}>
-                    <img src="/public/assets/iconLapis.svg" alt="Editar" title="Editar" className={styles.icon} />
+                    <img
+                      src="/public/assets/iconLapis.svg"
+                      alt="Editar"
+                      title="Editar"
+                      className={styles.icon}
+                      onClick={() => abrirModalEditar(item)}
+                    />
                     <img
                       src="/public/assets/iconlixeira.svg"
                       alt="Excluir"
@@ -89,6 +99,18 @@ const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificaca
           onClose={fecharModalExcluir}
           classificacao={modalExcluir}
           onSuccess={atualizarClassificacoes}
+        />
+      )}
+
+      {modalEditar && (
+        <ModalEditarClassificacao
+          isOpen={!!modalEditar}
+          onClose={fecharModalEditar}
+          classificacao={modalEditar}
+          onSuccess={() => {
+            atualizarClassificacoes();
+            fecharModalEditar();
+          }}
         />
       )}
     </nav>
