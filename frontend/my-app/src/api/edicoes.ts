@@ -33,3 +33,13 @@ export const listarEdicoes = async (): Promise<Edicao[]> => {
 
   return response.json();
 }
+
+export const deletarEdicao = async (isbn: string): Promise<void> => {
+  const response = await fetch(`http://localhost:8080/edicoes/${isbn}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao deletar a edição. Tente novamente.");
+  }
+};
