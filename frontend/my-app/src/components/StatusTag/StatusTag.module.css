@@ -1,43 +1,36 @@
 .status {
-    padding: 10px;
-    border-radius: 24px;
-    font-weight: bold;
-    text-align: center;
-    display: inline-block;
-    width: 120px;
-  }
-  
-  /* Status para Edições */
-  .disponivel {
-    background-color: #4CAF50; /* Verde */
-    color: white;
-  }
-  
-  .indisponivel {
-    background-color: #E53935; /* Vermelho */
-    color: white;
-  }
-  
-  /* Status para Empréstimos */
-  
-  .pendente {
-    background-color: #f1c40f; /* Amarelo */
-    color: black;
-  }
-  
-  .extraviado {
-    background-color: #e74c3c; /* Vermelho */
-    color: white;
-  }
-  
-  .devolvido {
-    background-color: #2ecc71; /* Verde */
-    color: white;
-  }
-  
-  /* Caso o status não seja encontrado */
-  .default {
-    background-color: #bdc3c7; /* Cinza */
-    color: black;
-  }
-  
+  padding: 10px;
+  border-radius: 24px;
+  font-weight: bold;
+  text-align: center;
+  display: inline-block;
+  width: 120px;
+}
+
+.devolvido,
+.disponivel {
+  background-color: #4CAF50;
+  /* Verde */
+  color: white;
+}
+
+.extraviado,
+.atrasado,
+.indisponivel {
+  background-color: #E53935;
+  /* Vermelho */
+  color: white;
+}
+
+.pendente {
+  background-color: #f1c40f;
+  /* Amarelo */
+  color: black;
+}
+
+/* Caso o status não seja encontrado */
+.default {
+  background-color: #bdc3c7;
+  /* Cinza */
+  color: black;
+}
