@@ -4,7 +4,7 @@ import styles from "./TabelaEdicoes.module.css";
 import { Edicao } from "../../types/edicoes";
 import StatusTag from "../StatusTag/StatusTag";
 import ModalExcluirEdicao from "../ModalExcluirEdicao/ModalExcluirEdicao";
-
+import ModalGerenciarCopias from "../ModalGerenciarCopias/ModalGerenciarCopias";
 
 interface TabelaEdicoesProps {
   edicoes: Edicao[];
@@ -12,18 +12,32 @@ interface TabelaEdicoesProps {
 }
 
 const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({ edicoes, atualizarLista }) => {
-
   const [selectedEdicao, setSelectedEdicao] = useState<Edicao | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isExcluirModalOpen, setIsExcluirModalOpen] = useState(false);
 
-  const handleOpenModal = (edicao: Edicao) => {
+  const [isGerenciarModalOpen, setIsGerenciarModalOpen] = useState(false);
+  const [gerenciarEdicao, setGerenciarEdicao] = useState<Edicao | null>(null);
+
+
+  const handleOpenExcluirModal = (edicao: Edicao) => {
     setSelectedEdicao(edicao);
-    setIsModalOpen(true);
+    setIsExcluirModalOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleCloseExcluirModal = () => {
+    setIsExcluirModalOpen(false);
     setSelectedEdicao(null);
+  };
+
+  // Funções para o modal de Gerenciar Cópias
+  const handleOpenGerenciarModal = (edicao: Edicao) => {
+    setGerenciarEdicao(edicao);
+    setIsGerenciarModalOpen(true);
+  };
+
+  const handleCloseGerenciarModal = () => {
+    setIsGerenciarModalOpen(false);
+    setGerenciarEdicao(null);
   };
 
   return (
@@ -64,7 +78,7 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({ edicoes, atualizarLista }
                 <button
                   className={styles.icone}
                   title="Apagar"
-                  onClick={() => handleOpenModal(edicao)}
+                  onClick={() => handleOpenExcluirModal(edicao)}
                 >
                   <img src="/public/assets/iconlixeira.svg" alt="Apagar" />
                 </button>
@@ -72,7 +86,7 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({ edicoes, atualizarLista }
               <td className={styles.gerenciarCopias}>
                 <button
                   className={styles.gerenciarCopiass}
-                  onClick={() => alert("Gerenciar Cópias")}
+                  onClick={() => handleOpenGerenciarModal(edicao)}
                 >
                   <img
                     src="/public/assets/iconGerenciarcópias.svg"
@@ -88,16 +102,24 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({ edicoes, atualizarLista }
       </table>
 
       {/* Modal de confirmação de exclusão */}
-      {
-        selectedEdicao && (
-          <ModalExcluirEdicao
-            isOpen={isModalOpen}
-            onClose={handleCloseModal}
-            edicao={selectedEdicao}
-            onSuccess={atualizarLista}
-          />
-        )
-      }
+      {selectedEdicao && (
+        <ModalExcluirEdicao
+          isOpen={isExcluirModalOpen}
+          onClose={handleCloseExcluirModal}
+          edicao={selectedEdicao}
+          onSuccess={atualizarLista}
+        />
+      )}
+
+      {/* Modal de Gerenciar Cópias */}
+      {gerenciarEdicao && (
+        <ModalGerenciarCopias
+          isOpen={isGerenciarModalOpen}
+          onClose={handleCloseGerenciarModal}
+          edicao={gerenciarEdicao}
+          onSuccess={atualizarLista}
+        />
+      )}
     </div>
   );
 };

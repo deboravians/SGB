@@ -1,0 +1,159 @@
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; 
+}
+
+.h3 {
+  padding: 600px;
+  margin-bottom: 100px;
+  margin-top: 100px;
+}
+
+
+.campoPesquisa {
+  flex: 1;
+  /* Ocupa todo o espaço disponível */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  /* Fundo cinza claro */
+}
+
+.botaoCadastrar {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+}
+
+.botaoCadastrar:hover {
+  background-color: #45a049;
+  /* Cor mais escura ao passar o mouse */
+}
+
+.modalContent {
+  position: relative; /* Define referência para posicionamento absoluto dos elementos internos */
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 800px;
+  height: 500px;
+  max-width: 90%;
+
+}
+  .acoesContainer {
+    display: grid;
+    grid-template-columns: 1fr auto; /* Primeira coluna ocupa o restante, segunda é automática */
+    gap: 15px; /* Aproxima as colunas */
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+  
+  .gerenciarCopias, .gerenciarCopiass{
+    padding: 5px 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  .gerenciarCopiass:hover {
+    background-color: #45a049;
+    /* Cor mais escura ao passar o mouse */
+  }
+  
+  .icone {
+    background: none;
+    cursor: pointer;
+    margin-right: 15px;
+    align-items: center;
+ 
+  }
+  .closeButton {
+    position: absolute; 
+    top: 10px; 
+    right: 10px;
+    background: none; 
+    border: none; 
+    cursor: pointer; 
+    padding: 5px; 
+  }
+  
+  .closeButton img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .tabelaCopias {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 1px solid #e0e0e0;
+    /* Borda leve */
+    border-radius: 8px;
+    /* Cantos arredondados */
+  }
+  
+  .tabelaCopias th {
+    background-color: #f1f1f1;
+    /* Fundo cinza claro */
+    text-align: center;
+    padding: 8px;
+  }
+  
+  .tabelaCopias td {
+    background-color: #fafafa;
+    /* Fundo alternado */
+    border-bottom: 1px solid #dcdcdc;
+    /* Linha de divisão */
+    padding: 8px;
+    text-align: center;
+  }
+
+  .excluirButton {
+  background: none; /* Remove o fundo */
+  border: none; /* Remove a borda */
+  cursor: pointer; /* Adiciona cursor de interação */
+  padding: 0; /* Remove o espaçamento interno */
+}
+
+.excluirButton img {
+  width: 20px; /* Tamanho do ícone */
+  height: 20px;
+}
+.nomeLivro {
+  display: inline-block; /* Permite que o elemento ajuste seu tamanho ao conteúdo */
+  padding: 8px 20px; /* Espaçamento interno */
+  background-color: #bdc3c7; /* Cor de fundo */
+  color: white; /* Cor do texto */
+  border: none; /* Remove borda padrão */
+  border-radius: 20px; /* Bordas arredondadas */
+  text-decoration: none; /* Remove sublinhado */
+  white-space: nowrap; /* Impede quebra de linha dentro do botão */
+  overflow: hidden; /* Evita estouro do conteúdo */
+  text-overflow: ellipsis; /* Mostra "..." caso o conteúdo seja maior que o espaço */
+  margin-top: 10px;
+}
