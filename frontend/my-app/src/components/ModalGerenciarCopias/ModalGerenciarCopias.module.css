@@ -106,44 +106,7 @@
     width: 20px;
     height: 20px;
   }
-
-  .tabelaCopias {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    border: 1px solid #e0e0e0;
-    /* Borda leve */
-    border-radius: 8px;
-    /* Cantos arredondados */
-  }
   
-  .tabelaCopias th {
-    background-color: #f1f1f1;
-    /* Fundo cinza claro */
-    text-align: center;
-    padding: 8px;
-  }
-  
-  .tabelaCopias td {
-    background-color: #fafafa;
-    /* Fundo alternado */
-    border-bottom: 1px solid #dcdcdc;
-    /* Linha de divisão */
-    padding: 8px;
-    text-align: center;
-  }
-
-  .excluirButton {
-  background: none; /* Remove o fundo */
-  border: none; /* Remove a borda */
-  cursor: pointer; /* Adiciona cursor de interação */
-  padding: 0; /* Remove o espaçamento interno */
-}
-
-.excluirButton img {
-  width: 20px; /* Tamanho do ícone */
-  height: 20px;
-}
 .nomeLivro {
   display: inline-block; /* Permite que o elemento ajuste seu tamanho ao conteúdo */
   padding: 8px 20px; /* Espaçamento interno */

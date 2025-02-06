@@ -1,10 +1,8 @@
 import { useState } from "react";
 import styles from "./ModalGerenciarCopias.module.css";
+//import TabelaCopias from "../TabelaCopias/TabelaCopias";
 
-interface Copia {
-  id: string;
-  status: "Disponível" | "Indisponível";
-}
+
 
 interface ModalGerenciarCopiasProps {
   isOpen: boolean;
@@ -43,31 +41,8 @@ const ModalGerenciarCopias: React.FC<ModalGerenciarCopiasProps> = ({ isOpen, onC
             Cadastrar Cópia
           </button>
         </div>
-        <table className={styles.tabelaCopias}>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Status</th>
-              <th>Ação</th>
-            </tr>
-          </thead>
-          <tbody>
-            {copias.map((copia) => (
-              <tr key={copia.id}>
-                <td>{copia.id}</td>
-                <td>{copia.status}</td>
-                <td>
-                  <button
-                    className={styles.excluirButton}
-                  //onClick={() => handleExcluirCopia(copia.id)}
-                  >
-                    <img src="/assets/iconlixeira.svg" alt="Excluir" title="Excluir" />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+               {/* Tabela
+               <TabelaCopias copias={copias} /> */}
       </div>
     </div>
 
