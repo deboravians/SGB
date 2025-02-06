@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./ModalGerenciarCopias.module.css";
-//import TabelaCopias from "../TabelaCopias/TabelaCopias";
+import TabelaCopias from "../TabelaCopias/TabelaCopias";
 
 
 
@@ -41,8 +41,8 @@ const ModalGerenciarCopias: React.FC<ModalGerenciarCopiasProps> = ({ isOpen, onC
             Cadastrar Cópia
           </button>
         </div>
-               {/* Tabela
-               <TabelaCopias copias={copias} /> */}
+              
+               <TabelaCopias copias={copias} /> 
       </div>
     </div>
 
