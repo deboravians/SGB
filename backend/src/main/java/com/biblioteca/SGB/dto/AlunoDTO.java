@@ -1,6 +1,5 @@
 package com.biblioteca.SGB.dto;
 
-import com.biblioteca.SGB.models.Aluno;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,18 +29,5 @@ public class AlunoDTO {
         this.serie = serie;
         this.turma = turma;
         this.anoLetivo = anoLetivo;
-    }
-
-    public static AlunoDTO fromAluno(Aluno aluno) {
-        return new AlunoDTO(
-                aluno.getNome(),
-                aluno.getTelefone(),
-                aluno.getRua(),
-                aluno.getBairro(),
-                aluno.getMatricula(),
-                aluno.getSerie(),
-                aluno.getTurma(),
-                aluno.getAnoLetivo()
-        );
     }
 }
