@@ -51,7 +51,7 @@ public class EmprestimoService {
 
         if(emprestimo.getDataPrevistaDevolucao().isBefore(LocalDate.now()) && emprestimo.getDataDevolucao() == null) { return "Atrasado"; }
 
-        return "Pendente";
+        return "Em Andamento";
     }
 
     public void excluirEmprestimo(Integer idEmprestimo) {

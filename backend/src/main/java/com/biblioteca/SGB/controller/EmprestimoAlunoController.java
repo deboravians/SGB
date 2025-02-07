@@ -19,7 +19,7 @@ public class EmprestimoAlunoController {
                                              @RequestParam Integer idCopia,
                                              @RequestParam String matriculaAluno) {
 
-        emprestimoDTO.setStatus("Pendente");
+        emprestimoDTO.setStatus("Em Andamento");
         Emprestimo emprestimo = EmprestimoMapper.toModel(emprestimoDTO, 7);
 
         Emprestimo novoEmprestimo = emprestimoAlunoService.cadastrarEmprestimo(emprestimo, idCopia, matriculaAluno);

@@ -19,7 +19,7 @@ public class EmprestimoProfessorController {
                                              @RequestParam Integer idCopia,
                                              @RequestParam String cpfProfessor) {
 
-        emprestimoDTO.setStatus("Pendente");
+        emprestimoDTO.setStatus("Em Andamento");
         Emprestimo emprestimo = EmprestimoMapper.toModel(emprestimoDTO, 30);
 
         Emprestimo novoEmprestimo = emprestimoProfessorService.cadastrarEmprestimo(emprestimo, idCopia, cpfProfessor);
