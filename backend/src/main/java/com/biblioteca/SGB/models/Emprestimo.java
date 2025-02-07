@@ -1,6 +1,5 @@
 package com.biblioteca.SGB.models;
 
-import com.biblioteca.SGB.services.EmprestimoService;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

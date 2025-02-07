@@ -1,8 +1,8 @@
 package com.biblioteca.SGB.dto;
 
 import com.biblioteca.SGB.models.Aluno;
-import com.biblioteca.SGB.models.Professor;
 import com.biblioteca.SGB.models.Copia;
+import com.biblioteca.SGB.models.Professor;
 import lombok.Getter;
 import lombok.Setter;
 

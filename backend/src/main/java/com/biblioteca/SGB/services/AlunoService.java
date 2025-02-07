@@ -1,8 +1,6 @@
 package com.biblioteca.SGB.services;
 
-import com.biblioteca.SGB.dto.AlunoDTO;
 import com.biblioteca.SGB.models.Aluno;
-import com.biblioteca.SGB.models.Classificacao;
 import com.biblioteca.SGB.repository.AlunoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

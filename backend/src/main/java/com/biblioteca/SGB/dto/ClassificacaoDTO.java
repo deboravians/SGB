@@ -1,6 +1,5 @@
 package com.biblioteca.SGB.dto;
 
-import com.biblioteca.SGB.models.Classificacao;
 import lombok.Getter;
 import lombok.Setter;
 

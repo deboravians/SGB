@@ -1,7 +1,5 @@
 package com.biblioteca.SGB.services;
 
-import com.biblioteca.SGB.dto.ProfessorDTO;
-import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.models.Professor;
 import com.biblioteca.SGB.repository.ProfessorRepository;
 import jakarta.persistence.EntityNotFoundException;
