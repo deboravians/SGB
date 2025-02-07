@@ -28,9 +28,8 @@ public class Copia {
     public Copia(){
     }
 
-    public Copia(Integer id, String status, Edicao edicao) {
+    public Copia(Integer id, String status) {
         this.id = id;
         this.status = status;
-        this.edicao = edicao;
     }
 }

@@ -1,6 +1,5 @@
 package com.biblioteca.SGB.dto;
 
-import com.biblioteca.SGB.models.Copia;
 import com.biblioteca.SGB.models.Edicao;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,13 +20,5 @@ public class CopiaDTO {
         this.id = id;
         this.status = status;
         this.edicao = edicao;
-    }
-
-    public static CopiaDTO fromCopia(Copia copia) {
-        return new CopiaDTO(
-                copia.getId(),
-                copia.getStatus(),
-                copia.getEdicao()
-        );
     }
 }
