@@ -7,6 +7,11 @@ import com.biblioteca.SGB.services.EmprestimoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import static com.biblioteca.SGB.utils.DateUtils.formatarData;
+
 @RestController
 @RequestMapping("/emprestimos/professores")
 public class EmprestimoProfessorController {
@@ -18,14 +23,14 @@ public class EmprestimoProfessorController {
     private EmprestimoService emprestimoService;
 
     @PostMapping
-    public EmprestimoDTO cadastrarEmprestimo(@RequestBody Emprestimo emprestimoDTO,
-                                          @RequestParam Integer idCopia,
-                                          @RequestParam String cpfProfessor) {
+    public EmprestimoDTO cadastrarEmprestimo(@RequestBody EmprestimoDTO emprestimoDTO,
+                                             @RequestParam Integer idCopia,
+                                             @RequestParam String cpfProfessor) {
 
         Emprestimo emprestimo = new Emprestimo(
-                emprestimoDTO.getDataEmprestimo(),
+                formatarData(emprestimoDTO.getDataEmprestimo()),
                 "Pendente",
-                emprestimoDTO.getDataEmprestimo().plusDays(30)
+                formatarData(emprestimoDTO.getDataEmprestimo()).plusDays(30)
         );
 
         Emprestimo novoEmprestimo = emprestimoProfessorService.cadastrarEmprestimo(emprestimo, idCopia, cpfProfessor);

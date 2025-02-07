@@ -4,10 +4,10 @@ import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.models.Professor;
 import com.biblioteca.SGB.models.Copia;
-import com.biblioteca.SGB.services.EmprestimoService;
 import lombok.Getter;
 import lombok.Setter;
-import java.time.LocalDate;
+
+import static com.biblioteca.SGB.utils.DateUtils.formatarData;
 
 @Getter
 @Setter
@@ -15,9 +15,9 @@ import java.time.LocalDate;
 public class EmprestimoDTO {
 
     private Integer id;
-    private LocalDate dataEmprestimo;
-    private LocalDate dataPrevistaDevolucao;
-    private LocalDate dataDevolucao;
+    private String dataEmprestimo;
+    private String dataPrevistaDevolucao;
+    private String dataDevolucao;
     private String status;
     private Aluno aluno;
     private Professor professor;
@@ -27,7 +27,7 @@ public class EmprestimoDTO {
     }
 
     // Construtor para empréstimos feitos por um Aluno
-    public EmprestimoDTO(Aluno aluno, Integer id, LocalDate dataEmprestimo, LocalDate dataPrevistaDevolucao, LocalDate dataDevolucao, String status, Copia copia) {
+    public EmprestimoDTO(Aluno aluno, Integer id, String dataEmprestimo, String dataPrevistaDevolucao, String dataDevolucao, String status, Copia copia) {
         this.id = id;
         this.dataEmprestimo = dataEmprestimo;
         this.dataPrevistaDevolucao = dataPrevistaDevolucao;
@@ -38,7 +38,7 @@ public class EmprestimoDTO {
     }
 
     // Construtor para empréstimos feitos por um Professor
-    public EmprestimoDTO( Professor professor, Integer id, LocalDate dataEmprestimo, LocalDate dataPrevistaDevolucao, LocalDate dataDevolucao, String status, Copia copia) {
+    public EmprestimoDTO(Professor professor, Integer id, String dataEmprestimo, String dataPrevistaDevolucao, String dataDevolucao, String status, Copia copia) {
         this.id = id;
         this.dataEmprestimo = dataEmprestimo;
         this.dataPrevistaDevolucao = dataPrevistaDevolucao;
@@ -49,13 +49,14 @@ public class EmprestimoDTO {
     }
 
     public static EmprestimoDTO fromEmprestimo(Emprestimo emprestimo, String status) {
+
         if (emprestimo.getAluno() != null) {
             return new EmprestimoDTO(
                     emprestimo.getAluno(),
                     emprestimo.getId(),
-                    emprestimo.getDataEmprestimo(),
-                    emprestimo.getDataPrevistaDevolucao(),
-                    emprestimo.getDataDevolucao(),
+                    formatarData(emprestimo.getDataEmprestimo()),
+                    formatarData(emprestimo.getDataPrevistaDevolucao()),
+                    formatarData(emprestimo.getDataDevolucao()),
                     status,
                     emprestimo.getCopia()
             );
@@ -63,9 +64,9 @@ public class EmprestimoDTO {
             return new EmprestimoDTO(
                     emprestimo.getProfessor(),
                     emprestimo.getId(),
-                    emprestimo.getDataEmprestimo(),
-                    emprestimo.getDataPrevistaDevolucao(),
-                    emprestimo.getDataDevolucao(),
+                    formatarData(emprestimo.getDataEmprestimo()),
+                    formatarData(emprestimo.getDataPrevistaDevolucao()),
+                    formatarData(emprestimo.getDataDevolucao()),
                     status,
                     emprestimo.getCopia()
             );

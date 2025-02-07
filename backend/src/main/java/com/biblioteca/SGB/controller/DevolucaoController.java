@@ -7,6 +7,9 @@ import com.biblioteca.SGB.services.EmprestimoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 @RestController
 @RequestMapping("/devolucoes")
 public class DevolucaoController {
@@ -21,7 +24,7 @@ public class DevolucaoController {
     public EmprestimoDTO registrarDevolucao(@RequestBody EmprestimoDTO emprestimoDTO, @RequestParam Integer id){
 
         Emprestimo devolucao = emprestimoService.getEmprestimoById(id);
-        devolucao.setDataDevolucao(emprestimoDTO.getDataDevolucao());
+        devolucao.setDataDevolucao(LocalDate.parse(emprestimoDTO.getDataDevolucao(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
         Emprestimo novaDevolucao = devolucaoService.registrarDevolucao(devolucao);
 
