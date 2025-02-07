@@ -26,7 +26,7 @@ public class EdicaoController {
 
         return EdicaoMapper.toDTO(
                 edicaoCadastrada,
-                edicaoService.calcularStatus(edicaoCadastrada),
+                edicaoService.calcularStatus(edicaoCadastrada.getIsbn()),
                 edicaoService.calcularQtdCopias(edicaoCadastrada.getIsbn()));
     }
 
@@ -38,7 +38,7 @@ public class EdicaoController {
         return edicoes.stream()
                 .map(edicao -> EdicaoMapper.toDTO(
                         edicao,
-                        edicaoService.calcularStatus(edicao),
+                        edicaoService.calcularStatus(edicao.getIsbn()),
                         edicaoService.calcularQtdCopias(edicao.getIsbn())))
                 .collect(Collectors.toList());
     }
@@ -55,7 +55,7 @@ public class EdicaoController {
 
         return EdicaoMapper.toDTO(
                 edicaoAtualizada,
-                edicaoService.calcularStatus(edicaoAtualizada),
+                edicaoService.calcularStatus(edicaoAtualizada.getIsbn()),
                 edicaoService.calcularQtdCopias(edicaoAtualizada.getIsbn()));
     }
 }

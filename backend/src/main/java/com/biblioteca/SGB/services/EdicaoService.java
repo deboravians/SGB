@@ -71,12 +71,12 @@ public class EdicaoService {
         return copiaService.listarCopias(edicaoIsbn).size();
     }
 
-    public String calcularStatus(Edicao edicao) {
-        List<Copia> copias = copiaService.listarCopias(edicao.getIsbn());
+    public String calcularStatus(String edicaoIsbn) {
+        List<Copia> copias = copiaService.listarCopias(edicaoIsbn);
 
         int cont = 0;
         for(Copia copia : copias){ if(copia.getStatus().equals("Emprestada")){ cont++; } }
 
-        return cont < calcularQtdCopias(edicao.getIsbn()) ? "Disponível" : "Indisponível";
+        return cont < calcularQtdCopias(edicaoIsbn) ? "Disponível" : "Indisponível";
     }
 }
