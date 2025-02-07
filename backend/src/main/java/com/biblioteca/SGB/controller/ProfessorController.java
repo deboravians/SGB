@@ -49,7 +49,17 @@ public class ProfessorController {
 
     @PutMapping("/{cpf}")
     public ProfessorDTO atualizarProfessor(@PathVariable String cpf, @RequestBody ProfessorDTO professorDTO) {
-        Professor professorAtualizado = professorService.atualizarProfessor(cpf, professorDTO);
+
+        Professor professor = new Professor(
+                professorDTO.getNome(),
+                professorDTO.getTelefone(),
+                professorDTO.getRua(),
+                professorDTO.getBairro(),
+                professorDTO.getCpf(),
+                professorDTO.getDisciplina()
+        );
+
+        Professor professorAtualizado = professorService.atualizarProfessor(cpf, professor);
         return ProfessorDTO.fromProfessor(professorAtualizado);
     }
 }

@@ -33,30 +33,15 @@ public class ProfessorService {
         professorRepository.deleteById(cpf);
     }
 
-    public Professor atualizarProfessor(String cpf, ProfessorDTO professorDTO) {
+    public Professor atualizarProfessor(String cpf, Professor professorAtualizado) {
         Professor professor = professorRepository.findById(cpf)
-                .orElseThrow(() -> new EntityNotFoundException("Professor com CPF " + cpf + " não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Não existe um professor com esse cpf."));
 
-        if(professorDTO.getNome() != null){
-            professor.setNome(professorDTO.getNome());
-        }
-        if(professorDTO.getCpf() != null){
-            professor.setCpf(professorDTO.getCpf());
-        }
-        if(professorDTO.getTelefone() != null){
-            professor.setTelefone(professorDTO.getTelefone());
-        }
-        if(professorDTO.getRua() != null){
-            professor.setRua(professorDTO.getRua());
-        }
-        if(professorDTO.getBairro() != null){
-            professor.setBairro(professorDTO.getBairro());
-        }
-        if(professorDTO.getDisciplina() != null){
-            professor.setDisciplina(professorDTO.getDisciplina());
+        if(!professor.getCpf().equals(professorAtualizado.getCpf())) {
+            throw new IllegalArgumentException("o cpf não pode ser atualizado");
         }
 
-        return professorRepository.save(professor);
+        return professorRepository.save(professorAtualizado);
     }
 
 }
