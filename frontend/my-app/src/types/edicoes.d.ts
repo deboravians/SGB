@@ -1,8 +1,8 @@
 export interface Edicao {
     isbn: string;
-    ano_publicacao: string;
-    autor: string;
     titulo: string;
-    classificacao_codigo: string;
+    autor: string;
+    anoPublicacao: string;
     status: string;
+    qtdCopias: number;
 }

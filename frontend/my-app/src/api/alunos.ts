@@ -25,3 +25,13 @@ export const listarAlunos = async () : Promise<Aluno[]> => {
 
   return response.json();
 }
+
+export const deletarAluno = async (matricula: string): Promise<void> => {
+  const response = await fetch(`http://localhost:8080/alunos/${matricula}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao deletar o aluno. Tente novamente.");
+  }
+};

@@ -4,7 +4,7 @@ import ModalCadastroAluno from "../../components/ModalCadastroAluno/ModalCadastr
 import CardInfors from "../../components/CardInfors/CardInfors";
 import TabelaAlunos from "../../components/TabelaAlunos/TabelaAlunos";
 import { Aluno } from "../../types/alunos";
-import { listarAlunos, cadastrarAluno } from "../../api/alunos";
+import { listarAlunos } from "../../api/alunos";
 
 const LeitoresAlunos: React.FC = () => {
 
@@ -16,7 +16,6 @@ const LeitoresAlunos: React.FC = () => {
 
   const carregarAlunos = async () => {
     try {
-      setLoading(true);
       const dados = await listarAlunos();
       setAlunos(dados);
     } catch (error) {
@@ -26,10 +25,9 @@ const LeitoresAlunos: React.FC = () => {
     }
   };
 
-  const salvarAluno = async (aluno: Aluno) => {
+  const salvarAluno = async () => {
     try {
-      const novoAluno = await cadastrarAluno(aluno);
-      setAlunos((prevAlunos) => [...prevAlunos, novoAluno]); // Atualiza a lista local
+      carregarAlunos();
       setIsModalOpen(false); // Fecha o modal
     } catch (error) {
       alert("Erro ao cadastrar o aluno.");
@@ -88,7 +86,7 @@ const LeitoresAlunos: React.FC = () => {
           {loading ? (
             <p>Carregando alunos...</p>
           ) : (
-            <TabelaAlunos alunos={alunos} />
+            <TabelaAlunos alunos={alunos} atualizarLista={carregarAlunos} />
           )}
 
         </div>

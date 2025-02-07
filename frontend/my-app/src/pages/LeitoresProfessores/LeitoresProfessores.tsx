@@ -4,7 +4,7 @@ import ModalCadastroProfessor from "../../components/ModalCadastroProfessor/Moda
 import CardInfors from "../../components/CardInfors/CardInfors";
 import TabelaProfessores from "../../components/TabelaProfessores/TabelaProfessores";
 import { Professor } from "../../types/professores";
-import { listarProfessores, cadastrarProfessor } from "../../api/professores";
+import { listarProfessores } from "../../api/professores";
 
 const LeitoresProfessores: React.FC = () => {
 
@@ -26,13 +26,12 @@ const LeitoresProfessores: React.FC = () => {
     }
   };
 
-  const salvarProfessor = async (professor: Professor) => {
+  const salvarProfessor = async () => {
     try {
-      const novoProfessor = await cadastrarProfessor(professor);
-      setProfessores((prevProfessores) => [...prevProfessores, novoProfessor]); // Atualiza a lista local
+      carregarProfessores();
       setIsModalOpen(false); // Fecha o modal
     } catch (error) {
-      alert("Erro ao cadastrar o professor.");
+      alert("Erro ao cadastrar o aluno.");
     }
   };
 
@@ -88,7 +87,7 @@ const LeitoresProfessores: React.FC = () => {
           {loading ? (
             <p>Carregando professores...</p>
           ) : (
-            <TabelaProfessores professores={professores} />
+            <TabelaProfessores professores={professores} atualizarLista={carregarProfessores}/>
           )}
 
         </div>

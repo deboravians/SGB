@@ -1,17 +1,18 @@
-
 import { Link } from "react-router-dom";
 import styles from "./tabelaAlunos.module.css";
 import { Aluno } from "../../types/alunos";
-import React, { useState } from "react";
-import ModalExcluirAluno from "../ExcluirAluno/ModalExcluirAluno"; 
+import { useState } from "react";
+import ModalExcluirAluno from "../ModalExcluirAluno/ModalExcluirAluno";
 
 interface TabelaAlunosProps {
   alunos: Aluno[];
+  atualizarLista: () => void;
 }
 
-const TabelaAlunos: React.FC<TabelaAlunosProps> = ({ alunos }) => {
+const TabelaAlunos: React.FC<TabelaAlunosProps> = ({ alunos, atualizarLista }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAluno, setSelectedAluno] = useState<Aluno | null>(null);
+
 
   const handleOpenModal = (aluno: Aluno) => {
     setSelectedAluno(aluno);
@@ -23,13 +24,6 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({ alunos }) => {
     setSelectedAluno(null);
   };
 
-  const handleConfirmDelete = () => {
-    if (selectedAluno) {
-      console.log(`Aluno com matrícula ${selectedAluno.matricula} excluído.`);
-      // Lógica para deletar o aluno via backend pode ser adicionada aqui
-      handleCloseModal();
-    }
-  };
 
   return (
     <div>
@@ -66,20 +60,12 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({ alunos }) => {
                   />
                 </Link>
 
-                <button 
-                  className={styles.icone} 
-                  onClick={() => handleOpenModal(aluno)} // Abre o modal de exclusão
+                <button
+                  className={styles.icone}
+                  onClick={() => handleOpenModal(aluno)}
                 >
                   <img src="/public/assets/iconlixeira.svg" alt="Apagar" />
                 </button>
-
-                <Link to={`/devolucao/1`} title="Devolução">
-                  <img
-                    src="/public/assets/iconOk.svg"
-                    alt="Devolução"
-                    className={styles.icone}
-                  />
-                </Link>
               </td>
             </tr>
           ))}
@@ -87,11 +73,14 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({ alunos }) => {
       </table>
 
       {/* Modal de confirmação de exclusão */}
-      <ModalExcluirAluno 
-        isOpen={isModalOpen} 
-        onClose={handleCloseModal} 
-        onConfirm={handleConfirmDelete} 
-      />
+      {selectedAluno && (
+        <ModalExcluirAluno
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          aluno={selectedAluno}
+          onSuccess={atualizarLista}
+        />
+      )}
     </div>
   );
 };

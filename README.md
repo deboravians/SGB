@@ -34,7 +34,19 @@ Certifique-se de que as ferramentas abaixo estão instaladas no seu ambiente:
 
 ## 📦 Como Executar o Back-end com Docker Compose
 
-Com o repositório já clonado, deve-se construir a imagem usando o comando:
+Com o repositório já clonado, deve-se entrar na pasta do backend, usando o comando:
+
+    - "cd backend"
+
+Dê build no backend do projeto, usando o comando:
+
+    - "./mvnw clean package"
+
+Volte para a pasta root, usando o comando:
+
+    - "cd .."
+
+Construa a imagem, usando o comando:
 
     - "docker-compose build"
 
@@ -48,7 +60,7 @@ Depois, suba o container, usando o comando:
 
 ## 🖥️ Como Executar o Front-end
 
-Entre na pasta do front-end usando o comando:
+Entre na pasta do front-end, usando o comando:
 
     - "cd frontend/my-app"
 

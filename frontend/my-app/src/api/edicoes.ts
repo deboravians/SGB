@@ -1,12 +1,20 @@
 import { Edicao } from "../types/edicoes";
 
-export const cadastrarEdicao = async (edicao: Edicao): Promise<Edicao> => {
-  const response = await fetch("http://localhost:8080/edicoes", {
+// Função para cadastrar a edição, agora recebendo a classificação como um parâmetro da URL
+export const cadastrarEdicao = async (edicao: Edicao, classificacaoCodigo: string): Promise<Edicao> => {
+  const response = await fetch(`http://localhost:8080/edicoes?classificacao_codigo=${classificacaoCodigo}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(edicao),
+    body: JSON.stringify({
+      isbn: edicao.isbn,
+      titulo: edicao.titulo,
+      autor: edicao.autor,
+      anoPublicacao: edicao.anoPublicacao, // Corrigido para o nome correto
+      status: edicao.status,
+      qtdCopias: edicao.qtdCopias,
+    }),
   });
 
   if (!response.ok) {
@@ -16,12 +24,22 @@ export const cadastrarEdicao = async (edicao: Edicao): Promise<Edicao> => {
   return response.json();
 };
 
-export const listarEdicoes = async () : Promise<Edicao[]> => {
+export const listarEdicoes = async (): Promise<Edicao[]> => {
   const response = await fetch("http://localhost:8080/edicoes");
 
-  if(!response.ok) {
+  if (!response.ok) {
     throw new Error("Erro ao buscar as edições.");
   }
 
   return response.json();
 }
+
+export const deletarEdicao = async (isbn: string): Promise<void> => {
+  const response = await fetch(`http://localhost:8080/edicoes/${isbn}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao deletar a edição. Tente novamente.");
+  }
+};

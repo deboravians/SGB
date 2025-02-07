@@ -1,6 +1,10 @@
 package com.biblioteca.SGB.dto;
 
-import com.biblioteca.SGB.models.Aluno;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 
 public class AlunoDTO {
 
@@ -24,83 +28,6 @@ public class AlunoDTO {
         this.matricula = matricula;
         this.serie = serie;
         this.turma = turma;
-        this.anoLetivo = anoLetivo;
-    }
-
-    public static AlunoDTO fromAluno(Aluno aluno) {
-        return new AlunoDTO(
-                aluno.getNome(),
-                aluno.getTelefone(),
-                aluno.getRua(),
-                aluno.getBairro(),
-                aluno.getMatricula(),
-                aluno.getSerie(),
-                aluno.getTurma(),
-                aluno.getAnoLetivo()
-        );
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getRua() {
-        return rua;
-    }
-
-    public void setRua(String rua) {
-        this.rua = rua;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public String getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
-
-    public String getSerie() {
-        return serie;
-    }
-
-    public void setSerie(String serie) {
-        this.serie = serie;
-    }
-
-    public String getTurma() {
-        return turma;
-    }
-
-    public void setTurma(String turma) {
-        this.turma = turma;
-    }
-
-    public String getAnoLetivo() {
-        return anoLetivo;
-    }
-
-    public void setAnoLetivo(String anoLetivo) {
         this.anoLetivo = anoLetivo;
     }
 }

@@ -1,9 +1,13 @@
 package com.biblioteca.SGB.models;
 
-import com.biblioteca.SGB.services.CopiaService;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import java.util.List;
+@Getter
+@Setter
 
 @Entity
 @Table(name = "Edicoes")
@@ -30,6 +34,7 @@ public class Edicao{
 
     @ManyToOne
     @JoinColumn(name = "classificacao_codigo")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Classificacao classificacao;
 
     public Edicao(){
@@ -41,65 +46,4 @@ public class Edicao{
         this.autor = autor;
         this.anoPublicacao = anoPublicacao;
     }
-
-    // Métodos Sets
-
-    public void setClassificacao(Classificacao classificacao) {
-        this.classificacao = classificacao;
-    }
-
-    public void setIsbn(String isbn) { this.isbn = isbn; }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
-    public void setAnoPublicacao(String anoPublicacao) {
-        this.anoPublicacao = anoPublicacao;
-    }
-
-    public void setQtdCopias(int qtdCopias) {
-        this.qtdCopias = qtdCopias;
-    }
-
-    public void setStatus(String status) { this.status = status; }
-
-    // Métodos Gets
-
-    public Classificacao getClassificacao() {
-        return classificacao;
-    }
-
-    public String getIsbn(){ return isbn; }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public String getAutor() {
-        return autor;
-    }
-
-    public String getAnoPublicacao() {
-        return anoPublicacao;
-    }
-
-    public int getQtdCopias(CopiaService copiaService, Edicao edicao) {
-        return copiaService.listarCopias(edicao).size();
-    }
-
-    public String getStatus(CopiaService copiaService, Edicao edicao) {
-        List<Copia> copias = copiaService.listarCopias(edicao);
-
-        int cont = 0;
-        for(Copia copia : copias){ if(copia.getStatus().equals("Emprestado")){ cont++; } }
-
-        return cont <= getQtdCopias(copiaService, edicao) ? "Disponivel" : "Indisponivel";
-    }
-
 }
-

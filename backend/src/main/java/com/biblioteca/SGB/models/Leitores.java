@@ -1,6 +1,12 @@
 package com.biblioteca.SGB.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 
 @MappedSuperclass
 public abstract class Leitores {
@@ -26,37 +32,4 @@ public abstract class Leitores {
         this.rua = rua;
         this.bairro = bairro;
     }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public String getRua() {
-        return rua;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public void setRua(String rua) {
-        this.rua = rua;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
 }

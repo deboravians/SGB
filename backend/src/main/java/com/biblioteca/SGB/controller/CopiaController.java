@@ -2,6 +2,7 @@ package com.biblioteca.SGB.controller;
 
 import com.biblioteca.SGB.dto.CopiaDTO;
 import com.biblioteca.SGB.dto.EdicaoDTO;
+import com.biblioteca.SGB.mapper.CopiaMapper;
 import com.biblioteca.SGB.models.Copia;
 import com.biblioteca.SGB.models.Edicao;
 import com.biblioteca.SGB.services.CopiaService;
@@ -21,13 +22,12 @@ public class CopiaController {
     @PostMapping
     public CopiaDTO cadastrarCopia(@RequestBody CopiaDTO copiaDTO, @RequestParam String isbnEdicao) {
 
-        Copia copia = new Copia();
-        copia.setId(copiaDTO.getId());
-        copia.setStatus("Disponível");
+        copiaDTO.setStatus("Disponível");
+        Copia copia = CopiaMapper.toModel(copiaDTO);
 
-        Copia novaCopia = copiaService.cadastarCopia(copia, isbnEdicao);
+        Copia novaCopia = copiaService.cadastrarCopia(copia, isbnEdicao);
 
-        return CopiaDTO.fromCopia(novaCopia);
+        return CopiaMapper.toDTO(novaCopia);
     }
 
     @GetMapping
@@ -42,7 +42,7 @@ public class CopiaController {
         List<Copia> copias = copiaService.listarCopias(edicao);
 
         return copias.stream()
-                .map(CopiaDTO::fromCopia)
+                .map(CopiaMapper::toDTO)
                 .collect(Collectors.toList());
     }
 }

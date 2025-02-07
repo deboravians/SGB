@@ -1,6 +1,7 @@
 package com.biblioteca.SGB.controller;
 
 import com.biblioteca.SGB.dto.ClassificacaoDTO;
+import com.biblioteca.SGB.mapper.ClassificacaoMapper;
 import com.biblioteca.SGB.models.Classificacao;
 import com.biblioteca.SGB.services.ClassificacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,10 @@ public class ClassificacaoController {
     @PostMapping
     public ClassificacaoDTO cadastrarClassificacao(@RequestBody ClassificacaoDTO classificacaoDTO) {
 
-        Classificacao classificacao = new Classificacao(
-                classificacaoDTO.getCodigo(),
-                classificacaoDTO.getTitulo()
-        );
+        Classificacao classificacao = ClassificacaoMapper.toModel(classificacaoDTO);
 
         Classificacao classificacaoCadastrada = classificacaoService.cadastrarClassificacao(classificacao);
-        return ClassificacaoDTO.fromClassificacao(classificacaoCadastrada);
+        return ClassificacaoMapper.toDTO(classificacaoCadastrada);
     }
 
     @GetMapping
@@ -34,7 +32,23 @@ public class ClassificacaoController {
         List<Classificacao> classificacoes = classificacaoService.listarClassificacoes();
 
         return classificacoes.stream()
-                .map(ClassificacaoDTO::fromClassificacao)
+                .map(ClassificacaoMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @DeleteMapping("/{codigo}")
+    public void excluirClassificacao(@PathVariable String codigo) {
+        classificacaoService.excluirClassificacao(codigo);
+    }
+
+    @PutMapping("/{codigo}")
+    public ClassificacaoDTO atualizarClassificacao(@PathVariable String codigo, @RequestBody ClassificacaoDTO classificacaoDTO){
+
+        Classificacao classificacao = ClassificacaoMapper.toModel(classificacaoDTO);
+
+        Classificacao classificacaoAtualizada = classificacaoService.atualizarClassificacao(codigo, classificacao);
+
+        return ClassificacaoMapper.toDTO(classificacaoAtualizada);
+
     }
 }
