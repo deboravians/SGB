@@ -1,8 +1,6 @@
 package com.biblioteca.SGB.dto;
 
 import com.biblioteca.SGB.models.Classificacao;
-import com.biblioteca.SGB.models.Edicao;
-import com.biblioteca.SGB.services.CopiaService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,18 +28,5 @@ public class EdicaoDTO {
         this.status = status;
         this.qtdCopias = qtdCopias;
         this.classificacao = classificacao;
-    }
-
-    public static EdicaoDTO fromEdicao(Edicao edicao, String status, int qtdCopias) {
-        return new EdicaoDTO(
-                edicao.getIsbn(),
-                edicao.getTitulo(),
-                edicao.getAutor(),
-                edicao.getAnoPublicacao(),
-                status,
-                qtdCopias,
-                edicao.getClassificacao()
-
-        );
     }
 }
