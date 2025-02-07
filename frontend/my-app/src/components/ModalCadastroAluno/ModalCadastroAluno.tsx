@@ -128,16 +128,17 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
               />
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.titu} htmlFor="anoLetivo">Ano Letivo:</label>
+              <label className={styles.titulo} htmlFor="anoLetivo">Ano Letivo</label>
               <input
+                type="date"
+                id="anoLetivo"
+                placeholder="Data de Empréstimo"
                 value={formData.anoLetivo}
                 onChange={handleChange}
-                type="text"
-                id="anoLetivo"
-                placeholder="0000"
-                className={styles.inputField3}
+                className={styles.inputFielddd}
               />
             </div>
+
           </div>
 
           <h3 className={styles.sectionTitle}>Endereço</h3>
