@@ -32,5 +32,11 @@ public class CopiaService {
         return copiaRepository.save(copia);
     }
 
-    public List<Copia> listarCopias(Edicao edicao) { return copiaRepository.findAllByedicao(edicao); }
+    public List<Copia> listarCopias(String isbnEdicao) {
+
+        Edicao edicao = edicaoRepository.findById(isbnEdicao)
+                .orElseThrow(() -> new RuntimeException("edição não encontrada"));
+
+        return copiaRepository.findAllByedicao(edicao);
+    }
 }

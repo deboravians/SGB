@@ -27,7 +27,7 @@ public class EdicaoController {
         return EdicaoMapper.toDTO(
                 edicaoCadastrada,
                 edicaoService.calcularStatus(edicaoCadastrada),
-                edicaoService.calcularQtdCopias(edicaoCadastrada));
+                edicaoService.calcularQtdCopias(edicaoCadastrada.getIsbn()));
     }
 
     @GetMapping
@@ -39,7 +39,7 @@ public class EdicaoController {
                 .map(edicao -> EdicaoMapper.toDTO(
                         edicao,
                         edicaoService.calcularStatus(edicao),
-                        edicaoService.calcularQtdCopias(edicao)))
+                        edicaoService.calcularQtdCopias(edicao.getIsbn())))
                 .collect(Collectors.toList());
     }
 
@@ -56,6 +56,6 @@ public class EdicaoController {
         return EdicaoMapper.toDTO(
                 edicaoAtualizada,
                 edicaoService.calcularStatus(edicaoAtualizada),
-                edicaoService.calcularQtdCopias(edicaoAtualizada));
+                edicaoService.calcularQtdCopias(edicaoAtualizada.getIsbn()));
     }
 }

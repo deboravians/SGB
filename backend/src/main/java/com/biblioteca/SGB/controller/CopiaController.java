@@ -30,16 +30,10 @@ public class CopiaController {
         return CopiaMapper.toDTO(novaCopia);
     }
 
-    @GetMapping
-    public List<CopiaDTO> listarCopias(@RequestBody EdicaoDTO edicaoDTO) {
+    @GetMapping("/{isbnEdicao}")
+    public List<CopiaDTO> listarCopias(@PathVariable String isbnEdicao) {
 
-        Edicao edicao = new Edicao();
-        edicao.setIsbn(edicaoDTO.getIsbn());
-        edicao.setTitulo(edicaoDTO.getTitulo());
-        edicao.setAnoPublicacao(edicaoDTO.getAnoPublicacao());
-        edicao.setAutor(edicaoDTO.getAutor());
-
-        List<Copia> copias = copiaService.listarCopias(edicao);
+        List<Copia> copias = copiaService.listarCopias(isbnEdicao);
 
         return copias.stream()
                 .map(CopiaMapper::toDTO)
