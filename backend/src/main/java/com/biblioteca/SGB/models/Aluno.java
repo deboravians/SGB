@@ -39,5 +39,4 @@ public class Aluno extends Leitores {
         this.turma = turma;
         this.anoLetivo = anoLetivo;
     }
-
 }

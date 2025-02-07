@@ -44,6 +44,4 @@ public class EmprestimoAlunoService {
 
         return emprestimoRepository.save(emprestimo);
     }
-
 }
-

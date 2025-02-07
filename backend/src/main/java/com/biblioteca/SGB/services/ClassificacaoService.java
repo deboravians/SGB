@@ -15,19 +15,17 @@ public class ClassificacaoService {
     private ClassificacaoRepository classificacaoRepository;
 
     public Classificacao cadastrarClassificacao(Classificacao classificacao) {
+
         if (classificacaoRepository.findById(classificacao.getCodigo()).isPresent()) {
             throw new IllegalArgumentException("Já existe uma classificaço cadastrada com esse codigo.");
         }
         return classificacaoRepository.save(classificacao);
     }
 
-    public List<Classificacao> listarClassificacoes(){
-
-        return classificacaoRepository.findAll();
-
-    }
+    public List<Classificacao> listarClassificacoes(){ return classificacaoRepository.findAll(); }
 
     public void excluirClassificacao(String codigo){
+
         if (!classificacaoRepository.findById(codigo).isPresent()) {
             throw new IllegalArgumentException("Não existe uma classificação com esse codigo.");
         }
@@ -45,5 +43,4 @@ public class ClassificacaoService {
 
         return classificacaoRepository.save(classificacaoAtualizada);
     }
-
 }

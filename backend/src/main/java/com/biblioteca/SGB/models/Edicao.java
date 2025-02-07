@@ -46,5 +46,4 @@ public class Edicao{
         this.autor = autor;
         this.anoPublicacao = anoPublicacao;
     }
-
 }

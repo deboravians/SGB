@@ -18,7 +18,7 @@ public class CopiaService {
     @Autowired
     private EdicaoRepository edicaoRepository;
 
-    public Copia cadastarCopia(Copia copia, String isbnEdicao) {
+    public Copia cadastrarCopia(Copia copia, String isbnEdicao) {
 
         if (copiaRepository.findById(copia.getId()).isPresent()) {
             throw new IllegalArgumentException("Já existe uma copia com esse ID");
@@ -32,9 +32,5 @@ public class CopiaService {
         return copiaRepository.save(copia);
     }
 
-    public List<Copia> listarCopias(Edicao edicao) {
-
-        return copiaRepository.findAllByedicao(edicao);
-    }
-
+    public List<Copia> listarCopias(Edicao edicao) { return copiaRepository.findAllByedicao(edicao); }
 }

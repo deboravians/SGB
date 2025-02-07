@@ -15,6 +15,7 @@ public class AlunoService {
     private AlunoRepository alunoRepository;
 
     public Aluno cadastrarAluno(Aluno aluno){
+
         if (alunoRepository.findById(aluno.getMatricula()).isPresent()) {
             throw new IllegalArgumentException("Já existe um aluno cadastrado com essa matrícula.");
         }
@@ -24,6 +25,7 @@ public class AlunoService {
     public List<Aluno> listarAlunos(){ return alunoRepository.findAll(); }
 
     public void excluirAluno(String matricula){
+
         if(!alunoRepository.existsById(matricula)){
             throw new IllegalStateException("Aluno com matricula " + matricula + " não encontrado.");
         }

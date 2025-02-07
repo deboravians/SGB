@@ -42,9 +42,11 @@ public class EdicaoService {
     }
 
     public void excluirEdicao(String isbn) {
+
         if(!edicaoRepository.existsById(isbn)) {
             throw new IllegalStateException("Edição com ISBN " + isbn + " não encontrada.");
         }
+
         edicaoRepository.deleteById(isbn);
     }
 
@@ -77,6 +79,4 @@ public class EdicaoService {
 
         return cont < calcularQtdCopias(edicao) ? "Disponível" : "Indisponível";
     }
-
 }
-

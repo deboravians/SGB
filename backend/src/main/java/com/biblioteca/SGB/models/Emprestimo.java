@@ -54,5 +54,4 @@ public class Emprestimo{
         this.status = status;
         this.dataPrevistaDevolucao = dataPrevistaDevolucao;
     }
-
 }

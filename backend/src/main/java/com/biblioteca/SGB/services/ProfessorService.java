@@ -15,6 +15,7 @@ public class ProfessorService {
     private ProfessorRepository professorRepository;
 
     public Professor cadastrarProfessor(Professor professor) {
+
         if (professorRepository.findById(professor.getCpf()).isPresent()) {
             throw new IllegalArgumentException("Já existe um professor cadastrado com esse CPF");
         }
@@ -25,6 +26,7 @@ public class ProfessorService {
     public List<Professor> listarProfessores(){ return professorRepository.findAll(); }
 
     public void excluirProfessor(String cpf) {
+
         if(!professorRepository.existsById(cpf)){
             throw new IllegalStateException("Professor com CPF " + cpf + " não encontrado.");
         }
@@ -32,6 +34,7 @@ public class ProfessorService {
     }
 
     public Professor atualizarProfessor(String cpf, Professor professorAtualizado) {
+
         Professor professor = professorRepository.findById(cpf)
                 .orElseThrow(() -> new EntityNotFoundException("Não existe um professor com esse cpf."));
 
@@ -41,6 +44,4 @@ public class ProfessorService {
 
         return professorRepository.save(professorAtualizado);
     }
-
 }
-

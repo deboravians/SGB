@@ -15,14 +15,11 @@ public class UsuarioService{
 
         Usuario usuarioLogado = UsuarioRepository.findByLogin(usuario.getLogin());
 
-        if(usuarioLogado == null){
-            return "0";
-        }
+        if(usuarioLogado == null){ return "0"; }
 
-        if((usuarioLogado.getLogin().equals(usuario.getLogin())) && (usuarioLogado.getSenha().equals(usuario.getSenha()))){
+        if((usuarioLogado.getLogin().equals(usuario.getLogin())) &&
+           (usuarioLogado.getSenha().equals(usuario.getSenha()))){
             return "1";
-        }else{
-            return "0";
-        }
+        }else{ return "0"; }
     }
 }

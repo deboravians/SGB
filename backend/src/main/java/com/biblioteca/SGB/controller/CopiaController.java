@@ -25,7 +25,7 @@ public class CopiaController {
         copiaDTO.setStatus("Disponível");
         Copia copia = CopiaMapper.toModel(copiaDTO);
 
-        Copia novaCopia = copiaService.cadastarCopia(copia, isbnEdicao);
+        Copia novaCopia = copiaService.cadastrarCopia(copia, isbnEdicao);
 
         return CopiaMapper.toDTO(novaCopia);
     }

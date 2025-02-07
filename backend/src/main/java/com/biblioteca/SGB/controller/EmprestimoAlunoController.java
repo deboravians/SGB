@@ -27,4 +27,3 @@ public class EmprestimoAlunoController {
         return EmprestimoMapper.toDTO(novoEmprestimo, novoEmprestimo.getStatus());
     }
 }
-
