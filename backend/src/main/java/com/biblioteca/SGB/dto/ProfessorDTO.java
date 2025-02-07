@@ -1,6 +1,5 @@
 package com.biblioteca.SGB.dto;
 
-import com.biblioteca.SGB.models.Professor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,16 +25,5 @@ public class ProfessorDTO {
         this.bairro = bairro;
         this.cpf = cpf;
         this.disciplina = disciplina;
-    }
-
-    public static ProfessorDTO fromProfessor(Professor professor) {
-        return new ProfessorDTO(
-                professor.getNome(),
-                professor.getTelefone(),
-                professor.getRua(),
-                professor.getBairro(),
-                professor.getCpf(),
-                professor.getDisciplina()
-        );
     }
 }

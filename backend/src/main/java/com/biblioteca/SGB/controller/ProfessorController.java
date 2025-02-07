@@ -1,8 +1,7 @@
 package com.biblioteca.SGB.controller;
 
-import com.biblioteca.SGB.dto.AlunoDTO;
 import com.biblioteca.SGB.dto.ProfessorDTO;
-import com.biblioteca.SGB.models.Aluno;
+import com.biblioteca.SGB.mapper.ProfessorMapper;
 import com.biblioteca.SGB.models.Professor;
 import com.biblioteca.SGB.services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +19,11 @@ public class ProfessorController {
 
     @PostMapping()
     public ProfessorDTO cadastrarProfessor(@RequestBody ProfessorDTO professorDTO) {
-        Professor professor = new Professor(
-                professorDTO.getNome(),
-                professorDTO.getTelefone(),
-                professorDTO.getRua(),
-                professorDTO.getBairro(),
-                professorDTO.getCpf(),
-                professorDTO.getDisciplina()
-        );
+
+        Professor professor = ProfessorMapper.toModel(professorDTO);
 
         Professor professorCadastrado = professorService.cadastrarProfessor(professor);
-        return ProfessorDTO.fromProfessor(professorCadastrado);
+        return ProfessorMapper.toDTO(professorCadastrado);
     }
 
     @GetMapping
@@ -38,7 +31,7 @@ public class ProfessorController {
         List<Professor> professores = professorService.listarProfessores();
 
         return professores.stream()
-                .map(ProfessorDTO::fromProfessor)
+                .map(ProfessorMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
@@ -50,18 +43,9 @@ public class ProfessorController {
     @PutMapping("/{cpf}")
     public ProfessorDTO atualizarProfessor(@PathVariable String cpf, @RequestBody ProfessorDTO professorDTO) {
 
-        Professor professor = new Professor(
-                professorDTO.getNome(),
-                professorDTO.getTelefone(),
-                professorDTO.getRua(),
-                professorDTO.getBairro(),
-                professorDTO.getCpf(),
-                professorDTO.getDisciplina()
-        );
+        Professor professor = ProfessorMapper.toModel(professorDTO);
 
         Professor professorAtualizado = professorService.atualizarProfessor(cpf, professor);
-        return ProfessorDTO.fromProfessor(professorAtualizado);
+        return ProfessorMapper.toDTO(professorAtualizado);
     }
 }
-
-
