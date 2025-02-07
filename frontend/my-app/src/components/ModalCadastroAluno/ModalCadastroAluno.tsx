@@ -48,12 +48,21 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
     setFormData(prevData => ({ ...prevData, [id]: value }));
   };
 
-  return (
+  setTimeout(() => {
+    setErrorMessage(null);
+  }, 5000);
 
+
+  return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <h3>Cadastrar aluno</h3>
-        {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+        {errorMessage && (
+          <div className={styles.errorMessageContainer}>
+            <p className={styles.errorMessage}>{errorMessage}</p>
+            <div className={styles.progressBar}></div>
+          </div>
+        )}
         <form onSubmit={handleSubmit}>
           <h3 className={styles.sectionTitle}>Informações Gerais</h3>
           <div className={styles.form}>
@@ -129,9 +138,7 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
                 className={styles.inputField3}
               />
             </div>
-
           </div>
-
 
           <h3 className={styles.sectionTitle}>Endereço</h3>
           <div className={styles.addressInfo}>
@@ -187,6 +194,7 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
       </div>
     </div>
   );
+
 };
 
 export default ModalCadastroAluno;
