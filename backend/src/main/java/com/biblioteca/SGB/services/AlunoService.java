@@ -2,6 +2,7 @@ package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.dto.AlunoDTO;
 import com.biblioteca.SGB.models.Aluno;
+import com.biblioteca.SGB.models.Classificacao;
 import com.biblioteca.SGB.repository.AlunoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,35 +32,15 @@ public class AlunoService {
         alunoRepository.deleteById(matricula);
     }
 
-    public Aluno atualizarAluno(String matricula, AlunoDTO alunoDTO) {
+    public Aluno atualizarAluno(String matricula, Aluno alunoAtualizado) {
+
         Aluno aluno = alunoRepository.findById(matricula)
-                    .orElseThrow(() -> new EntityNotFoundException("Aluno com matrícula " + matricula + " não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Não existe uma aluno com essa matricula."));
 
-        if(alunoDTO.getNome() != null){
-            aluno.setNome(alunoDTO.getNome());
-        }
-        if(alunoDTO.getMatricula() != null){
-            aluno.setMatricula(alunoDTO.getMatricula());
-        }
-        if(alunoDTO.getTelefone() != null){
-            aluno.setTelefone(alunoDTO.getTelefone());
-        }
-        if(alunoDTO.getRua() != null){
-            aluno.setRua(alunoDTO.getRua());
-        }
-        if(alunoDTO.getBairro() != null){
-            aluno.setBairro(alunoDTO.getBairro());
-        }
-        if(alunoDTO.getSerie() != null){
-            aluno.setSerie(alunoDTO.getSerie());
-        }
-        if(alunoDTO.getTurma() != null){
-            aluno.setTurma(alunoDTO.getTurma());
-        }
-        if(alunoDTO.getAnoLetivo() != null){
-            aluno.setAnoLetivo(alunoDTO.getAnoLetivo());
+        if(!aluno.getMatricula().equals(alunoAtualizado.getMatricula())) {
+            throw new IllegalArgumentException("a matricula não pode ser alterada");
         }
 
-        return alunoRepository.save(aluno);
+        return alunoRepository.save(alunoAtualizado);
     }
 }

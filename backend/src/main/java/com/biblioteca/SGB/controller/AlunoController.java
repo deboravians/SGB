@@ -55,7 +55,7 @@ public class AlunoController {
                 alunoDTO.getTelefone(),
                 alunoDTO.getRua(),
                 alunoDTO.getBairro(),
-                matricula,
+                alunoDTO.getMatricula(),
                 alunoDTO.getSerie(),
                 alunoDTO.getTurma(),
                 alunoDTO.getAnoLetivo()
