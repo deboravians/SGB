@@ -19,11 +19,4 @@ public class ClassificacaoDTO {
         this.codigo = codigo;
         this.titulo = titulo;
     }
-
-    public static ClassificacaoDTO fromClassificacao(Classificacao classificacao) {
-        return new ClassificacaoDTO(
-                classificacao.getCodigo(),
-                classificacao.getTitulo()
-        );
-    }
 }
