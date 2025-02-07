@@ -49,7 +49,19 @@ public class AlunoController {
 
     @PutMapping("/{matricula}")
     public AlunoDTO atualizarAluno(@PathVariable String matricula, @RequestBody AlunoDTO alunoDTO) {
-        Aluno alunoAtualizado = alunoService.atualizarAluno(matricula, alunoDTO);
+
+        Aluno aluno = new Aluno(
+                alunoDTO.getNome(),
+                alunoDTO.getTelefone(),
+                alunoDTO.getRua(),
+                alunoDTO.getBairro(),
+                matricula,
+                alunoDTO.getSerie(),
+                alunoDTO.getTurma(),
+                alunoDTO.getAnoLetivo()
+        );
+
+        Aluno alunoAtualizado = alunoService.atualizarAluno(matricula, aluno);
         return AlunoDTO.fromAluno(alunoAtualizado);
     }
 }
