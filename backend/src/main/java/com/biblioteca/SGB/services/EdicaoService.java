@@ -4,6 +4,7 @@ import com.biblioteca.SGB.models.Classificacao;
 import com.biblioteca.SGB.models.Copia;
 import com.biblioteca.SGB.models.Edicao;
 import com.biblioteca.SGB.repository.ClassificacaoRepository;
+import com.biblioteca.SGB.repository.CopiaRepository;
 import com.biblioteca.SGB.repository.EdicaoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class EdicaoService {
 
     @Autowired
     private ClassificacaoRepository classificacaoRepository;
+
+    @Autowired
+    private CopiaRepository copiaRepository;
 
     @Autowired
     private CopiaService copiaService;
@@ -42,6 +46,10 @@ public class EdicaoService {
     }
 
     public void excluirEdicao(String isbn) {
+
+        if(copiaRepository.existsByEdicaoIsbn(isbn)){
+            throw new IllegalArgumentException("A edição possui cópias associadas e não pode ser excluída.");
+        }
 
         if(!edicaoRepository.existsById(isbn)) {
             throw new IllegalStateException("Edição com ISBN " + isbn + " não encontrada.");

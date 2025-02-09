@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface CopiaRepository extends JpaRepository<Copia, Integer> {
     List<Copia> findAllByedicao(Edicao edicao);
+
+    boolean existsByEdicaoIsbn(String isbn);
 }
