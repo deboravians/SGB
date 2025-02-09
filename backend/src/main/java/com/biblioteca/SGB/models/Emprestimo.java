@@ -33,17 +33,14 @@ public class Emprestimo{
 
     @ManyToOne
     @JoinColumn(name = "aluno_matricula")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Aluno aluno;
 
     @ManyToOne
     @JoinColumn(name = "professor_cpf")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Professor professor;
 
     @ManyToOne
     @JoinColumn(name = "copia_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Copia copia;
 
     public Emprestimo() {

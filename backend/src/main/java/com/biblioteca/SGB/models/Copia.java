@@ -22,7 +22,6 @@ public class Copia {
 
     @ManyToOne
     @JoinColumn(name = "edicao_isbn")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Edicao edicao;
 
     public Copia(){

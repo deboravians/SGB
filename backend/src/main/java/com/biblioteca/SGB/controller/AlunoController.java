@@ -3,8 +3,10 @@ package com.biblioteca.SGB.controller;
 import com.biblioteca.SGB.dto.AlunoDTO;
 import com.biblioteca.SGB.mapper.AlunoMapper;
 import com.biblioteca.SGB.models.Aluno;
+import com.biblioteca.SGB.repository.EmprestimoRepository;
 import com.biblioteca.SGB.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

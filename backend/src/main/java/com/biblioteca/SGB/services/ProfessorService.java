@@ -1,6 +1,7 @@
 package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.models.Professor;
+import com.biblioteca.SGB.repository.EmprestimoRepository;
 import com.biblioteca.SGB.repository.ProfessorRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ public class ProfessorService {
 
     @Autowired
     private ProfessorRepository professorRepository;
+    @Autowired
+    private EmprestimoRepository emprestimoRepository;
 
     public Professor cadastrarProfessor(Professor professor) {
 
@@ -26,6 +29,10 @@ public class ProfessorService {
     public List<Professor> listarProfessores(){ return professorRepository.findAll(); }
 
     public void excluirProfessor(String cpf) {
+
+        if(emprestimoRepository.existsByProfessorCpf(cpf)){
+            throw new IllegalArgumentException("O professor possui empréstimos e não pode ser excluído.");
+        }
 
         if(!professorRepository.existsById(cpf)){
             throw new IllegalStateException("Professor com CPF " + cpf + " não encontrado.");

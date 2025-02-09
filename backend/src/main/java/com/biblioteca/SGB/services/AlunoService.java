@@ -2,8 +2,10 @@ package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.repository.AlunoRepository;
+import com.biblioteca.SGB.repository.EmprestimoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +15,9 @@ public class AlunoService {
 
     @Autowired
     private AlunoRepository alunoRepository;
+
+    @Autowired
+    private EmprestimoRepository emprestimoRepository;
 
     public Aluno cadastrarAluno(Aluno aluno){
 
@@ -25,6 +30,10 @@ public class AlunoService {
     public List<Aluno> listarAlunos(){ return alunoRepository.findAll(); }
 
     public void excluirAluno(String matricula){
+
+        if (emprestimoRepository.existsByAlunoMatricula(matricula)){
+            throw new IllegalArgumentException("O aluno possui empréstimos e não pode ser excluído.");
+        }
 
         if(!alunoRepository.existsById(matricula)){
             throw new IllegalStateException("Aluno com matricula " + matricula + " não encontrado.");

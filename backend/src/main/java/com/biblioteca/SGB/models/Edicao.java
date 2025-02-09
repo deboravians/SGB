@@ -34,7 +34,6 @@ public class Edicao{
 
     @ManyToOne
     @JoinColumn(name = "classificacao_codigo")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Classificacao classificacao;
 
     public Edicao(){
