@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EdicaoRepository extends JpaRepository<Edicao, String> {
+    boolean existsByClassificacaoCodigo(String codigo);
 }
 

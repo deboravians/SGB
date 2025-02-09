@@ -2,6 +2,7 @@ package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.models.Classificacao;
 import com.biblioteca.SGB.repository.ClassificacaoRepository;
+import com.biblioteca.SGB.repository.EdicaoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,9 @@ public class ClassificacaoService {
     @Autowired
     private ClassificacaoRepository classificacaoRepository;
 
+    @Autowired
+    private EdicaoRepository edicaoRepository;
+
     public Classificacao cadastrarClassificacao(Classificacao classificacao) {
 
         if (classificacaoRepository.findById(classificacao.getCodigo()).isPresent()) {
@@ -25,6 +29,11 @@ public class ClassificacaoService {
     public List<Classificacao> listarClassificacoes(){ return classificacaoRepository.findAll(); }
 
     public void excluirClassificacao(String codigo){
+
+        if(edicaoRepository.existsByClassificacaoCodigo(codigo)){
+            throw new IllegalArgumentException("a classificação possui livros associados e não pode ser excluída.");
+
+        }
 
         if (!classificacaoRepository.findById(codigo).isPresent()) {
             throw new IllegalArgumentException("Não existe uma classificação com esse codigo.");
