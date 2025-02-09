@@ -4,6 +4,7 @@ import com.biblioteca.SGB.models.Copia;
 import com.biblioteca.SGB.models.Edicao;
 import com.biblioteca.SGB.repository.CopiaRepository;
 import com.biblioteca.SGB.repository.EdicaoRepository;
+import com.biblioteca.SGB.repository.EmprestimoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,9 @@ public class CopiaService {
 
     @Autowired
     private EdicaoRepository edicaoRepository;
+
+    @Autowired
+    private EmprestimoRepository emprestimoRepository;
 
     public Copia cadastrarCopia(Copia copia, String isbnEdicao) {
 
@@ -39,4 +43,15 @@ public class CopiaService {
 
         return copiaRepository.findAllByedicao(edicao);
     }
+
+    public void excluirCopia(int id) {
+        if (emprestimoRepository.existsByCopiaId(id)){
+            throw new IllegalArgumentException("Existem empréstimos relacionados a essa cópia e ela não pode ser excluída.");
+        }
+        if(!copiaRepository.existsById(id)){
+            throw new IllegalStateException("Cópia com id " + id + " não encontrado.");
+        }
+        copiaRepository.deleteById(id);
+    }
+
 }

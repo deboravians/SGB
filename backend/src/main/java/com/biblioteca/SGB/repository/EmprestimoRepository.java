@@ -9,4 +9,6 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Integer>
     boolean existsByAlunoMatricula(String matricula);
 
     boolean existsByProfessorCpf(String cpf);
+
+    boolean existsByCopiaId(int id);
 }

@@ -39,4 +39,9 @@ public class CopiaController {
                 .map(CopiaMapper::toDTO)
                 .collect(Collectors.toList());
     }
+
+    @DeleteMapping("/{id}")
+    public void excluirCopia(@PathVariable int id) {
+        copiaService.excluirCopia(id);
+    }
 }
