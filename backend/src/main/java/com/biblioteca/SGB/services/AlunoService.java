@@ -76,7 +76,4 @@ public class AlunoService {
                 .orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
     }
 
-    public List<Emprestimo> buscarEmprestimosPorAluno(String matricula) {
-        return emprestimoRepository.findByAlunoMatricula(matricula);
-    }
 }

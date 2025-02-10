@@ -1,11 +1,7 @@
 package com.biblioteca.SGB.mapper;
 
 import com.biblioteca.SGB.dto.AlunoDTO;
-import com.biblioteca.SGB.dto.AlunoEmprestimoDTO;
-import com.biblioteca.SGB.dto.EmprestimoDTO;
 import com.biblioteca.SGB.models.Aluno;
-
-import java.util.List;
 
 public class AlunoMapper {
 
@@ -22,10 +18,6 @@ public class AlunoMapper {
         );
     }
 
-    public static AlunoEmprestimoDTO toDTOComEmprestimos(Aluno aluno, List<EmprestimoDTO> historicoEmprestimos) {
-        AlunoDTO alunoDTO = toDTO(aluno);
-        return new AlunoEmprestimoDTO(alunoDTO, historicoEmprestimos);
-    }
 
     public static Aluno toModel(AlunoDTO alunoDTO) {
         return new Aluno(

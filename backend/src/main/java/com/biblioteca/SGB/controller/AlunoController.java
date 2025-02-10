@@ -1,7 +1,6 @@
 package com.biblioteca.SGB.controller;
 
 import com.biblioteca.SGB.dto.AlunoDTO;
-import com.biblioteca.SGB.dto.AlunoEmprestimoDTO;
 import com.biblioteca.SGB.dto.AlunoRankingDTO;
 import com.biblioteca.SGB.dto.EmprestimoDTO;
 import com.biblioteca.SGB.mapper.AlunoMapper;
@@ -9,11 +8,9 @@ import com.biblioteca.SGB.mapper.AlunoRankingMapper;
 import com.biblioteca.SGB.mapper.EmprestimoMapper;
 import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.models.Emprestimo;
-import com.biblioteca.SGB.repository.EmprestimoRepository;
 import com.biblioteca.SGB.services.AlunoService;
 import com.biblioteca.SGB.services.EmprestimoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -86,15 +83,10 @@ public class AlunoController {
     }
 
     @GetMapping("/perfil/{matricula}")
-    public AlunoEmprestimoDTO perfilAluno(@PathVariable String matricula) {
+    public AlunoDTO perfilAluno(@PathVariable String matricula) {
         Aluno aluno = alunoService.perfilAluno(matricula);
-        List<Emprestimo> emprestimos = alunoService.buscarEmprestimosPorAluno(matricula);
 
-        List<EmprestimoDTO> emprestimosDTO = emprestimos.stream()
-                .map(emprestimo -> EmprestimoMapper.toDTO(emprestimo, emprestimoService.calcularStatus(emprestimo)))
-                .collect(Collectors.toList());
-
-        return AlunoMapper.toDTOComEmprestimos(aluno, emprestimosDTO);
+        return AlunoMapper.toDTO(aluno);
     }
 
 }
