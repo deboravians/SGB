@@ -15,4 +15,6 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Integer>
     boolean existsByCopiaId(int id);
 
     List<Emprestimo> findByAlunoMatriculaIsNotNullAndDataDevolucaoIsNotNull();
+
+    List<Emprestimo> findByProfessorCpfIsNotNullAndDataDevolucaoIsNotNull();
 }

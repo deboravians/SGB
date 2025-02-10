@@ -41,4 +41,12 @@ public class DevolucaoController {
                 .map(emprestimo -> EmprestimoMapper.toDTO(emprestimo, emprestimoService.calcularStatus(emprestimo)))
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/professores")
+    public List<EmprestimoDTO> listarDevolucaoProfessores(){
+        List<Emprestimo> emprestimos = emprestimoService.listarDevolucoesProfessores();
+        return emprestimos.stream()
+                .map(emprestimo -> EmprestimoMapper.toDTO(emprestimo, emprestimoService.calcularStatus(emprestimo)))
+                .collect(Collectors.toList());
+    }
 }

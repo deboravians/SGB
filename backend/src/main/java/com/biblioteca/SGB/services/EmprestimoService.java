@@ -65,4 +65,8 @@ public class EmprestimoService {
     public List<Emprestimo> listarDevolucoesAlunos() {
         return emprestimoRepository.findByAlunoMatriculaIsNotNullAndDataDevolucaoIsNotNull();
     }
+
+    public List<Emprestimo> listarDevolucoesProfessores() {
+        return emprestimoRepository.findByProfessorCpfIsNotNullAndDataDevolucaoIsNotNull();
+    }
 }
