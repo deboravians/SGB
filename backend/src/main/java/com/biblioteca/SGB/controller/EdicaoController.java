@@ -58,4 +58,14 @@ public class EdicaoController {
                 edicaoService.calcularStatus(edicaoAtualizada.getIsbn()),
                 edicaoService.calcularQtdCopias(edicaoAtualizada.getIsbn()));
     }
+
+    @GetMapping("/perfil/{isbn}")
+    public EdicaoDTO perfilEdicao(@PathVariable String isbn){
+        Edicao edicao = edicaoService.perfilEdicao(isbn);
+
+        return EdicaoMapper.toDTO(edicao,
+                edicaoService.calcularStatus(edicao.getIsbn()),
+                edicaoService.calcularQtdCopias(edicao.getIsbn()));
+    }
+
 }
