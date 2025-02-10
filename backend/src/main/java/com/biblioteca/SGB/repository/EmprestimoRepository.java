@@ -3,6 +3,7 @@ package com.biblioteca.SGB.repository;
 import com.biblioteca.SGB.dto.EmprestimoDTO;
 import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.models.Emprestimo;
+import com.biblioteca.SGB.models.Professor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,6 +14,11 @@ import java.util.List;
 
 @Repository
 public interface EmprestimoRepository extends JpaRepository<Emprestimo, Integer> {
+
+    List<Emprestimo> getEmprestimosByAluno(Aluno aluno);
+
+    List<Emprestimo> getEmprestimosByProfessor(Professor professor);
+
     boolean existsByAlunoMatricula(String matricula);
 
     boolean existsByProfessorCpf(String cpf);
@@ -40,5 +46,4 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Integer>
             @Param("dataInicio") LocalDate dataInicio,
             @Param("dataFim") LocalDate dataFim
     );
-    List<Emprestimo> getEmprestimosByAluno(Aluno aluno);
 }

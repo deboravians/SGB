@@ -69,7 +69,5 @@ public class AlunoService {
                 .orElseThrow(() -> new EntityNotFoundException("Não existe uma aluno com essa matricula."));
 
         return emprestimoRepository.getEmprestimosByAluno(aluno);
-
     }
-
 }

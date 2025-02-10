@@ -1,8 +1,12 @@
 package com.biblioteca.SGB.controller;
 
+import com.biblioteca.SGB.dto.EmprestimoDTO;
 import com.biblioteca.SGB.dto.ProfessorDTO;
+import com.biblioteca.SGB.mapper.EmprestimoMapper;
 import com.biblioteca.SGB.mapper.ProfessorMapper;
+import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.models.Professor;
+import com.biblioteca.SGB.services.EmprestimoService;
 import com.biblioteca.SGB.services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +20,9 @@ public class ProfessorController {
 
     @Autowired
     private ProfessorService professorService;
+
+    @Autowired
+    private EmprestimoService emprestimoService;
 
     @PostMapping()
     public ProfessorDTO cadastrarProfessor(@RequestBody ProfessorDTO professorDTO) {
@@ -47,5 +54,14 @@ public class ProfessorController {
 
         Professor professorAtualizado = professorService.atualizarProfessor(cpf, professor);
         return ProfessorMapper.toDTO(professorAtualizado);
+    }
+
+    @GetMapping("/emprestimos/{cpf}")
+    public List<EmprestimoDTO> listarEmprestimosAlunos(@PathVariable String cpf) {
+
+        List<Emprestimo> emprestimosProfessores = professorService.listarEmprestimosProfessores(cpf);
+        return emprestimosProfessores.stream()
+                .map(emprestimo -> EmprestimoMapper.toDTO(emprestimo, emprestimoService.calcularStatus(emprestimo)))
+                .collect(Collectors.toList());
     }
 }
