@@ -1,7 +1,10 @@
 package com.biblioteca.SGB.controller;
 
+import com.biblioteca.SGB.dto.AlunoDTO;
 import com.biblioteca.SGB.dto.EmprestimoDTO;
+import com.biblioteca.SGB.mapper.AlunoMapper;
 import com.biblioteca.SGB.mapper.EmprestimoMapper;
+import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.services.DevolucaoService;
 import com.biblioteca.SGB.services.EmprestimoService;

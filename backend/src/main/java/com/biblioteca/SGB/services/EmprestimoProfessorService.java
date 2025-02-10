@@ -37,6 +37,10 @@ public class EmprestimoProfessorService {
             throw new IllegalStateException("A cópia já está emprestada!");
         }
 
+        if ("Extraviada".equals(copia.getStatus())) {
+            throw new IllegalStateException("A cópia está Extraviada!");
+        }
+
         copia.setStatus("Emprestada");
         copiaRepository.save(copia);
 

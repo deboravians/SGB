@@ -1,7 +1,9 @@
 package com.biblioteca.SGB.services;
 
+import com.biblioteca.SGB.models.Copia;
 import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
+import com.biblioteca.SGB.repository.CopiaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,9 @@ public class EmprestimoService {
 
     @Autowired
     private EmprestimoRepository emprestimoRepository;
+
+    @Autowired
+    private CopiaRepository copiaRepository;
 
     public Emprestimo aumentarPrazo(Integer idEmprestimo){
 
@@ -35,6 +40,28 @@ public class EmprestimoService {
             emprestimo.setDataPrevistaDevolucao(emprestimo.getDataPrevistaDevolucao().plusDays(7));
         }
 
+        return emprestimoRepository.save(emprestimo);
+
+    }
+
+    public Emprestimo registrarExtravio(Integer idEmprestimo){
+
+        Emprestimo emprestimo = emprestimoRepository.findById(idEmprestimo)
+                .orElseThrow(() -> new RuntimeException("Emprestimo não encontrado no banco"));
+
+        if(calcularStatus(emprestimo).equals("Extraviado")) {
+            throw new IllegalArgumentException("Esse emprestimo já encontra-se como extraviado.");
+        }
+
+        if(calcularStatus(emprestimo).equals("Devolvido")) {
+            throw new IllegalArgumentException("Esse emprestimo já encontra-se como devolvido, assim não pode ser marcado como extraviado.");
+        }
+
+        Copia copia = emprestimo.getCopia();
+        copia.setStatus("Extraviada");
+        copiaRepository.save(copia);
+
+        emprestimo.setStatus("Extraviado");
         return emprestimoRepository.save(emprestimo);
 
     }

@@ -1,6 +1,7 @@
 package com.biblioteca.SGB.controller;
 
 import com.biblioteca.SGB.dto.EmprestimoDTO;
+import com.biblioteca.SGB.mapper.AlunoMapper;
 import com.biblioteca.SGB.mapper.EmprestimoMapper;
 import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.services.EmprestimoService;
@@ -23,6 +24,13 @@ public class EmprestimoController {
         Emprestimo emprestimo = emprestimoService.aumentarPrazo(idEmprestimo);
 
         return EmprestimoMapper.toDTO(emprestimo, emprestimoService.calcularStatus(emprestimo));
+    }
+
+    @PutMapping("/registrarExtravio/{idEmprestimo}")
+    public EmprestimoDTO registrarExtravio(@PathVariable Integer idEmprestimo) {
+
+        Emprestimo emprestimoExtraviado = emprestimoService.registrarExtravio(idEmprestimo);
+        return EmprestimoMapper.toDTO(emprestimoExtraviado, emprestimoService.calcularStatus(emprestimoExtraviado));
     }
 
     @GetMapping
