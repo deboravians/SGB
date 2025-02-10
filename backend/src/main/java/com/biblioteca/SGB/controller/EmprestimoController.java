@@ -37,4 +37,5 @@ public class EmprestimoController {
     public void excluirEmprestimo(@PathVariable Integer id) {
         emprestimoService.excluirEmprestimo(id);
     }
+
 }

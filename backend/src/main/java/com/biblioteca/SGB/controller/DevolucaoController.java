@@ -8,6 +8,9 @@ import com.biblioteca.SGB.services.EmprestimoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.biblioteca.SGB.utils.DateUtils.formatarData;
 
 @RestController
@@ -29,5 +32,13 @@ public class DevolucaoController {
         Emprestimo novaDevolucao = devolucaoService.registrarDevolucao(devolucao);
 
         return EmprestimoMapper.toDTO(novaDevolucao, emprestimoService.calcularStatus(novaDevolucao));
+    }
+
+    @GetMapping("/alunos")
+    public List<EmprestimoDTO> listarDevolucaoAlunos(){
+        List<Emprestimo> emprestimos = emprestimoService.listarDevolucoesAlunos();
+        return emprestimos.stream()
+                .map(emprestimo -> EmprestimoMapper.toDTO(emprestimo, emprestimoService.calcularStatus(emprestimo)))
+                .collect(Collectors.toList());
     }
 }

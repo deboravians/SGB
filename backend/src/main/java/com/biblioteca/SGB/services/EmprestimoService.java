@@ -61,4 +61,8 @@ public class EmprestimoService {
         }
         emprestimoRepository.deleteById(idEmprestimo);
     }
+
+    public List<Emprestimo> listarDevolucoesAlunos() {
+        return emprestimoRepository.findByAlunoMatriculaIsNotNullAndDataDevolucaoIsNotNull();
+    }
 }
