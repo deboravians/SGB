@@ -73,15 +73,6 @@ public class AlunoController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/emprestimos/{matricula}")
-    public List<EmprestimoDTO> listarEmprestimosAlunos(@PathVariable String matricula) {
-
-        List<Emprestimo> emprestimosAlunos = alunoService.listarEmprestimosAlunos(matricula);
-        return emprestimosAlunos.stream()
-                .map(emprestimo -> EmprestimoMapper.toDTO(emprestimo, emprestimoService.calcularStatus(emprestimo)))
-                .collect(Collectors.toList());
-    }
-
     @GetMapping("/{matricula}")
     public AlunoDTO perfilAluno(@PathVariable String matricula) {
         Aluno aluno = alunoService.perfilAluno(matricula);

@@ -63,14 +63,6 @@ public class AlunoService {
         return emprestimoRepository.findTopAlunosByPeriod(dataInicio, dataFim);
     }
 
-    public List<Emprestimo> listarEmprestimosAlunos(String matricula){
-
-        Aluno aluno = alunoRepository.findById(matricula)
-                .orElseThrow(() -> new EntityNotFoundException("Não existe uma aluno com essa matricula."));
-
-        return emprestimoRepository.getEmprestimosByAluno(aluno);
-    }
-
     public Aluno perfilAluno(String matricula) {
         return alunoRepository.findById(matricula)
                 .orElseThrow(() -> new RuntimeException("Aluno não encontrado"));

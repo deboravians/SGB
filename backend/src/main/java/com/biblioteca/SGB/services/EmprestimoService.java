@@ -2,9 +2,11 @@ package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.dto.EmprestimoDTO;
 import com.biblioteca.SGB.mapper.EmprestimoMapper;
+import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.models.Copia;
 import com.biblioteca.SGB.models.Edicao;
 import com.biblioteca.SGB.models.Emprestimo;
+import com.biblioteca.SGB.repository.AlunoRepository;
 import com.biblioteca.SGB.repository.EdicaoRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
 import com.biblioteca.SGB.repository.CopiaRepository;
@@ -29,6 +31,9 @@ public class EmprestimoService {
 
     @Autowired
     private EdicaoRepository edicaoRepository;
+
+    @Autowired
+    private AlunoRepository alunoRepository;
 
     public Emprestimo aumentarPrazo(Integer idEmprestimo){
 
@@ -106,4 +111,13 @@ public class EmprestimoService {
 
         return emprestimoRepository.findByCopiaEdicaoIsbn(isbn);
     }
+
+    public List<Emprestimo> listarEmprestimosAlunos(String matricula){
+
+        Aluno aluno = alunoRepository.findById(matricula)
+                .orElseThrow(() -> new EntityNotFoundException("Não existe uma aluno com essa matricula."));
+
+        return emprestimoRepository.getEmprestimosByAluno(aluno);
+    }
+
 }
