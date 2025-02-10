@@ -1,12 +1,13 @@
 .status {
-  padding: 10px;
+  padding: 8px;
   border-radius: 24px;
   font-weight: bold;
   text-align: center;
   display: inline-block;
-  width: 120px;
+  width: 150px;
 }
 
+.emAndamento,
 .devolvido,
 .disponivel {
   background-color: #4CAF50;
@@ -14,18 +15,14 @@
   color: white;
 }
 
+.extraviada,
+.emprestada,
 .extraviado,
 .atrasado,
 .indisponivel {
   background-color: #E53935;
   /* Vermelho */
   color: white;
-}
-
-.pendente {
-  background-color: #f1c40f;
-  /* Amarelo */
-  color: black;
 }
 
 /* Caso o status não seja encontrado */
