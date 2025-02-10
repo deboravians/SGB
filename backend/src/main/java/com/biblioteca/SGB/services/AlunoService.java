@@ -70,4 +70,13 @@ public class AlunoService {
 
         return emprestimoRepository.getEmprestimosByAluno(aluno);
     }
+
+    public Aluno perfilAluno(String matricula) {
+        return alunoRepository.findById(matricula)
+                .orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
+    }
+
+    public List<Emprestimo> buscarEmprestimosPorAluno(String matricula) {
+        return emprestimoRepository.findByAlunoMatricula(matricula);
+    }
 }

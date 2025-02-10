@@ -1,6 +1,7 @@
 package com.biblioteca.SGB.controller;
 
 import com.biblioteca.SGB.dto.AlunoDTO;
+import com.biblioteca.SGB.dto.AlunoEmprestimoDTO;
 import com.biblioteca.SGB.dto.AlunoRankingDTO;
 import com.biblioteca.SGB.dto.EmprestimoDTO;
 import com.biblioteca.SGB.mapper.AlunoMapper;
@@ -83,4 +84,17 @@ public class AlunoController {
                 .map(emprestimo -> EmprestimoMapper.toDTO(emprestimo, emprestimoService.calcularStatus(emprestimo)))
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/perfil/{matricula}")
+    public AlunoEmprestimoDTO perfilAluno(@PathVariable String matricula) {
+        Aluno aluno = alunoService.perfilAluno(matricula);
+        List<Emprestimo> emprestimos = alunoService.buscarEmprestimosPorAluno(matricula);
+
+        List<EmprestimoDTO> emprestimosDTO = emprestimos.stream()
+                .map(emprestimo -> EmprestimoMapper.toDTO(emprestimo, emprestimoService.calcularStatus(emprestimo)))
+                .collect(Collectors.toList());
+
+        return AlunoMapper.toDTOComEmprestimos(aluno, emprestimosDTO);
+    }
+
 }

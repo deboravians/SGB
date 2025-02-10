@@ -46,4 +46,7 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Integer>
             @Param("dataInicio") LocalDate dataInicio,
             @Param("dataFim") LocalDate dataFim
     );
+
+    List<Emprestimo> findByAlunoMatricula(String matricula);
+
 }
