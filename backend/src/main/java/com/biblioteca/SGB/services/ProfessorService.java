@@ -60,17 +60,8 @@ public class ProfessorService {
         return professorRepository.save(professorAtualizado);
     }
 
-    public List<Emprestimo> listarEmprestimosProfessores(String cpf){
-
-        Professor professor = professorRepository.findById(cpf)
-                .orElseThrow(() -> new EntityNotFoundException("Não existe um professor com esse cpf."));
-
-        return emprestimoRepository.getEmprestimosByProfessor(professor);
-    }
-
     public Professor perfilProfessor(String cpf) {
         return professorRepository.findById(cpf)
                 .orElseThrow(() -> new RuntimeException("Professor não encontrado"));
     }
-
 }

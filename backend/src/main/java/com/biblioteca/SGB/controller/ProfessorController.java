@@ -56,20 +56,10 @@ public class ProfessorController {
         return ProfessorMapper.toDTO(professorAtualizado);
     }
 
-    @GetMapping("/emprestimos/{cpf}")
-    public List<EmprestimoDTO> listarEmprestimosAlunos(@PathVariable String cpf) {
-
-        List<Emprestimo> emprestimosProfessores = professorService.listarEmprestimosProfessores(cpf);
-        return emprestimosProfessores.stream()
-                .map(emprestimo -> EmprestimoMapper.toDTO(emprestimo, emprestimoService.calcularStatus(emprestimo)))
-                .collect(Collectors.toList());
-    }
-
     @GetMapping("/{cpf}")
     public ProfessorDTO perfilProfessor(@PathVariable String cpf) {
         Professor perfilProfessor = professorService.perfilProfessor(cpf);
 
         return ProfessorMapper.toDTO(perfilProfessor);
     }
-
 }

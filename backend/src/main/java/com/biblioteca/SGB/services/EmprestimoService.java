@@ -2,14 +2,8 @@ package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.dto.EmprestimoDTO;
 import com.biblioteca.SGB.mapper.EmprestimoMapper;
-import com.biblioteca.SGB.models.Aluno;
-import com.biblioteca.SGB.models.Copia;
-import com.biblioteca.SGB.models.Edicao;
-import com.biblioteca.SGB.models.Emprestimo;
-import com.biblioteca.SGB.repository.AlunoRepository;
-import com.biblioteca.SGB.repository.EdicaoRepository;
-import com.biblioteca.SGB.repository.EmprestimoRepository;
-import com.biblioteca.SGB.repository.CopiaRepository;
+import com.biblioteca.SGB.models.*;
+import com.biblioteca.SGB.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +28,9 @@ public class EmprestimoService {
 
     @Autowired
     private AlunoRepository alunoRepository;
+
+    @Autowired
+    private ProfessorRepository professorRepository;
 
     public Emprestimo aumentarPrazo(Integer idEmprestimo){
 
@@ -118,6 +115,14 @@ public class EmprestimoService {
                 .orElseThrow(() -> new EntityNotFoundException("Não existe uma aluno com essa matricula."));
 
         return emprestimoRepository.getEmprestimosByAluno(aluno);
+    }
+
+    public List<Emprestimo> listarEmprestimosProfessores(String cpf){
+
+        Professor professor = professorRepository.findById(cpf)
+                .orElseThrow(() -> new EntityNotFoundException("Não existe um professor com esse cpf."));
+
+        return emprestimoRepository.getEmprestimosByProfessor(professor);
     }
 
 }
