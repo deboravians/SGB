@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class DevolucaoService {
@@ -50,5 +51,13 @@ public class DevolucaoService {
         devolucao.setCopia(copia);
 
         return emprestimoRepository.save(devolucao);
+    }
+
+    public List<Emprestimo> listarDevolucoesAlunos() {
+        return emprestimoRepository.findByAlunoMatriculaIsNotNullAndDataDevolucaoIsNotNull();
+    }
+
+    public List<Emprestimo> listarDevolucoesProfessores() {
+        return emprestimoRepository.findByProfessorCpfIsNotNullAndDataDevolucaoIsNotNull();
     }
 }

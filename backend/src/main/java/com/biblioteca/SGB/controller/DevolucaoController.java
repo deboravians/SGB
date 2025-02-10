@@ -39,7 +39,7 @@ public class DevolucaoController {
 
     @GetMapping("/alunos")
     public List<EmprestimoDTO> listarDevolucaoAlunos(){
-        List<Emprestimo> emprestimos = emprestimoService.listarDevolucoesAlunos();
+        List<Emprestimo> emprestimos = devolucaoService.listarDevolucoesAlunos();
         return emprestimos.stream()
                 .map(emprestimo -> EmprestimoMapper.toDTO(emprestimo, emprestimoService.calcularStatus(emprestimo)))
                 .collect(Collectors.toList());
@@ -47,7 +47,7 @@ public class DevolucaoController {
 
     @GetMapping("/professores")
     public List<EmprestimoDTO> listarDevolucaoProfessores(){
-        List<Emprestimo> emprestimos = emprestimoService.listarDevolucoesProfessores();
+        List<Emprestimo> emprestimos = devolucaoService.listarDevolucoesProfessores();
         return emprestimos.stream()
                 .map(emprestimo -> EmprestimoMapper.toDTO(emprestimo, emprestimoService.calcularStatus(emprestimo)))
                 .collect(Collectors.toList());

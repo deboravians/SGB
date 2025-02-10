@@ -100,14 +100,6 @@ public class EmprestimoService {
         emprestimoRepository.deleteById(idEmprestimo);
     }
 
-    public List<Emprestimo> listarDevolucoesAlunos() {
-        return emprestimoRepository.findByAlunoMatriculaIsNotNullAndDataDevolucaoIsNotNull();
-    }
-
-    public List<Emprestimo> listarDevolucoesProfessores() {
-        return emprestimoRepository.findByProfessorCpfIsNotNullAndDataDevolucaoIsNotNull();
-    }
-
     public List<Emprestimo> listarEmprestimosEdicao(String isbn){
         Edicao edicao = edicaoRepository.findById(isbn)
                 .orElseThrow(() -> new EntityNotFoundException("Não existe uma edição com esse isbn."));
