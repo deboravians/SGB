@@ -18,8 +18,8 @@ public class EmprestimoController {
     @Autowired
     private EmprestimoService emprestimoService;
 
-    @PutMapping("/aumentarPrazo")
-    public EmprestimoDTO aumentarPrazo(@RequestParam Integer idEmprestimo) {
+    @PutMapping("/aumentarPrazo/{idEmprestimo}")
+    public EmprestimoDTO aumentarPrazo(@PathVariable Integer idEmprestimo) {
 
         Emprestimo emprestimo = emprestimoService.aumentarPrazo(idEmprestimo);
 
