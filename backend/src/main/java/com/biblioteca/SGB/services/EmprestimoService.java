@@ -1,14 +1,22 @@
 package com.biblioteca.SGB.services;
 
+import com.biblioteca.SGB.dto.EmprestimoDTO;
+import com.biblioteca.SGB.mapper.EmprestimoMapper;
 import com.biblioteca.SGB.models.Copia;
+import com.biblioteca.SGB.models.Edicao;
 import com.biblioteca.SGB.models.Emprestimo;
+import com.biblioteca.SGB.repository.EdicaoRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
 import com.biblioteca.SGB.repository.CopiaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EmprestimoService {
@@ -18,6 +26,9 @@ public class EmprestimoService {
 
     @Autowired
     private CopiaRepository copiaRepository;
+
+    @Autowired
+    private EdicaoRepository edicaoRepository;
 
     public Emprestimo aumentarPrazo(Integer idEmprestimo){
 
@@ -95,5 +106,12 @@ public class EmprestimoService {
 
     public List<Emprestimo> listarDevolucoesProfessores() {
         return emprestimoRepository.findByProfessorCpfIsNotNullAndDataDevolucaoIsNotNull();
+    }
+
+    public List<Emprestimo> listarEmprestimosEdicao(String isbn){
+        Edicao edicao = edicaoRepository.findById(isbn)
+                .orElseThrow(() -> new EntityNotFoundException("Não existe uma edição com esse isbn."));
+
+        return emprestimoRepository.findByCopiaEdicaoIsbn(isbn);
     }
 }

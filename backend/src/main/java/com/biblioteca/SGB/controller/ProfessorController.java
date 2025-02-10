@@ -65,7 +65,7 @@ public class ProfessorController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/perfil/{cpf}")
+    @GetMapping("/{cpf}")
     public ProfessorDTO perfilProfessor(@PathVariable String cpf) {
         Professor perfilProfessor = professorService.perfilProfessor(cpf);
 

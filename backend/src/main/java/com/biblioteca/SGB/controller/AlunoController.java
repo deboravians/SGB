@@ -82,7 +82,7 @@ public class AlunoController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/perfil/{matricula}")
+    @GetMapping("/{matricula}")
     public AlunoDTO perfilAluno(@PathVariable String matricula) {
         Aluno aluno = alunoService.perfilAluno(matricula);
 

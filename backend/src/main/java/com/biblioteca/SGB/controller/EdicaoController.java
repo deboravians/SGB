@@ -1,9 +1,13 @@
 package com.biblioteca.SGB.controller;
 
 import com.biblioteca.SGB.dto.EdicaoDTO;
+import com.biblioteca.SGB.dto.EmprestimoDTO;
 import com.biblioteca.SGB.mapper.EdicaoMapper;
+import com.biblioteca.SGB.mapper.EmprestimoMapper;
 import com.biblioteca.SGB.models.Edicao;
+import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.services.EdicaoService;
+import com.biblioteca.SGB.services.EmprestimoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +20,7 @@ public class EdicaoController {
 
     @Autowired
     private EdicaoService edicaoService;
+
 
     @PostMapping
     public EdicaoDTO cadastraEdicao(@RequestBody EdicaoDTO edicaoDTO, @RequestParam String classificacao_codigo) {
@@ -59,7 +64,7 @@ public class EdicaoController {
                 edicaoService.calcularQtdCopias(edicaoAtualizada.getIsbn()));
     }
 
-    @GetMapping("/perfil/{isbn}")
+    @GetMapping("/{isbn}")
     public EdicaoDTO perfilEdicao(@PathVariable String isbn){
         Edicao edicao = edicaoService.perfilEdicao(isbn);
 

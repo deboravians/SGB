@@ -46,4 +46,13 @@ public class EmprestimoController {
         emprestimoService.excluirEmprestimo(id);
     }
 
+    @GetMapping("/edicoes/{isbn}")
+    public List<EmprestimoDTO> listarEmprestimosEdicao(@PathVariable String isbn) {
+        List<Emprestimo> emprestimosEdicao = emprestimoService.listarEmprestimosEdicao(isbn);
+
+        return emprestimosEdicao.stream()
+                .map(emprestimo -> EmprestimoMapper.toDTO(emprestimo, emprestimoService.calcularStatus(emprestimo)))
+                .collect(Collectors.toList());
+    }
+
 }

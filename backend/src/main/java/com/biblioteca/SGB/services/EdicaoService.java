@@ -1,11 +1,10 @@
 package com.biblioteca.SGB.services;
 
-import com.biblioteca.SGB.models.Classificacao;
-import com.biblioteca.SGB.models.Copia;
-import com.biblioteca.SGB.models.Edicao;
+import com.biblioteca.SGB.models.*;
 import com.biblioteca.SGB.repository.ClassificacaoRepository;
 import com.biblioteca.SGB.repository.CopiaRepository;
 import com.biblioteca.SGB.repository.EdicaoRepository;
+import com.biblioteca.SGB.repository.EmprestimoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +25,9 @@ public class EdicaoService {
 
     @Autowired
     private CopiaService copiaService;
+
+    @Autowired
+    private EmprestimoRepository emprestimoRepository;
 
     public Edicao cadastrarEdicao(Edicao edicao, String classificacao_codigo) {
 
@@ -92,4 +94,5 @@ public class EdicaoService {
         return edicaoRepository.findById(isbn)
                 .orElseThrow(() -> new RuntimeException("Edição não encontrada"));
     }
+
 }

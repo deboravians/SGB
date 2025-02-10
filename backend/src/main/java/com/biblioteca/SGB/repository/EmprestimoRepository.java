@@ -47,4 +47,6 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Integer>
             @Param("dataFim") LocalDate dataFim
     );
 
+    List<Emprestimo> findByCopiaEdicaoIsbn(String isbn);
+
 }
