@@ -1,13 +1,16 @@
 package com.biblioteca.SGB.services;
 
+import com.biblioteca.SGB.dto.AlunoRankingDTO;
 import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.repository.AlunoRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -52,4 +55,9 @@ public class AlunoService {
 
         return alunoRepository.save(alunoAtualizado);
     }
+
+    public List<Object[]> listarTopAlunos(LocalDate dataInicio, LocalDate dataFim){
+        return emprestimoRepository.findTopAlunosByPeriod(dataInicio, dataFim);
+    }
+
 }
