@@ -67,4 +67,10 @@ public class ProfessorService {
 
         return emprestimoRepository.getEmprestimosByProfessor(professor);
     }
+
+    public Professor perfilProfessor(String cpf) {
+        return professorRepository.findById(cpf)
+                .orElseThrow(() -> new RuntimeException("Professor não encontrado"));
+    }
+
 }

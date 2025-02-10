@@ -64,4 +64,12 @@ public class ProfessorController {
                 .map(emprestimo -> EmprestimoMapper.toDTO(emprestimo, emprestimoService.calcularStatus(emprestimo)))
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/perfil/{cpf}")
+    public ProfessorDTO perfilProfessor(@PathVariable String cpf) {
+        Professor perfilProfessor = professorService.perfilProfessor(cpf);
+
+        return ProfessorMapper.toDTO(perfilProfessor);
+    }
+
 }
