@@ -26,9 +26,6 @@ public class AlunoController {
     @Autowired
     private AlunoService alunoService;
 
-    @Autowired
-    private EmprestimoService emprestimoService;
-
     @PostMapping()
     public AlunoDTO cadastrarAluno(@RequestBody AlunoDTO alunoDTO) {
 
@@ -60,24 +57,10 @@ public class AlunoController {
         return AlunoMapper.toDTO(alunoAtualizado);
     }
 
-    @GetMapping("/topAlunos")
-    public List<AlunoRankingDTO> listarTopAlunos(@RequestParam String dataInicio, @RequestParam String dataFim){
-
-        LocalDate dataInicioConv = formatarData(dataInicio);
-        LocalDate dataFimConv = formatarData(dataFim);
-
-        List<Object[]> topAlunos = alunoService.listarTopAlunos(dataInicioConv, dataFimConv);
-
-        return topAlunos.stream()
-                .map(AlunoRankingMapper::toDTO)
-                .collect(Collectors.toList());
-    }
-
     @GetMapping("/{matricula}")
     public AlunoDTO getAluno(@PathVariable String matricula) {
         Aluno aluno = alunoService.getAluno(matricula);
 
         return AlunoMapper.toDTO(aluno);
     }
-
 }

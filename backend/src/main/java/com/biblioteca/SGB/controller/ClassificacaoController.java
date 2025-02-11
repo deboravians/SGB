@@ -49,6 +49,5 @@ public class ClassificacaoController {
         Classificacao classificacaoAtualizada = classificacaoService.atualizarClassificacao(codigo, classificacao);
 
         return ClassificacaoMapper.toDTO(classificacaoAtualizada);
-
     }
 }
