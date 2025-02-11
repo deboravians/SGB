@@ -30,15 +30,14 @@ function GerenciamentoDoAcervo() {
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-  // Função para lidar com a mudança no campo de pesquisa
   const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFiltro(event.target.value);
   };
 
-  // Filtrando edições com base no texto digitado (considerando título e ISBN)
-  const edicoesFiltradas = edicoes.filter((edicao) =>
-    edicao.titulo.toLowerCase().includes(filtro.toLowerCase()) ||
-    edicao.isbn.includes(filtro)
+  const edicoesFiltradas = edicoes.filter(
+    (edicao) =>
+      edicao.titulo.toLowerCase().includes(filtro.toLowerCase()) ||
+      edicao.isbn.includes(filtro)
   );
 
   return (
@@ -63,18 +62,29 @@ function GerenciamentoDoAcervo() {
             onChange={handleFiltroChange} // Atualiza o estado ao digitar
           />
           <button className={styles.botaoCadastrar} onClick={toggleModal}>
-            <img src="/assets/iconCadastrar.svg" alt="Cadastrar" className={styles.icone} />
+            <img
+              src="/assets/iconCadastrar.svg"
+              alt="Cadastrar"
+              className={styles.icone}
+            />
             Cadastrar Edição
           </button>
         </div>
 
-        <ModalCadastroDeEdicoes isOpen={isModalOpen} onClose={toggleModal} carregarEdicoes={carregarEdicoes} />
+        <ModalCadastroDeEdicoes
+          isOpen={isModalOpen}
+          onClose={toggleModal}
+          carregarEdicoes={carregarEdicoes}
+        />
 
         {/* Tabela */}
         {loading ? (
           <p>Carregando edições...</p>
         ) : (
-          <TabelaEdicoes edicoes={edicoesFiltradas} atualizarLista={carregarEdicoes} />
+          <TabelaEdicoes
+            edicoes={edicoesFiltradas}
+            atualizarLista={carregarEdicoes}
+          />
         )}
       </div>
     </div>

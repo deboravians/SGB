@@ -1,56 +1,57 @@
-import React from "react";
 import styles from "./TabelaCopias.module.css";
 import StatusTag from "../StatusTag/StatusTag";
-
-interface Copia {
-id: string;
-status: string;
-}
-
+import { Copia } from "../../types/copias";
 
 interface TabelaCopiasProps {
-copias: Copias[];
-  }
+  copias: Copia[];
+  // atualizarLista: () => void;
+}
 
-const TabelaCopias: React.FC<TabelaCopiasProps> = ({ copias }) => {
+const TabelaCopias: React.FC<TabelaCopiasProps> = ({
+  copias,
+  // atualizarLista,
+}) => {
   return (
-    <table className={styles.tabelaCopias}>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Status</th>
-          <th>Ação</th>
-        </tr>
-      </thead>
-      <tbody>
-        {copias.map((copia, index) => (
-          <tr key={index}>
-            <td>{copia.id}</td>
-            <td><StatusTag status={copias.status as "Disponivel" | "Indisponivel"} tipo="edicao" /></td>
-            <td className={styles.acoes}>
-              <button
-                className={styles.icone}
-                title="Excluir cópia"
-         
-              >
-                <img src="/public/assets/iconlixeira.svg" alt="Devolvido" />
-              </button>
-            </td>
+    <>
+      <table className={styles.tabelaCopias}>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Status</th>
+            <th>Ação</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {copias.map((copia) => (
+            <tr key={copia.id}>
+              <td>{copia.id}</td>
+              <td>
+                <StatusTag
+                  status={copia.status as "Extraviada" | "Disponível" | "Emprestada"}
+                  tipo="copia"
+                />
+              </td>
+              <td className={styles.acoes}>
+                <button className={styles.icone} title="Excluir cópia">
+                  <img src="/public/assets/iconlixeira.svg" alt="Devolvido" />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* Modal de confirmação de exclusão
+      {selectedCopia && (
+        <ModalExcluirCopia
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          copia={selectedCopia}
+          onSuccess={atualizarLista}
+        />
+      )} */}
+    </>
   );
 };
 
 export default TabelaCopias;
-
-
-
-
- 
-
-
-
-      
-        
