@@ -40,4 +40,7 @@ public class EstatisticasController{
     @GetMapping("/copias/totalCadastrado")
     public int countTotalCopias() { return estatisticasService.countTotalCopias(); }
 
+    @GetMapping("/copias/totalDisponivel")
+    public int countCopiasDisponiveis() { return estatisticasService.countCopiasDisponiveis(); }
+
 }

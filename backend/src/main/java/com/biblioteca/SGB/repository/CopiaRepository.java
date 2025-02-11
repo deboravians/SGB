@@ -16,4 +16,7 @@ public interface CopiaRepository extends JpaRepository<Copia, Integer> {
     @Query("SELECT COUNT(c) FROM Copia c")
     int countTotalCopias();
 
+    @Query("SELECT COUNT(c) FROM Copia c WHERE c.status ='Disponivel'")
+    int countCopiasDisponiveis();
+
 }
