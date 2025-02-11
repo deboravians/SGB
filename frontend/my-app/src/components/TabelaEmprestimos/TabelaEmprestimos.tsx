@@ -99,7 +99,7 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) =>
             <td>{emprestimo.copia.edicao.titulo}</td>
             <td>{emprestimo.aluno?.nome ?? emprestimo.professor?.nome ?? "Não informado"}</td>
             <td>{emprestimo.dataPrevistaDevolucao}</td>
-            <td><StatusTag status={emprestimo.status as "Atrasado" | "Pendente" | "Extraviado" | "Devolvido"} tipo="emprestimo" /></td>
+            <td><StatusTag status={emprestimo.status as "Atrasado" | "Em Andamento" | "Extraviado" | "Devolvido"} tipo="emprestimo" /></td>
             <td className={styles.acoes}>
               <button
                 className={styles.icone0}
