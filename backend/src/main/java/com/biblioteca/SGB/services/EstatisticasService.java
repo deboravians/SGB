@@ -1,7 +1,9 @@
 package com.biblioteca.SGB.services;
 
+import com.biblioteca.SGB.repository.AlunoRepository;
 import com.biblioteca.SGB.repository.CopiaRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
+import com.biblioteca.SGB.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,9 @@ public class EstatisticasService{
     @Autowired
     private CopiaRepository copiaRepository;
 
+    @Autowired
+    private ProfessorRepository professorRepository;
+
     public List<Object[]> listarTopAlunos(LocalDate dataInicio, LocalDate dataFim){
         return emprestimoRepository.findTopAlunosByPeriod(dataInicio, dataFim);
     }
@@ -26,5 +31,7 @@ public class EstatisticasService{
     public int countCopiasDisponiveis() { return copiaRepository.countCopiasDisponiveis(); }
 
     public int countTotalEmprestimos(){ return copiaRepository.countCopiasEmprestadas(); }
+
+    public int countProfessores() { return professorRepository.countProfessores(); }
 
 }

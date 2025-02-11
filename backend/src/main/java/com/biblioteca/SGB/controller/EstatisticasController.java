@@ -44,4 +44,7 @@ public class EstatisticasController{
     @GetMapping("/copias/totalEmprestado")
     public int countTotalEmprestimos() { return estatisticasService.countTotalEmprestimos(); }
 
+    @GetMapping("/professores/totalCadastrado")
+    public int countProfessores() { return estatisticasService.countProfessores(); }
+
 }
