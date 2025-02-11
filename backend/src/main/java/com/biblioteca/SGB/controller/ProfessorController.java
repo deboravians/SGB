@@ -57,8 +57,8 @@ public class ProfessorController {
     }
 
     @GetMapping("/{cpf}")
-    public ProfessorDTO perfilProfessor(@PathVariable String cpf) {
-        Professor perfilProfessor = professorService.perfilProfessor(cpf);
+    public ProfessorDTO getProfessor(@PathVariable String cpf) {
+        Professor perfilProfessor = professorService.getProfessor(cpf);
 
         return ProfessorMapper.toDTO(perfilProfessor);
     }

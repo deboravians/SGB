@@ -60,7 +60,7 @@ public class ProfessorService {
         return professorRepository.save(professorAtualizado);
     }
 
-    public Professor perfilProfessor(String cpf) {
+    public Professor getProfessor(String cpf) {
         return professorRepository.findById(cpf)
                 .orElseThrow(() -> new RuntimeException("Professor não encontrado"));
     }
