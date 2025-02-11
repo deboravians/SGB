@@ -49,4 +49,6 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Integer>
 
     List<Emprestimo> findByCopiaEdicaoIsbn(String isbn);
 
+    @Query("SELECT COUNT(e) FROM Emprestimo e WHERE e.status = 'Em Andamento'")
+    int countEmprestimosAtivos();
 }
