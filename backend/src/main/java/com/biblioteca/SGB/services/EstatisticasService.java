@@ -25,4 +25,6 @@ public class EstatisticasService{
 
     public int countCopiasDisponiveis() { return copiaRepository.countCopiasDisponiveis(); }
 
+    public int countTotalEmprestimos(){ return copiaRepository.countCopiasEmprestadas(); }
+
 }

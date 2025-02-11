@@ -2,8 +2,6 @@ package com.biblioteca.SGB.controller;
 
 import com.biblioteca.SGB.dto.AlunoRankingDTO;
 import com.biblioteca.SGB.mapper.AlunoRankingMapper;
-import com.biblioteca.SGB.services.AlunoService;
-import com.biblioteca.SGB.services.CopiaService;
 import com.biblioteca.SGB.services.EstatisticasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,5 +40,8 @@ public class EstatisticasController{
 
     @GetMapping("/copias/totalDisponivel")
     public int countCopiasDisponiveis() { return estatisticasService.countCopiasDisponiveis(); }
+
+    @GetMapping("/copias/totalEmprestado")
+    public int countTotalEmprestimos() { return estatisticasService.countTotalEmprestimos(); }
 
 }
