@@ -63,7 +63,7 @@ public class AlunoService {
         return emprestimoRepository.findTopAlunosByPeriod(dataInicio, dataFim);
     }
 
-    public Aluno perfilAluno(String matricula) {
+    public Aluno getAluno(String matricula) {
         return alunoRepository.findById(matricula)
                 .orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
     }

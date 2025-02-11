@@ -74,8 +74,8 @@ public class AlunoController {
     }
 
     @GetMapping("/{matricula}")
-    public AlunoDTO perfilAluno(@PathVariable String matricula) {
-        Aluno aluno = alunoService.perfilAluno(matricula);
+    public AlunoDTO getAluno(@PathVariable String matricula) {
+        Aluno aluno = alunoService.getAluno(matricula);
 
         return AlunoMapper.toDTO(aluno);
     }
