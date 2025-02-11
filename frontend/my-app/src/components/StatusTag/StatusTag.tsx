@@ -1,6 +1,6 @@
 import styles from "./StatusTag.module.css";
 
-type Status = "Em Andamento" | "Emprestada" | "Disponível" | "Indisponível" | "Pendente" | "Extraviado" | "Devolvido" | "Atrasado";
+type Status = "Em Andamento" | "Emprestada" | "Disponível" | "Indisponível" | "Pendente" | "Extraviado" | "Devolvido" | "Atrasado" | "Extraviada";
 type TipoStatus = "edicao" | "emprestimo" | "copia";
 
 interface StatusTagProps {

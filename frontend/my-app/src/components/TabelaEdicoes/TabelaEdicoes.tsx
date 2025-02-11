@@ -11,13 +11,15 @@ interface TabelaEdicoesProps {
   atualizarLista: () => void;
 }
 
-const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({ edicoes, atualizarLista }) => {
+const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
+  edicoes,
+  atualizarLista,
+}) => {
   const [selectedEdicao, setSelectedEdicao] = useState<Edicao | null>(null);
   const [isExcluirModalOpen, setIsExcluirModalOpen] = useState(false);
 
   const [isGerenciarModalOpen, setIsGerenciarModalOpen] = useState(false);
   const [gerenciarEdicao, setGerenciarEdicao] = useState<Edicao | null>(null);
-
 
   const handleOpenExcluirModal = (edicao: Edicao) => {
     setSelectedEdicao(edicao);
@@ -29,7 +31,6 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({ edicoes, atualizarLista }
     setSelectedEdicao(null);
   };
 
-  // Funções para o modal de Gerenciar Cópias
   const handleOpenGerenciarModal = (edicao: Edicao) => {
     setGerenciarEdicao(edicao);
     setIsGerenciarModalOpen(true);
@@ -53,12 +54,15 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({ edicoes, atualizarLista }
           </tr>
         </thead>
         <tbody>
-          {edicoes.map((edicao, index) => (
-            <tr key={index}>
+          {edicoes.map((edicao) => (
+            <tr key={edicao.isbn}>
               <td>{edicao.isbn}</td>
               <td>{edicao.titulo}</td>
               <td>
-                <StatusTag status={edicao.status as "Disponível" | "Indisponível"} tipo="edicao" />
+                <StatusTag
+                  status={edicao.status as "Disponível" | "Indisponível"}
+                  tipo="edicao"
+                />
               </td>
               <td className={styles.acoes}>
                 <Link to={`/visualizar/${edicao.isbn}`} title="Visualizar">
@@ -117,7 +121,6 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({ edicoes, atualizarLista }
           isOpen={isGerenciarModalOpen}
           onClose={handleCloseGerenciarModal}
           edicao={gerenciarEdicao}
-          onSuccess={atualizarLista}
         />
       )}
     </div>
