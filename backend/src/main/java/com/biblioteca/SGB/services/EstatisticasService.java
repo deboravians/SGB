@@ -43,4 +43,5 @@ public class EstatisticasService{
 
     public int countEmprestimosAtivos() { return emprestimoRepository.countEmprestimosAtivos(); }
 
+    public int countEmprestimosAtrasados() { return emprestimoRepository.countEmprestimosAtrasados(); }
 }

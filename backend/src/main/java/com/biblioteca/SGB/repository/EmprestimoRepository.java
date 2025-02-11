@@ -51,4 +51,7 @@ public interface EmprestimoRepository extends JpaRepository<Emprestimo, Integer>
 
     @Query("SELECT COUNT(e) FROM Emprestimo e WHERE e.status = 'Em Andamento'")
     int countEmprestimosAtivos();
+
+    @Query("SELECT COUNT(e) FROM Emprestimo e WHERE e.dataDevolucao IS NULL AND e.dataPrevistaDevolucao < CURRENT_DATE")
+    int countEmprestimosAtrasados();
 }
