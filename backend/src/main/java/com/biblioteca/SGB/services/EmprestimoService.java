@@ -1,18 +1,13 @@
 package com.biblioteca.SGB.services;
 
-import com.biblioteca.SGB.dto.EmprestimoDTO;
-import com.biblioteca.SGB.mapper.EmprestimoMapper;
 import com.biblioteca.SGB.models.*;
 import com.biblioteca.SGB.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class EmprestimoService {
@@ -124,5 +119,4 @@ public class EmprestimoService {
 
         return emprestimoRepository.getEmprestimosByProfessor(professor);
     }
-
 }
