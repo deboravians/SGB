@@ -90,9 +90,8 @@ public class EdicaoService {
         return cont < calcularQtdCopias(edicaoIsbn) ? "Disponível" : "Indisponível";
     }
 
-    public Edicao perfilEdicao(String isbn) {
+    public Edicao getEdicao(String isbn) {
         return edicaoRepository.findById(isbn)
                 .orElseThrow(() -> new RuntimeException("Edição não encontrada"));
     }
-
 }
