@@ -3,6 +3,7 @@ package com.biblioteca.SGB.controller;
 import com.biblioteca.SGB.dto.AlunoRankingDTO;
 import com.biblioteca.SGB.mapper.AlunoRankingMapper;
 import com.biblioteca.SGB.services.AlunoService;
+import com.biblioteca.SGB.services.CopiaService;
 import com.biblioteca.SGB.services.EstatisticasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +24,6 @@ public class EstatisticasController{
     @Autowired
     EstatisticasService estatisticasService;
 
-    @Autowired
-    private AlunoService alunoService;
-
     @GetMapping("/topAlunos")
     public List<AlunoRankingDTO> listarTopAlunos(@RequestParam String dataInicio, @RequestParam String dataFim){
 
@@ -38,4 +36,8 @@ public class EstatisticasController{
                 .map(AlunoRankingMapper::toDTO)
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/copias/totalCadastrado")
+    public int countTotalCopias() { return estatisticasService.countTotalCopias(); }
+
 }
