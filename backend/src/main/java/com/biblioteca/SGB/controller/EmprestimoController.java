@@ -1,7 +1,6 @@
 package com.biblioteca.SGB.controller;
 
 import com.biblioteca.SGB.dto.EmprestimoDTO;
-import com.biblioteca.SGB.mapper.AlunoMapper;
 import com.biblioteca.SGB.mapper.EmprestimoMapper;
 import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.services.EmprestimoService;
@@ -72,5 +71,4 @@ public class EmprestimoController {
                 .map(emprestimo -> EmprestimoMapper.toDTO(emprestimo, emprestimoService.calcularStatus(emprestimo)))
                 .collect(Collectors.toList());
     }
-
 }
