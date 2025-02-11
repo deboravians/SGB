@@ -22,6 +22,9 @@ public class EstatisticasService{
     @Autowired
     private ProfessorRepository professorRepository;
 
+    @Autowired
+    private AlunoRepository alunoRepository;
+
     public List<Object[]> listarTopAlunos(LocalDate dataInicio, LocalDate dataFim){
         return emprestimoRepository.findTopAlunosByPeriod(dataInicio, dataFim);
     }
@@ -33,5 +36,7 @@ public class EstatisticasService{
     public int countTotalEmprestimos(){ return copiaRepository.countCopiasEmprestadas(); }
 
     public int countProfessores() { return professorRepository.countProfessores(); }
+
+    public int countAlunos() { return alunoRepository.countAlunos(); }
 
 }
