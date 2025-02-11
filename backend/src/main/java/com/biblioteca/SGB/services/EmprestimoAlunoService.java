@@ -6,8 +6,11 @@ import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.repository.AlunoRepository;
 import com.biblioteca.SGB.repository.CopiaRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class EmprestimoAlunoService {
@@ -47,5 +50,13 @@ public class EmprestimoAlunoService {
         emprestimo.setCopia(copia);
 
         return emprestimoRepository.save(emprestimo);
+    }
+
+    public List<Emprestimo> listarEmprestimosAlunos(String matricula){
+
+        Aluno aluno = alunoRepository.findById(matricula)
+                .orElseThrow(() -> new EntityNotFoundException("Não existe uma aluno com essa matricula."));
+
+        return emprestimoRepository.getEmprestimosByAluno(aluno);
     }
 }

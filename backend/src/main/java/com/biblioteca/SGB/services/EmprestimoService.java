@@ -104,14 +104,6 @@ public class EmprestimoService {
         return emprestimoRepository.findByCopiaEdicaoIsbn(isbn);
     }
 
-    public List<Emprestimo> listarEmprestimosAlunos(String matricula){
-
-        Aluno aluno = alunoRepository.findById(matricula)
-                .orElseThrow(() -> new EntityNotFoundException("Não existe uma aluno com essa matricula."));
-
-        return emprestimoRepository.getEmprestimosByAluno(aluno);
-    }
-
     public List<Emprestimo> listarEmprestimosProfessores(String cpf){
 
         Professor professor = professorRepository.findById(cpf)
