@@ -50,4 +50,7 @@ public class EstatisticasController{
     @GetMapping("/alunos/totalCadastrado")
     public int countAlunos() { return estatisticasService.countAlunos(); }
 
+    @GetMapping("/leitores/totalCadastrado")
+    public int countLeitores() { return estatisticasService.countLeitores(); }
+
 }

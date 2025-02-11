@@ -39,4 +39,6 @@ public class EstatisticasService{
 
     public int countAlunos() { return alunoRepository.countAlunos(); }
 
+    public int countLeitores() { return countProfessores() + countAlunos(); }
+
 }
