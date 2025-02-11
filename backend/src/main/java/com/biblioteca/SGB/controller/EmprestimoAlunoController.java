@@ -34,7 +34,7 @@ public class EmprestimoAlunoController {
         return EmprestimoMapper.toDTO(novoEmprestimo, novoEmprestimo.getStatus());
     }
 
-    @GetMapping("/alunos/{matricula}")
+    @GetMapping("/{matricula}")
     public List<EmprestimoDTO> listarEmprestimosAlunos(@PathVariable String matricula) {
 
         List<Emprestimo> emprestimosAlunos = emprestimoAlunoService.listarEmprestimosAlunos(matricula);

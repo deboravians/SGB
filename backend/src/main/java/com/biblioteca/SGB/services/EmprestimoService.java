@@ -103,12 +103,4 @@ public class EmprestimoService {
 
         return emprestimoRepository.findByCopiaEdicaoIsbn(isbn);
     }
-
-    public List<Emprestimo> listarEmprestimosProfessores(String cpf){
-
-        Professor professor = professorRepository.findById(cpf)
-                .orElseThrow(() -> new EntityNotFoundException("Não existe um professor com esse cpf."));
-
-        return emprestimoRepository.getEmprestimosByProfessor(professor);
-    }
 }

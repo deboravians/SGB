@@ -6,8 +6,11 @@ import com.biblioteca.SGB.models.Professor;
 import com.biblioteca.SGB.repository.CopiaRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
 import com.biblioteca.SGB.repository.ProfessorRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class EmprestimoProfessorService {
@@ -47,5 +50,13 @@ public class EmprestimoProfessorService {
         emprestimo.setCopia(copia);
 
         return emprestimoRepository.save(emprestimo);
+    }
+
+    public List<Emprestimo> listarEmprestimosProfessores(String cpf){
+
+        Professor professor = professorRepository.findById(cpf)
+                .orElseThrow(() -> new EntityNotFoundException("Não existe um professor com esse cpf."));
+
+        return emprestimoRepository.getEmprestimosByProfessor(professor);
     }
 }
