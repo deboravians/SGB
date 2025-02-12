@@ -3,6 +3,7 @@ package com.biblioteca.SGB.services;
 import com.biblioteca.SGB.models.Classificacao;
 import com.biblioteca.SGB.repository.ClassificacaoRepository;
 import com.biblioteca.SGB.repository.EdicaoRepository;
+import com.biblioteca.SGB.services.interfaces.IClassificacaoService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ClassificacaoService {
+public class ClassificacaoService implements IClassificacaoService {
 
     @Autowired
     private ClassificacaoRepository classificacaoRepository;

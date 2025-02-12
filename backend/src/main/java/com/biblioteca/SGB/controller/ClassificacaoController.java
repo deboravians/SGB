@@ -4,6 +4,7 @@ import com.biblioteca.SGB.dto.ClassificacaoDTO;
 import com.biblioteca.SGB.mapper.ClassificacaoMapper;
 import com.biblioteca.SGB.models.Classificacao;
 import com.biblioteca.SGB.services.ClassificacaoService;
+import com.biblioteca.SGB.services.interfaces.IClassificacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 public class ClassificacaoController {
 
     @Autowired
-    private ClassificacaoService classificacaoService;
+    private IClassificacaoService classificacaoService;
 
     @PostMapping
     public ClassificacaoDTO cadastrarClassificacao(@RequestBody ClassificacaoDTO classificacaoDTO) {
