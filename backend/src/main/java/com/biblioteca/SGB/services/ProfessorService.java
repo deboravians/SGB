@@ -48,7 +48,7 @@ public class ProfessorService implements IProfessorService {
                 .orElseThrow(() -> new EntityNotFoundException("Não existe um professor com esse cpf."));
 
         if(!professor.getCpf().equals(professorAtualizado.getCpf())) {
-            throw new IllegalArgumentException("o cpf não pode ser atualizado");
+            throw new IllegalArgumentException("O cpf não pode ser atualizado");
         }
 
         return professorRepository.save(professorAtualizado);

@@ -44,10 +44,10 @@ public class AlunoService implements IAlunoService {
     public Aluno atualizarAluno(String matricula, Aluno alunoAtualizado) {
 
         Aluno aluno = alunoRepository.findById(matricula)
-                .orElseThrow(() -> new EntityNotFoundException("Não existe uma aluno com essa matricula."));
+                .orElseThrow(() -> new EntityNotFoundException("Não existe um aluno com essa matricula."));
 
         if(!aluno.getMatricula().equals(alunoAtualizado.getMatricula())) {
-            throw new IllegalArgumentException("a matricula não pode ser alterada");
+            throw new IllegalArgumentException("A matricula não pode ser alterada");
         }
 
         return alunoRepository.save(alunoAtualizado);
