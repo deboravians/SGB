@@ -97,7 +97,7 @@ function GerenciamentoDeEmprestimoseDevolucoes() {
         {loading ? (
           <p>Carregando empréstimos...</p>
         ) : (
-          <TabelaEmprestimos emprestimos={emprestimosFiltrados} />
+          <TabelaEmprestimos emprestimos={emprestimosFiltrados} atualizarLista={carregarEmprestimos}/>
         )}
 
         {isModalLeitorOpen && (

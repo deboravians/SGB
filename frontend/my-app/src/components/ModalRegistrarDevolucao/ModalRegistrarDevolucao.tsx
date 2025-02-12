@@ -1,18 +1,50 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./ModalRegistrarDevolucao.module.css";
+import { registrarDevolucao } from "../../api/emprestimos";
+import { Emprestimo } from "../../types/emprestimos";
 
-const ModalRegistrarDevolução = ({
-  isOpen,
-  onClose,
-  onConfirm,
-}: {
+interface ModalRegistrarDevolucaoProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
-}) => {
-  const [ano, setAno] = useState("");
- 
+  onSuccess: () => void;
+  emprestimo: Emprestimo | null;
+}
 
+const ModalRegistrarDevolucao: React.FC<ModalRegistrarDevolucaoProps> = ({
+  isOpen,
+  onClose,
+  onConfirm,
+  onSuccess,
+  emprestimo,
+}) => {
+  const [dataDevolucao, setDataDevolucao] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [erro, setErro] = useState("");
+  const fecharModal = () => {
+    setDataDevolucao(""); // Zera a data antes de fechar a modal
+    onClose();
+  };
+
+  const [ano, mes, dia] = dataDevolucao.split("-");
+  const dataFormatada = `${dia}/${mes}/${ano}`;
+
+  const handleRegistrarDevolucao = async () => {
+    if (!emprestimo) return;
+    setLoading(true);
+    setErro("");
+
+    try {
+      await registrarDevolucao(emprestimo.id, dataFormatada);
+      onConfirm();
+      onSuccess();
+      onClose();
+    } catch (error) {
+      setErro("Erro ao registrar devolução. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return isOpen ? (
     <div className={styles.modal}>
@@ -24,28 +56,33 @@ const ModalRegistrarDevolução = ({
               <label className={styles.titulo}>Data de devolução</label>
               <input
                 type="date"
-                placeholder="Data de Empréstimo"
-                value={ano}
-                onChange={(e) => setAno(e.target.value)}
+                value={dataDevolucao}
+                onChange={(e) => setDataDevolucao(e.target.value)}
                 className={styles.input}
               />
             </div>
           </div>
         </div>
-
-        {/* Botões de Ação no canto inferior direito */}
+        {erro && <p className={styles.erro}>{erro}</p>}
         <div className={styles.actions}>
-          <button className={styles.botaoCancelar} onClick={onClose}>Cancelar</button>
-          <button className={styles.botaoCadastrar} onClick={onConfirm}>Cadastrar</button>
+          <button
+            className={styles.botaoCancelar}
+            onClick={fecharModal}
+            disabled={loading}
+          >
+            Cancelar
+          </button>
+          <button
+            className={styles.botaoCadastrar}
+            onClick={handleRegistrarDevolucao}
+            disabled={loading || !dataDevolucao}
+          >
+            {loading ? "Registrando..." : "Cadastrar"}
+          </button>
         </div>
       </div>
     </div>
   ) : null;
 };
 
-export default ModalRegistrarDevolução;
-2
-
-
-
-
+export default ModalRegistrarDevolucao;

@@ -7,12 +7,23 @@ import { Aluno } from "../../types/alunos";
 import { listarAlunos } from "../../api/alunos";
 
 const LeitoresAlunos: React.FC = () => {
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [alunos, setAlunos] = useState<Aluno[]>([]);
 
   const [loading, setLoading] = useState(true);
+
+  const [filtro, setFiltro] = useState("");
+
+  const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFiltro(event.target.value);
+  };
+
+  const alunosFiltrados = alunos.filter(
+    (aluno) =>
+      aluno.nome.toLowerCase().includes(filtro.toLowerCase()) ||
+      aluno.matricula.includes(filtro)
+  );
 
   const carregarAlunos = async () => {
     try {
@@ -26,12 +37,8 @@ const LeitoresAlunos: React.FC = () => {
   };
 
   const salvarAluno = async () => {
-    try {
-      carregarAlunos();
-      setIsModalOpen(false); // Fecha o modal
-    } catch (error) {
-      alert("Erro ao cadastrar o aluno.");
-    }
+    await carregarAlunos();
+    setIsModalOpen(false);
   };
 
   useEffect(() => {
@@ -50,19 +57,21 @@ const LeitoresAlunos: React.FC = () => {
           <p className={styles.descricao}>Visão geral dos alunos cadastrados</p>
 
           <div className={styles.resumo}>
-            <CardInfors quantidade={alunos.length} descricao="Alunos cadastrados" />
+            <CardInfors
+              quantidade={alunos.length}
+              descricao="Alunos cadastrados"
+            />
           </div>
 
           <div className={styles.acoesContainer}>
             <input
               type="text"
-              placeholder="Pesquisar alunos..."
+              placeholder="Pesquisar por nome ou matrícula..."
               className={styles.campoPesquisa}
+              value={filtro}
+              onChange={handleFiltroChange}
             />
-            <button
-              className={styles.botaoCadastrar}
-              onClick={toggleModal} // Abre a modal
-            >
+            <button className={styles.botaoCadastrar} onClick={toggleModal}>
               <div className={styles.textAndIcon}>
                 <img
                   src="/public/assets/iconCadastrar.svg"
@@ -86,13 +95,15 @@ const LeitoresAlunos: React.FC = () => {
           {loading ? (
             <p>Carregando alunos...</p>
           ) : (
-            <TabelaAlunos alunos={alunos} atualizarLista={carregarAlunos} />
+            <TabelaAlunos
+              alunos={alunosFiltrados}
+              atualizarLista={carregarAlunos}
+            />
           )}
-
         </div>
       </div>
     </>
   );
-}
+};
 
 export default LeitoresAlunos;

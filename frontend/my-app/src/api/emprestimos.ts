@@ -39,3 +39,39 @@ export const cadastrarEmprestimo = async (
 
   return response.json();
 };
+
+export const registrarDevolucao = async (
+  id: string,
+  dataDevolucao: string
+): Promise<Emprestimo> => {
+  const response = await fetch(`http://localhost:8080/devolucoes?id=${id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ dataDevolucao }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao registrar a devolução. Tente novamente.");
+  }
+
+  return response.json();
+};
+
+export const registrarExtravio = async (
+  id: string,
+): Promise<Emprestimo> => {
+  const response = await fetch(`http://localhost:8080/emprestimos/registrarExtravio/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao extraviar o livro. Tente novamente.");
+  }
+
+  return response.json();
+};

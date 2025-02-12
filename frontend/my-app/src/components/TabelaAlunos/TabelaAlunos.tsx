@@ -10,12 +10,14 @@ interface TabelaAlunosProps {
   atualizarLista: () => void;
 }
 
-const TabelaAlunos: React.FC<TabelaAlunosProps> = ({ alunos, atualizarLista }) => {
+const TabelaAlunos: React.FC<TabelaAlunosProps> = ({
+  alunos,
+  atualizarLista,
+}) => {
   const [isModalExcluirOpen, setIsModalExcluirOpen] = useState(false);
   const [isModalEditarOpen, setIsModalEditarOpen] = useState(false);
   const [selectedAluno, setSelectedAluno] = useState<Aluno | null>(null);
 
-  // Funções para abrir/fechar modal de exclusão
   const handleOpenExcluirModal = (aluno: Aluno) => {
     setSelectedAluno(aluno);
     setIsModalExcluirOpen(true);
@@ -26,7 +28,6 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({ alunos, atualizarLista }) =
     setSelectedAluno(null);
   };
 
-  // Funções para abrir/fechar modal de edição
   const handleOpenEditarModal = (aluno: Aluno) => {
     setSelectedAluno(aluno);
     setIsModalEditarOpen(true);
