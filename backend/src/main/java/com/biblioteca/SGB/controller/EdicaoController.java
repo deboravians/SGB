@@ -8,6 +8,7 @@ import com.biblioteca.SGB.models.Edicao;
 import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.services.EdicaoService;
 import com.biblioteca.SGB.services.EmprestimoService;
+import com.biblioteca.SGB.services.interfaces.IEdicaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,7 @@ import java.util.stream.Collectors;
 public class EdicaoController {
 
     @Autowired
-    private EdicaoService edicaoService;
-
+    private IEdicaoService edicaoService;
 
     @PostMapping
     public EdicaoDTO cadastraEdicao(@RequestBody EdicaoDTO edicaoDTO, @RequestParam String classificacao_codigo) {
