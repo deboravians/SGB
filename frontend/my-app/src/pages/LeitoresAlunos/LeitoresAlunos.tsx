@@ -7,7 +7,6 @@ import { Aluno } from "../../types/alunos";
 import { listarAlunos } from "../../api/alunos";
 
 const LeitoresAlunos: React.FC = () => {
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [alunos, setAlunos] = useState<Aluno[]>([]);
@@ -58,21 +57,21 @@ const LeitoresAlunos: React.FC = () => {
           <p className={styles.descricao}>Visão geral dos alunos cadastrados</p>
 
           <div className={styles.resumo}>
-            <CardInfors quantidade={alunos.length} descricao="Alunos cadastrados" />
+            <CardInfors
+              quantidade={alunos.length}
+              descricao="Alunos cadastrados"
+            />
           </div>
 
           <div className={styles.acoesContainer}>
-          <input
-            type="text"
-            placeholder="Pesquisar por nome ou matrícula..."
-            className={styles.campoPesquisa}
-            value={filtro}
-            onChange={handleFiltroChange}
-          />
-            <button
-              className={styles.botaoCadastrar}
-              onClick={toggleModal}
-            >
+            <input
+              type="text"
+              placeholder="Pesquisar por nome ou matrícula..."
+              className={styles.campoPesquisa}
+              value={filtro}
+              onChange={handleFiltroChange}
+            />
+            <button className={styles.botaoCadastrar} onClick={toggleModal}>
               <div className={styles.textAndIcon}>
                 <img
                   src="/public/assets/iconCadastrar.svg"
@@ -96,13 +95,15 @@ const LeitoresAlunos: React.FC = () => {
           {loading ? (
             <p>Carregando alunos...</p>
           ) : (
-            <TabelaAlunos alunos={alunosFiltrados} atualizarLista={carregarAlunos} />
+            <TabelaAlunos
+              alunos={alunosFiltrados}
+              atualizarLista={carregarAlunos}
+            />
           )}
-
         </div>
       </div>
     </>
   );
-}
+};
 
 export default LeitoresAlunos;

@@ -7,12 +7,23 @@ import { Professor } from "../../types/professores";
 import { listarProfessores } from "../../api/professores";
 
 const LeitoresProfessores: React.FC = () => {
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [professores, setProfessores] = useState<Professor[]>([]);
 
   const [loading, setLoading] = useState(true);
+
+  const [filtro, setFiltro] = useState("");
+
+  const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFiltro(event.target.value);
+  };
+
+  const professoresFiltrados = professores.filter(
+    (professor) =>
+      professor.nome.toLowerCase().includes(filtro.toLowerCase()) ||
+      professor.cpf.includes(filtro)
+  );
 
   const carregarProfessores = async () => {
     try {
@@ -48,22 +59,26 @@ const LeitoresProfessores: React.FC = () => {
           <h1 className={styles.titulo}>Gerenciamento de Professores</h1>
           <div className={styles.divisao}></div>
 
-          <p className={styles.descricao}>Visão geral dos professores cadastrados</p>
+          <p className={styles.descricao}>
+            Visão geral dos professores cadastrados
+          </p>
 
           <div className={styles.resumo}>
-            <CardInfors quantidade={professores.length} descricao="Professores Cadastrados" />
+            <CardInfors
+              quantidade={professores.length}
+              descricao="Professores Cadastrados"
+            />
           </div>
 
           <div className={styles.acoesContainer}>
             <input
               type="text"
-              placeholder="Pesquisar professores..."
+              placeholder="Pesquisar por nome ou CPF..."
               className={styles.campoPesquisa}
+              value={filtro}
+              onChange={handleFiltroChange}
             />
-            <button
-              className={styles.botaoCadastrar}
-              onClick={toggleModal} // Abre a modal
-            >
+            <button className={styles.botaoCadastrar} onClick={toggleModal}>
               <div className={styles.textAndIcon}>
                 <img
                   src="/public/assets/iconCadastrar.svg"
@@ -87,13 +102,15 @@ const LeitoresProfessores: React.FC = () => {
           {loading ? (
             <p>Carregando professores...</p>
           ) : (
-            <TabelaProfessores professores={professores} atualizarLista={carregarProfessores}/>
+            <TabelaProfessores
+              professores={professoresFiltrados}
+              atualizarLista={carregarProfessores}
+            />
           )}
-
         </div>
       </div>
     </>
   );
-}
+};
 
 export default LeitoresProfessores;
