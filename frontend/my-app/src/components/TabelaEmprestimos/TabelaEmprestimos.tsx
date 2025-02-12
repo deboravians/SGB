@@ -10,173 +10,126 @@ import { Emprestimo } from "../../types/emprestimos";
 
 interface TabelaEmprestimosProps {
   emprestimos: Emprestimo[];
+  atualizarLista: () => void;
 }
 
-const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos }) => {
-  const [isExcluirModalOpen, setIsExcluirModalOpen] = useState(false);
-  const [isProrrogarModalOpen, setIsProrrogarModalOpen] = useState(false);
-  const [isExtraviadoModalOpen, setIsExtraviadoModalOpen] = useState(false);
-  const [isDevolvidoModalOpen, setIsDevolvidoModalOpen] = useState(false);
-  const [isEditarModalOpen, setIsEditarModalOpen] = useState(false);
+type ModalType = "excluir" | "prorrogar" | "extraviado" | "devolvido" | "editar" | null;
+
+const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos, atualizarLista }) => {
+  const [modalAberto, setModalAberto] = useState<ModalType>(null);
   const [selectedEmprestimo, setSelectedEmprestimo] = useState<Emprestimo | null>(null);
 
-  const handleOpenExcluirModal = (emprestimo: Emprestimo) => {
+  const abrirModal = (tipo: ModalType, emprestimo: Emprestimo) => {
     setSelectedEmprestimo(emprestimo);
-    setIsExcluirModalOpen(true);
-    setIsProrrogarModalOpen(false);
-    setIsExtraviadoModalOpen(false);
-    setIsDevolvidoModalOpen(false);
-    setIsEditarModalOpen(false);
+    setModalAberto(tipo);
   };
 
-  const handleOpenProrrogarModal = (emprestimo: Emprestimo) => {
-    setSelectedEmprestimo(emprestimo);
-    setIsProrrogarModalOpen(true);
-    setIsExcluirModalOpen(false);
-    setIsExtraviadoModalOpen(false);
-    setIsDevolvidoModalOpen(false);
-    setIsEditarModalOpen(false);
-  };
-
-  const handleOpenExtraviadoModal = (emprestimo: Emprestimo) => {
-    setSelectedEmprestimo(emprestimo);
-    setIsProrrogarModalOpen(false);
-    setIsExcluirModalOpen(false);
-    setIsExtraviadoModalOpen(true);
-    setIsDevolvidoModalOpen(false);
-    setIsEditarModalOpen(false);
-  };
-
-  const handleOpenDevolvidoModal = (emprestimo: Emprestimo) => {
-    setSelectedEmprestimo(emprestimo);
-    setIsProrrogarModalOpen(false);
-    setIsExcluirModalOpen(false);
-    setIsExtraviadoModalOpen(false);
-    setIsDevolvidoModalOpen(true);
-    setIsEditarModalOpen(false);
-  };
-
-  const handleOpenEditarModal = (emprestimo: Emprestimo) => {
-    setSelectedEmprestimo(emprestimo);
-    setIsProrrogarModalOpen(false);
-    setIsExcluirModalOpen(false);
-    setIsExtraviadoModalOpen(false);
-    setIsDevolvidoModalOpen(false);
-    setIsEditarModalOpen(true);
-  };
-
-
-  const handleCloseModal = () => {
-    setIsExcluirModalOpen(false);
-    setIsProrrogarModalOpen(false);
+  const fecharModal = () => {
+    setModalAberto(null);
     setSelectedEmprestimo(null);
-    setIsExtraviadoModalOpen(false);
-    setIsDevolvidoModalOpen(false);
-    setIsEditarModalOpen(false);
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmarAcao = () => {
     if (selectedEmprestimo) {
-      // Lógica para deletar o aluno via backend pode ser adicionada aqui
-      handleCloseModal();
+      fecharModal();
     }
   };
 
   return (
-    <table className={styles.tabelaEmprestimos}>
-      <thead>
-        <tr>
-          <th>Livro</th>
-          <th>Leitor(a)</th>
-          <th>Data prevista de devolução</th>
-          <th>Status</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        {emprestimos.map((emprestimo) => (
-          <tr key={emprestimo.id}>
-            <td>{emprestimo.copia.edicao.titulo}</td>
-            <td>{emprestimo.aluno?.nome ?? emprestimo.professor?.nome ?? "Não informado"}</td>
-            <td>{emprestimo.dataPrevistaDevolucao}</td>
-            <td><StatusTag status={emprestimo.status as "Atrasado" | "Em Andamento" | "Extraviado" | "Devolvido"} tipo="emprestimo" /></td>
-            <td className={styles.acoes}>
-              <button
-                className={styles.icone0}
-                onClick={() => handleOpenProrrogarModal(emprestimo)}
-                title="Prorrogar prazo">
-                <img
-                  src="/public/assets/iconProrrogar.svg"
-                  alt="Prorrogar prazo"
-                />
-              </button>
-              <button
-                className={styles.icone1}
-                onClick={() => handleOpenExtraviadoModal(emprestimo)}
-                title="Livro Extraviado">
-                <img
-                  src="/public/assets/iconExtraviado.svg"
-                  alt="Livro Extraviado"
-                />
-              </button>
-              <button
-                className={styles.icone1}
-                onClick={() => handleOpenEditarModal(emprestimo)}
-                title="Editar livro">
-                <img
-                  src="/public/assets/iconLapis.svg"
-                  alt="Editar livro"
-                />
-              </button>
-              <button
-                className={styles.icone}
-                title="Excluir empréstimo"
-                onClick={() => handleOpenExcluirModal(emprestimo)} // Abre a modal de exclusão
-              >
-                <img src="/public/assets/iconlixeira.svg" alt="Devolvido" />
-              </button>
-              <button
-                className={styles.icone}
-                onClick={() => handleOpenDevolvidoModal(emprestimo)}
-                title="Registrar Devolução">
-                <img
-                  src="/public/assets/iconOk.svg"
-                  alt="Registrar Devolução"
-                />
-              </button>
-            </td>
+    <>
+      <table className={styles.tabelaEmprestimos}>
+        <thead>
+          <tr>
+            <th>Livro</th>
+            <th>Leitor(a)</th>
+            <th>Data prevista de devolução</th>
+            <th>Status</th>
+            <th>Ações</th>
           </tr>
-        ))}
-      </tbody>
+        </thead>
+        <tbody>
+          {emprestimos.map((emprestimo) => (
+            <tr key={emprestimo.id}>
+              <td>{emprestimo.copia.edicao.titulo}</td>
+              <td>{emprestimo.aluno?.nome ?? emprestimo.professor?.nome ?? "Não informado"}</td>
+              <td>{emprestimo.dataPrevistaDevolucao}</td>
+              <td>
+                <StatusTag
+                  status={emprestimo.status as "Atrasado" | "Em Andamento" | "Extraviado" | "Devolvido"}
+                  tipo="emprestimo"
+                />
+              </td>
+              <td className={styles.acoes}>
+                <button
+                  className={styles.icone0}
+                  onClick={() => abrirModal("prorrogar", emprestimo)}
+                  title="Prorrogar prazo"
+                >
+                  <img src="/public/assets/iconProrrogar.svg" alt="Prorrogar prazo" />
+                </button>
+                <button
+                  className={styles.icone1}
+                  onClick={() => abrirModal("extraviado", emprestimo)}
+                  title="Livro Extraviado"
+                >
+                  <img src="/public/assets/iconExtraviado.svg" alt="Livro Extraviado" />
+                </button>
+                <button
+                  className={styles.icone1}
+                  onClick={() => abrirModal("editar", emprestimo)}
+                  title="Editar livro"
+                >
+                  <img src="/public/assets/iconLapis.svg" alt="Editar livro" />
+                </button>
+                <button
+                  className={styles.icone}
+                  onClick={() => abrirModal("excluir", emprestimo)}
+                  title="Excluir empréstimo"
+                >
+                  <img src="/public/assets/iconlixeira.svg" alt="Excluir empréstimo" />
+                </button>
+                <button
+                  className={styles.icone}
+                  onClick={() => abrirModal("devolvido", emprestimo)}
+                  title="Registrar Devolução"
+                >
+                  <img src="/public/assets/iconOk.svg" alt="Registrar Devolução" />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* Modais */}
       <ModalExcluirEmprestimo
-        isOpen={isExcluirModalOpen}
-        onClose={handleCloseModal}
-        onConfirm={handleConfirmDelete}
+        isOpen={modalAberto === "excluir"}
+        onClose={fecharModal}
+        onConfirm={handleConfirmarAcao}
       />
-
       <ModalProrrogarPrazo
-        isOpen={isProrrogarModalOpen}
-        onClose={handleCloseModal}
-        onConfirm={handleConfirmDelete}
+        isOpen={modalAberto === "prorrogar"}
+        onClose={fecharModal}
+        onConfirm={handleConfirmarAcao}
       />
-
       <ModalLivroExtraviado
-        isOpen={isExtraviadoModalOpen}
-        onClose={handleCloseModal}
-        onConfirm={handleConfirmDelete}
+        isOpen={modalAberto === "extraviado"}
+        onClose={fecharModal}
+        onConfirm={handleConfirmarAcao}
       />
-
       <ModalRegistrarDevolucao
-        isOpen={isDevolvidoModalOpen}
-        onClose={handleCloseModal}
-        onConfirm={handleConfirmDelete}
+        isOpen={modalAberto === "devolvido"}
+        onClose={fecharModal}
+        onConfirm={handleConfirmarAcao}
+        onSuccess={atualizarLista}
+        emprestimo={selectedEmprestimo}
       />
       <ModalEditarEmprestimo
-        isOpen={isEditarModalOpen}
-        onClose={handleCloseModal}
-        onConfirm={handleConfirmDelete}
+        isOpen={modalAberto === "editar"}
+        onClose={fecharModal}
+        onConfirm={handleConfirmarAcao}
       />
-    </table>
+    </>
   );
 };
 
