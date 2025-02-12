@@ -6,6 +6,7 @@ import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.repository.AlunoRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
+import com.biblioteca.SGB.services.interfaces.IAlunoService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,7 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class AlunoService {
+public class AlunoService implements IAlunoService {
 
     @Autowired
     private AlunoRepository alunoRepository;

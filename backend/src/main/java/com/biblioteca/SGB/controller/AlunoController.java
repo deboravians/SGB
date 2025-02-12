@@ -10,6 +10,7 @@ import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.services.AlunoService;
 import com.biblioteca.SGB.services.EmprestimoService;
+import com.biblioteca.SGB.services.interfaces.IAlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ import static com.biblioteca.SGB.utils.DateUtils.formatarData;
 public class AlunoController {
 
     @Autowired
-    private AlunoService alunoService;
+    private IAlunoService alunoService;
 
     @PostMapping()
     public AlunoDTO cadastrarAluno(@RequestBody AlunoDTO alunoDTO) {
