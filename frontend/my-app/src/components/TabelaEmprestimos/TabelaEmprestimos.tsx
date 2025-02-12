@@ -3,7 +3,7 @@ import StatusTag from "../StatusTag/StatusTag";
 import { useState } from "react";
 import ModalExcluirEmprestimo from '../ModalExcluirEmprestimo/ModalExcluirEmprestimo';
 import ModalProrrogarPrazo from '../ModalProrrogarPrazo/ModalProrrogarPrazo';
-import ModalLivroExtraviado from "../ModalLivroExtraviado/ModalLivroExtraviado";
+import ModalEmprestimoExtraviado from "../ModalEmprestimoExtraviado/ModalEmprestimoExtraviado";
 import ModalRegistrarDevolucao from "../ModalRegistrarDevolucao/ModalRegistrarDevolucao";
 import ModalEditarEmprestimo from "../ModalEditarEmprestimo/ModalEditarEmprestimo";
 import { Emprestimo } from "../../types/emprestimos";
@@ -112,10 +112,12 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos, atua
         onClose={fecharModal}
         onConfirm={handleConfirmarAcao}
       />
-      <ModalLivroExtraviado
+      <ModalEmprestimoExtraviado
         isOpen={modalAberto === "extraviado"}
         onClose={fecharModal}
         onConfirm={handleConfirmarAcao}
+        onSuccess={atualizarLista}
+        emprestimo={selectedEmprestimo}
       />
       <ModalRegistrarDevolucao
         isOpen={modalAberto === "devolvido"}
