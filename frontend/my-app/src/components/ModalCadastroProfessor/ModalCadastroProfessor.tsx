@@ -49,11 +49,10 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
 
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        <h2 className={styles.modalTitle}>Cadastrar Professor</h2>
+      <h3>Cadastrar professor</h3>
         {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
         <form onSubmit={handleSubmit}>
           <h3 className={styles.sectionTitle}>Informações Gerais</h3>
-          <div className={styles.generalInfo}>
             <div className={styles.formGroup}>
               <label htmlFor="nome">Nome:</label>
               <input
@@ -62,7 +61,7 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
                 type="text"
                 id="nome"
                 placeholder="Digite o nome do professor"
-                className={styles.inputField1}
+                className={styles.input}
               />
             </div>
             <div className={styles.row}>
@@ -100,7 +99,7 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
                 />
               </div>
             </div>
-          </div>
+         
 
           <h3 className={styles.sectionTitle}>Endereço</h3>
           <div className={styles.addressInfo}>
@@ -140,9 +139,6 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
           </div>
 
           <div className={styles.modalActions}>
-            <button type="submit" className={styles.botaoCadastrar} disabled={isSubmitting}>
-              {isSubmitting ? "Salvando..." : "Salvar"}
-            </button>
             <button
               type="button"
               className={styles.botaoCancelar}
@@ -150,6 +146,9 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
               disabled={isSubmitting}
             >
               Cancelar
+            </button>
+            <button type="submit" className={styles.botaoCadastrar} disabled={isSubmitting}>
+              {isSubmitting ? "Salvando..." : "Salvar"}
             </button>
           </div>
         </form>

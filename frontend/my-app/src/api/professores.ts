@@ -10,7 +10,7 @@ export const cadastrarProfessor = async (professor: Professor): Promise<Professo
   });
 
   if (!response.ok) {
-    throw new Error("Erro ao salvar os dados. Tente novamente.");
+    throw new Error("Erro, preencha todos os campos!");
   }
 
   return response.json();
