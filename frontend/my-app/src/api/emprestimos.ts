@@ -39,3 +39,22 @@ export const cadastrarEmprestimo = async (
 
   return response.json();
 };
+
+export const registrarDevolucao = async (
+  id: string,
+  dataDevolucao: string
+): Promise<Emprestimo> => {
+  const response = await fetch(`http://localhost:8080/devolucoes?id=${id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ dataDevolucao }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao cadastrar a cópia. Tente novamente.");
+  }
+
+  return response.json();
+};
