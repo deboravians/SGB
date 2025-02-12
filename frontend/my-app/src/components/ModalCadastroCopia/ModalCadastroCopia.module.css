@@ -36,7 +36,8 @@
 }
 
 .campoTexto {
-  width: 80%;
+  display: block;
+  width: 100%;
   padding: 10px;
   margin-top: 15px;
   border-radius: 4px;
