@@ -130,9 +130,9 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
             <div className={styles.formGroup}>
               <label className={styles.titulo} htmlFor="anoLetivo">Ano Letivo</label>
               <input
-                type="date"
+                type="text"
                 id="anoLetivo"
-                placeholder="Data de Empréstimo"
+                placeholder="Ano letivo"
                 value={formData.anoLetivo}
                 onChange={handleChange}
                 className={styles.inputFielddd}

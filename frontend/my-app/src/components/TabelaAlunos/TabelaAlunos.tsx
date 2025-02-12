@@ -3,7 +3,6 @@ import styles from "./tabelaAlunos.module.css";
 import { Aluno } from "../../types/alunos";
 import { useState } from "react";
 import ModalExcluirAluno from "../ModalExcluirAluno/ModalExcluirAluno";
-
 interface TabelaAlunosProps {
   alunos: Aluno[];
   atualizarLista: () => void;
@@ -77,7 +76,7 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({ alunos, atualizarLista }) =
         <ModalExcluirAluno
           isOpen={isModalOpen}
           onClose={handleCloseModal}
-          aluno={selectedAluno}
+          aluno={selectedAluno} 
           onSuccess={atualizarLista}
         />
       )}
