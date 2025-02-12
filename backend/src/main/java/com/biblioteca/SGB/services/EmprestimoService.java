@@ -2,6 +2,7 @@ package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.models.*;
 import com.biblioteca.SGB.repository.*;
+import com.biblioteca.SGB.services.interfaces.IEmprestimoService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class EmprestimoService {
+public class EmprestimoService implements IEmprestimoService {
 
     @Autowired
     private EmprestimoRepository emprestimoRepository;
@@ -20,12 +21,6 @@ public class EmprestimoService {
 
     @Autowired
     private EdicaoRepository edicaoRepository;
-
-    @Autowired
-    private AlunoRepository alunoRepository;
-
-    @Autowired
-    private ProfessorRepository professorRepository;
 
     public Emprestimo aumentarPrazo(Integer idEmprestimo){
 
