@@ -3,26 +3,46 @@ import styles from "./tabelaAlunos.module.css";
 import { Aluno } from "../../types/alunos";
 import { useState } from "react";
 import ModalExcluirAluno from "../ModalExcluirAluno/ModalExcluirAluno";
+import ModalEditarAluno from "../ModalEditarAluno/ModalEditarAluno";
+
 interface TabelaAlunosProps {
   alunos: Aluno[];
   atualizarLista: () => void;
 }
 
 const TabelaAlunos: React.FC<TabelaAlunosProps> = ({ alunos, atualizarLista }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalExcluirOpen, setIsModalExcluirOpen] = useState(false);
+  const [isModalEditarOpen, setIsModalEditarOpen] = useState(false);
   const [selectedAluno, setSelectedAluno] = useState<Aluno | null>(null);
 
-
-  const handleOpenModal = (aluno: Aluno) => {
+  // Funções para abrir/fechar modal de exclusão
+  const handleOpenExcluirModal = (aluno: Aluno) => {
     setSelectedAluno(aluno);
-    setIsModalOpen(true);
+    setIsModalExcluirOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleCloseExcluirModal = () => {
+    setIsModalExcluirOpen(false);
     setSelectedAluno(null);
   };
 
+  // Funções para abrir/fechar modal de edição
+  const handleOpenEditarModal = (aluno: Aluno) => {
+    setSelectedAluno(aluno);
+    setIsModalEditarOpen(true);
+  };
+
+  const handleCloseEditarModal = () => {
+    setIsModalEditarOpen(false);
+    setSelectedAluno(null);
+  };
+
+  const handleSalvarAlteracoes = (alunoAtualizado: Aluno) => {
+    // Atualize os dados no backend ou state (ajuste conforme necessário)
+    console.log("Alterações salvas para o aluno:", alunoAtualizado);
+    atualizarLista(); // Atualize a lista de alunos após salvar
+    handleCloseEditarModal();
+  };
 
   return (
     <div>
@@ -51,17 +71,17 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({ alunos, atualizarLista }) =
                     className={styles.icone}
                   />
                 </Link>
-                <Link to={`/editar/${aluno.matricula}`} title="Editar">
-                  <img
-                    src="/public/assets/iconLapis.svg"
-                    alt="Editar"
-                    className={styles.icone}
-                  />
-                </Link>
-
                 <button
                   className={styles.icone}
-                  onClick={() => handleOpenModal(aluno)}
+                  onClick={() => handleOpenEditarModal(aluno)}
+                  title="Editar"
+                >
+                  <img src="/public/assets/iconLapis.svg" alt="Editar" />
+                </button>
+                <button
+                  className={styles.icone}
+                  onClick={() => handleOpenExcluirModal(aluno)}
+                  title="Excluir"
                 >
                   <img src="/public/assets/iconlixeira.svg" alt="Apagar" />
                 </button>
@@ -71,13 +91,25 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({ alunos, atualizarLista }) =
         </tbody>
       </table>
 
-      {/* Modal de confirmação de exclusão */}
+      {/* Modal de exclusão */}
       {selectedAluno && (
         <ModalExcluirAluno
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-          aluno={selectedAluno} 
+          isOpen={isModalExcluirOpen}
+          onClose={handleCloseExcluirModal}
+          aluno={selectedAluno}
           onSuccess={atualizarLista}
+        />
+      )}
+
+      {/* Modal de edição */}
+      {selectedAluno && (
+        <ModalEditarAluno
+          fecharModal={handleCloseEditarModal}
+          salvarAlteracoes={handleSalvarAlteracoes}
+          aluno={selectedAluno}
+          isOpen={isModalEditarOpen}
+          onClose={handleCloseEditarModal}
+          onSuccess={handleSalvarAlteracoes}
         />
       )}
     </div>
