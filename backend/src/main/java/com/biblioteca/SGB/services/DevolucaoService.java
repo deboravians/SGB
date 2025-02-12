@@ -4,6 +4,7 @@ import com.biblioteca.SGB.models.Copia;
 import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.repository.CopiaRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
+import com.biblioteca.SGB.services.interfaces.IDevolucaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class DevolucaoService {
+public class DevolucaoService implements IDevolucaoService {
 
     @Autowired
     private EmprestimoRepository emprestimoRepository;

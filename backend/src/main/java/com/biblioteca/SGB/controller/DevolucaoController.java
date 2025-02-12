@@ -8,6 +8,8 @@ import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.services.DevolucaoService;
 import com.biblioteca.SGB.services.EmprestimoService;
+import com.biblioteca.SGB.services.interfaces.IDevolucaoService;
+import com.biblioteca.SGB.services.interfaces.IEmprestimoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,10 +23,10 @@ import static com.biblioteca.SGB.utils.DateUtils.formatarData;
 public class DevolucaoController {
 
     @Autowired
-    private DevolucaoService devolucaoService;
+    private IDevolucaoService devolucaoService;
 
     @Autowired
-    private EmprestimoService emprestimoService;
+    private IEmprestimoService emprestimoService;
 
     @PostMapping
     public EmprestimoDTO registrarDevolucao(@RequestBody EmprestimoDTO emprestimoDTO, @RequestParam Integer id){
