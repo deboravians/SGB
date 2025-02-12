@@ -1,20 +1,13 @@
 package com.biblioteca.SGB.services;
 
-import com.biblioteca.SGB.dto.AlunoRankingDTO;
-import com.biblioteca.SGB.dto.EmprestimoDTO;
 import com.biblioteca.SGB.models.Aluno;
-import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.repository.AlunoRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
 import com.biblioteca.SGB.services.interfaces.IAlunoService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service

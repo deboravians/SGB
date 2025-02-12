@@ -1,11 +1,8 @@
 package com.biblioteca.SGB.controller;
 
 import com.biblioteca.SGB.dto.CopiaDTO;
-import com.biblioteca.SGB.dto.EdicaoDTO;
 import com.biblioteca.SGB.mapper.CopiaMapper;
 import com.biblioteca.SGB.models.Copia;
-import com.biblioteca.SGB.models.Edicao;
-import com.biblioteca.SGB.services.CopiaService;
 import com.biblioteca.SGB.services.interfaces.ICopiaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -3,8 +3,6 @@ package com.biblioteca.SGB.controller;
 import com.biblioteca.SGB.dto.EmprestimoDTO;
 import com.biblioteca.SGB.mapper.EmprestimoMapper;
 import com.biblioteca.SGB.models.Emprestimo;
-import com.biblioteca.SGB.services.EmprestimoAlunoService;
-import com.biblioteca.SGB.services.EmprestimoService;
 import com.biblioteca.SGB.services.interfaces.IEmprestimoAlunoService;
 import com.biblioteca.SGB.services.interfaces.IEmprestimoService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,8 @@
 package com.biblioteca.SGB.services;
 
-import com.biblioteca.SGB.models.*;
+import com.biblioteca.SGB.models.Classificacao;
+import com.biblioteca.SGB.models.Copia;
+import com.biblioteca.SGB.models.Edicao;
 import com.biblioteca.SGB.repository.ClassificacaoRepository;
 import com.biblioteca.SGB.repository.CopiaRepository;
 import com.biblioteca.SGB.repository.EdicaoRepository;

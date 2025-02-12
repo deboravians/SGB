@@ -2,7 +2,6 @@ package com.biblioteca.SGB.controller;
 
 import com.biblioteca.SGB.dto.AlunoRankingDTO;
 import com.biblioteca.SGB.mapper.AlunoRankingMapper;
-import com.biblioteca.SGB.services.EstatisticasService;
 import com.biblioteca.SGB.services.interfaces.IEstatisticasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

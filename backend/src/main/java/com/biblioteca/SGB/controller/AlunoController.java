@@ -1,24 +1,14 @@
 package com.biblioteca.SGB.controller;
 
 import com.biblioteca.SGB.dto.AlunoDTO;
-import com.biblioteca.SGB.dto.AlunoRankingDTO;
-import com.biblioteca.SGB.dto.EmprestimoDTO;
 import com.biblioteca.SGB.mapper.AlunoMapper;
-import com.biblioteca.SGB.mapper.AlunoRankingMapper;
-import com.biblioteca.SGB.mapper.EmprestimoMapper;
 import com.biblioteca.SGB.models.Aluno;
-import com.biblioteca.SGB.models.Emprestimo;
-import com.biblioteca.SGB.services.AlunoService;
-import com.biblioteca.SGB.services.EmprestimoService;
 import com.biblioteca.SGB.services.interfaces.IAlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.biblioteca.SGB.utils.DateUtils.formatarData;
 
 @RestController
 @RequestMapping("/alunos")

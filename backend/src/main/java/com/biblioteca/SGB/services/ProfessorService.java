@@ -1,9 +1,5 @@
 package com.biblioteca.SGB.services;
 
-import com.biblioteca.SGB.dto.EmprestimoDTO;
-import com.biblioteca.SGB.mapper.EmprestimoMapper;
-import com.biblioteca.SGB.models.Aluno;
-import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.models.Professor;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
 import com.biblioteca.SGB.repository.ProfessorRepository;
@@ -11,11 +7,8 @@ import com.biblioteca.SGB.services.interfaces.IProfessorService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProfessorService implements IProfessorService {
