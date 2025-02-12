@@ -6,28 +6,44 @@ import ModalLeitor from "../../components/ModalLeitor/ModalLeitor";
 import ModalRealizarEmprestimo from "../../components/ModalRealizarEmprestimo/ModalRealizarEmprestimo";
 import { listarEmprestimos } from "../../api/emprestimos";
 import { Emprestimo } from "../../types/emprestimos";
+type TipoLeitor = "aluno" | "professor";
 
 function GerenciamentoDeEmprestimoseDevolucoes() {
   const [isModalLeitorOpen, setIsModalLeitorOpen] = useState(false);
   const [isModalEmprestimoOpen, setIsModalEmprestimoOpen] = useState(false);
-
-  const toggleModalLeitor = () => setIsModalLeitorOpen(!isModalLeitorOpen);
-  const toggleModalEmprestimo = () => setIsModalEmprestimoOpen(!isModalEmprestimoOpen);
-
-  const handleConfirmLeitor = () => {
-    // Fecha a ModalLeitor e abre a ModalEmprestimo
-    setIsModalLeitorOpen(false);
-    setIsModalEmprestimoOpen(true);
-  };
-
-  const handleConfirmEmprestimo = () => {
-    // Fecha todas as modais
-    setIsModalLeitorOpen(false);
-    setIsModalEmprestimoOpen(false);
-  };
-
+  const [tipoLeitor, setTipoLeitor] = useState<TipoLeitor | null>(null);
   const [emprestimos, setEmprestimos] = useState<Emprestimo[]>([]);
   const [loading, setLoading] = useState(true);
+  const [termoPesquisa, setTermoPesquisa] = useState("");
+
+  const toggleModalLeitor = () => {
+    setTipoLeitor(null);
+    setIsModalLeitorOpen(!isModalLeitorOpen);
+  };
+
+  const handleConfirmLeitor = (tipo: string) => {
+    if (tipo === "aluno" || tipo === "professor") {
+      setTipoLeitor(tipo);
+      setIsModalLeitorOpen(false);
+      setTimeout(() => setIsModalEmprestimoOpen(true), 100);
+    } else {
+      alert("Tipo de leitor inválido.");
+    }
+  };
+
+  const emprestimosFiltrados = emprestimos.filter(
+    (emprestimo) =>
+      emprestimo.aluno?.nome
+        .toLowerCase()
+        .includes(termoPesquisa.toLowerCase()) ||
+      emprestimo.professor?.nome
+        .toLowerCase()
+        .includes(termoPesquisa.toLowerCase()) ||
+      emprestimo.copia.edicao.titulo
+        .toLowerCase()
+        .includes(termoPesquisa.toLowerCase()) ||
+      emprestimo.dataEmprestimo.includes(termoPesquisa)
+  );
 
   const carregarEmprestimos = async () => {
     try {
@@ -48,7 +64,9 @@ function GerenciamentoDeEmprestimoseDevolucoes() {
   return (
     <div className={styles.mainContent}>
       <div className={styles.cadastroLivros}>
-        <h1 className={styles.titulo}>Gerenciamento de empréstimos e devoluções</h1>
+        <h1 className={styles.titulo}>
+          Gerenciamento de empréstimos e devoluções
+        </h1>
         <div className={styles.divisao}></div>
         <p className={styles.descricao}>Visão geral de empréstimos</p>
 
@@ -62,10 +80,10 @@ function GerenciamentoDeEmprestimoseDevolucoes() {
             type="text"
             placeholder="Pesquisar Empréstimos..."
             className={styles.campoPesquisa}
+            value={termoPesquisa}
+            onChange={(e) => setTermoPesquisa(e.target.value)}
           />
-          <button
-            className={styles.botaoCadastrar}
-            onClick={toggleModalLeitor}>
+          <button className={styles.botaoCadastrar} onClick={toggleModalLeitor}>
             <img
               src="/public/assets/iconCadastrar.svg"
               alt="Cadastrar"
@@ -79,22 +97,27 @@ function GerenciamentoDeEmprestimoseDevolucoes() {
         {loading ? (
           <p>Carregando empréstimos...</p>
         ) : (
-          <TabelaEmprestimos emprestimos={emprestimos} />
+          <TabelaEmprestimos emprestimos={emprestimosFiltrados} />
         )}
 
         {isModalLeitorOpen && (
           <ModalLeitor
             isOpen={isModalLeitorOpen}
-            onClose={toggleModalLeitor}
-            onConfirm={handleConfirmLeitor} // Passa a função de confirmação
+            onClose={() => setIsModalLeitorOpen(false)}
+            onConfirm={handleConfirmLeitor}
+            setTipoLeitor={setTipoLeitor}
           />
         )}
 
-        {isModalEmprestimoOpen && (
+        {isModalEmprestimoOpen && tipoLeitor && (
           <ModalRealizarEmprestimo
             isOpen={isModalEmprestimoOpen}
-            onClose={toggleModalEmprestimo}
-            onConfirm={handleConfirmEmprestimo} // Passa a função de confirmação
+            onClose={() => setIsModalEmprestimoOpen(false)}
+            onConfirm={() => {
+              setIsModalEmprestimoOpen(false);
+              carregarEmprestimos();
+            }}
+            tipoLeitor={tipoLeitor}
           />
         )}
       </div>

@@ -20,6 +20,14 @@ const ModalGerenciarCopias: React.FC<ModalGerenciarCopiasProps> = ({
   const [copias, setCopias] = useState<Copia[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [termoPesquisa, setTermoPesquisa] = useState("");
+
+  const copiasFiltradas = copias.filter((copia) =>
+    copia.id
+      .toString()
+      .toLowerCase()
+      .includes(termoPesquisa.trim().toLowerCase())
+  );
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
@@ -55,7 +63,10 @@ const ModalGerenciarCopias: React.FC<ModalGerenciarCopiasProps> = ({
             type="text"
             placeholder="Pesquisar por id..."
             className={styles.campoPesquisa}
+            value={termoPesquisa}
+            onChange={(e) => setTermoPesquisa(e.target.value)}
           />
+
           <button onClick={toggleModal} className={styles.botaoCadastrar}>
             <img
               src="/assets/iconCadastrar.svg"
@@ -79,7 +90,7 @@ const ModalGerenciarCopias: React.FC<ModalGerenciarCopiasProps> = ({
           {loading ? (
             <p>Carregando cópias...</p>
           ) : (
-            <TabelaCopias copias={copias} />
+            <TabelaCopias copias={copiasFiltradas} />
           )}
         </div>
       </div>

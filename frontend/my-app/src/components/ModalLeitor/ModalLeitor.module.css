@@ -1,131 +1,115 @@
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .modalContent {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 500px;
-    max-width: 90%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: relative;
-  }
-  
-  h2 {
-    text-align: center;
-    color: black;
-  }
-  
-  .form {
-    margin-bottom: 15px;
-    margin-top: 10px;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
 
-  .actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-  }
-  
-  .buttonCadastrar,
-  .botaoCancelar {
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .buttonCadastrar {
-    background-color: #4caf50;
-    color: white;
-  }
-  
-  .botaoCancelar {
-    background-color: #f44336;
-    color: white;
-  }
-  
-  .buttonCadastrar:hover {
-    background-color: #45a049;
-  }
-  
-  .botaoCancelar:hover {
-    background-color: #e53935;
-  }
-  
-  .dropdownContainer {
-    position: relative;
-    width: 100%;
-  }
-  
-  
-  .dropdown {
-    display: inline-block;
-    width: 88%;
-    padding: 10px;
-    border-radius: 4px;
-   
-  }
-  
-  .dropdown a {
-    text-decoration: none;
-    color: #000000;
-    font-size: 16px;
-    padding: 10px;
-    background-color: #f5f5f5;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    height: 50px;
-   
-  }
-  
-  .dropdownContent {
-    display: block;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    border-radius: 8px;
-    width: 300px;
-    max-height: 220px; /* Limita a altura do menu suspenso */
-    overflow-y: auto; /* Ativa o scroll vertical */
-    z-index: 999; /* Garante que o dropdown fique na frente */
-    transform: translateY(-10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
+.modalContent {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 500px;
+  max-width: 90%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
 
-  .leitorItem {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f9f9f9;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
+.form {
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
 
-  .inputWrapper {
-    width: 1200px;
-    margin: 10px 1%;
-  }
-  
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.buttonCadastrar,
+.botaoCancelar {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.buttonCadastrar {
+  background-color: #4caf50;
+  color: white;
+}
+
+.botaoCancelar {
+  background-color: #f44336;
+  color: white;
+}
+
+.buttonCadastrar:hover {
+  background-color: #45a049;
+}
+
+.botaoCancelar:hover {
+  background-color: #e53935;
+}
+
+.dropdownContainer {
+  position: relative;
+  width: 100%;
+}
+
+.dropdown {
+  display: inline-block;
+  width: 88%;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.dropdown a {
+  text-decoration: none;
+  color: #000000;
+  font-size: 16px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  height: 50px;
+}
+
+.dropdownContent {
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+  width: 300px;
+  max-height: 220px; /* Limita a altura do menu suspenso */
+  overflow-y: auto; /* Ativa o scroll vertical */
+  z-index: 999; /* Garante que o dropdown fique na frente */
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.leitorItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
