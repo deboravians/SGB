@@ -40,6 +40,14 @@ public class EmprestimoController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("/{idEmprestimo}")
+    public EmprestimoDTO getEmprestimo(@PathVariable Integer idEmprestimo) {
+
+        Emprestimo emprestimo = emprestimoService.getEmprestimo(idEmprestimo);
+
+        return EmprestimoMapper.toDTO(emprestimo, emprestimoService.calcularStatus(emprestimo));
+    }
+
     @DeleteMapping("/{id}")
     public void excluirEmprestimo(@PathVariable Integer id) {
         emprestimoService.excluirEmprestimo(id);

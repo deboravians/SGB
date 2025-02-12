@@ -29,7 +29,7 @@ public class DevolucaoController {
     @PostMapping
     public EmprestimoDTO registrarDevolucao(@RequestBody EmprestimoDTO emprestimoDTO, @RequestParam Integer id){
 
-        Emprestimo devolucao = emprestimoService.getEmprestimoById(id);
+        Emprestimo devolucao = emprestimoService.getEmprestimo(id);
         devolucao.setDataDevolucao(formatarData(emprestimoDTO.getDataDevolucao()));
 
         Emprestimo novaDevolucao = devolucaoService.registrarDevolucao(devolucao);
