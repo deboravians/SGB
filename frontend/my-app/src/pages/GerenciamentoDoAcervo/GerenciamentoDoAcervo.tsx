@@ -10,7 +10,7 @@ function GerenciamentoDoAcervo() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [edicoes, setEdicoes] = useState<Edicao[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filtro, setFiltro] = useState(""); // Estado do campo de pesquisa
+  const [filtro, setFiltro] = useState("");
 
   const carregarEdicoes = async () => {
     try {
@@ -59,7 +59,7 @@ function GerenciamentoDoAcervo() {
             placeholder="Pesquisar por título ou ISBN..."
             className={styles.campoPesquisa}
             value={filtro}
-            onChange={handleFiltroChange} // Atualiza o estado ao digitar
+            onChange={handleFiltroChange}
           />
           <button className={styles.botaoCadastrar} onClick={toggleModal}>
             <img

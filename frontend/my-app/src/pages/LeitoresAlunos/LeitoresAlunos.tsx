@@ -14,6 +14,18 @@ const LeitoresAlunos: React.FC = () => {
 
   const [loading, setLoading] = useState(true);
 
+  const [filtro, setFiltro] = useState("");
+
+  const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFiltro(event.target.value);
+  };
+
+  const alunosFiltrados = alunos.filter(
+    (aluno) =>
+      aluno.nome.toLowerCase().includes(filtro.toLowerCase()) ||
+      aluno.matricula.includes(filtro)
+  );
+
   const carregarAlunos = async () => {
     try {
       const dados = await listarAlunos();
@@ -26,12 +38,8 @@ const LeitoresAlunos: React.FC = () => {
   };
 
   const salvarAluno = async () => {
-    try {
-      carregarAlunos();
-      setIsModalOpen(false); // Fecha o modal
-    } catch (error) {
-      alert("Erro ao cadastrar o aluno.");
-    }
+    await carregarAlunos();
+    setIsModalOpen(false);
   };
 
   useEffect(() => {
@@ -54,14 +62,16 @@ const LeitoresAlunos: React.FC = () => {
           </div>
 
           <div className={styles.acoesContainer}>
-            <input
-              type="text"
-              placeholder="Pesquisar alunos..."
-              className={styles.campoPesquisa}
-            />
+          <input
+            type="text"
+            placeholder="Pesquisar por nome ou matrícula..."
+            className={styles.campoPesquisa}
+            value={filtro}
+            onChange={handleFiltroChange}
+          />
             <button
               className={styles.botaoCadastrar}
-              onClick={toggleModal} // Abre a modal
+              onClick={toggleModal}
             >
               <div className={styles.textAndIcon}>
                 <img
@@ -86,7 +96,7 @@ const LeitoresAlunos: React.FC = () => {
           {loading ? (
             <p>Carregando alunos...</p>
           ) : (
-            <TabelaAlunos alunos={alunos} atualizarLista={carregarAlunos} />
+            <TabelaAlunos alunos={alunosFiltrados} atualizarLista={carregarAlunos} />
           )}
 
         </div>
