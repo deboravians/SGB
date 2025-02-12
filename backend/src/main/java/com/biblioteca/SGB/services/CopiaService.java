@@ -29,7 +29,7 @@ public class CopiaService {
         }
 
         Edicao edicao = edicaoRepository.findById(isbnEdicao)
-                .orElseThrow(() -> new RuntimeException("edição não encontrada"));
+                .orElseThrow(() -> new RuntimeException("Edição não encontrada"));
 
         copia.setEdicao(edicao);
 
@@ -39,7 +39,7 @@ public class CopiaService {
     public List<Copia> listarCopias(String isbnEdicao) {
 
         Edicao edicao = edicaoRepository.findById(isbnEdicao)
-                .orElseThrow(() -> new RuntimeException("edição não encontrada"));
+                .orElseThrow(() -> new RuntimeException("Edição não encontrada"));
 
         return copiaRepository.findAllByedicao(edicao);
     }

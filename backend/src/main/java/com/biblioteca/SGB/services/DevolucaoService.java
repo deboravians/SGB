@@ -25,19 +25,19 @@ public class DevolucaoService {
     public Emprestimo registrarDevolucao(Emprestimo devolucao) {
 
         if(devolucao.getId() == null){
-            throw new IllegalStateException("emprestimo não encontrado no banco de dados!");
+            throw new IllegalStateException("Emprestimo não encontrado no banco de dados!");
         }
 
         if("Devolvido".equals(emprestimoService.calcularStatus(devolucao))){
-            throw new IllegalStateException("este empréstimo ja foi devolvido!");
+            throw new IllegalStateException("Este empréstimo ja foi devolvido!");
         }
 
         if("Extraviado".equals(emprestimoService.calcularStatus(devolucao))){
-            throw new IllegalStateException("este empréstimo está com status de extraviado!");
+            throw new IllegalStateException("Este empréstimo está com status de extraviado!");
         }
 
         if(devolucao.getDataDevolucao().isBefore(devolucao.getDataEmprestimo())){
-            throw new IllegalArgumentException("a data de devolução não pode ser anterior a data de emprestimo!");
+            throw new IllegalArgumentException("A data de devolução não pode ser anterior a data de emprestimo!");
         }
         if(devolucao.getDataDevolucao().isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("A data de devolução não pode ser futura.");

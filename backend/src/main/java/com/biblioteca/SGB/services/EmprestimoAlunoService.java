@@ -29,12 +29,12 @@ public class EmprestimoAlunoService {
                                           String matriculaAluno) {
 
         Aluno aluno = alunoRepository.findById(matriculaAluno)
-                .orElseThrow(() -> new IllegalStateException("aluno não encontrado no banco de dados"));
+                .orElseThrow(() -> new IllegalStateException("Aluno não encontrado no banco de dados"));
 
         emprestimo.setAluno(aluno);
 
         Copia copia = copiaRepository.findById(idCopia)
-                .orElseThrow(() -> new IllegalStateException("copia não encontrada no banco de dados"));
+                .orElseThrow(() -> new IllegalStateException("Copia não encontrada no banco de dados"));
 
         if ("Emprestada".equals(copia.getStatus())) {
             throw new IllegalStateException("A cópia já está emprestada!");
