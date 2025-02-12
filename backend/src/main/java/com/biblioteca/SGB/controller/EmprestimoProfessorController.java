@@ -5,6 +5,8 @@ import com.biblioteca.SGB.mapper.EmprestimoMapper;
 import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.services.EmprestimoProfessorService;
 import com.biblioteca.SGB.services.EmprestimoService;
+import com.biblioteca.SGB.services.interfaces.IEmprestimoProfessorService;
+import com.biblioteca.SGB.services.interfaces.IEmprestimoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +18,10 @@ import java.util.stream.Collectors;
 public class EmprestimoProfessorController {
 
     @Autowired
-    private EmprestimoProfessorService emprestimoProfessorService;
+    private IEmprestimoProfessorService emprestimoProfessorService;
 
     @Autowired
-    private EmprestimoService emprestimoService;
+    private IEmprestimoService emprestimoService;
 
     @PostMapping
     public EmprestimoDTO cadastrarEmprestimo(@RequestBody EmprestimoDTO emprestimoDTO,

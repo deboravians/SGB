@@ -6,6 +6,7 @@ import com.biblioteca.SGB.models.Professor;
 import com.biblioteca.SGB.repository.CopiaRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
 import com.biblioteca.SGB.repository.ProfessorRepository;
+import com.biblioteca.SGB.services.interfaces.IEmprestimoProfessorService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EmprestimoProfessorService {
+public class EmprestimoProfessorService implements IEmprestimoProfessorService{
 
     @Autowired
     private EmprestimoRepository emprestimoRepository;
