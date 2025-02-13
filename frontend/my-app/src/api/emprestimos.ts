@@ -70,7 +70,24 @@ export const registrarExtravio = async (
   });
 
   if (!response.ok) {
-    throw new Error("Erro ao extraviar o livro. Tente novamente.");
+    throw new Error("Erro ao extraviar. Tente novamente.");
+  }
+
+  return response.json();
+};
+
+export const aumentarPrazo = async (
+  id: string,
+): Promise<Emprestimo> => {
+  const response = await fetch(`http://localhost:8080/emprestimos/aumentarPrazo/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao aumentar o prazo. Tente novamente.");
   }
 
   return response.json();
