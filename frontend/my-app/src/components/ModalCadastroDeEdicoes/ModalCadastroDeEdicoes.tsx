@@ -5,14 +5,10 @@ import { Edicao } from "../../types/edicoes";
 import { cadastrarEdicao } from "../../api/edicoes";
 import { Classificacao } from "../../types/classificacoes";
 
-// const verificarStatus = (qtdCopiasEmprestadas: number) => {
-//   return qtdCopiasEmprestadas > 0 ? "indisponível" : "disponível";
-// };
-
 interface ModalDeCadastrarEdicoesProps {
   isOpen: boolean;
   onClose: () => void;
-  carregarEdicoes: () => void; // Nova prop para atualizar a tabela
+  carregarEdicoes: () => void;
 }
 
 const ModalDeCadastrarEdicoes: React.FC<ModalDeCadastrarEdicoesProps> = ({ isOpen, onClose, carregarEdicoes }) => {

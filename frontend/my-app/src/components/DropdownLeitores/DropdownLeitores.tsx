@@ -79,7 +79,7 @@ const DropdownLeitores = ({
             {leitorSelecionado
               ? `${"matricula" in leitorSelecionado ? leitorSelecionado.matricula : leitorSelecionado.cpf} - ${leitorSelecionado.nome}`
               : "Selecionar Leitor"}
-            <img src="/public/assets/iconSeta.svg" alt="" />
+            <img src="/assets/iconSeta.svg" alt="" />
           </a>
 
           {dropdownOpen && (

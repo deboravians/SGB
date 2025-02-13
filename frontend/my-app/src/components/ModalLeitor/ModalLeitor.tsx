@@ -20,7 +20,7 @@ const DropdownLeitor = ({ onSelect }: { onSelect: (tipo: TipoLeitor) => void }) 
             }}
           >
             {selecionado || "Selecionar o tipo de leitor"}
-            <img src="/public/assets/iconSeta.svg" alt="" />
+            <img src="/assets/iconSeta.svg" alt="" />
           </a>
           {dropdownOpen && (
             <div className={styles.dropdownContent}>

@@ -33,7 +33,7 @@ const Home = () => {
       <div className={styles.mainContent}>
         <div className={styles.home}>
           <div className={styles.header}>
-            <img className={styles.icone} src="/public/assets/iconEscola.svg" alt="Ícone Escola" />
+            <img className={styles.icone} src="/assets/iconEscola.svg" alt="Ícone Escola" />
             <h1 className={styles.titulo}>Biblioteca Rachel de Queiroz - EEMTI Coronel Virgílio Távora</h1>
           </div>
           <div className={styles.divisao}></div>
@@ -47,7 +47,7 @@ const Home = () => {
             </div>
             <div className={styles.imagemContainer}>
               <img
-                src="/public/assets/imagemEstudante.svg"
+                src="/assets/imagemEstudante.svg"
                 alt="Cadastrar"
                 className={styles.imagem}
               />

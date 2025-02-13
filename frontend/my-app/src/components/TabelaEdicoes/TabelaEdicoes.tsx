@@ -67,14 +67,14 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
               <td className={styles.acoes}>
                 <Link to={`/visualizar/${edicao.isbn}`} title="Visualizar">
                   <img
-                    src="/public/assets/iconOlho.svg"
+                    src="/assets/iconOlho.svg"
                     alt="Visualizar"
                     className={styles.icone}
                   />
                 </Link>
                 <Link to={`/editar/${edicao.isbn}`} title="Editar">
                   <img
-                    src="/public/assets/iconLapis.svg"
+                    src="/assets/iconLapis.svg"
                     alt="Editar"
                     className={styles.icone}
                   />
@@ -84,7 +84,7 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
                   title="Apagar"
                   onClick={() => handleOpenExcluirModal(edicao)}
                 >
-                  <img src="/public/assets/iconlixeira.svg" alt="Apagar" />
+                  <img src="/assets/iconlixeira.svg" alt="Apagar" />
                 </button>
               </td>
               <td className={styles.gerenciarCopias}>
@@ -93,7 +93,7 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
                   onClick={() => handleOpenGerenciarModal(edicao)}
                 >
                   <img
-                    src="/public/assets/iconGerenciarcópias.svg"
+                    src="/assets/iconGerenciarCópias.svg"
                     alt="Gerenciar Cópias"
                     className={styles.icone}
                   />
