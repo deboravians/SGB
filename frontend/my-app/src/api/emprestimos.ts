@@ -92,3 +92,13 @@ export const aumentarPrazo = async (
 
   return response.json();
 };
+
+export const deletarEmprestimo = async (id: string): Promise<void> => {
+  const response = await fetch(`http://localhost:8080/emprestimos/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao deletar o empréstimo. Tente novamente.");
+  }
+};
