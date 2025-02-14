@@ -4,6 +4,7 @@ import com.biblioteca.SGB.repository.AlunoRepository;
 import com.biblioteca.SGB.repository.CopiaRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
 import com.biblioteca.SGB.repository.ProfessorRepository;
+import com.biblioteca.SGB.services.interfaces.IEstatisticasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class EstatisticasService{
+public class EstatisticasService implements IEstatisticasService {
 
     @Autowired
     private EmprestimoRepository emprestimoRepository;

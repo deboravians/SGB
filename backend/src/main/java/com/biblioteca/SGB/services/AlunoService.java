@@ -1,23 +1,17 @@
 package com.biblioteca.SGB.services;
 
-import com.biblioteca.SGB.dto.AlunoRankingDTO;
-import com.biblioteca.SGB.dto.EmprestimoDTO;
 import com.biblioteca.SGB.models.Aluno;
-import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.repository.AlunoRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
+import com.biblioteca.SGB.services.interfaces.IAlunoService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class AlunoService {
+public class AlunoService implements IAlunoService {
 
     @Autowired
     private AlunoRepository alunoRepository;
@@ -50,10 +44,10 @@ public class AlunoService {
     public Aluno atualizarAluno(String matricula, Aluno alunoAtualizado) {
 
         Aluno aluno = alunoRepository.findById(matricula)
-                .orElseThrow(() -> new EntityNotFoundException("Não existe uma aluno com essa matricula."));
+                .orElseThrow(() -> new EntityNotFoundException("Não existe um aluno com essa matricula."));
 
         if(!aluno.getMatricula().equals(alunoAtualizado.getMatricula())) {
-            throw new IllegalArgumentException("a matricula não pode ser alterada");
+            throw new IllegalArgumentException("A matricula não pode ser alterada");
         }
 
         return alunoRepository.save(alunoAtualizado);

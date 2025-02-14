@@ -1,13 +1,9 @@
 package com.biblioteca.SGB.controller;
 
-import com.biblioteca.SGB.dto.EmprestimoDTO;
 import com.biblioteca.SGB.dto.ProfessorDTO;
-import com.biblioteca.SGB.mapper.EmprestimoMapper;
 import com.biblioteca.SGB.mapper.ProfessorMapper;
-import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.models.Professor;
-import com.biblioteca.SGB.services.EmprestimoService;
-import com.biblioteca.SGB.services.ProfessorService;
+import com.biblioteca.SGB.services.interfaces.IProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,10 +15,7 @@ import java.util.stream.Collectors;
 public class ProfessorController {
 
     @Autowired
-    private ProfessorService professorService;
-
-    @Autowired
-    private EmprestimoService emprestimoService;
+    private IProfessorService professorService;
 
     @PostMapping()
     public ProfessorDTO cadastrarProfessor(@RequestBody ProfessorDTO professorDTO) {

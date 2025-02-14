@@ -6,6 +6,7 @@ import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.repository.AlunoRepository;
 import com.biblioteca.SGB.repository.CopiaRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
+import com.biblioteca.SGB.services.interfaces.IEmprestimoAlunoService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EmprestimoAlunoService {
+public class EmprestimoAlunoService implements IEmprestimoAlunoService {
 
     @Autowired
     private EmprestimoRepository emprestimoRepository;
@@ -29,12 +30,12 @@ public class EmprestimoAlunoService {
                                           String matriculaAluno) {
 
         Aluno aluno = alunoRepository.findById(matriculaAluno)
-                .orElseThrow(() -> new IllegalStateException("aluno não encontrado no banco de dados"));
+                .orElseThrow(() -> new IllegalStateException("Aluno não encontrado no banco de dados"));
 
         emprestimo.setAluno(aluno);
 
         Copia copia = copiaRepository.findById(idCopia)
-                .orElseThrow(() -> new IllegalStateException("copia não encontrada no banco de dados"));
+                .orElseThrow(() -> new IllegalStateException("Copia não encontrada no banco de dados"));
 
         if ("Emprestada".equals(copia.getStatus())) {
             throw new IllegalStateException("A cópia já está emprestada!");

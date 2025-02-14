@@ -106,11 +106,15 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos, atua
         isOpen={modalAberto === "excluir"}
         onClose={fecharModal}
         onConfirm={handleConfirmarAcao}
+        onSuccess={atualizarLista}
+        emprestimo={selectedEmprestimo}
       />
       <ModalProrrogarPrazo
         isOpen={modalAberto === "prorrogar"}
         onClose={fecharModal}
         onConfirm={handleConfirmarAcao}
+        onSuccess={atualizarLista}
+        emprestimo={selectedEmprestimo}
       />
       <ModalEmprestimoExtraviado
         isOpen={modalAberto === "extraviado"}

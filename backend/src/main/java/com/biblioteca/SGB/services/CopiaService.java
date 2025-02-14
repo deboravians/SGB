@@ -5,13 +5,14 @@ import com.biblioteca.SGB.models.Edicao;
 import com.biblioteca.SGB.repository.CopiaRepository;
 import com.biblioteca.SGB.repository.EdicaoRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
+import com.biblioteca.SGB.services.interfaces.ICopiaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CopiaService {
+public class CopiaService implements ICopiaService {
 
     @Autowired
     private CopiaRepository copiaRepository;
@@ -29,7 +30,7 @@ public class CopiaService {
         }
 
         Edicao edicao = edicaoRepository.findById(isbnEdicao)
-                .orElseThrow(() -> new RuntimeException("edição não encontrada"));
+                .orElseThrow(() -> new RuntimeException("Edição não encontrada"));
 
         copia.setEdicao(edicao);
 
@@ -39,7 +40,7 @@ public class CopiaService {
     public List<Copia> listarCopias(String isbnEdicao) {
 
         Edicao edicao = edicaoRepository.findById(isbnEdicao)
-                .orElseThrow(() -> new RuntimeException("edição não encontrada"));
+                .orElseThrow(() -> new RuntimeException("Edição não encontrada"));
 
         return copiaRepository.findAllByedicao(edicao);
     }
@@ -53,5 +54,4 @@ public class CopiaService {
         }
         copiaRepository.deleteById(id);
     }
-
 }

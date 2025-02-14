@@ -1,6 +1,5 @@
 package com.biblioteca.SGB.repository;
 
-import com.biblioteca.SGB.dto.EmprestimoDTO;
 import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.models.Professor;

@@ -2,7 +2,7 @@ package com.biblioteca.SGB.controller;
 
 import com.biblioteca.SGB.dto.AlunoRankingDTO;
 import com.biblioteca.SGB.mapper.AlunoRankingMapper;
-import com.biblioteca.SGB.services.EstatisticasService;
+import com.biblioteca.SGB.services.interfaces.IEstatisticasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +20,7 @@ import static com.biblioteca.SGB.utils.DateUtils.formatarData;
 public class EstatisticasController{
 
     @Autowired
-    EstatisticasService estatisticasService;
+    IEstatisticasService estatisticasService;
 
     @GetMapping("/topAlunos")
     public List<AlunoRankingDTO> listarTopAlunos(@RequestParam String dataInicio, @RequestParam String dataFim){

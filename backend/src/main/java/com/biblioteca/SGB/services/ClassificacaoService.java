@@ -3,6 +3,7 @@ package com.biblioteca.SGB.services;
 import com.biblioteca.SGB.models.Classificacao;
 import com.biblioteca.SGB.repository.ClassificacaoRepository;
 import com.biblioteca.SGB.repository.EdicaoRepository;
+import com.biblioteca.SGB.services.interfaces.IClassificacaoService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ClassificacaoService {
+public class ClassificacaoService implements IClassificacaoService {
 
     @Autowired
     private ClassificacaoRepository classificacaoRepository;
@@ -31,7 +32,7 @@ public class ClassificacaoService {
     public void excluirClassificacao(String codigo){
 
         if(edicaoRepository.existsByClassificacaoCodigo(codigo)){
-            throw new IllegalArgumentException("a classificação possui livros associados e não pode ser excluída.");
+            throw new IllegalArgumentException("A classificação possui livros associados e não pode ser excluída.");
 
         }
 
@@ -47,7 +48,7 @@ public class ClassificacaoService {
                 .orElseThrow(() -> new EntityNotFoundException("Não existe uma classificação com esse codigo."));
 
         if(!classificacao.getCodigo().equals(classificacaoAtualizada.getCodigo())) {
-            throw new IllegalArgumentException("o codigo não pode ser alterado");
+            throw new IllegalArgumentException("O codigo da classificação não pode ser alterado");
         }
 
         return classificacaoRepository.save(classificacaoAtualizada);
