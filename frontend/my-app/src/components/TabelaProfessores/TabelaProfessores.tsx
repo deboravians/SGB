@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./tabelaProfessores.module.css";
 import { Professor } from "../../types/professores";
 import ModalExcluirProfessor from "../ModalExcluirProfessor/ModalExcluirProfessor";
+import ModalEditarProfessor from "../ModalEditarProfessor/ModalEditarProfessor";
 
 interface TabelaProfessoresProps {
     professores: Professor[];
@@ -12,7 +13,7 @@ interface TabelaProfessoresProps {
 const TabelaProfessores: React.FC<TabelaProfessoresProps> = ({ professores, atualizarLista }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProf, setSelectedProf] = useState<Professor | null>(null);
-
+    const [isModalEditarOpen, setIsModalEditarOpen] = useState(false);
 
     const handleOpenModal = (professor: Professor) => {
         setSelectedProf(professor);
@@ -22,6 +23,22 @@ const TabelaProfessores: React.FC<TabelaProfessoresProps> = ({ professores, atua
     const handleCloseModal = () => {
         setIsModalOpen(false);
         setSelectedProf(null);
+    };
+
+    const handleOpenEditarModal = (professor: Professor) => {
+        setSelectedProf(professor);
+        setIsModalEditarOpen(true); // Abrindo o modal de edição
+    };
+
+    const handleCloseEditarModal = () => {
+        setIsModalEditarOpen(false);
+        setSelectedProf(null); 
+    };
+
+    const handleSalvarProfessor = (professorAtualizado: Professor) => {
+        console.log("Alterações salvas para o professor:", professorAtualizado);
+        atualizarLista(); // Atualize a lista após salvar
+        handleCloseEditarModal();
     };
 
     return (
@@ -49,13 +66,16 @@ const TabelaProfessores: React.FC<TabelaProfessoresProps> = ({ professores, atua
                                         className={styles.icone}
                                     />
                                 </Link>
-                                <Link to={`/editar/${professor.nome}`} title="Editar">
+                                <button
+                                    title="Editar"
+                                    onClick={() => handleOpenEditarModal(professor)}
+                                    className={styles.icone}
+                                >
                                     <img
                                         src="/public/assets/iconLapis.svg"
                                         alt="Editar"
-                                        className={styles.icone}
                                     />
-                                </Link>
+                                </button>
 
                                 <button className={styles.icone} onClick={() => handleOpenModal(professor)}>
                                     <img src="/public/assets/iconlixeira.svg" alt="Apagar" />
@@ -72,6 +92,18 @@ const TabelaProfessores: React.FC<TabelaProfessoresProps> = ({ professores, atua
                     isOpen={isModalOpen}
                     onClose={handleCloseModal}
                     professor={selectedProf}
+                    onSuccess={atualizarLista}
+                />
+            )}
+
+            {/* Modal de edição */}
+            {selectedProf && (
+                <ModalEditarProfessor
+                    fecharModal={handleCloseEditarModal}
+                    salvarProfessor={handleSalvarProfessor}
+                    professor={selectedProf} 
+                    isOpen={isModalEditarOpen}
+                    onClose={handleCloseEditarModal}
                     onSuccess={atualizarLista}
                 />
             )}
