@@ -54,6 +54,15 @@ const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificaca
                 <img src="/public/assets/iconCadastrar.svg" alt="" />
                 Cadastrar classificação
               </button>
+              <div className={styles.copiaItemP}>
+                <input
+                  type="text"
+                  placeholder="Pesquisar Classificações..."
+                  className={styles.campoPesquisa}
+                />
+              </div>
+
+
               {classificacoes.map((item) => (
                 <div key={item.codigo} className={styles.classificationItem} onClick={() => handleSelectClassificacao(item)}>
                   <span>{item.codigo}</span>
