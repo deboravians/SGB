@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./ModalRegistrarDevolucao.module.css";
 import { registrarDevolucao } from "../../api/emprestimos";
 import { Emprestimo } from "../../types/emprestimos";
+import { toast } from "react-toastify";
 
 interface ModalRegistrarDevolucaoProps {
   isOpen: boolean;
@@ -20,9 +21,8 @@ const ModalRegistrarDevolucao: React.FC<ModalRegistrarDevolucaoProps> = ({
 }) => {
   const [dataDevolucao, setDataDevolucao] = useState("");
   const [loading, setLoading] = useState(false);
-  const [erro, setErro] = useState("");
   const fecharModal = () => {
-    setDataDevolucao(""); // Zera a data antes de fechar a modal
+    setDataDevolucao("");
     onClose();
   };
 
@@ -32,15 +32,15 @@ const ModalRegistrarDevolucao: React.FC<ModalRegistrarDevolucaoProps> = ({
   const handleRegistrarDevolucao = async () => {
     if (!emprestimo) return;
     setLoading(true);
-    setErro("");
 
     try {
       await registrarDevolucao(emprestimo.id, dataFormatada);
       onConfirm();
       onSuccess();
+      toast.success("Devolução registrada com sucesso!");
       onClose();
     } catch (error) {
-      setErro("Erro ao registrar devolução. Tente novamente.");
+      toast.error(error instanceof Error ? error.message : "Erro inesperado.");
     } finally {
       setLoading(false);
     }
@@ -59,11 +59,11 @@ const ModalRegistrarDevolucao: React.FC<ModalRegistrarDevolucaoProps> = ({
                 value={dataDevolucao}
                 onChange={(e) => setDataDevolucao(e.target.value)}
                 className={styles.input}
+                required
               />
             </div>
           </div>
         </div>
-        {erro && <p className={styles.erro}>{erro}</p>}
         <div className={styles.actions}>
           <button
             className={styles.botaoCancelar}

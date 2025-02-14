@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./ModalEmprestimoExtraviado.module.css";
 import { registrarExtravio } from "../../api/emprestimos";
 import { Emprestimo } from "../../types/emprestimos";
+import { toast } from "react-toastify";
 
 interface ModalEmprestimoExtraviadoProps {
   isOpen: boolean;
@@ -19,27 +20,25 @@ const ModalEmprestimoExtraviado = ({
   emprestimo,
 }: ModalEmprestimoExtraviadoProps) => {
   const [loading, setLoading] = useState(false);
-  const [erro, setErro] = useState("");
 
   const handleConfirmarExtravio = async () => {
     if (!emprestimo) return;
     setLoading(true);
-    setErro("");
 
     try {
       await registrarExtravio(emprestimo.id);
       onConfirm();
       onSuccess();
+      toast.success("Empréstimo extraviado com sucesso!")
       onClose();
     } catch (error) {
-      setErro("Erro ao registrar extravio. Tente novamente.");
+      toast.error(error instanceof Error ? error.message : "Erro inesperado.");
     } finally {
       setLoading(false);
     }
-  };
+  };  
 
   const handleFecharModal = () => {
-    setErro("");
     onClose();
   };
 
@@ -49,7 +48,6 @@ const ModalEmprestimoExtraviado = ({
     <div className={styles.modal}>
       <div className={styles.modalContent}>
         <p className={styles.p1}>Deseja definir esse empréstimo como extraviado?</p>
-        {erro && <p className={styles.erro}>{erro}</p>}
         <div className={styles.actions}>
           <button className={styles.botaoCancelar} onClick={handleFecharModal} disabled={loading}>
             Cancelar

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./ModalCadastroProfessor.module.css";
 import { Professor } from "../../types/professores";
 import { cadastrarProfessor } from "../../api/professores";
+import { toast } from "react-toastify";
 
 interface ModalCadastroProfessorProps {
   fecharModal: () => void;
@@ -22,94 +23,83 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setErrorMessage(null);
-  
+
     try {
       const savedProfessor = await cadastrarProfessor(formData);
       salvarProfessor(savedProfessor);
+      toast.success(`Professor(a) ${savedProfessor.nome} cadastrado(a) com sucesso!`);
       fecharModal();
-    } catch (error: unknown) {
-      const errorMessage = (error as Error).message || "Erro desconhecido.";
-      setErrorMessage(errorMessage);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Erro inesperado.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = ({ target: { id, value } }: React.ChangeEvent<HTMLInputElement>) => {
-      setFormData(prevData => ({ ...prevData, [id]: value }));
-    };
-
-    setTimeout(() => {
-      setErrorMessage(null);
-    }, 5000);
-  
+  const handleChange = ({
+    target: { id, value },
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prevData) => ({ ...prevData, [id]: value }));
+  };
 
   return (
-
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-      <h3>Cadastrar professor</h3>
-      {errorMessage && (
-          <div className={styles.errorMessageContainer}>
-            <p className={styles.errorMessage}>{errorMessage}</p>
-            <div className={styles.progressBar}></div>
-          </div>
-        )}
+        <h3>Cadastrar professor</h3>
         <form onSubmit={handleSubmit}>
           <h3 className={styles.sectionTitle}>Informações Gerais</h3>
+          <div className={styles.formGroup}>
+            <label htmlFor="nome">Nome:</label>
+            <input
+              value={formData.nome}
+              onChange={handleChange}
+              type="text"
+              id="nome"
+              placeholder="Digite o nome do professor"
+              className={styles.input}
+              required
+            />
+          </div>
+          <div className={styles.row}>
             <div className={styles.formGroup}>
-              <label htmlFor="nome">Nome:</label>
+              <label htmlFor="telefone">Telefone:</label>
               <input
-                value={formData.nome}
+                value={formData.telefone}
                 onChange={handleChange}
                 type="text"
-                id="nome"
-                placeholder="Digite o nome do professor"
-                className={styles.input}
+                id="telefone"
+                placeholder="(00) 00000-0000"
+                className={styles.inputField2}
               />
             </div>
-            <div className={styles.row}>
-              <div className={styles.formGroup}>
-                <label htmlFor="telefone">Telefone:</label>
-                <input
-                  value={formData.telefone}
-                  onChange={handleChange}
-                  type="text"
-                  id="telefone"
-                  placeholder="(00) 00000-0000"
-                  className={styles.inputField2}
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="disciplina">Disciplina:</label>
-                <input
-                  value={formData.disciplina}
-                  onChange={handleChange}
-                  type="text"
-                  id="disciplina"
-                  placeholder="Português"
-                  className={styles.inputField3}
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="cpf">CPF:</label>
-                <input
-                  value={formData.cpf}
-                  onChange={handleChange}
-                  type="text"
-                  id="cpf"
-                  placeholder="000.000.000-00"
-                  className={styles.inputField2}
-                />
-              </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="disciplina">Disciplina:</label>
+              <input
+                value={formData.disciplina}
+                onChange={handleChange}
+                type="text"
+                id="disciplina"
+                placeholder="Português"
+                className={styles.inputField3}
+              />
             </div>
-         
+            <div className={styles.formGroup}>
+              <label htmlFor="cpf">CPF:</label>
+              <input
+                value={formData.cpf}
+                onChange={handleChange}
+                type="text"
+                id="cpf"
+                placeholder="000.000.000-00"
+                className={styles.inputField2}
+                required
+              />
+            </div>
+          </div>
 
           <h3 className={styles.sectionTitle}>Endereço</h3>
           <div className={styles.addressInfo}>
@@ -157,7 +147,11 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
             >
               Cancelar
             </button>
-            <button type="submit" className={styles.botaoCadastrar} disabled={isSubmitting}>
+            <button
+              type="submit"
+              className={styles.botaoCadastrar}
+              disabled={isSubmitting}
+            >
               {isSubmitting ? "Salvando..." : "Salvar"}
             </button>
           </div>

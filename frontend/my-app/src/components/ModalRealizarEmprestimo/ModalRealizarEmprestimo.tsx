@@ -8,6 +8,7 @@ import { Edicao } from "../../types/edicoes";
 import { Copia } from "../../types/copias";
 import { Aluno } from "../../types/alunos";
 import { Professor } from "../../types/professores";
+import { toast } from "react-toastify";
 
 const ModalRealizarEmprestimo = ({
   isOpen,
@@ -28,7 +29,6 @@ const ModalRealizarEmprestimo = ({
     Aluno | Professor | null
   >(null);
   const [dataEmprestimo, setDataEmprestimo] = useState("");
-  const [erro, setErro] = useState<string | null>(null);
 
   const handleCadastrarEmprestimo = async () => {
     if (
@@ -37,7 +37,7 @@ const ModalRealizarEmprestimo = ({
       !leitorSelecionado ||
       !dataEmprestimo
     ) {
-      setErro("Preencha todos os campos!");
+      toast.warn("Preencha todos os campos!");
       return;
     }
 
@@ -56,12 +56,10 @@ const ModalRealizarEmprestimo = ({
         identificador,
         dataFormatada
       );
-
+      toast.success(`Empréstimo realizado com sucesso!`);
       onConfirm();
     } catch (error) {
-      setErro(
-        error instanceof Error ? error.message : "Erro ao cadastrar empréstimo."
-      );
+      toast.error(error instanceof Error ? error.message : "Erro inesperado.");
     }
   };
 
@@ -107,9 +105,6 @@ const ModalRealizarEmprestimo = ({
             </div>
           </div>
         </div>
-
-        {erro && <p className={styles.erro}>{erro}</p>}
-
         <div className={styles.actions}>
           <button className={styles.botaoCancelar} onClick={onClose}>
             Cancelar

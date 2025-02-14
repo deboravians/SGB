@@ -3,6 +3,7 @@ import styles from "./ModalCadastroCopia.module.css";
 import { Edicao } from "../../types/edicoes";
 import { cadastrarCopia } from "../../api/copias";
 import { Copia } from "../../types/copias";
+import { toast } from "react-toastify";
 
 interface ModalCadastroCopiaProps {
   edicao: Edicao;
@@ -19,16 +20,14 @@ const ModalCadastroCopia: React.FC<ModalCadastroCopiaProps> = ({
 }) => {
   const [idCopia, setIdCopia] = useState("");
   const [loading, setLoading] = useState(false);
-  const [erro, setErro] = useState("");
 
   const handleCadastrar = async () => {
     if (!idCopia.trim()) {
-      setErro("O ID da cópia é obrigatório.");
+      toast.warn("O ID da cópia é obrigatório.");
       return;
     }
 
     setLoading(true);
-    setErro("");
 
     try {
       const novaCopia: Copia = {
@@ -39,9 +38,12 @@ const ModalCadastroCopia: React.FC<ModalCadastroCopiaProps> = ({
 
       await cadastrarCopia(novaCopia, edicao.isbn);
       onCopiaCadastrada();
+      toast.success("Cópia cadastrada com sucesso!");
       onClose();
     } catch (error) {
-      setErro("Erro ao cadastrar a cópia. Verifique o ID e tente novamente.");
+      toast.error(
+        "Erro ao cadastrar a cópia. Verifique o ID e tente novamente."
+      );
     } finally {
       setLoading(false);
     }
@@ -62,9 +64,6 @@ const ModalCadastroCopia: React.FC<ModalCadastroCopiaProps> = ({
           onChange={(e) => setIdCopia(e.target.value)}
           className={styles.campoTexto}
         />
-
-        {erro && <p className={styles.erro}>{erro}</p>}
-
         <div className={styles.modalActions}>
           <button className={styles.botaoCancelar} onClick={onClose}>
             Cancelar

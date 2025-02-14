@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./ModalLeitor.module.css";
+import { toast } from "react-toastify";
 
 type TipoLeitor = "aluno" | "professor";
 
@@ -57,7 +58,6 @@ const ModalLeitor = ({
   setTipoLeitor: (tipo: TipoLeitor) => void;
 }) => {
   const [tipoSelecionado, setTipoSelecionado] = useState<TipoLeitor | null>(null);
-  const [erro, setErro] = useState<string | null>(null);
 
   return isOpen ? (
     <div className={styles.modal}>
@@ -65,7 +65,6 @@ const ModalLeitor = ({
         <h3>Deseja realizar empréstimo para:</h3>
         <div className={styles.form}>
           <DropdownLeitor onSelect={setTipoSelecionado} />
-          {erro && <p className={styles.erro}>{erro}</p>}
         </div>
 
         <div className={styles.actions}>
@@ -79,7 +78,7 @@ const ModalLeitor = ({
                 setTipoLeitor(tipoSelecionado);
                 onConfirm(tipoSelecionado);
               } else {
-                setErro("Selecione um tipo de leitor!");
+                toast.warn("Selecione um tipo de leitor!");
               }
             }}
           >

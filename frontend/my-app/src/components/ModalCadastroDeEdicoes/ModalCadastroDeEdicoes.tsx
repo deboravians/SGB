@@ -4,6 +4,7 @@ import DropdownClassificacao from "../DropdownClassificacao/DropdownClassificaca
 import { Edicao } from "../../types/edicoes";
 import { cadastrarEdicao } from "../../api/edicoes";
 import { Classificacao } from "../../types/classificacoes";
+import { toast } from "react-toastify";
 
 interface ModalDeCadastrarEdicoesProps {
   isOpen: boolean;
@@ -23,8 +24,13 @@ const ModalDeCadastrarEdicoes: React.FC<ModalDeCadastrarEdicoesProps> = ({ isOpe
   };
 
   const handleCadastrar = async () => {
+    if(!isbn){
+      toast.warn("O ISBN é obrigatório.");
+      return;
+    }
+
     if (!classificacaoSelecionada) {
-      console.error("Classificação não selecionada.");
+      toast.warn("Classificação não selecionada.");
       return;
     }
   
@@ -50,9 +56,9 @@ const ModalDeCadastrarEdicoes: React.FC<ModalDeCadastrarEdicoesProps> = ({ isOpe
       setClassificacaoSelecionada(null);
       onClose();
   
-      console.log("Edição cadastrada com sucesso");
+      toast.success(`Edição ${novaEdicao.titulo} cadastrada com sucesso!`);
     } catch (error) {
-      console.error("Erro ao cadastrar edição:", error);
+      toast.error(error instanceof Error ? error.message : "Erro inesperado.");
     }
   };
   
@@ -71,6 +77,7 @@ const ModalDeCadastrarEdicoes: React.FC<ModalDeCadastrarEdicoesProps> = ({ isOpe
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
                 className={styles.input}
+                required
               />
             </div>
             
@@ -82,6 +89,7 @@ const ModalDeCadastrarEdicoes: React.FC<ModalDeCadastrarEdicoesProps> = ({ isOpe
                 value={isbn}
                 onChange={(e) => setIsbn(e.target.value)}
                 className={styles.input}
+                required
               />
             </div>
           </div>

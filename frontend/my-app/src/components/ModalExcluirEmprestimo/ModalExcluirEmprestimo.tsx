@@ -2,6 +2,7 @@ import { useState } from "react";
 import { deletarEmprestimo } from "../../api/emprestimos";
 import { Emprestimo } from "../../types/emprestimos";
 import styles from "./ModalExcluirEmprestimo.module.css";
+import { toast } from "react-toastify";
 
 interface ModalExcluirEmprestimoProps {
   isOpen: boolean;
@@ -19,27 +20,24 @@ const ModalExcluirEmprestimo = ({
   emprestimo,
 }: ModalExcluirEmprestimoProps) => {
   const [loading, setLoading] = useState(false);
-  const [erro, setErro] = useState("");
 
   const handleConfirmarDeletar = async () => {
     if (!emprestimo) return;
     setLoading(true);
-    setErro("");
-
     try {
       await deletarEmprestimo(emprestimo.id);
       onConfirm();
+      toast.success("Empréstimo deletado com sucesso!");
       onSuccess();
       onClose();
     } catch (error) {
-      setErro("Erro ao deletar empréstimo. Tente novamente.");
+      toast.error(error instanceof Error ? error.message : "Erro inesperado.");
     } finally {
       setLoading(false);
     }
   };
 
   const handleFecharModal = () => {
-    setErro("");
     onClose();
   };
 
@@ -52,7 +50,6 @@ const ModalExcluirEmprestimo = ({
         <p className={styles.p1}>
           Tem certeza que deseja excluir esse Empréstimo?
         </p>
-        {erro && <p className={styles.erro}>{erro}</p>}
         <div className={styles.p2}>
           <p>
             Ao realizar essa ação as informações do empréstimo serão apagadas

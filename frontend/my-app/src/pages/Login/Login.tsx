@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./login.module.css";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login: React.FC = () => {
   const [login, setLogin] = useState("");
@@ -28,18 +29,18 @@ const Login: React.FC = () => {
         const result = await response.json();
 
         if (result === 1) {
+          toast.success("Seja bem-vindo!");
           navigate("/home");
         } else if (result === 0) {
-          setErrorMessage("Usuário ou senha incorretos.");
+          toast.error("Usuário ou senha incorretos.");
         } else {
-          setErrorMessage("Erro inesperado. Tente novamente.");
+          toast.error("Erro inesperado. Tente novamente.");
         }
       } else {
-        setErrorMessage("Erro ao tentar realizar o login. Tente novamente.");
+        toast.error("Erro ao tentar realizar o login. Tente novamente.");
       }
     } catch (error) {
-      console.error("Erro ao fazer login:", error);
-      setErrorMessage("Erro de conexão. Tente novamente.");
+      toast.error("Erro de conexão. Tente novamente.");
     }
   };
 
