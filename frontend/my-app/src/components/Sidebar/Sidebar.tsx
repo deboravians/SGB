@@ -19,38 +19,32 @@ function SideBar() {
       <nav>
         <ul className={style.navList}>
           <li
-            className={`${style.navItem} ${selectedItem === "livros" ? style.selected : ""
-              }`}
-            onClick={() => handleSelection("livros")}
+            className={`${style.navItem} ${
+              selectedItem === "edicoes" ? style.selected : ""
+            }`}
+            onClick={() => handleSelection("edicoes")}
           >
-            <img
-              src="/assets/iconLivros.svg"
-              alt="Ícone de Livros"
-            />
-            <Link to="/livros">Livros</Link>
+            <img src="/assets/iconLivros.svg" alt="Ícone de Livros" />
+            <Link to="/edicoes">Edições</Link>
           </li>
           <li
-            className={`${style.navItem} ${selectedItem === "emprestimos" ? style.selected : ""
-              }`}
+            className={`${style.navItem} ${
+              selectedItem === "emprestimos" ? style.selected : ""
+            }`}
             onClick={() => handleSelection("emprestimos")}
           >
-            <img
-              src="/assets/iconEmprestimos.svg"
-              alt="Ícone de Empréstimos"
-            />
+            <img src="/assets/iconEmprestimos.svg" alt="Ícone de Empréstimos" />
             <Link to="/emprestimos">Empréstimos</Link>
           </li>
           <li
-            className={`${style.navItem} ${selectedItem?.includes("leitores") ? style.selected : ""
-              }`}
+            className={`${style.navItem} ${
+              selectedItem?.includes("leitores") ? style.selected : ""
+            }`}
             onClick={toggleDropdown}
           >
             <div className={style.dropdownToggle}>
               <div>
-                <img
-                  src="/assets/iconUsuarios.svg"
-                  alt="Ícone de Usuários"
-                />
+                <img src="/assets/iconUsuarios.svg" alt="Ícone de Usuários" />
                 <span>Leitores</span>
               </div>
               <img
@@ -63,28 +57,38 @@ function SideBar() {
           {dropdownOpen && (
             <ul className={style.dropdownMenu}>
               <li
-                className={`${style.navItem} ${selectedItem === "leitores-alunos" ? style.selected : ""
-                  }`}
+                className={`${style.navItem} ${
+                  selectedItem === "leitores-alunos" ? style.selected : ""
+                }`}
               >
-                <Link to="/leitores/alunos" onClick={() => handleSelection("leitores-alunos")}>Alunos</Link>
+                <Link
+                  to="/leitores/alunos"
+                  onClick={() => handleSelection("leitores-alunos")}
+                >
+                  Alunos
+                </Link>
               </li>
               <li
-                className={`${style.navItem} ${selectedItem === "leitores-professores" ? style.selected : ""
-                  }`}
+                className={`${style.navItem} ${
+                  selectedItem === "leitores-professores" ? style.selected : ""
+                }`}
               >
-                <Link to="/leitores/professores" onClick={() => handleSelection("leitores-professores")}>Professores</Link>
+                <Link
+                  to="/leitores/professores"
+                  onClick={() => handleSelection("leitores-professores")}
+                >
+                  Professores
+                </Link>
               </li>
             </ul>
           )}
           <li
-            className={`${style.navItem} ${selectedItem === "relatorios" ? style.selected : ""
-              }`}
+            className={`${style.navItem} ${
+              selectedItem === "relatorios" ? style.selected : ""
+            }`}
             onClick={() => handleSelection("relatorios")}
           >
-            <img
-              src="/assets/iconRelatorios.svg"
-              alt="Ícone de Relatórios"
-            />
+            <img src="/assets/iconRelatorios.svg" alt="Ícone de Relatórios" />
             <Link to="/relatorios">Relatórios e Estatísticas</Link>
           </li>
         </ul>
