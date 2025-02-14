@@ -1,4 +1,5 @@
 import { Copia } from "../types/copias";
+import { tratarErroResponse } from "./utils";
 
 export const cadastrarCopia = async (
   copia: Copia,
@@ -16,7 +17,7 @@ export const cadastrarCopia = async (
   );
 
   if (!response.ok) {
-    throw new Error("Erro ao cadastrar a cópia. Tente novamente.");
+    await tratarErroResponse(response);
   }
 
   return response.json();
@@ -26,7 +27,7 @@ export const listarCopias = async (isbn: string): Promise<Copia[]> => {
   const response = await fetch(`http://localhost:8080/copias/${isbn}`);
 
   if (!response.ok) {
-    throw new Error("Erro ao buscar cópias");
+    await tratarErroResponse(response);
   }
 
   return response.json();
