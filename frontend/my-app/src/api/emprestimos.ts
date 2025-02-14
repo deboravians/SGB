@@ -1,10 +1,11 @@
 import { Emprestimo } from "../types/emprestimos";
+import { tratarErroResponse } from "./utils";
 
 export const listarEmprestimos = async (): Promise<Emprestimo[]> => {
   const response = await fetch("http://localhost:8080/emprestimos");
 
   if (!response.ok) {
-    throw new Error("Erro ao buscar os empréstimos.");
+    await tratarErroResponse(response);
   }
 
   return response.json();
@@ -27,14 +28,12 @@ export const cadastrarEmprestimo = async (
 
   const response = await fetch(endpoint, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ dataEmprestimo }),
   });
 
   if (!response.ok) {
-    throw new Error("Erro ao salvar o empréstimo. Tente novamente.");
+    await tratarErroResponse(response);
   }
 
   return response.json();
@@ -46,48 +45,44 @@ export const registrarDevolucao = async (
 ): Promise<Emprestimo> => {
   const response = await fetch(`http://localhost:8080/devolucoes?id=${id}`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ dataDevolucao }),
   });
 
   if (!response.ok) {
-    throw new Error("Erro ao registrar a devolução. Tente novamente.");
+    await tratarErroResponse(response);
   }
 
   return response.json();
 };
 
-export const registrarExtravio = async (
-  id: string,
-): Promise<Emprestimo> => {
-  const response = await fetch(`http://localhost:8080/emprestimos/registrarExtravio/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+export const registrarExtravio = async (id: string): Promise<Emprestimo> => {
+  const response = await fetch(
+    `http://localhost:8080/emprestimos/registrarExtravio/${id}`,
+    {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
 
   if (!response.ok) {
-    throw new Error("Erro ao extraviar. Tente novamente.");
+    await tratarErroResponse(response);
   }
 
   return response.json();
 };
 
-export const aumentarPrazo = async (
-  id: string,
-): Promise<Emprestimo> => {
-  const response = await fetch(`http://localhost:8080/emprestimos/aumentarPrazo/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+export const aumentarPrazo = async (id: string): Promise<Emprestimo> => {
+  const response = await fetch(
+    `http://localhost:8080/emprestimos/aumentarPrazo/${id}`,
+    {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
 
   if (!response.ok) {
-    throw new Error("Erro ao aumentar o prazo. Tente novamente.");
+    await tratarErroResponse(response);
   }
 
   return response.json();
@@ -99,6 +94,6 @@ export const deletarEmprestimo = async (id: string): Promise<void> => {
   });
 
   if (!response.ok) {
-    throw new Error("Erro ao deletar o empréstimo. Tente novamente.");
+    await tratarErroResponse(response);
   }
 };

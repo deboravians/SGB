@@ -67,7 +67,7 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({
               <td>
                 <Link to={`/visualizar/${aluno.matricula}`} title="Visualizar">
                   <img
-                    src="/public/assets/iconOlho.svg"
+                    src="/assets/iconOlho.svg"
                     alt="Visualizar"
                     className={styles.icone}
                   />
@@ -77,14 +77,14 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({
                   onClick={() => handleOpenEditarModal(aluno)}
                   title="Editar"
                 >
-                  <img src="/public/assets/iconLapis.svg" alt="Editar" />
+                  <img src="/assets/iconLapis.svg" alt="Editar" />
                 </button>
                 <button
                   className={styles.icone}
                   onClick={() => handleOpenExcluirModal(aluno)}
                   title="Excluir"
                 >
-                  <img src="/public/assets/iconlixeira.svg" alt="Apagar" />
+                  <img src="/assets/iconlixeira.svg" alt="Apagar" />
                 </button>
               </td>
             </tr>

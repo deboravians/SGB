@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import styles from "./ModalEditarClassificacao.module.css";
 import { Classificacao } from "../../types/classificacoes";
 import { atualizarClassificacao } from "../../api/classificacoes";
+import { toast } from "react-toastify";
 
 const ModalEditarClassificacao = ({
   isOpen,
@@ -17,12 +18,10 @@ const ModalEditarClassificacao = ({
 }) => {
   const [titulo, setTitulo] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (classificacao) {
       setTitulo(classificacao.titulo);
-      setError(null); // Resetando erro ao abrir modal
     }
   }, [classificacao]);
 
@@ -30,20 +29,19 @@ const ModalEditarClassificacao = ({
 
   const handleSalvar = async () => {
     if (!titulo.trim()) {
-      setError("O título não pode estar vazio.");
+      toast.warn("O título não pode estar vazio.");
       return;
     }
 
     setLoading(true);
-    setError(null);
 
     try {
       await atualizarClassificacao(classificacao.codigo, titulo);
-      onSuccess(); // Atualiza a lista no DropdownClassificacao
-      onClose(); // Fecha a modal
+      onSuccess();
+      toast.success("Classificação editada com sucesso!")
+      onClose();
     } catch (error) {
-      console.error("Erro ao atualizar classificação:", error);
-      setError("Erro ao atualizar. Tente novamente.");
+      toast.error(error instanceof Error ? error.message : "Erro inesperado.");
     } finally {
       setLoading(false);
     }
@@ -67,7 +65,6 @@ const ModalEditarClassificacao = ({
               />
             </div>
           </div>
-          {error && <p className={styles.error}>{error}</p>}
         </div>
         <div className={styles.actions}>
           <button className={styles.botaoCancelar} onClick={onClose} disabled={loading}>

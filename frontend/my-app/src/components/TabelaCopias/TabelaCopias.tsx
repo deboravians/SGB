@@ -33,7 +33,7 @@ const TabelaCopias: React.FC<TabelaCopiasProps> = ({
               </td>
               <td className={styles.acoes}>
                 <button className={styles.icone} title="Excluir cópia">
-                  <img src="/public/assets/iconlixeira.svg" alt="Devolvido" />
+                  <img src="/assets/iconlixeira.svg" alt="Devolvido" />
                 </button>
               </td>
             </tr>

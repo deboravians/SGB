@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { deletarAluno } from "../../api/alunos";
 import { Aluno } from "../../types/alunos";
 import styles from "./ModalExcluirAluno.module.css";
@@ -16,9 +17,10 @@ const ModalExcluirAluno = ({ isOpen, onClose, aluno, onSuccess }: ModalExcluirAl
     try {
       await deletarAluno(aluno.matricula);
       onSuccess();
+      toast.success(`Aluno(a) ${aluno.nome} deletado com sucesso!`);
       onClose();
-    } catch {
-      alert("Erro ao excluir o aluno. Tente novamente.");
+    } catch (error){
+      toast.error(error instanceof Error ? error.message : "Erro inesperado.");
     }
   };
 

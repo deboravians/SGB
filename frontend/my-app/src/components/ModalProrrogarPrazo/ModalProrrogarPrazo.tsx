@@ -2,6 +2,7 @@ import { useState } from "react";
 import { aumentarPrazo } from "../../api/emprestimos";
 import { Emprestimo } from "../../types/emprestimos";
 import styles from "./ModalProrrogarPrazo.module.css";
+import { toast } from "react-toastify";
 
 interface ModalProrrogarPrazoProps {
   isOpen: boolean;
@@ -18,29 +19,26 @@ const ModalProrrogarPrazo = ({
   onSuccess,
   emprestimo,
 }: ModalProrrogarPrazoProps) => {
-
   const [loading, setLoading] = useState(false);
-  const [erro, setErro] = useState("");
 
   const handleConfirmarPrazo = async () => {
     if (!emprestimo) return;
     setLoading(true);
-    setErro("");
 
     try {
       await aumentarPrazo(emprestimo.id);
       onConfirm();
+      toast.success("Prazo do empréstimo estendido com sucesso!")
       onSuccess();
       onClose();
     } catch (error) {
-      setErro("Erro ao aumentar prazo. Tente novamente.");
+      toast.error(error instanceof Error ? error.message : "Erro inesperado.");
     } finally {
       setLoading(false);
     }
   };
 
   const handleFecharModal = () => {
-    setErro("");
     onClose();
   };
 
@@ -50,7 +48,6 @@ const ModalProrrogarPrazo = ({
     <div className={styles.modal}>
       <div className={styles.modalContent}>
         <p className={styles.p1}>Deseja prorrogar o prazo de devolução?</p>
-        {erro && <p className={styles.erro}>{erro}</p>}
         <div className={styles.actions}>
           <button
             className={styles.botaoCancelar}

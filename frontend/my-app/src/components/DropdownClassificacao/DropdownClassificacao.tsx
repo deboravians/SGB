@@ -46,12 +46,12 @@ const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificaca
         <li className={styles.dropdown}>
           <a href="#" onClick={(e) => { e.preventDefault(); toggleDropdown(); }}>
             {classificacaoSelecionada ? `${classificacaoSelecionada.codigo} - ${classificacaoSelecionada.titulo}` : "Selecionar Classificação"}
-            <img src="/public/assets/iconSeta.svg" alt="" />
+            <img src="/assets/iconSeta.svg" alt="" />
           </a>
           {dropdownOpen && (
             <div className={styles.dropdownContent}>
               <button className={styles.buttonCadastrar} onClick={toggleModalCadastro}>
-                <img src="/public/assets/iconCadastrar.svg" alt="" />
+                <img src="/assets/iconCadastrar.svg" alt="" />
                 Cadastrar classificação
               </button>
               <div className={styles.copiaItemP}>
@@ -69,14 +69,14 @@ const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificaca
                   <span>{item.titulo}</span>
                   <div className={styles.iconGroup}>
                     <img
-                      src="/public/assets/iconLapis.svg"
+                      src="/assets/iconLapis.svg"
                       alt="Editar"
                       title="Editar"
                       className={styles.icon}
                       onClick={() => abrirModalEditar(item)}
                     />
                     <img
-                      src="/public/assets/iconlixeira.svg"
+                      src="/assets/iconlixeira.svg"
                       alt="Excluir"
                       title="Excluir"
                       className={styles.icon}

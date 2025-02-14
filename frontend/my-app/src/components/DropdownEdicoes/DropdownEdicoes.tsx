@@ -66,7 +66,7 @@ const DropdownEdicoes = ({
             {edicaoSelecionada
               ? `${edicaoSelecionada.titulo} - ${edicaoSelecionada.autor}`
               : "Selecionar Edição"}
-            <img src="/public/assets/iconSeta.svg" alt="" />
+            <img src="assets/iconSeta.svg" alt="" />
           </a>
 
           {dropdownOpen && (

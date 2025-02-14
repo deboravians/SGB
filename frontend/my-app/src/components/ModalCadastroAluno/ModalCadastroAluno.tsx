@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./modalCadastroAluno.module.css";
 import { Aluno } from "../../types/alunos";
 import { cadastrarAluno } from "../../api/alunos";
+import { toast } from "react-toastify";
 
 interface ModalCadastroAlunoProps {
   fecharModal: () => void;
@@ -25,48 +26,40 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setErrorMessage(null);
 
     try {
       const savedAluno = await cadastrarAluno(formData);
       salvarAluno(savedAluno);
+      toast.success(`Aluno ${savedAluno.nome} cadastrado com sucesso!`);
       fecharModal();
-    } catch (error: unknown) {
-      const errorMessage = (error as Error).message || "Erro desconhecido.";
-      setErrorMessage(errorMessage);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Erro inesperado.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = ({ target: { id, value } }: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prevData => ({ ...prevData, [id]: value }));
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
-
-  setTimeout(() => {
-    setErrorMessage(null);
-  }, 5000);
-
 
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <h3>Cadastrar aluno</h3>
-        {errorMessage && (
-          <div className={styles.errorMessageContainer}>
-            <p className={styles.errorMessage}>{errorMessage}</p>
-            <div className={styles.progressBar}></div>
-          </div>
-        )}
         <form onSubmit={handleSubmit}>
           <h3 className={styles.sectionTitle}>Informações Gerais</h3>
           <div className={styles.form}>
-            <label className={styles.titu} htmlFor="nome">Nome:</label>
+            <label className={styles.titu} htmlFor="nome">
+              Nome:
+            </label>
             <input
               value={formData.nome}
               onChange={handleChange}
@@ -74,12 +67,15 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
               id="nome"
               placeholder="Digite o nome do aluno"
               className={styles.input}
+              required
             />
           </div>
 
           <div className={styles.row}>
             <div className={styles.formGroup}>
-              <label className={styles.titu} htmlFor="matricula">Matricula:</label>
+              <label className={styles.titu} htmlFor="matricula">
+                Matricula:
+              </label>
               <input
                 value={formData.matricula}
                 onChange={handleChange}
@@ -87,11 +83,14 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
                 id="matricula"
                 placeholder="1111111"
                 className={styles.inputField2}
+                required
               />
             </div>
 
             <div className={styles.formGroup}>
-              <label className={styles.titu} htmlFor="telefone">Telefone:</label>
+              <label className={styles.titu} htmlFor="telefone">
+                Telefone:
+              </label>
               <input
                 value={formData.telefone}
                 onChange={handleChange}
@@ -103,7 +102,9 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
             </div>
 
             <div className={styles.formGroup}>
-              <label className={styles.titu} htmlFor="serie">Série:</label>
+              <label className={styles.titu} htmlFor="serie">
+                Série:
+              </label>
               <select
                 value={formData.serie}
                 onChange={handleChange}
@@ -117,7 +118,9 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
             </div>
 
             <div className={styles.formGroup}>
-              <label className={styles.titu} htmlFor="turma">Turma:</label>
+              <label className={styles.titu} htmlFor="turma">
+                Turma:
+              </label>
               <input
                 value={formData.turma}
                 onChange={handleChange}
@@ -128,7 +131,9 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
               />
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.titulo} htmlFor="anoLetivo">Ano Letivo</label>
+              <label className={styles.titulo} htmlFor="anoLetivo">
+                Ano Letivo
+              </label>
               <input
                 type="text"
                 id="anoLetivo"
@@ -138,14 +143,15 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
                 className={styles.inputFielddd}
               />
             </div>
-
           </div>
 
           <h3 className={styles.sectionTitle}>Endereço</h3>
           <div className={styles.addressInfo}>
             <div className={styles.row}>
               <div className={styles.formGroup}>
-                <label className={styles.titu} htmlFor="rua">Rua:</label>
+                <label className={styles.titu} htmlFor="rua">
+                  Rua:
+                </label>
                 <input
                   value={formData.rua}
                   onChange={handleChange}
@@ -156,7 +162,9 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
                 />
               </div>
               <div className={styles.formGroup}>
-                <label className={styles.titu} htmlFor="numero">Número:</label>
+                <label className={styles.titu} htmlFor="numero">
+                  Número:
+                </label>
                 <input
                   type="text"
                   id="numero"
@@ -166,7 +174,9 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
               </div>
             </div>
             <div className={styles.formGroup}>
-              <label className={styles.titu} htmlFor="bairro">Bairro:</label>
+              <label className={styles.titu} htmlFor="bairro">
+                Bairro:
+              </label>
               <input
                 value={formData.bairro}
                 onChange={handleChange}
@@ -182,12 +192,16 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
             <button
               type="button"
               className={styles.botaoCancelar}
-              onClick={fecharModal} // Fecha a modal
+              onClick={fecharModal}
               disabled={isSubmitting}
             >
               Cancelar
             </button>
-            <button type="submit" className={styles.botaoCadastrar} disabled={isSubmitting}>
+            <button
+              type="submit"
+              className={styles.botaoCadastrar}
+              disabled={isSubmitting}
+            >
               {isSubmitting ? "Salvando..." : "Salvar"}
             </button>
           </div>
@@ -195,7 +209,6 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
       </div>
     </div>
   );
-
 };
 
 export default ModalCadastroAluno;

@@ -47,13 +47,6 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.erro {
-  color: red;
-  margin-top: 10px;
-  font-size: 14px;
-  display: block;
-}
-
 .modalActions {
   display: flex;
   justify-content: space-between;

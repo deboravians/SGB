@@ -1,4 +1,5 @@
 import { Professor } from "../types/professores";
+import { tratarErroResponse } from "./utils";
 
 export const cadastrarProfessor = async (professor: Professor): Promise<Professor> => {
   const response = await fetch("http://localhost:8080/professores", {
@@ -10,7 +11,7 @@ export const cadastrarProfessor = async (professor: Professor): Promise<Professo
   });
 
   if (!response.ok) {
-    throw new Error("Erro, preencha todos os campos!");
+    await tratarErroResponse(response);
   }
 
   return response.json();
@@ -20,7 +21,7 @@ export const listarProfessores = async () : Promise<Professor[]> => {
   const response = await fetch("http://localhost:8080/professores");
 
   if(!response.ok) {
-    throw new Error("Erro ao buscar os professores.");
+    await tratarErroResponse(response);
   }
 
   return response.json();
@@ -32,6 +33,6 @@ export const deletarProfessor = async (cpf: string): Promise<void> => {
   });
 
   if (!response.ok) {
-    throw new Error("Erro ao deletar o professor. Tente novamente.");
+    await tratarErroResponse(response);
   }
 };

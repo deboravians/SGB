@@ -85,7 +85,7 @@ function GerenciamentoDeEmprestimoseDevolucoes() {
           />
           <button className={styles.botaoCadastrar} onClick={toggleModalLeitor}>
             <img
-              src="/public/assets/iconCadastrar.svg"
+              src="/assets/iconCadastrar.svg"
               alt="Cadastrar"
               className={styles.icone}
             />

@@ -1,4 +1,5 @@
 import { Classificacao } from "../types/classificacoes";
+import { tratarErroResponse } from "./utils";
 
 export const cadastrarClassificacao = async (classificacao: Classificacao): Promise<Classificacao> => {
     const response = await fetch("http://localhost:8080/classificacoes", {
@@ -10,7 +11,7 @@ export const cadastrarClassificacao = async (classificacao: Classificacao): Prom
     });
 
     if (!response.ok) {
-        throw new Error("Erro ao salvar os dados. Tente novamente.");
+        await tratarErroResponse(response);
     }
 
     return response.json();
@@ -20,7 +21,7 @@ export const listarClassificacoes = async (): Promise<Classificacao[]> => {
     const response = await fetch("http://localhost:8080/classificacoes");
 
     if (!response.ok) {
-        throw new Error("Erro ao buscar as classificações.");
+        await tratarErroResponse(response);
     }
 
     return response.json();
@@ -32,7 +33,7 @@ export const deletarClassificacao = async (codigo: string): Promise<void> => {
     });
 
     if (!response.ok) {
-        throw new Error("Erro ao deletar a classificação. Tente novamente.");
+        await tratarErroResponse(response);
     }
 };
 
@@ -42,11 +43,11 @@ export const atualizarClassificacao = async (codigo: string, titulo: string): Pr
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ codigo, titulo }), // Envia o código também
+        body: JSON.stringify({ codigo, titulo }),
     });
 
     if (!response.ok) {
-        throw new Error("Erro ao atualizar a classificação. Tente novamente.");
+        await tratarErroResponse(response);
     }
 
     return response.json();

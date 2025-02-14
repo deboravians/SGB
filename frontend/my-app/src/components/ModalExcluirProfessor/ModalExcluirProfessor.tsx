@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { deletarProfessor } from "../../api/professores";
 import { Professor } from "../../types/professores";
 import styles from "./ModalExcluirProfessor.module.css";
@@ -15,10 +16,11 @@ const ModalExcluirProfessor = ({ isOpen, onClose, professor, onSuccess }: ModalE
   const handleConfirm = async () => {
     try {
       await deletarProfessor(professor.cpf);
+      toast.success(`Professor(a) ${professor.nome} deletado(a) com sucesso!`);
       onSuccess();
       onClose();
-    } catch {
-      alert("Erro ao excluir o professor. Tente novamente.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Erro inesperado.");
     }
   };
 
