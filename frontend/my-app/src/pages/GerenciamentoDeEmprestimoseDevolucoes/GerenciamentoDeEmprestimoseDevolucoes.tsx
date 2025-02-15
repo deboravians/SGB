@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import TabelaEmprestimos from "../../components/TabelaEmprestimos/TabelaEmprestimos";
 import styles from "./GerenciamentoDeEmprestimoseDevolucoes.module.css";
 import CardInfors from "../../components/CardInfors/CardInfors";
@@ -6,6 +6,8 @@ import ModalLeitor from "../../components/ModalLeitor/ModalLeitor";
 import ModalRealizarEmprestimo from "../../components/ModalRealizarEmprestimo/ModalRealizarEmprestimo";
 import { listarEmprestimos } from "../../api/emprestimos";
 import { Emprestimo } from "../../types/emprestimos";
+import { toast } from "react-toastify";
+import { totalEmprestimosAtivos, totalEmprestimosAtrasados } from "../../api/estatisticas";
 type TipoLeitor = "aluno" | "professor";
 
 function GerenciamentoDeEmprestimoseDevolucoes() {
@@ -45,21 +47,36 @@ function GerenciamentoDeEmprestimoseDevolucoes() {
       emprestimo.dataEmprestimo.includes(termoPesquisa)
   );
 
-  const carregarEmprestimos = async () => {
+  const [estatisticas, setEstatisticas] = useState({
+    totalEmprestimosAtivos: 0,
+    totalEmprestimosAtrasados: 0,
+  });
+
+  const carregarDados = useCallback(async () => {
     try {
-      setLoading(true);
-      const dados = await listarEmprestimos();
-      setEmprestimos(dados);
+      const [emprestimosAtivos, emprestimosEmAtraso, emprestimosData] =
+        await Promise.all([
+          totalEmprestimosAtivos(),
+          totalEmprestimosAtrasados(),
+          listarEmprestimos(),
+        ]);
+
+      setEstatisticas({
+        totalEmprestimosAtivos: emprestimosAtivos,
+        totalEmprestimosAtrasados: emprestimosEmAtraso,
+      });
+
+      setEmprestimos(emprestimosData);
     } catch (error) {
-      alert("Erro ao carregar os empréstimos.");
+      toast.warn("Erro ao carregar dados do acervo.");
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    carregarEmprestimos();
-  }, []);
+    carregarDados();
+  }, [carregarDados]);
 
   return (
     <div className={styles.mainContent}>
@@ -71,8 +88,8 @@ function GerenciamentoDeEmprestimoseDevolucoes() {
         <p className={styles.descricao}>Visão geral de empréstimos</p>
 
         <div className={styles.resumo}>
-          <CardInfors quantidade={35} descricao="Livros Emprestados" />
-          <CardInfors quantidade={15} descricao="Empréstimos em atraso" />
+          <CardInfors quantidade={estatisticas.totalEmprestimosAtivos} descricao="Empréstimos em andamento" />
+          <CardInfors quantidade={estatisticas.totalEmprestimosAtrasados} descricao="Empréstimos em atraso" />
         </div>
 
         <div className={styles.acoesContainer}>
@@ -97,7 +114,7 @@ function GerenciamentoDeEmprestimoseDevolucoes() {
         {loading ? (
           <p>Carregando empréstimos...</p>
         ) : (
-          <TabelaEmprestimos emprestimos={emprestimosFiltrados} atualizarLista={carregarEmprestimos}/>
+          <TabelaEmprestimos emprestimos={emprestimosFiltrados} atualizarLista={carregarDados}/>
         )}
 
         {isModalLeitorOpen && (
@@ -115,7 +132,7 @@ function GerenciamentoDeEmprestimoseDevolucoes() {
             onClose={() => setIsModalEmprestimoOpen(false)}
             onConfirm={() => {
               setIsModalEmprestimoOpen(false);
-              carregarEmprestimos();
+              carregarDados();
             }}
             tipoLeitor={tipoLeitor}
           />

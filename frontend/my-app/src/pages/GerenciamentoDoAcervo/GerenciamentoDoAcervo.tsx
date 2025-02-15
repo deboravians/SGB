@@ -1,10 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import TabelaEdicoes from "../../components/TabelaEdicoes/TabelaEdicoes";
 import styles from "./GerenciamentoDoAcervo.module.css";
 import { Edicao } from "../../types/edicoes";
 import CardInfors from "../../components/CardInfors/CardInfors";
 import { listarEdicoes } from "../../api/edicoes";
 import ModalCadastroDeEdicoes from "../../components/ModalCadastroDeEdicoes/ModalCadastroDeEdicoes";
+import {
+  totalCopiasDisponiveis,
+  totalCopiasEmprestadas,
+} from "../../api/estatisticas";
+import { toast } from "react-toastify";
 
 function GerenciamentoDoAcervo() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -12,23 +17,38 @@ function GerenciamentoDoAcervo() {
   const [loading, setLoading] = useState(true);
   const [filtro, setFiltro] = useState("");
 
-  const carregarEdicoes = async () => {
+  const [estatisticas, setEstatisticas] = useState({
+    totalCopiasDisponiveis: 0,
+    totalCopiasEmprestadas: 0,
+  });
+
+  const carregarDados = useCallback(async () => {
     try {
-      setLoading(true);
-      const dados = await listarEdicoes();
-      setEdicoes(dados);
+      const [copiasDisponiveis, copiasEmprestadas, edicoesData] =
+        await Promise.all([
+          totalCopiasDisponiveis(),
+          totalCopiasEmprestadas(),
+          listarEdicoes(),
+        ]);
+
+      setEstatisticas({
+        totalCopiasDisponiveis: copiasDisponiveis,
+        totalCopiasEmprestadas: copiasEmprestadas,
+      });
+
+      setEdicoes(edicoesData);
     } catch (error) {
-      alert("Erro ao carregar as edições.");
+      toast.warn("Erro ao carregar dados do acervo.");
     } finally {
       setLoading(false);
     }
-  };
-
-  useEffect(() => {
-    carregarEdicoes();
   }, []);
 
-  const toggleModal = () => setIsModalOpen(!isModalOpen);
+  useEffect(() => {
+    carregarDados();
+  }, [carregarDados]);
+
+  const toggleModal = () => setIsModalOpen((prev) => !prev);
 
   const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFiltro(event.target.value);
@@ -48,9 +68,8 @@ function GerenciamentoDoAcervo() {
         <p className={styles.descricao}>Visão geral do acervo</p>
 
         <div className={styles.resumo}>
-          <CardInfors quantidade={50} descricao="Livros disponíveis" />
-          <CardInfors quantidade={35} descricao="Livros Emprestados" />
-          <CardInfors quantidade={15} descricao="Empréstimos em atraso" />
+          <CardInfors quantidade={estatisticas.totalCopiasDisponiveis} descricao="Cópias disponíveis" />
+          <CardInfors quantidade={estatisticas.totalCopiasEmprestadas} descricao="Cópias Emprestadas" />
         </div>
 
         <div className={styles.acoesContainer}>
@@ -62,29 +81,18 @@ function GerenciamentoDoAcervo() {
             onChange={handleFiltroChange}
           />
           <button className={styles.botaoCadastrar} onClick={toggleModal}>
-            <img
-              src="/assets/iconCadastrar.svg"
-              alt="Cadastrar"
-              className={styles.icone}
-            />
+            <img src="/assets/iconCadastrar.svg" alt="Cadastrar" className={styles.icone} />
             Cadastrar Edição
           </button>
         </div>
 
-        <ModalCadastroDeEdicoes
-          isOpen={isModalOpen}
-          onClose={toggleModal}
-          carregarEdicoes={carregarEdicoes}
-        />
+        <ModalCadastroDeEdicoes isOpen={isModalOpen} onClose={toggleModal} carregarEdicoes={carregarDados} />
 
         {/* Tabela */}
         {loading ? (
           <p>Carregando edições...</p>
         ) : (
-          <TabelaEdicoes
-            edicoes={edicoesFiltradas}
-            atualizarLista={carregarEdicoes}
-          />
+          <TabelaEdicoes edicoes={edicoesFiltradas} atualizarLista={carregarDados} />
         )}
       </div>
     </div>
