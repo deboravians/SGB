@@ -1,7 +1,7 @@
 package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.models.Usuario;
-import com.biblioteca.SGB.repository.UsuarioRepository;
+import com.biblioteca.SGB.repository.interfaces.UsuarioRepository;
 import com.biblioteca.SGB.services.interfaces.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,12 +9,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class UsuarioService implements IUsuarioService {
 
+    private final UsuarioRepository usuarioRepository;
+
     @Autowired
-    private UsuarioRepository UsuarioRepository;
+    public UsuarioService(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
 
     public String logar(Usuario usuario){
 
-        Usuario usuarioLogado = UsuarioRepository.findByLogin(usuario.getLogin());
+        Usuario usuarioLogado = usuarioRepository.findByLogin(usuario.getLogin());
 
         if(usuarioLogado == null){ return "0"; }
 
