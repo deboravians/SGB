@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface CopiaRepository extends JpaRepository<Copia, Integer> {
+public interface ICopiaRepository extends JpaRepository<Copia, Integer> {
 
-    List<Copia> findAllByedicao(Edicao edicao);
+    List<Copia> findAllByEdicao(Edicao edicao);
 
     boolean existsByEdicaoIsbn(String isbn);
 

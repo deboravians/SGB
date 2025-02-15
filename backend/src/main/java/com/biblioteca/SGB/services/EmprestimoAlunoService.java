@@ -3,7 +3,7 @@ package com.biblioteca.SGB.services;
 import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.models.Copia;
 import com.biblioteca.SGB.models.Emprestimo;
-import com.biblioteca.SGB.repository.CopiaRepository;
+import com.biblioteca.SGB.repository.interfaces.CopiaRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
 import com.biblioteca.SGB.repository.interfaces.AlunoRepository;
 import com.biblioteca.SGB.services.interfaces.IEmprestimoAlunoService;

@@ -2,7 +2,7 @@ package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.models.Copia;
 import com.biblioteca.SGB.models.Edicao;
-import com.biblioteca.SGB.repository.CopiaRepository;
+import com.biblioteca.SGB.repository.interfaces.CopiaRepository;
 import com.biblioteca.SGB.repository.interfaces.EdicaoRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
 import com.biblioteca.SGB.services.interfaces.ICopiaService;
@@ -14,14 +14,18 @@ import java.util.List;
 @Service
 public class CopiaService implements ICopiaService {
 
-    @Autowired
-    private CopiaRepository copiaRepository;
+    private final CopiaRepository copiaRepository;
+    private final EdicaoRepository edicaoRepository;
+    private final EmprestimoRepository emprestimoRepository;
 
     @Autowired
-    private EdicaoRepository edicaoRepository;
-
-    @Autowired
-    private EmprestimoRepository emprestimoRepository;
+    public CopiaService(CopiaRepository copiaRepository,
+                        EdicaoRepository edicaoRepository,
+                        EmprestimoRepository emprestimoRepository) {
+        this.copiaRepository = copiaRepository;
+        this.edicaoRepository = edicaoRepository;
+        this.emprestimoRepository = emprestimoRepository;
+    }
 
     public Copia cadastrarCopia(Copia copia, String isbnEdicao) {
 
@@ -42,7 +46,7 @@ public class CopiaService implements ICopiaService {
         Edicao edicao = edicaoRepository.findById(isbnEdicao)
                 .orElseThrow(() -> new RuntimeException("Edição não encontrada"));
 
-        return copiaRepository.findAllByedicao(edicao);
+        return copiaRepository.findAllByEdicao(edicao);
     }
 
     public void excluirCopia(int id) {

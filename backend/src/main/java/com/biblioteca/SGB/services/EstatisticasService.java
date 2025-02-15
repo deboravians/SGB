@@ -1,6 +1,6 @@
 package com.biblioteca.SGB.services;
 
-import com.biblioteca.SGB.repository.CopiaRepository;
+import com.biblioteca.SGB.repository.interfaces.CopiaRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
 import com.biblioteca.SGB.repository.interfaces.ProfessorRepository;
 import com.biblioteca.SGB.repository.interfaces.AlunoRepository;
