@@ -1,7 +1,7 @@
 package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.models.Classificacao;
-import com.biblioteca.SGB.repository.ClassificacaoRepository;
+import com.biblioteca.SGB.repository.interfaces.ClassificacaoRepository;
 import com.biblioteca.SGB.repository.EdicaoRepository;
 import com.biblioteca.SGB.services.interfaces.IClassificacaoService;
 import jakarta.persistence.EntityNotFoundException;
@@ -13,11 +13,15 @@ import java.util.List;
 @Service
 public class ClassificacaoService implements IClassificacaoService {
 
-    @Autowired
-    private ClassificacaoRepository classificacaoRepository;
+    private final ClassificacaoRepository classificacaoRepository;
 
     @Autowired
     private EdicaoRepository edicaoRepository;
+
+    @Autowired
+    public ClassificacaoService(ClassificacaoRepository classificacaoRepository) {
+        this.classificacaoRepository = classificacaoRepository;
+    }
 
     public Classificacao cadastrarClassificacao(Classificacao classificacao) {
 
