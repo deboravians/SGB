@@ -1,16 +1,28 @@
+import React, { useState } from "react";
 import styles from "./TabelaCopias.module.css";
 import StatusTag from "../StatusTag/StatusTag";
 import { Copia } from "../../types/copias";
+import ModalExcluirCopia from "../ModalExcluirCopia/ModalExcluirCopia";
 
 interface TabelaCopiasProps {
   copias: Copia[];
-  // atualizarLista: () => void;
+  atualizarLista: () => void;
 }
 
-const TabelaCopias: React.FC<TabelaCopiasProps> = ({
-  copias,
-  // atualizarLista,
-}) => {
+const TabelaCopias: React.FC<TabelaCopiasProps> = ({ copias, atualizarLista }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCopia, setSelectedCopia] = useState<Copia | null>(null);
+
+  const handleOpenModal = (copia: Copia) => {
+    setSelectedCopia(copia);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedCopia(null);
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <table className={styles.tabelaCopias}>
@@ -32,8 +44,12 @@ const TabelaCopias: React.FC<TabelaCopiasProps> = ({
                 />
               </td>
               <td className={styles.acoes}>
-                <button className={styles.icone} title="Excluir cópia">
-                  <img src="/assets/iconlixeira.svg" alt="Devolvido" />
+                <button
+                  className={styles.icone}
+                  title="Excluir cópia"
+                  onClick={() => handleOpenModal(copia)}
+                >
+                  <img src="/assets/iconlixeira.svg" alt="Excluir cópia" />
                 </button>
               </td>
             </tr>
@@ -41,7 +57,7 @@ const TabelaCopias: React.FC<TabelaCopiasProps> = ({
         </tbody>
       </table>
 
-      {/* Modal de confirmação de exclusão
+      {/* Modal de confirmação de exclusão */}
       {selectedCopia && (
         <ModalExcluirCopia
           isOpen={isModalOpen}
@@ -49,7 +65,7 @@ const TabelaCopias: React.FC<TabelaCopiasProps> = ({
           copia={selectedCopia}
           onSuccess={atualizarLista}
         />
-      )} */}
+      )}
     </>
   );
 };
