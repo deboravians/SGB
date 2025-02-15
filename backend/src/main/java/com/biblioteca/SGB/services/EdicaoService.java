@@ -5,7 +5,7 @@ import com.biblioteca.SGB.models.Copia;
 import com.biblioteca.SGB.models.Edicao;
 import com.biblioteca.SGB.repository.interfaces.ClassificacaoRepository;
 import com.biblioteca.SGB.repository.CopiaRepository;
-import com.biblioteca.SGB.repository.EdicaoRepository;
+import com.biblioteca.SGB.repository.interfaces.EdicaoRepository;
 import com.biblioteca.SGB.services.interfaces.ICopiaService;
 import com.biblioteca.SGB.services.interfaces.IEdicaoService;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,17 +17,21 @@ import java.util.List;
 @Service
 public class EdicaoService implements IEdicaoService {
 
-    @Autowired
-    private EdicaoRepository edicaoRepository;
+    private final EdicaoRepository edicaoRepository;
+    private final ClassificacaoRepository classificacaoRepository;
+    private final CopiaRepository copiaRepository;
+    private final ICopiaService copiaService;
 
     @Autowired
-    private ClassificacaoRepository classificacaoRepository;
-
-    @Autowired
-    private CopiaRepository copiaRepository;
-
-    @Autowired
-    private ICopiaService copiaService;
+    public EdicaoService(EdicaoRepository edicaoRepository,
+                         ClassificacaoRepository classificacaoRepository,
+                         CopiaRepository copiaRepository,
+                         ICopiaService copiaService) {
+        this.edicaoRepository = edicaoRepository;
+        this.classificacaoRepository = classificacaoRepository;
+        this.copiaRepository = copiaRepository;
+        this.copiaService = copiaService;
+    }
 
     public Edicao cadastrarEdicao(Edicao edicao, String classificacao_codigo) {
 

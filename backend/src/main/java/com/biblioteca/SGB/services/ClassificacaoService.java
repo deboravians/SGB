@@ -2,7 +2,7 @@ package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.models.Classificacao;
 import com.biblioteca.SGB.repository.interfaces.ClassificacaoRepository;
-import com.biblioteca.SGB.repository.EdicaoRepository;
+import com.biblioteca.SGB.repository.interfaces.EdicaoRepository;
 import com.biblioteca.SGB.services.interfaces.IClassificacaoService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
