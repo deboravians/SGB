@@ -5,6 +5,7 @@ import { Edicao } from "../../types/edicoes";
 import StatusTag from "../StatusTag/StatusTag";
 import ModalExcluirEdicao from "../ModalExcluirEdicao/ModalExcluirEdicao";
 import ModalGerenciarCopias from "../ModalGerenciarCopias/ModalGerenciarCopias";
+import ModalEditarEdicoes from "../ModalEditarEdicoes/ModalEditarEdicoes";
 
 interface TabelaEdicoesProps {
   edicoes: Edicao[];
@@ -20,6 +21,8 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
 
   const [isGerenciarModalOpen, setIsGerenciarModalOpen] = useState(false);
   const [gerenciarEdicao, setGerenciarEdicao] = useState<Edicao | null>(null);
+
+  const [isEditarModalOpen, setIsEditarModalOpen] = useState(false);
 
   const handleOpenExcluirModal = (edicao: Edicao) => {
     setSelectedEdicao(edicao);
@@ -39,6 +42,16 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
   const handleCloseGerenciarModal = () => {
     setIsGerenciarModalOpen(false);
     setGerenciarEdicao(null);
+  };
+
+  const handleOpenEditarModal = (edicao: Edicao) => {
+    setSelectedEdicao(edicao);
+    setIsEditarModalOpen(true);
+  };
+
+  const handleCloseEditarModal = () => {
+    setIsEditarModalOpen(false);
+    setSelectedEdicao(null);
   };
 
   return (
@@ -72,13 +85,13 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
                     className={styles.icone}
                   />
                 </Link>
-                <Link to={`/editar/${edicao.isbn}`} title="Editar">
-                  <img
-                    src="/assets/iconLapis.svg"
-                    alt="Editar"
-                    className={styles.icone}
-                  />
-                </Link>
+                <button
+                  className={styles.icone}
+                  title="Editar"
+                  onClick={() => handleOpenEditarModal(edicao)}
+                >
+                  <img src="/assets/iconLapis.svg" alt="Editar" />
+                </button>
                 <button
                   className={styles.icone}
                   title="Apagar"
@@ -123,6 +136,17 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
           edicao={gerenciarEdicao}
         />
       )}
+
+      {/* Modal de Editar Edição */}
+      {selectedEdicao && (
+  <ModalEditarEdicoes
+    isOpen={isEditarModalOpen}
+    onClose={handleCloseEditarModal}
+    edicao={selectedEdicao} // Verifique se `selectedEdicao` está preenchido
+
+  />
+)}
+
     </div>
   );
 };
