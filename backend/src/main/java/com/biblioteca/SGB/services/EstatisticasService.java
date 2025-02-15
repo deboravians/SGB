@@ -2,7 +2,7 @@ package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.repository.CopiaRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
-import com.biblioteca.SGB.repository.ProfessorRepository;
+import com.biblioteca.SGB.repository.interfaces.ProfessorRepository;
 import com.biblioteca.SGB.repository.interfaces.AlunoRepository;
 import com.biblioteca.SGB.services.interfaces.IEstatisticasService;
 import org.springframework.beans.factory.annotation.Autowired;
