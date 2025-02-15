@@ -1,8 +1,8 @@
 package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.models.Aluno;
-import com.biblioteca.SGB.repository.AlunoRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
+import com.biblioteca.SGB.repository.interfaces.AlunoRepository;
 import com.biblioteca.SGB.services.interfaces.IAlunoService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +13,15 @@ import java.util.List;
 @Service
 public class AlunoService implements IAlunoService {
 
-    @Autowired
-    private AlunoRepository alunoRepository;
+    private final AlunoRepository alunoRepository;
 
     @Autowired
     private EmprestimoRepository emprestimoRepository;
+
+    @Autowired
+    public AlunoService(AlunoRepository alunoRepository) {
+        this.alunoRepository = alunoRepository;
+    }
 
     public Aluno cadastrarAluno(Aluno aluno){
 

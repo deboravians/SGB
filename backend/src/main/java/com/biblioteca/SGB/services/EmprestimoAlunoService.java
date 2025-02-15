@@ -3,9 +3,9 @@ package com.biblioteca.SGB.services;
 import com.biblioteca.SGB.models.Aluno;
 import com.biblioteca.SGB.models.Copia;
 import com.biblioteca.SGB.models.Emprestimo;
-import com.biblioteca.SGB.repository.AlunoRepository;
 import com.biblioteca.SGB.repository.CopiaRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
+import com.biblioteca.SGB.repository.interfaces.AlunoRepository;
 import com.biblioteca.SGB.services.interfaces.IEmprestimoAlunoService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +22,12 @@ public class EmprestimoAlunoService implements IEmprestimoAlunoService {
     @Autowired
     private CopiaRepository copiaRepository;
 
+    private final AlunoRepository alunoRepository;
+
     @Autowired
-    private AlunoRepository alunoRepository;
+    public EmprestimoAlunoService(AlunoRepository alunoRepository) {
+        this.alunoRepository = alunoRepository;
+    }
 
     public Emprestimo cadastrarEmprestimo(Emprestimo emprestimo,
                                           Integer idCopia,
