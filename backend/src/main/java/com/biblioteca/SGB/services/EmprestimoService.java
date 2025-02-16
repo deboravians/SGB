@@ -7,6 +7,7 @@ import com.biblioteca.SGB.repository.CopiaRepository;
 import com.biblioteca.SGB.repository.EdicaoRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
 import com.biblioteca.SGB.services.interfaces.IEmprestimoService;
+import com.biblioteca.SGB.strategies.emprestimo.CalculadoraStatusEmprestimo;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,8 @@ public class EmprestimoService implements IEmprestimoService {
 
     @Autowired
     private EdicaoRepository edicaoRepository;
+
+    CalculadoraStatusEmprestimo calculadoraStatusEmprestimo = new CalculadoraStatusEmprestimo();
 
     public Emprestimo aumentarPrazo(Integer idEmprestimo){
 
@@ -77,16 +80,7 @@ public class EmprestimoService implements IEmprestimoService {
 
     public Emprestimo getEmprestimo(int id){ return emprestimoRepository.findById(id).get(); }
 
-    public String calcularStatus(Emprestimo emprestimo){
-
-        if("Extraviado".equals(emprestimo.getStatus())) { return "Extraviado"; }
-
-        if("Devolvido".equals(emprestimo.getStatus())) { return "Devolvido"; }
-
-        if(emprestimo.getDataPrevistaDevolucao().isBefore(LocalDate.now()) && emprestimo.getDataDevolucao() == null) { return "Atrasado"; }
-
-        return "Em Andamento";
-    }
+    public String calcularStatus(Emprestimo emprestimo){ return calculadoraStatusEmprestimo.calcularStatus(emprestimo); }
 
     public void excluirEmprestimo(Integer idEmprestimo) {
 
