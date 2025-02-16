@@ -1,8 +1,8 @@
 package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.models.Professor;
-import com.biblioteca.SGB.repository.EmprestimoRepository;
-import com.biblioteca.SGB.repository.ProfessorRepository;
+import com.biblioteca.SGB.repository.interfaces.EmprestimoRepository;
+import com.biblioteca.SGB.repository.interfaces.ProfessorRepository;
 import com.biblioteca.SGB.services.interfaces.IProfessorService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +18,11 @@ public class ProfessorService implements IProfessorService {
 
     @Autowired
     private EmprestimoRepository emprestimoRepository;
+
+    @Autowired
+    public ProfessorService(ProfessorRepository professorRepository) {
+        this.professorRepository = professorRepository;
+    }
 
     public Professor cadastrarProfessor(Professor professor) {
 

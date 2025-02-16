@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AlunoRepository extends JpaRepository<Aluno, String> {
+public interface IAlunoRepository extends JpaRepository<Aluno, String> {
 
     @Query("SELECT COUNT(a) FROM Aluno a")
     int countAlunos();

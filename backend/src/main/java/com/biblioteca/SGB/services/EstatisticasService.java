@@ -1,9 +1,9 @@
 package com.biblioteca.SGB.services;
 
-import com.biblioteca.SGB.repository.AlunoRepository;
-import com.biblioteca.SGB.repository.CopiaRepository;
-import com.biblioteca.SGB.repository.EmprestimoRepository;
-import com.biblioteca.SGB.repository.ProfessorRepository;
+import com.biblioteca.SGB.repository.interfaces.CopiaRepository;
+import com.biblioteca.SGB.repository.interfaces.EmprestimoRepository;
+import com.biblioteca.SGB.repository.interfaces.ProfessorRepository;
+import com.biblioteca.SGB.repository.interfaces.AlunoRepository;
 import com.biblioteca.SGB.services.interfaces.IEstatisticasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +23,12 @@ public class EstatisticasService implements IEstatisticasService {
     @Autowired
     private ProfessorRepository professorRepository;
 
+    private final AlunoRepository alunoRepository;
+
     @Autowired
-    private AlunoRepository alunoRepository;
+    public EstatisticasService(AlunoRepository alunoRepository) {
+        this.alunoRepository = alunoRepository;
+    }
 
     public List<Object[]> listarTopAlunos(LocalDate dataInicio, LocalDate dataFim){
         return emprestimoRepository.findTopAlunosByPeriod(dataInicio, dataFim);
