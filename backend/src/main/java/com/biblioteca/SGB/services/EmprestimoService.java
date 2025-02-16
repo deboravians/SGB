@@ -84,10 +84,18 @@ public class EmprestimoService implements IEmprestimoService {
 
     public void excluirEmprestimo(Integer idEmprestimo) {
 
-        if(!emprestimoRepository.existsById(idEmprestimo)) {
-            throw new IllegalStateException("Empréstimo com  " + idEmprestimo + " não encontrado.");
+        Emprestimo emprestimo = emprestimoRepository.findById(idEmprestimo)
+                .orElseThrow(() -> new RuntimeException("Emprestimo não encontrado no banco"));
+
+        if(!emprestimo.getStatus().equals("Extraviado")) {
+
+            Copia copia = emprestimo.getCopia();
+            copia.setStatus("Disponível");
+            copiaRepository.save(copia);
+            
         }
-        emprestimoRepository.deleteById(idEmprestimo);
+
+        emprestimoRepository.delete(emprestimo);
     }
 
     public List<Emprestimo> listarEmprestimosEdicao(String isbn){
