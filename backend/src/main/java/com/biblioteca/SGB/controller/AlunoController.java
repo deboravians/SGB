@@ -14,8 +14,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/alunos")
 public class AlunoController {
 
+    private final IAlunoService alunoService;
+
     @Autowired
-    private IAlunoService alunoService;
+    public AlunoController(IAlunoService alunoService) { this.alunoService = alunoService; }
 
     @PostMapping()
     public AlunoDTO cadastrarAluno(@RequestBody AlunoDTO alunoDTO) {
