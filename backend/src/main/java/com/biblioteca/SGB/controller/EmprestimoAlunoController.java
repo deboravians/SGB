@@ -15,11 +15,16 @@ import java.util.stream.Collectors;
 @RequestMapping("/emprestimos/alunos")
 public class EmprestimoAlunoController {
 
-    @Autowired
-    private IEmprestimoAlunoService emprestimoAlunoService;
+    private final IEmprestimoAlunoService emprestimoAlunoService;
+    private final IEmprestimoService emprestimoService;
 
     @Autowired
-    private IEmprestimoService emprestimoService;
+    public EmprestimoAlunoController(IEmprestimoAlunoService emprestimoAlunoService,
+                                     IEmprestimoService emprestimoService) {
+
+        this.emprestimoAlunoService = emprestimoAlunoService;
+        this.emprestimoService = emprestimoService;
+    }
 
     @PostMapping
     public EmprestimoDTO cadastrarEmprestimo(@RequestBody EmprestimoDTO emprestimoDTO,
