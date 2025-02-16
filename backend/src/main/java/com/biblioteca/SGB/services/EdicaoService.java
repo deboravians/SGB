@@ -8,6 +8,7 @@ import com.biblioteca.SGB.repository.CopiaRepository;
 import com.biblioteca.SGB.repository.EdicaoRepository;
 import com.biblioteca.SGB.services.interfaces.ICopiaService;
 import com.biblioteca.SGB.services.interfaces.IEdicaoService;
+import com.biblioteca.SGB.strategies.statusEdicao.StatusCopiaTemplate;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,13 @@ public class EdicaoService implements IEdicaoService {
 
     @Autowired
     private ICopiaService copiaService;
+
+    private final StatusCopiaTemplate statusCopiaTemplate;
+
+    @Autowired
+    public EdicaoService(StatusCopiaTemplate statusCopiaTemplate) {
+        this.statusCopiaTemplate = statusCopiaTemplate;
+    }
 
     public Edicao cadastrarEdicao(Edicao edicao, String classificacao_codigo) {
 
@@ -82,13 +90,7 @@ public class EdicaoService implements IEdicaoService {
     }
 
     public String calcularStatus(String edicaoIsbn) {
-        List<Copia> copias = copiaService.listarCopias(edicaoIsbn);
-
-        int cont = 0;
-        for(Copia copia : copias){ if(copia.getStatus().equals("Emprestada") ||
-                                      copia.getStatus().equals("Extraviada")){  cont++; } }
-
-        return cont < calcularQtdCopias(edicaoIsbn) ? "Disponível" : "Indisponível";
+        return statusCopiaTemplate.calcularStatus(copiaService.listarCopias(edicaoIsbn), calcularQtdCopias(edicaoIsbn));
     }
 
     public Edicao getEdicao(String isbn) {

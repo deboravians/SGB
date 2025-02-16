@@ -7,12 +7,11 @@ import com.biblioteca.SGB.repository.CopiaRepository;
 import com.biblioteca.SGB.repository.EdicaoRepository;
 import com.biblioteca.SGB.repository.EmprestimoRepository;
 import com.biblioteca.SGB.services.interfaces.IEmprestimoService;
-import com.biblioteca.SGB.strategies.emprestimo.CalculadoraStatusEmprestimo;
+import com.biblioteca.SGB.strategies.statusEmprestimo.CalculadoraStatusEmprestimo;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service

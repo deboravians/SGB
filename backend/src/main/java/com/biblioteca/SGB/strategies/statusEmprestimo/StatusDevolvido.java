@@ -1,4 +1,4 @@
-package com.biblioteca.SGB.strategies.emprestimo;
+package com.biblioteca.SGB.strategies.statusEmprestimo;
 
 import com.biblioteca.SGB.models.Emprestimo;
 
