@@ -5,7 +5,7 @@ import com.biblioteca.SGB.models.Edicao;
 import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.repository.interfaces.CopiaRepository;
 import com.biblioteca.SGB.repository.interfaces.EdicaoRepository;
-import com.biblioteca.SGB.repository.EmprestimoRepository;
+import com.biblioteca.SGB.repository.interfaces.EmprestimoRepository;
 import com.biblioteca.SGB.services.interfaces.IEmprestimoService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

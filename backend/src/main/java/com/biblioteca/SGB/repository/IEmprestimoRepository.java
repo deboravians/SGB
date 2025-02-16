@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface EmprestimoRepository extends JpaRepository<Emprestimo, Integer> {
+public interface IEmprestimoRepository extends JpaRepository<Emprestimo, Integer> {
 
     List<Emprestimo> getEmprestimosByAluno(Aluno aluno);
 

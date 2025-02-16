@@ -4,7 +4,7 @@ import com.biblioteca.SGB.models.Copia;
 import com.biblioteca.SGB.models.Edicao;
 import com.biblioteca.SGB.repository.interfaces.CopiaRepository;
 import com.biblioteca.SGB.repository.interfaces.EdicaoRepository;
-import com.biblioteca.SGB.repository.EmprestimoRepository;
+import com.biblioteca.SGB.repository.interfaces.EmprestimoRepository;
 import com.biblioteca.SGB.services.interfaces.ICopiaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
