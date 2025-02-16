@@ -3,6 +3,7 @@ package com.biblioteca.SGB.controller;
 import com.biblioteca.SGB.dto.EdicaoDTO;
 import com.biblioteca.SGB.mapper.EdicaoMapper;
 import com.biblioteca.SGB.models.Edicao;
+import com.biblioteca.SGB.services.EdicaoService;
 import com.biblioteca.SGB.services.interfaces.IEdicaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +15,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/edicoes")
 public class EdicaoController {
 
+    private final IEdicaoService edicaoService;
+
     @Autowired
-    private IEdicaoService edicaoService;
+    public EdicaoController(IEdicaoService edicaoService) { this.edicaoService = edicaoService; }
 
     @PostMapping
     public EdicaoDTO cadastraEdicao(@RequestBody EdicaoDTO edicaoDTO, @RequestParam String classificacao_codigo) {
