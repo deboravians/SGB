@@ -19,8 +19,12 @@ import static com.biblioteca.SGB.utils.DateUtils.formatarData;
 @RequestMapping("/estatisticas")
 public class EstatisticasController{
 
+    private final IEstatisticasService estatisticasService;
+
     @Autowired
-    IEstatisticasService estatisticasService;
+    public EstatisticasController(IEstatisticasService estatisticasService) {
+        this.estatisticasService = estatisticasService;
+    }
 
     @GetMapping("/topAlunos")
     public List<AlunoRankingDTO> listarTopAlunos(@RequestParam String dataInicio, @RequestParam String dataFim){
