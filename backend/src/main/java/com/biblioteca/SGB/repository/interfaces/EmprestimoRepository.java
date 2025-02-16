@@ -25,4 +25,5 @@ public interface EmprestimoRepository {
     List<Emprestimo> findAll();
     boolean existsById(Integer id);
     void deleteById(Integer id);
+    void delete(Emprestimo emprestimo);
 }

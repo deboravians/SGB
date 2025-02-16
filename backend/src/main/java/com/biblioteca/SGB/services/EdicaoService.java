@@ -22,22 +22,18 @@ public class EdicaoService implements IEdicaoService {
     private final ClassificacaoRepository classificacaoRepository;
     private final CopiaRepository copiaRepository;
     private final ICopiaService copiaService;
+    private final StatusCopiaTemplate statusCopiaTemplate;
 
     @Autowired
     public EdicaoService(EdicaoRepository edicaoRepository,
                          ClassificacaoRepository classificacaoRepository,
                          CopiaRepository copiaRepository,
-                         ICopiaService copiaService) {
+                         ICopiaService copiaService,
+                         StatusCopiaTemplate statusCopiaTemplate) {
         this.edicaoRepository = edicaoRepository;
         this.classificacaoRepository = classificacaoRepository;
         this.copiaRepository = copiaRepository;
         this.copiaService = copiaService;
-    }
-
-    private final StatusCopiaTemplate statusCopiaTemplate;
-
-    @Autowired
-    public EdicaoService(StatusCopiaTemplate statusCopiaTemplate) {
         this.statusCopiaTemplate = statusCopiaTemplate;
     }
 

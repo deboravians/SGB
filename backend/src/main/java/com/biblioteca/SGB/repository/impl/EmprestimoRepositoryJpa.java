@@ -97,4 +97,9 @@ public class EmprestimoRepositoryJpa implements EmprestimoRepository {
     public List<Emprestimo> findAll() {
         return emprestimoRepository.findAll();
     }
+
+    @Override
+    public void delete(Emprestimo emprestimo) {
+        emprestimoRepository.delete(emprestimo);
+    }
 }
