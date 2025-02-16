@@ -14,8 +14,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/classificacoes")
 public class ClassificacaoController {
 
+    private final IClassificacaoService classificacaoService;
+
     @Autowired
-    private IClassificacaoService classificacaoService;
+    public ClassificacaoController(IClassificacaoService classificacaoService) {
+        this.classificacaoService = classificacaoService;
+    }
 
     @PostMapping
     public ClassificacaoDTO cadastrarClassificacao(@RequestBody ClassificacaoDTO classificacaoDTO) {
