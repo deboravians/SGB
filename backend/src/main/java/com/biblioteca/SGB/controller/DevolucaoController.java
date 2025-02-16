@@ -17,11 +17,16 @@ import static com.biblioteca.SGB.utils.DateUtils.formatarData;
 @RequestMapping("/devolucoes")
 public class DevolucaoController {
 
-    @Autowired
-    private IDevolucaoService devolucaoService;
+    private final IDevolucaoService devolucaoService;
+    private final IEmprestimoService emprestimoService;
 
     @Autowired
-    private IEmprestimoService emprestimoService;
+    public DevolucaoController(IDevolucaoService devolucaoService,
+                               IEmprestimoService emprestimoService) {
+
+        this.devolucaoService = devolucaoService;
+        this.emprestimoService = emprestimoService;
+    }
 
     @PostMapping
     public EmprestimoDTO registrarDevolucao(@RequestBody EmprestimoDTO emprestimoDTO, @RequestParam Integer id){
