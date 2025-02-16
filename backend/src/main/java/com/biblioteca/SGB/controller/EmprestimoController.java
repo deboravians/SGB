@@ -14,8 +14,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/emprestimos")
 public class EmprestimoController {
 
+    private final IEmprestimoService emprestimoService;
+
     @Autowired
-    private IEmprestimoService emprestimoService;
+    public EmprestimoController(IEmprestimoService emprestimoService) {
+        this.emprestimoService = emprestimoService;
+    }
 
     @PutMapping("/aumentarPrazo/{idEmprestimo}")
     public EmprestimoDTO aumentarPrazo(@PathVariable Integer idEmprestimo) {
