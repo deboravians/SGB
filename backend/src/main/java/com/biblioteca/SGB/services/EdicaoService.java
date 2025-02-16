@@ -85,7 +85,8 @@ public class EdicaoService implements IEdicaoService {
         List<Copia> copias = copiaService.listarCopias(edicaoIsbn);
 
         int cont = 0;
-        for(Copia copia : copias){ if(copia.getStatus().equals("Emprestada")){ cont++; } }
+        for(Copia copia : copias){ if(copia.getStatus().equals("Emprestada") ||
+                                      copia.getStatus().equals("Extraviada")){  cont++; } }
 
         return cont < calcularQtdCopias(edicaoIsbn) ? "Disponível" : "Indisponível";
     }
