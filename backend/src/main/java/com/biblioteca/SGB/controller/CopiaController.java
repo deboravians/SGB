@@ -14,8 +14,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/copias")
 public class CopiaController {
 
+    private final ICopiaService copiaService;
+
     @Autowired
-    private ICopiaService copiaService;
+    public CopiaController(ICopiaService copiaService) { this.copiaService = copiaService; }
 
     @PostMapping
     public CopiaDTO cadastrarCopia(@RequestBody CopiaDTO copiaDTO, @RequestParam String isbnEdicao) {
