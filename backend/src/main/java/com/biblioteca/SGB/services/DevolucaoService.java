@@ -45,7 +45,7 @@ public class DevolucaoService implements IDevolucaoService {
         }
 
         Copia copia = devolucao.getCopia();
-        copia.setStatus("Disponivel");
+        copia.setStatus("Disponível");
         copiaRepository.save(copia);
 
         devolucao.setStatus("Devolvido");
