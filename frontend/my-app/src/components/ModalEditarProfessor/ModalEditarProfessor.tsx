@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ModalEditarProfessor.module.css";
 import { Professor } from "../../types/professores";
+import { atualizarProfessor } from "../../api/professores";
+import { toast } from "react-toastify";
 
 interface ModalEditarProfessorProps {
-  fecharModal: () => void;
-  salvarProfessor: (professor: Professor) => void;
   professor: Professor;
   isOpen: boolean;
   onClose: () => void;
@@ -12,24 +12,15 @@ interface ModalEditarProfessorProps {
 }
 
 const ModalEditarProfessor: React.FC<ModalEditarProfessorProps> = ({
-  fecharModal,
-  salvarProfessor,
   professor,
   isOpen,
   onClose,
   onSuccess,
 }) => {
-  const [formData, setFormData] = useState<Professor>({
-    bairro: "",
-    nome: "",
-    rua: "",
-    telefone: "",
-    disciplina: "",
-    cpf: "",
-  });
-
+  const [formData, setFormData] = useState<Professor>({ ...professor });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   useEffect(() => {
     if (isOpen) {
       setFormData({ ...professor });
@@ -40,33 +31,36 @@ const ModalEditarProfessor: React.FC<ModalEditarProfessorProps> = ({
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMessage(null);
-  
-  try {
-    salvarProfessor(formData); // Salva as alterações
-    onSuccess(formData); // Retorna o aluno atualizado
-    fecharModal(); // Fecha o modal
-  } catch (error: unknown) {
-    const errorMessage = (error as Error).message || "Erro desconhecido.";
-    setErrorMessage(errorMessage);
-  } finally {
-    setIsSubmitting(false);
-  }
-};
 
- const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-     const { id, value } = e.target;
-     setFormData((prevData) => ({ ...prevData, [id]: value }));
-   };
- 
-   if (!isOpen) {
-     return null; // Não renderiza nada se o modal não estiver aberto
-   }
+    try {
+      const updatedProfessor = await atualizarProfessor(formData);
+      onSuccess(updatedProfessor);
+      toast.success(
+        `Dados do(a) professor(a) ${updatedProfessor.nome} atualizados com sucesso!`
+      );
+      onClose();
+    } catch (error: unknown) {
+      const errorMessage = (error as Error).message || "Erro desconhecido.";
+      toast.error(errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [id]: value }));
+  };
+
+  if (!isOpen) return null;
+
   return (
-
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-      <h3>Editar professor</h3>
-      {errorMessage && (
+        <h3>Editar professor</h3>
+        {errorMessage && (
           <div className={styles.errorMessageContainer}>
             <p className={styles.errorMessage}>{errorMessage}</p>
             <div className={styles.progressBar}></div>
@@ -74,54 +68,51 @@ const ModalEditarProfessor: React.FC<ModalEditarProfessorProps> = ({
         )}
         <form onSubmit={handleSubmit}>
           <h3 className={styles.sectionTitle}>Informações Gerais</h3>
+          <div className={styles.formGroup}>
+            <label htmlFor="nome">Nome:</label>
+            <input
+              value={formData.nome}
+              onChange={handleChange}
+              type="text"
+              id="nome"
+              placeholder="Digite o nome do professor"
+              className={styles.input}
+            />
+          </div>
+          <div className={styles.row}>
             <div className={styles.formGroup}>
-              <label htmlFor="nome">Nome:</label>
+              <label htmlFor="telefone">Telefone:</label>
               <input
-                value={formData.nome}
+                value={formData.telefone}
                 onChange={handleChange}
                 type="text"
-                id="nome"
-                placeholder="Digite o nome do professor"
-                className={styles.input}
+                id="telefone"
+                placeholder="(00) 00000-0000"
+                className={styles.inputField2}
               />
             </div>
-            <div className={styles.row}>
-              <div className={styles.formGroup}>
-                <label htmlFor="telefone">Telefone:</label>
-                <input
-                  value={formData.telefone}
-                  onChange={handleChange}
-                  type="text"
-                  id="telefone"
-                  placeholder="(00) 00000-0000"
-                  className={styles.inputField2}
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="disciplina">Disciplina:</label>
-                <input
-                  value={formData.disciplina}
-                  onChange={handleChange}
-                  type="text"
-                  id="disciplina"
-                  placeholder="Português"
-                  className={styles.inputField3}
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="cpf">CPF:</label>
-                <input
-                  value={formData.cpf}
-                  onChange={handleChange}
-                  type="text"
-                  id="cpf"
-                  placeholder="000.000.000-00"
-                  className={styles.inputField2}
-                  readOnly
-                />
-              </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="disciplina">Disciplina:</label>
+              <input
+                value={formData.disciplina}
+                onChange={handleChange}
+                type="text"
+                id="disciplina"
+                placeholder="Português"
+                className={styles.inputField3}
+              />
             </div>
-         
+            <div className={styles.formGroup}>
+              <label htmlFor="cpf">CPF:</label>
+              <input
+                value={formData.cpf}
+                type="text"
+                id="cpf"
+                className={styles.inputField2}
+                readOnly
+              />
+            </div>
+          </div>
 
           <h3 className={styles.sectionTitle}>Endereço</h3>
           <div className={styles.addressInfo}>
@@ -164,12 +155,16 @@ const ModalEditarProfessor: React.FC<ModalEditarProfessorProps> = ({
             <button
               type="button"
               className={styles.botaoCancelar}
-              onClick={fecharModal} // Fecha a modal
+              onClick={onClose}
               disabled={isSubmitting}
             >
               Cancelar
             </button>
-            <button type="submit" className={styles.botaoCadastrar} disabled={isSubmitting}>
+            <button
+              type="submit"
+              className={styles.botaoCadastrar}
+              disabled={isSubmitting}
+            >
               {isSubmitting ? "Salvando..." : "Salvar"}
             </button>
           </div>
