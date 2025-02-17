@@ -11,6 +11,9 @@ import LeitoresAlunos from './pages/LeitoresAlunos/LeitoresAlunos'
 import LeitoresProfessores from './pages/LeitoresProfessores/LeitoresProfessores'
 import GerenciamentoDeEmprestimoseDevolucoes from './pages/GerenciamentoDeEmprestimoseDevolucoes/GerenciamentoDeEmprestimoseDevolucoes';
 import GerenciamentoAcervo from './pages/GerenciamentoDoAcervo/GerenciamentoDoAcervo'
+import RelatoriosEstatisticas from "./pages/RelatoriosEstatisticas/RelatoriosEstatisticas";
+
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -42,7 +45,10 @@ const router = createBrowserRouter([
         path: "/emprestimos",
         element: <GerenciamentoDeEmprestimoseDevolucoes />
       },
-  
+      {
+        path: "/relatorios",  
+        element: <RelatoriosEstatisticas />
+      },
       
     ],
   },

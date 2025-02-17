@@ -1,0 +1,95 @@
+.mainContent {
+    margin: 15px auto;
+    padding: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 80px);
+    margin-left: 250px;
+    margin-top: 60px;
+    min-width: 480px;
+}
+
+.cadastroLivros {
+    width: 100%;
+    max-width: 1200px;
+    min-width: 600px;
+    height: 100%;
+    max-height: calc(100vh - 120px);
+    background-color: white;
+    padding: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: auto;
+}
+
+.titulo {
+    font-size: 24px;
+    color: #333;
+}
+
+.divisao {
+    border-bottom: 2px solid #e0e0e0;
+    margin: 10px 0;
+}
+
+.descricao {
+    font-size: 16px;
+    color: #504d4d;
+}
+
+.acoesContainer {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    width: 100%;
+    justify-content: space-between; /* Para deixar o botão à direita */
+}
+
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+
+.inputLabel {
+    font-size: 14px;
+    color: #555;
+}
+
+.inputField {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    background-color: #f1f1f1;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+
+.botaoCadastrar {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 25px; 
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s ease;
+    text-decoration: none;
+}
+
+.botaoCadastrar:hover {
+    background-color: #45a049;
+    transform: scale(1.05); 
+}
+
+.acoesContainer input {
+    border-radius: 12px; 
+}
