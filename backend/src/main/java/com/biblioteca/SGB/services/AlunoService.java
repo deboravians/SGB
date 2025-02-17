@@ -14,12 +14,13 @@ import java.util.List;
 public class AlunoService implements IAlunoService {
 
     private final AlunoRepository alunoRepository;
+    private final EmprestimoRepository emprestimoRepository;
 
     @Autowired
-    private EmprestimoRepository emprestimoRepository;
+    public AlunoService(AlunoRepository alunoRepository,
+                        EmprestimoRepository emprestimoRepository) {
 
-    @Autowired
-    public AlunoService(AlunoRepository alunoRepository) {
+        this.emprestimoRepository = emprestimoRepository;
         this.alunoRepository = alunoRepository;
     }
 
