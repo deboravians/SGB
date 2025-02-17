@@ -1,5 +1,6 @@
 package com.biblioteca.SGB.services;
 
+import com.biblioteca.SGB.models.Copia;
 import com.biblioteca.SGB.repository.interfaces.CopiaRepository;
 import com.biblioteca.SGB.repository.interfaces.EmprestimoRepository;
 import com.biblioteca.SGB.repository.interfaces.ProfessorRepository;
@@ -14,20 +15,20 @@ import java.util.List;
 @Service
 public class EstatisticasService implements IEstatisticasService {
 
-    @Autowired
-    private EmprestimoRepository emprestimoRepository;
-
-    @Autowired
-    private CopiaRepository copiaRepository;
-
-    @Autowired
-    private ProfessorRepository professorRepository;
-
     private final AlunoRepository alunoRepository;
+    private final EmprestimoRepository emprestimoRepository;
+    private final CopiaRepository copiaRepository;
+    private final ProfessorRepository professorRepository;
 
     @Autowired
-    public EstatisticasService(AlunoRepository alunoRepository) {
+    public EstatisticasService(AlunoRepository alunoRepository,
+                               EmprestimoRepository emprestimoRepository,
+                               CopiaRepository copiaRepository,
+                               ProfessorRepository professorRepository) {
         this.alunoRepository = alunoRepository;
+        this.emprestimoRepository = emprestimoRepository;
+        this.copiaRepository = copiaRepository;
+        this.professorRepository = professorRepository;
     }
 
     public List<Object[]> listarTopAlunos(LocalDate dataInicio, LocalDate dataFim){
