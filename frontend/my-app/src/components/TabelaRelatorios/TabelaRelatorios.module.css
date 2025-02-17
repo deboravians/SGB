@@ -1,0 +1,49 @@
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.tabela th {
+  background-color: #f1f1f1;
+  text-align: center;
+  padding: 8px;
+}
+
+.tabela td {
+  background-color: #fafafa;
+  border-bottom: 1px solid #dcdcdc;
+  padding: 8px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.tabela td img {
+  width: 20px; 
+  height: 20px;
+  margin-left: 5px; 
+}
+.colocacaoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 60px; 
+}
+
+.colocacaoContainer span {
+  min-width: 20px;
+  text-align: center;
+}
+
+.icone {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+}
+
+.placeholderIcon {
+  width: 20px;
+  height: 20px;
+  visibility: hidden; 
+}
+

@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-//import TabelaRelatorios from "../../components/TabelaRelatorios/TabelaRelatorios";
+import TabelaRelatorios from "../../components/TabelaRelatorios/TabelaRelatorios";
 import styles from "./RelatoriosEstatisticas.module.css";
 
 const Relatorios = () => {
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
 
+  const alunos = [
+    { nome: "Francisco Werley", matricula: "20250101", turma: "1", emprestimos: 10, colocacao: 1 },
+    { nome: "Anaildo Silva", matricula: "20250102", turma: "2", emprestimos: 8, colocacao: 2 },
+    { nome: "Camile Isidório", matricula: "20250103", turma: "1", emprestimos: 7, colocacao: 3 },
+    { nome: "Debora Viana", matricula: "20250104", turma: "3", emprestimos: 6, colocacao: 4 },
+  ];
   
   return (
     <div className={styles.mainContent}>
@@ -45,7 +51,7 @@ const Relatorios = () => {
 
         </div>
         <button className={styles.botaoCadastrar}>Gerar Estatísticas</button>
-
+        <TabelaRelatorios alunos={alunos} />
       </div>
     </div>
   );
