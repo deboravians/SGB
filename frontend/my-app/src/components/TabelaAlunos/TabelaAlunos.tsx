@@ -38,13 +38,6 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({
     setSelectedAluno(null);
   };
 
-  const handleSalvarAlteracoes = (alunoAtualizado: Aluno) => {
-    // Atualize os dados no backend ou state (ajuste conforme necessário)
-    console.log("Alterações salvas para o aluno:", alunoAtualizado);
-    atualizarLista(); // Atualize a lista de alunos após salvar
-    handleCloseEditarModal();
-  };
-
   return (
     <div>
       <table className={styles.tabela}>
@@ -65,15 +58,16 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({
               <td>{aluno.serie}</td>
               <td>{aluno.turma}</td>
               <td>
-
-                <Link to={`/leitores/alunos/${aluno.matricula}`} title="Visualizar">
+                <Link
+                  to={`/leitores/alunos/${aluno.matricula}`}
+                  title="Visualizar"
+                >
                   <img
                     src="/assets/iconOlho.svg"
                     alt="Visualizar"
                     className={styles.icone}
                   />
                 </Link>
-
 
                 <button
                   className={styles.icone}
@@ -95,8 +89,7 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({
         </tbody>
       </table>
 
-      {/* Modal de exclusão */}
-      {selectedAluno && (
+      {isModalExcluirOpen && selectedAluno && (
         <ModalExcluirAluno
           isOpen={isModalExcluirOpen}
           onClose={handleCloseExcluirModal}
@@ -105,15 +98,12 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({
         />
       )}
 
-      {/* Modal de edição */}
-      {selectedAluno && (
+      {isModalEditarOpen && selectedAluno && (
         <ModalEditarAluno
-          fecharModal={handleCloseEditarModal}
-          salvarAlteracoes={handleSalvarAlteracoes}
           aluno={selectedAluno}
           isOpen={isModalEditarOpen}
           onClose={handleCloseEditarModal}
-          onSuccess={handleSalvarAlteracoes}
+          onSuccess={atualizarLista}
         />
       )}
     </div>
