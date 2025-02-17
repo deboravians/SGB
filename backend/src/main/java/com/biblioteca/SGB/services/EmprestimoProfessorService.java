@@ -19,7 +19,8 @@ public class EmprestimoProfessorService implements IEmprestimoProfessorService{
     private final EmprestimoRepository emprestimoRepository;
     private final CopiaRepository copiaRepository;
     private final ProfessorRepository professorRepository;
-    
+
+    @Autowired
     public EmprestimoProfessorService(EmprestimoRepository emprestimoRepository,
                                       CopiaRepository copiaRepository,
                                       ProfessorRepository professorRepository) {

@@ -17,16 +17,21 @@ import java.util.List;
 @Service
 public class EmprestimoService implements IEmprestimoService {
 
-    @Autowired
-    private EmprestimoRepository emprestimoRepository;
+    private final EmprestimoRepository emprestimoRepository;
+    private final CopiaRepository copiaRepository;
+    private final EdicaoRepository edicaoRepository;
+    private final CalculadoraStatusEmprestimo calculadoraStatusEmprestimo;
 
     @Autowired
-    private CopiaRepository copiaRepository;
-
-    @Autowired
-    private EdicaoRepository edicaoRepository;
-
-    CalculadoraStatusEmprestimo calculadoraStatusEmprestimo = new CalculadoraStatusEmprestimo();
+    public EmprestimoService(EmprestimoRepository emprestimoRepository,
+                             CopiaRepository copiaRepository,
+                             EdicaoRepository edicaoRepository,
+                             CalculadoraStatusEmprestimo calculadoraStatusEmprestimo) {
+        this.emprestimoRepository = emprestimoRepository;
+        this.copiaRepository = copiaRepository;
+        this.edicaoRepository = edicaoRepository;
+        this.calculadoraStatusEmprestimo = calculadoraStatusEmprestimo;
+    }
 
     public Emprestimo aumentarPrazo(Integer idEmprestimo){
 
@@ -87,11 +92,9 @@ public class EmprestimoService implements IEmprestimoService {
                 .orElseThrow(() -> new RuntimeException("Emprestimo não encontrado no banco"));
 
         if(!emprestimo.getStatus().equals("Extraviado")) {
-
             Copia copia = emprestimo.getCopia();
             copia.setStatus("Disponível");
             copiaRepository.save(copia);
-            
         }
 
         emprestimoRepository.delete(emprestimo);
