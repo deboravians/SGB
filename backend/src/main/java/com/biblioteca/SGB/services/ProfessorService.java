@@ -13,15 +13,14 @@ import java.util.List;
 @Service
 public class ProfessorService implements IProfessorService {
 
-    @Autowired
-    private ProfessorRepository professorRepository;
+    private final ProfessorRepository professorRepository;
+    private final EmprestimoRepository emprestimoRepository;
 
     @Autowired
-    private EmprestimoRepository emprestimoRepository;
-
-    @Autowired
-    public ProfessorService(ProfessorRepository professorRepository) {
+    public ProfessorService(ProfessorRepository professorRepository,
+                            EmprestimoRepository emprestimoRepository) {
         this.professorRepository = professorRepository;
+        this.emprestimoRepository = emprestimoRepository;
     }
 
     public Professor cadastrarProfessor(Professor professor) {
