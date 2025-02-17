@@ -14,13 +14,13 @@ import java.util.List;
 public class ClassificacaoService implements IClassificacaoService {
 
     private final ClassificacaoRepository classificacaoRepository;
+    private final EdicaoRepository edicaoRepository;
 
     @Autowired
-    private EdicaoRepository edicaoRepository;
-
-    @Autowired
-    public ClassificacaoService(ClassificacaoRepository classificacaoRepository) {
+    public ClassificacaoService(ClassificacaoRepository classificacaoRepository,
+                                EdicaoRepository edicaoRepository) {
         this.classificacaoRepository = classificacaoRepository;
+        this.edicaoRepository = edicaoRepository;
     }
 
     public Classificacao cadastrarClassificacao(Classificacao classificacao) {
