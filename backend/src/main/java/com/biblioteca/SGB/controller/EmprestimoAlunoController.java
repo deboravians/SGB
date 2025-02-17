@@ -21,7 +21,6 @@ public class EmprestimoAlunoController {
     @Autowired
     public EmprestimoAlunoController(IEmprestimoAlunoService emprestimoAlunoService,
                                      IEmprestimoService emprestimoService) {
-
         this.emprestimoAlunoService = emprestimoAlunoService;
         this.emprestimoService = emprestimoService;
     }

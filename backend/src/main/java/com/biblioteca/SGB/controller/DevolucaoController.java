@@ -23,7 +23,6 @@ public class DevolucaoController {
     @Autowired
     public DevolucaoController(IDevolucaoService devolucaoService,
                                IEmprestimoService emprestimoService) {
-
         this.devolucaoService = devolucaoService;
         this.emprestimoService = emprestimoService;
     }

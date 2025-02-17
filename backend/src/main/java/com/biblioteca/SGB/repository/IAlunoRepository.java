@@ -10,5 +10,4 @@ public interface IAlunoRepository extends JpaRepository<Aluno, String> {
 
     @Query("SELECT COUNT(a) FROM Aluno a")
     int countAlunos();
-
 }

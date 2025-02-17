@@ -10,5 +10,4 @@ public interface IProfessorRepository extends JpaRepository<Professor, String> {
 
     @Query("SELECT COUNT(p) FROM Professor p")
     int countProfessores();
-
 }

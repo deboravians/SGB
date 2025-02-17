@@ -19,7 +19,6 @@ public class EmprestimoProfessorController {
 
     public EmprestimoProfessorController(IEmprestimoProfessorService emprestimoProfessorService,
                                          IEmprestimoService emprestimoService) {
-
         this.emprestimoProfessorService = emprestimoProfessorService;
         this.emprestimoService = emprestimoService;
     }
