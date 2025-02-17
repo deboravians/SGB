@@ -65,13 +65,16 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({
               <td>{aluno.serie}</td>
               <td>{aluno.turma}</td>
               <td>
-                <Link to={`/visualizar/${aluno.matricula}`} title="Visualizar">
+
+                <Link to={`/leitores/alunos/${aluno.matricula}`} title="Visualizar">
                   <img
                     src="/assets/iconOlho.svg"
                     alt="Visualizar"
                     className={styles.icone}
                   />
                 </Link>
+
+
                 <button
                   className={styles.icone}
                   onClick={() => handleOpenEditarModal(aluno)}

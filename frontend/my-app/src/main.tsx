@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,7 +13,7 @@ import LeitoresProfessores from './pages/LeitoresProfessores/LeitoresProfessores
 import GerenciamentoDeEmprestimoseDevolucoes from './pages/GerenciamentoDeEmprestimoseDevolucoes/GerenciamentoDeEmprestimoseDevolucoes';
 import GerenciamentoAcervo from './pages/GerenciamentoDoAcervo/GerenciamentoDoAcervo'
 import RelatoriosEstatisticas from "./pages/RelatoriosEstatisticas/RelatoriosEstatisticas";
-
+import InformacoesAluno from './pages/InformacoesAluno/InformacoesAluno'; // Certifique-se de importar o componente InformacoesAluno
 
 const router = createBrowserRouter([
   {
@@ -35,12 +36,14 @@ const router = createBrowserRouter([
         path: "/leitores/professores",
         element: <LeitoresProfessores />
       },
-
+      {
+        path: "/leitores/alunos/:matricula", // Nova rota para visualização de informações do aluno
+        element: <InformacoesAluno />
+      },
       {
         path: "/edicoes",
         element: <GerenciamentoAcervo />
       },
-  
       {
         path: "/emprestimos",
         element: <GerenciamentoDeEmprestimoseDevolucoes />
@@ -49,7 +52,6 @@ const router = createBrowserRouter([
         path: "/relatorios",  
         element: <RelatoriosEstatisticas />
       },
-      
     ],
   },
 ])
@@ -60,3 +62,4 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <RouterProvider router={router} />
   </React.StrictMode>,
 )
+
