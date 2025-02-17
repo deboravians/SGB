@@ -19,7 +19,6 @@ public class AlunoService implements IAlunoService {
     @Autowired
     public AlunoService(AlunoRepository alunoRepository,
                         EmprestimoRepository emprestimoRepository) {
-
         this.emprestimoRepository = emprestimoRepository;
         this.alunoRepository = alunoRepository;
     }

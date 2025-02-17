@@ -21,7 +21,9 @@ public class EmprestimoAlunoService implements IEmprestimoAlunoService {
     private final CopiaRepository copiaRepository;
 
     @Autowired
-    public EmprestimoAlunoService(EmprestimoRepository emprestimoRepository, AlunoRepository alunoRepository, CopiaRepository copiaRepository) {
+    public EmprestimoAlunoService(EmprestimoRepository emprestimoRepository,
+                                  AlunoRepository alunoRepository,
+                                  CopiaRepository copiaRepository) {
         this.emprestimoRepository = emprestimoRepository;
         this.alunoRepository = alunoRepository;
         this.copiaRepository = copiaRepository;

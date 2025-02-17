@@ -18,7 +18,7 @@ public class DevolucaoService implements IDevolucaoService {
     private final EmprestimoRepository emprestimoRepository;
     private final IEmprestimoService emprestimoService;
     private final CopiaRepository copiaRepository;
-    
+
     @Autowired
     public DevolucaoService(EmprestimoRepository emprestimoRepository,
                             IEmprestimoService emprestimoService,
