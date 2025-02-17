@@ -5,6 +5,7 @@ import com.biblioteca.SGB.models.Emprestimo;
 import com.biblioteca.SGB.repository.interfaces.CopiaRepository;
 import com.biblioteca.SGB.repository.interfaces.EmprestimoRepository;
 import com.biblioteca.SGB.services.interfaces.IDevolucaoService;
+import com.biblioteca.SGB.services.interfaces.IEmprestimoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +15,18 @@ import java.util.List;
 @Service
 public class DevolucaoService implements IDevolucaoService {
 
+    private final EmprestimoRepository emprestimoRepository;
+    private final IEmprestimoService emprestimoService;
+    private final CopiaRepository copiaRepository;
+    
     @Autowired
-    private EmprestimoRepository emprestimoRepository;
-
-    @Autowired
-    private EmprestimoService emprestimoService;
-
-    @Autowired
-    private CopiaRepository copiaRepository;
+    public DevolucaoService(EmprestimoRepository emprestimoRepository,
+                            IEmprestimoService emprestimoService,
+                            CopiaRepository copiaRepository) {
+        this.emprestimoRepository = emprestimoRepository;
+        this.emprestimoService = emprestimoService;
+        this.copiaRepository = copiaRepository;
+    }
 
     public Emprestimo registrarDevolucao(Emprestimo devolucao) {
 
