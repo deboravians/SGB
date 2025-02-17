@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./TabelaCopias.module.css";
 import StatusTag from "../StatusTag/StatusTag";
 import { Copia } from "../../types/copias";
@@ -62,7 +62,7 @@ const TabelaCopias: React.FC<TabelaCopiasProps> = ({ copias, atualizarLista }) =
         <ModalExcluirCopia
           isOpen={isModalOpen}
           onClose={handleCloseModal}
-          copia={selectedCopia}
+          id={selectedCopia.id}
           onSuccess={atualizarLista}
         />
       )}

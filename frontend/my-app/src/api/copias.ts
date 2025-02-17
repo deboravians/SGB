@@ -32,3 +32,13 @@ export const listarCopias = async (isbn: string): Promise<Copia[]> => {
 
   return response.json();
 };
+
+export const deletarCopia = async (id: string): Promise<void> => {
+  const response = await fetch(`http://localhost:8080/copias/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    await tratarErroResponse(response);
+  }
+};

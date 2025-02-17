@@ -90,7 +90,7 @@ const ModalGerenciarCopias: React.FC<ModalGerenciarCopiasProps> = ({
           {loading ? (
             <p>Carregando cópias...</p>
           ) : (
-            <TabelaCopias copias={copiasFiltradas} />
+            <TabelaCopias copias={copiasFiltradas} atualizarLista={carregarCopias}/>
           )}
         </div>
       </div>

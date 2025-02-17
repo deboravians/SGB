@@ -20,29 +20,27 @@
   font-weight: bold;
   height: 50px;
   padding: 6px;
-  margin-bottom: 12px; /* Ajustando a distância entre os parágrafos */
+  margin-bottom: 12px;
   line-height: 1.5;
 }
 
 .p2 {
   line-height: 1.5;
-  margin-top: 4px; 
-  margin-bottom: 20px; /* Distância mais generosa abaixo do segundo parágrafo */
+  margin-top: 4px;
+  margin-bottom: 20px;
 }
 
 .modalContent {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  width: 440px;
-  height: 260px;
+  width: 436px;
 }
 
 .actions {
   display: flex;
   justify-content: flex-end;
   margin-top: 35px;
-  padding: 2px;
   gap: 18px;
   padding-top: 6px;
 }

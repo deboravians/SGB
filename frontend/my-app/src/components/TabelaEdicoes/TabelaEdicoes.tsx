@@ -139,14 +139,12 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
 
       {/* Modal de Editar Edição */}
       {selectedEdicao && (
-  <ModalEditarEdicoes
-    isOpen={isEditarModalOpen}
-    onClose={handleCloseEditarModal}
-    edicao={selectedEdicao} // Verifique se `selectedEdicao` está preenchido
-
-  />
-)}
-
+        <ModalEditarEdicoes
+          isOpen={isEditarModalOpen}
+          onClose={handleCloseEditarModal}
+          edicao={selectedEdicao} // Verifique se `selectedEdicao` está preenchido
+        />
+      )}
     </div>
   );
 };
