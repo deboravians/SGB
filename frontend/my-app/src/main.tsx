@@ -13,7 +13,8 @@ import LeitoresProfessores from './pages/LeitoresProfessores/LeitoresProfessores
 import GerenciamentoDeEmprestimoseDevolucoes from './pages/GerenciamentoDeEmprestimoseDevolucoes/GerenciamentoDeEmprestimoseDevolucoes';
 import GerenciamentoAcervo from './pages/GerenciamentoDoAcervo/GerenciamentoDoAcervo'
 import RelatoriosEstatisticas from "./pages/RelatoriosEstatisticas/RelatoriosEstatisticas";
-import InformacoesAluno from './pages/InformacoesAluno/InformacoesAluno'; // Certifique-se de importar o componente InformacoesAluno
+import InformacoesAluno from './pages/PerfilAluno/InformacoesAluno'; // Certifique-se de importar o componente InformacoesAluno
+import InformacoesProfessor from './pages/PerfilProfessor/InformacoesProfessor'; // Certifique-se de importar o componente InformacoesAluno
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/leitores/alunos/:matricula", // Nova rota para visualização de informações do aluno
         element: <InformacoesAluno />
+      },
+      {
+        path: "/leitores/professores/:cpf", // Nova rota para visualização de informações do aluno
+        element: <InformacoesProfessor />
       },
       {
         path: "/edicoes",

@@ -32,7 +32,7 @@ const TabelaProfessores: React.FC<TabelaProfessoresProps> = ({ professores, atua
 
     const handleCloseEditarModal = () => {
         setIsModalEditarOpen(false);
-        setSelectedProf(null); 
+        setSelectedProf(null);
     };
 
     const handleSalvarProfessor = (professorAtualizado: Professor) => {
@@ -59,13 +59,14 @@ const TabelaProfessores: React.FC<TabelaProfessoresProps> = ({ professores, atua
                             <td>{professor.telefone}</td>
                             <td>{professor.disciplina}</td>
                             <td>
-                                <Link to={`/visualizar/${professor.nome}`} title="Visualizar">
+                                <Link to={`/leitores/professores/${professor.cpf}`} title="Visualizar">
                                     <img
                                         src="/assets/iconOlho.svg"
                                         alt="Visualizar"
                                         className={styles.icone}
                                     />
                                 </Link>
+
                                 <button
                                     title="Editar"
                                     onClick={() => handleOpenEditarModal(professor)}
@@ -101,7 +102,7 @@ const TabelaProfessores: React.FC<TabelaProfessoresProps> = ({ professores, atua
                 <ModalEditarProfessor
                     fecharModal={handleCloseEditarModal}
                     salvarProfessor={handleSalvarProfessor}
-                    professor={selectedProf} 
+                    professor={selectedProf}
                     isOpen={isModalEditarOpen}
                     onClose={handleCloseEditarModal}
                     onSuccess={atualizarLista}
