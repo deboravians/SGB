@@ -3,7 +3,6 @@ package com.biblioteca.SGB.controller;
 import com.biblioteca.SGB.dto.EdicaoDTO;
 import com.biblioteca.SGB.mapper.EdicaoMapper;
 import com.biblioteca.SGB.models.Edicao;
-import com.biblioteca.SGB.services.EdicaoService;
 import com.biblioteca.SGB.services.interfaces.IEdicaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

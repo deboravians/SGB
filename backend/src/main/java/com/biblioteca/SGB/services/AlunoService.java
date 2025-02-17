@@ -1,8 +1,8 @@
 package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.models.Aluno;
-import com.biblioteca.SGB.repository.interfaces.EmprestimoRepository;
 import com.biblioteca.SGB.repository.interfaces.AlunoRepository;
+import com.biblioteca.SGB.repository.interfaces.EmprestimoRepository;
 import com.biblioteca.SGB.services.interfaces.IAlunoService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
