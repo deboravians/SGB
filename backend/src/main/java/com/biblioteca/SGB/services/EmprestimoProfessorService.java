@@ -16,14 +16,17 @@ import java.util.List;
 @Service
 public class EmprestimoProfessorService implements IEmprestimoProfessorService{
 
-    @Autowired
-    private EmprestimoRepository emprestimoRepository;
-
-    @Autowired
-    private CopiaRepository copiaRepository;
-
-    @Autowired
-    private ProfessorRepository professorRepository;
+    private final EmprestimoRepository emprestimoRepository;
+    private final CopiaRepository copiaRepository;
+    private final ProfessorRepository professorRepository;
+    
+    public EmprestimoProfessorService(EmprestimoRepository emprestimoRepository,
+                                      CopiaRepository copiaRepository,
+                                      ProfessorRepository professorRepository) {
+        this.emprestimoRepository = emprestimoRepository;
+        this.copiaRepository = copiaRepository;
+        this.professorRepository = professorRepository;
+    }
 
     public Emprestimo cadastrarEmprestimo(Emprestimo emprestimo,
                                           Integer idCopia,
