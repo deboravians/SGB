@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./InformacoesAluno.module.css";
-//import TabelaHistorico from "../../components/TabelaHistorico/TabelaHistorico";
+import TabelaHistorico from "../../components/TabelaHistorico/TabelaHistorico";
 
 const InformacoesAluno = () => {
   // Dados fictícios do aluno
@@ -19,7 +19,32 @@ const InformacoesAluno = () => {
   };
 
   // Histórico fictício de empréstimos e devoluções
-  
+  const historicos = [
+    {
+      livro: "Harry Potter",
+      dataEmprestimo: "15/10/2024 12:34",
+      dataDevolucao: "15/10/2024 12:34",
+      status: "Extraviada",
+    },
+    {
+      livro: "O Senhor dos Anéis",
+      dataEmprestimo: "25/10/2024 15:25",
+      dataDevolucao: "15/10/2024 12:34",
+      status: "Devolvido",
+    },
+    {
+      livro: "O Senhor dos Anéis",
+      dataEmprestimo: "25/10/2024 15:25",
+      dataDevolucao: "15/10/2024 12:34",
+      status: "Devolvido",
+    },
+    {
+      livro: "O Senhor dos Anéis",
+      dataEmprestimo: "25/10/2024 15:25",
+      dataDevolucao: "15/10/2024 12:34",
+      status: "Devolvido",
+    },
+  ];
 
   return (
     <div className={styles.mainContent}>
@@ -42,7 +67,7 @@ const InformacoesAluno = () => {
             <p><strong>Endereço:</strong> {aluno.endereco.rua}, {aluno.endereco.numero} - {aluno.endereco.bairro}</p>
           </div>
         </div>
-      
+        <TabelaHistorico historicos={historicos} />
       </div>
     </div>
   );
