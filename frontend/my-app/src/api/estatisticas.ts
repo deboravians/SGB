@@ -1,3 +1,4 @@
+import { TopAlunos } from "../types/topAlunos";
 import { tratarErroResponse } from "./utils";
 
 // TELA HOME E TELA EMPRÉSTIMOS
@@ -102,6 +103,21 @@ export const totalAlunos = async (): Promise<number> => {
 export const totalProfessores = async (): Promise<number> => {
   const response = await fetch(
     "http://localhost:8080/estatisticas/professores/totalCadastrado"
+  );
+
+  if (!response.ok) {
+    await tratarErroResponse(response);
+  }
+
+  const data = await response.json();
+  return data;
+};
+
+//TOP ALUNOS
+
+export const getTopAlunos = async (dataInicio: string, dataFim: string): Promise<TopAlunos[]> => {
+  const response = await fetch(
+    `http://localhost:8080/estatisticas/topAlunos?dataInicio=${dataInicio}&dataFim=${dataFim}`
   );
 
   if (!response.ok) {

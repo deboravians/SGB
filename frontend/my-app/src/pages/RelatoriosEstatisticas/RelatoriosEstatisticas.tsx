@@ -1,18 +1,42 @@
-import React, { useState } from "react";
-import TabelaRelatorios from "../../components/TabelaRelatorios/TabelaRelatorios";
+import { useState } from "react";
+import TabelaTopAlunos from "../../components/TabelaTopAlunos/TabelaTopAlunos";
+import { getTopAlunos } from "../../api/estatisticas";
+import { TopAlunos } from "../../types/topAlunos";
 import styles from "./RelatoriosEstatisticas.module.css";
+import { toast } from "react-toastify";
 
 const Relatorios = () => {
   const [dataInicio, setDataInicio] = useState("");
   const [dataFim, setDataFim] = useState("");
+  const [alunos, setAlunos] = useState<TopAlunos[]>([]);
+  const [carregando, setCarregando] = useState(false);
 
-  const alunos = [
-    { nome: "Francisco Werley", matricula: "20250101", turma: "1", emprestimos: 10, colocacao: 1 },
-    { nome: "Anaildo Silva", matricula: "20250102", turma: "2", emprestimos: 8, colocacao: 2 },
-    { nome: "Camile Isidório", matricula: "20250103", turma: "1", emprestimos: 7, colocacao: 3 },
-    { nome: "Debora Viana", matricula: "20250104", turma: "3", emprestimos: 6, colocacao: 4 },
-  ];
-  
+  const buscarTopAlunos = async () => {
+    if (!dataInicio || !dataFim) {
+      toast.warn("Por favor, selecione um período válido.");
+      return;
+    }
+
+    // Formatar datas antes da requisição
+    const formatarData = (data: string) => {
+      const partes = data.split("-");
+      return partes.length === 3 ? `${partes[2]}/${partes[1]}/${partes[0]}` : "";
+    };
+
+    const dataInicioFormatada = formatarData(dataInicio);
+    const dataFimFormatada = formatarData(dataFim);
+
+    setCarregando(true);
+    try {
+      const resposta = await getTopAlunos(dataInicioFormatada, dataFimFormatada);
+      setAlunos(resposta);
+    } catch (error) {
+      toast.error("Erro ao carregar os dados dos alunos.");
+    } finally {
+      setCarregando(false);
+    }
+  };
+
   return (
     <div className={styles.mainContent}>
       <div className={styles.cadastroLivros}>
@@ -48,10 +72,13 @@ const Relatorios = () => {
               className={styles.inputField}
             />
           </div>
-
         </div>
-        <button className={styles.botaoCadastrar}>Gerar Estatísticas</button>
-        <TabelaRelatorios alunos={alunos} />
+
+        <button className={styles.botaoCadastrar} onClick={buscarTopAlunos} disabled={carregando}>
+          {carregando ? "Carregando..." : "Gerar Estatísticas"}
+        </button>
+
+        <TabelaTopAlunos alunos={alunos} />
       </div>
     </div>
   );
