@@ -13,6 +13,7 @@ public class DateUtils {
     }
 
     public static LocalDate formatarData(String dataStr) {
+
         try{
             return (dataStr != null && !dataStr.isEmpty()) ? LocalDate.parse(dataStr, FORMATTER) : null;
 

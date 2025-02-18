@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styles from "./ModalCadastroDeClassificacao.module.css";
 import { cadastrarClassificacao } from "../../api/classificacoes";
 import { Classificacao } from "../../types/classificacoes";
+import { toast } from "react-toastify";
 
 const ModalCadastroDeClassificacao = ({
   isOpen,
@@ -18,7 +19,6 @@ const ModalCadastroDeClassificacao = ({
     titulo: "",
   });
   const [loading, setLoading] = useState(false);
-  const [erro, setErro] = useState("");
 
   if (!isOpen) return null;
 
@@ -31,12 +31,11 @@ const ModalCadastroDeClassificacao = ({
 
   const handleCadastrar = async () => {
     if (!classificacao.codigo.trim() || !classificacao.titulo.trim()) {
-      setErro("Preencha todos os campos.");
+      toast.warn("Preencha todos os campos.");
       return;
     }
 
     setLoading(true);
-    setErro("");
 
     try {
       await cadastrarClassificacao(classificacao);
@@ -44,8 +43,11 @@ const ModalCadastroDeClassificacao = ({
       onClassificacaoCadastrada();
 
       setClassificacao({ codigo: "", titulo: "" });
+      toast.success(
+        `Classificação ${classificacao.titulo} cadastrada com sucesso!`
+      );
     } catch (error) {
-      setErro("Erro ao cadastrar. Tente novamente.");
+      toast.error(error instanceof Error ? error.message : "Erro inesperado.");
     } finally {
       setLoading(false);
     }
@@ -80,7 +82,6 @@ const ModalCadastroDeClassificacao = ({
               />
             </div>
           </div>
-          {erro && <p className={styles.erro}>{erro}</p>}
         </div>
         <div className={styles.actions}>
           <button className={styles.botaoCancelar} onClick={onClose}>

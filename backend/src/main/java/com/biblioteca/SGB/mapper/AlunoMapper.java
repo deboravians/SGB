@@ -18,6 +18,7 @@ public class AlunoMapper {
         );
     }
 
+
     public static Aluno toModel(AlunoDTO alunoDTO) {
         return new Aluno(
                 alunoDTO.getNome(),

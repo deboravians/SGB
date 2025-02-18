@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./modalCadastroAluno.module.css";
 import { Aluno } from "../../types/alunos";
 import { cadastrarAluno } from "../../api/alunos";
+import { toast } from "react-toastify";
 
 interface ModalCadastroAlunoProps {
   fecharModal: () => void;
@@ -25,52 +26,56 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setErrorMessage(null);
-  
+
     try {
       const savedAluno = await cadastrarAluno(formData);
       salvarAluno(savedAluno);
+      toast.success(`Aluno ${savedAluno.nome} cadastrado com sucesso!`);
       fecharModal();
-    } catch (error: unknown) {
-      const errorMessage = (error as Error).message || "Erro desconhecido.";
-      setErrorMessage(errorMessage);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Erro inesperado.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = ({ target: { id, value } }: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prevData => ({ ...prevData, [id]: value }));
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
 
   return (
-
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
-        <h2 className={styles.modalTitle}>Cadastrar Aluno</h2>
-        {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+        <h3>Cadastrar aluno</h3>
         <form onSubmit={handleSubmit}>
           <h3 className={styles.sectionTitle}>Informações Gerais</h3>
-          <div className={styles.generalInfo}>
-            <div className={styles.formGroup}>
-              <label htmlFor="nome">Nome:</label>
-              <input
-                value={formData.nome}
-                onChange={handleChange}
-                type="text"
-                id="nome"
-                placeholder="Digite o nome do aluno"
-                className={styles.inputField1}
-              />
-            </div>
+          <div className={styles.form}>
+            <label className={styles.titu} htmlFor="nome">
+              Nome:
+            </label>
+            <input
+              value={formData.nome}
+              onChange={handleChange}
+              type="text"
+              id="nome"
+              placeholder="Digite o nome do aluno"
+              className={styles.input}
+              required
+            />
+          </div>
 
+          <div className={styles.row}>
             <div className={styles.formGroup}>
-              <label htmlFor="matricula">Matricula:</label>
+              <label className={styles.titu} htmlFor="matricula">
+                Matricula:
+              </label>
               <input
                 value={formData.matricula}
                 onChange={handleChange}
@@ -78,53 +83,65 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
                 id="matricula"
                 placeholder="1111111"
                 className={styles.inputField2}
+                required
               />
             </div>
-            <div className={styles.row}>
-              <div className={styles.formGroup}>
-                <label htmlFor="telefone">Telefone:</label>
-                <input
-                  value={formData.telefone}
-                  onChange={handleChange}
-                  type="text"
-                  id="telefone"
-                  placeholder="(00) 00000-0000"
-                  className={styles.inputField2}
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="serie">Série:</label>
-                <input
-                  value={formData.serie}
-                  onChange={handleChange}
-                  type="text"
-                  id="serie"
-                  placeholder="1"
-                  className={styles.inputField3}
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="turma">Turma:</label>
-                <input
-                  value={formData.turma}
-                  onChange={handleChange}
-                  type="text"
-                  id="turma"
-                  placeholder="A"
-                  className={styles.inputField3}
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="anoLetivo">Ano Letivo:</label>
-                <input
-                  value={formData.anoLetivo}
-                  onChange={handleChange}
-                  type="text"
-                  id="anoLetivo"
-                  placeholder="0000"
-                  className={styles.inputField3}
-                />
-              </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.titu} htmlFor="telefone">
+                Telefone:
+              </label>
+              <input
+                value={formData.telefone}
+                onChange={handleChange}
+                type="text"
+                id="telefone"
+                placeholder="(00) 00000-0000"
+                className={styles.inputField2}
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.titu} htmlFor="serie">
+                Série:
+              </label>
+              <select
+                value={formData.serie}
+                onChange={handleChange}
+                id="serie"
+                className={styles.inputField3}
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.titu} htmlFor="turma">
+                Turma:
+              </label>
+              <input
+                value={formData.turma}
+                onChange={handleChange}
+                type="text"
+                id="turma"
+                placeholder="A"
+                className={styles.inputField3}
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label className={styles.titulo} htmlFor="anoLetivo">
+                Ano Letivo
+              </label>
+              <input
+                type="text"
+                id="anoLetivo"
+                placeholder="Ano letivo"
+                value={formData.anoLetivo}
+                onChange={handleChange}
+                className={styles.inputFielddd}
+              />
             </div>
           </div>
 
@@ -132,50 +149,60 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
           <div className={styles.addressInfo}>
             <div className={styles.row}>
               <div className={styles.formGroup}>
-                <label htmlFor="rua">Rua:</label>
+                <label className={styles.titu} htmlFor="rua">
+                  Rua:
+                </label>
                 <input
                   value={formData.rua}
                   onChange={handleChange}
                   type="text"
                   id="rua"
                   placeholder="Digite a rua"
-                  className={styles.inputField1}
+                  className={styles.inputField2}
                 />
               </div>
               <div className={styles.formGroup}>
-                <label htmlFor="numero">Número:</label>
+                <label className={styles.titu} htmlFor="numero">
+                  Número:
+                </label>
                 <input
                   type="text"
                   id="numero"
                   placeholder="0000"
-                  className={styles.inputField3}
+                  className={styles.inputField}
                 />
               </div>
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="bairro">Bairro:</label>
+              <label className={styles.titu} htmlFor="bairro">
+                Bairro:
+              </label>
               <input
                 value={formData.bairro}
                 onChange={handleChange}
                 type="text"
                 id="bairro"
                 placeholder="Digite o bairro"
-                className={styles.inputField2}
+                className={styles.inputFieldd}
               />
             </div>
           </div>
 
           <div className={styles.modalActions}>
-            <button type="submit" className={styles.botaoCadastrar} disabled={isSubmitting}>
-              {isSubmitting ? "Salvando..." : "Salvar"}
-            </button>
             <button
               type="button"
               className={styles.botaoCancelar}
-              onClick={fecharModal} // Fecha a modal
+              onClick={fecharModal}
               disabled={isSubmitting}
             >
               Cancelar
+            </button>
+            <button
+              type="submit"
+              className={styles.botaoCadastrar}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Salvando..." : "Salvar"}
             </button>
           </div>
         </form>

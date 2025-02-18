@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./ModalEditarEmprestimo.module.css";
-import DropdownLivros from "../DropdownLivros/DropdownLivros";
+import DropdownEdicoes from "../DropdownEdicoes/DropdownEdicoes";
 import DropdownLeitores from "../DropdownLeitores/DropdownLeitores";
 
 const ModalEditarEmprestimo = ({
@@ -33,7 +33,7 @@ const handleLeitorSelecionado = (leitor: any) => {
           <div className={styles.row}>
           <div className={styles.inputWrapper}>
               <label className={styles.titulo}>Livro</label>
-              <DropdownLivros onSelectLivro={handleLivroSelecionado} />
+              <DropdownEdicoes onSelectLivro={handleLivroSelecionado} />
             </div>
             <div className={styles.inputWrapper}>
               <label className={styles.titulo}>Leitor</label>
@@ -63,7 +63,6 @@ const handleLeitorSelecionado = (leitor: any) => {
 };
 
 export default ModalEditarEmprestimo;
-2
 
 
 

@@ -3,27 +3,40 @@ import styles from "./tabelaAlunos.module.css";
 import { Aluno } from "../../types/alunos";
 import { useState } from "react";
 import ModalExcluirAluno from "../ModalExcluirAluno/ModalExcluirAluno";
+import ModalEditarAluno from "../ModalEditarAluno/ModalEditarAluno";
 
 interface TabelaAlunosProps {
   alunos: Aluno[];
   atualizarLista: () => void;
 }
 
-const TabelaAlunos: React.FC<TabelaAlunosProps> = ({ alunos, atualizarLista }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const TabelaAlunos: React.FC<TabelaAlunosProps> = ({
+  alunos,
+  atualizarLista,
+}) => {
+  const [isModalExcluirOpen, setIsModalExcluirOpen] = useState(false);
+  const [isModalEditarOpen, setIsModalEditarOpen] = useState(false);
   const [selectedAluno, setSelectedAluno] = useState<Aluno | null>(null);
 
-
-  const handleOpenModal = (aluno: Aluno) => {
+  const handleOpenExcluirModal = (aluno: Aluno) => {
     setSelectedAluno(aluno);
-    setIsModalOpen(true);
+    setIsModalExcluirOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleCloseExcluirModal = () => {
+    setIsModalExcluirOpen(false);
     setSelectedAluno(null);
   };
 
+  const handleOpenEditarModal = (aluno: Aluno) => {
+    setSelectedAluno(aluno);
+    setIsModalEditarOpen(true);
+  };
+
+  const handleCloseEditarModal = () => {
+    setIsModalEditarOpen(false);
+    setSelectedAluno(null);
+  };
 
   return (
     <div>
@@ -45,26 +58,30 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({ alunos, atualizarLista }) =
               <td>{aluno.serie}</td>
               <td>{aluno.turma}</td>
               <td>
-                <Link to={`/visualizar/${aluno.matricula}`} title="Visualizar">
+                <Link
+                  to={`/leitores/alunos/${aluno.matricula}`}
+                  title="Visualizar"
+                >
                   <img
-                    src="/public/assets/iconOlho.svg"
+                    src="/assets/iconOlho.svg"
                     alt="Visualizar"
-                    className={styles.icone}
-                  />
-                </Link>
-                <Link to={`/editar/${aluno.matricula}`} title="Editar">
-                  <img
-                    src="/public/assets/iconLapis.svg"
-                    alt="Editar"
                     className={styles.icone}
                   />
                 </Link>
 
                 <button
                   className={styles.icone}
-                  onClick={() => handleOpenModal(aluno)}
+                  onClick={() => handleOpenEditarModal(aluno)}
+                  title="Editar"
                 >
-                  <img src="/public/assets/iconlixeira.svg" alt="Apagar" />
+                  <img src="/assets/iconLapis.svg" alt="Editar" />
+                </button>
+                <button
+                  className={styles.icone}
+                  onClick={() => handleOpenExcluirModal(aluno)}
+                  title="Excluir"
+                >
+                  <img src="/assets/iconlixeira.svg" alt="Apagar" />
                 </button>
               </td>
             </tr>
@@ -72,12 +89,20 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({ alunos, atualizarLista }) =
         </tbody>
       </table>
 
-      {/* Modal de confirmação de exclusão */}
-      {selectedAluno && (
+      {isModalExcluirOpen && selectedAluno && (
         <ModalExcluirAluno
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
+          isOpen={isModalExcluirOpen}
+          onClose={handleCloseExcluirModal}
           aluno={selectedAluno}
+          onSuccess={atualizarLista}
+        />
+      )}
+
+      {isModalEditarOpen && selectedAluno && (
+        <ModalEditarAluno
+          aluno={selectedAluno}
+          isOpen={isModalEditarOpen}
+          onClose={handleCloseEditarModal}
           onSuccess={atualizarLista}
         />
       )}

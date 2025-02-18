@@ -3,8 +3,6 @@ package com.biblioteca.SGB.models;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Setter
@@ -34,7 +32,6 @@ public class Edicao{
 
     @ManyToOne
     @JoinColumn(name = "classificacao_codigo")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Classificacao classificacao;
 
     public Edicao(){

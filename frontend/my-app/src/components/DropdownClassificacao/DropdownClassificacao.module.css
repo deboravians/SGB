@@ -122,3 +122,19 @@
     font-size: 14px;
     color: #333;
 }
+
+.copiaItemP {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin: 5px 0;
+  }
+  
+  .campoPesquisa {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+  }

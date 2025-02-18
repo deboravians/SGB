@@ -6,13 +6,23 @@ import ModalEditarClassificacao from "../ModalEditarClassificacao/ModalEditarCla
 import { listarClassificacoes } from "../../api/classificacoes";
 import { Classificacao } from "../../types/classificacoes";
 
-const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificacao: (classificacao: Classificacao) => void }) => {
+const DropdownClassificacao = ({
+  onSelectClassificacao,
+}: {
+  onSelectClassificacao: (classificacao: Classificacao) => void;
+}) => {
   const [classificacoes, setClassificacoes] = useState<Classificacao[]>([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isModalCadastroOpen, setIsModalCadastroOpen] = useState(false);
-  const [classificacaoSelecionada, setClassificacaoSelecionada] = useState<Classificacao | null>(null);
+  const [classificacaoSelecionada, setClassificacaoSelecionada] =
+    useState<Classificacao | null>(null);
   const [modalEditar, setModalEditar] = useState<Classificacao | null>(null);
   const [modalExcluir, setModalExcluir] = useState<Classificacao | null>(null);
+  const [filtro, setFiltro] = useState("");
+
+  const handleFiltroChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFiltro(event.target.value);
+  };
 
   useEffect(() => {
     atualizarClassificacoes();
@@ -28,9 +38,11 @@ const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificaca
 
   const toggleDropdown = () => setDropdownOpen((prev) => !prev);
   const toggleModalCadastro = () => setIsModalCadastroOpen((prev) => !prev);
-  const abrirModalExcluir = (classificacao: Classificacao) => setModalExcluir(classificacao);
+  const abrirModalExcluir = (classificacao: Classificacao) =>
+    setModalExcluir(classificacao);
   const fecharModalExcluir = () => setModalExcluir(null);
-  const abrirModalEditar = (classificacao: Classificacao) => setModalEditar(classificacao);
+  const abrirModalEditar = (classificacao: Classificacao) =>
+    setModalEditar(classificacao);
   const fecharModalEditar = () => setModalEditar(null);
 
   const handleSelectClassificacao = (classificacao: Classificacao) => {
@@ -39,35 +51,66 @@ const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificaca
     setDropdownOpen(false);
   };
 
+  const classificacoesFiltradas = classificacoes.filter(
+    (classificacao) =>
+      classificacao.titulo.toLowerCase().includes(filtro.toLowerCase()) ||
+      classificacao.codigo.includes(filtro)
+  );
+
   return (
     <nav className={styles.dropdownContainer}>
       <div className={styles.titu}>Classificação</div>
       <ul>
         <li className={styles.dropdown}>
-          <a href="#" onClick={(e) => { e.preventDefault(); toggleDropdown(); }}>
-            {classificacaoSelecionada ? `${classificacaoSelecionada.codigo} - ${classificacaoSelecionada.titulo}` : "Selecionar Classificação"}
-            <img src="/public/assets/iconSeta.svg" alt="" />
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              toggleDropdown();
+            }}
+          >
+            {classificacaoSelecionada
+              ? `${classificacaoSelecionada.codigo} - ${classificacaoSelecionada.titulo}`
+              : "Selecionar Classificação"}
+            <img src="/assets/iconSeta.svg" alt="" />
           </a>
           {dropdownOpen && (
             <div className={styles.dropdownContent}>
-              <button className={styles.buttonCadastrar} onClick={toggleModalCadastro}>
-                <img src="/public/assets/iconCadastrar.svg" alt="" />
+              <button
+                className={styles.buttonCadastrar}
+                onClick={toggleModalCadastro}
+              >
+                <img src="/assets/iconCadastrar.svg" alt="" />
                 Cadastrar classificação
               </button>
-              {classificacoes.map((item) => (
-                <div key={item.codigo} className={styles.classificationItem} onClick={() => handleSelectClassificacao(item)}>
+              <div className={styles.copiaItemP}>
+                <input
+                  type="text"
+                  placeholder="Pesquisar classificação..."
+                  className={styles.campoPesquisa}
+                  value={filtro}
+                  onChange={handleFiltroChange}
+                />
+              </div>
+
+              {classificacoesFiltradas.map((item) => (
+                <div
+                  key={item.codigo}
+                  className={styles.classificationItem}
+                  onClick={() => handleSelectClassificacao(item)}
+                >
                   <span>{item.codigo}</span>
                   <span>{item.titulo}</span>
                   <div className={styles.iconGroup}>
                     <img
-                      src="/public/assets/iconLapis.svg"
+                      src="/assets/iconLapis.svg"
                       alt="Editar"
                       title="Editar"
                       className={styles.icon}
                       onClick={() => abrirModalEditar(item)}
                     />
                     <img
-                      src="/public/assets/iconlixeira.svg"
+                      src="/assets/iconlixeira.svg"
                       alt="Excluir"
                       title="Excluir"
                       className={styles.icon}
@@ -91,7 +134,6 @@ const DropdownClassificacao = ({ onSelectClassificacao }: { onSelectClassificaca
           }}
         />
       )}
-
 
       {modalExcluir && (
         <ModalExcluirClassificacao

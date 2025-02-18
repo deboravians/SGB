@@ -1,7 +1,9 @@
 package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.models.Professor;
-import com.biblioteca.SGB.repository.ProfessorRepository;
+import com.biblioteca.SGB.repository.interfaces.EmprestimoRepository;
+import com.biblioteca.SGB.repository.interfaces.ProfessorRepository;
+import com.biblioteca.SGB.services.interfaces.IProfessorService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,10 +11,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProfessorService {
+public class ProfessorService implements IProfessorService {
+
+    private final ProfessorRepository professorRepository;
+    private final EmprestimoRepository emprestimoRepository;
 
     @Autowired
-    private ProfessorRepository professorRepository;
+    public ProfessorService(ProfessorRepository professorRepository,
+                            EmprestimoRepository emprestimoRepository) {
+        this.professorRepository = professorRepository;
+        this.emprestimoRepository = emprestimoRepository;
+    }
 
     public Professor cadastrarProfessor(Professor professor) {
 
@@ -27,6 +36,10 @@ public class ProfessorService {
 
     public void excluirProfessor(String cpf) {
 
+        if(emprestimoRepository.existsByProfessorCpf(cpf)){
+            throw new IllegalArgumentException("O professor possui empréstimos e não pode ser excluído.");
+        }
+
         if(!professorRepository.existsById(cpf)){
             throw new IllegalStateException("Professor com CPF " + cpf + " não encontrado.");
         }
@@ -39,9 +52,14 @@ public class ProfessorService {
                 .orElseThrow(() -> new EntityNotFoundException("Não existe um professor com esse cpf."));
 
         if(!professor.getCpf().equals(professorAtualizado.getCpf())) {
-            throw new IllegalArgumentException("o cpf não pode ser atualizado");
+            throw new IllegalArgumentException("O cpf não pode ser atualizado");
         }
 
         return professorRepository.save(professorAtualizado);
+    }
+
+    public Professor getProfessor(String cpf) {
+        return professorRepository.findById(cpf)
+                .orElseThrow(() -> new RuntimeException("Professor não encontrado"));
     }
 }

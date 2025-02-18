@@ -7,7 +7,7 @@ const Header = () => {
             <Link to="/home">
                 <div className={style.divlogo}>
                     <img
-                        src="./public/assets/logoMinhaBibliotecaBranca.svg"
+                        src="/assets/logoMinhaBibliotecaBranca.svg"
                         alt="Ícone minhabiblioteca"
                         className={style.iconLogo}
                     />

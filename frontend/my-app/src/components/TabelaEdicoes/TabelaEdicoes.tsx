@@ -5,19 +5,24 @@ import { Edicao } from "../../types/edicoes";
 import StatusTag from "../StatusTag/StatusTag";
 import ModalExcluirEdicao from "../ModalExcluirEdicao/ModalExcluirEdicao";
 import ModalGerenciarCopias from "../ModalGerenciarCopias/ModalGerenciarCopias";
+import ModalEditarEdicoes from "../ModalEditarEdicoes/ModalEditarEdicoes";
 
 interface TabelaEdicoesProps {
   edicoes: Edicao[];
   atualizarLista: () => void;
 }
 
-const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({ edicoes, atualizarLista }) => {
+const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
+  edicoes,
+  atualizarLista,
+}) => {
   const [selectedEdicao, setSelectedEdicao] = useState<Edicao | null>(null);
   const [isExcluirModalOpen, setIsExcluirModalOpen] = useState(false);
 
   const [isGerenciarModalOpen, setIsGerenciarModalOpen] = useState(false);
   const [gerenciarEdicao, setGerenciarEdicao] = useState<Edicao | null>(null);
 
+  const [isEditarModalOpen, setIsEditarModalOpen] = useState(false);
 
   const handleOpenExcluirModal = (edicao: Edicao) => {
     setSelectedEdicao(edicao);
@@ -29,7 +34,6 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({ edicoes, atualizarLista }
     setSelectedEdicao(null);
   };
 
-  // Funções para o modal de Gerenciar Cópias
   const handleOpenGerenciarModal = (edicao: Edicao) => {
     setGerenciarEdicao(edicao);
     setIsGerenciarModalOpen(true);
@@ -38,6 +42,16 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({ edicoes, atualizarLista }
   const handleCloseGerenciarModal = () => {
     setIsGerenciarModalOpen(false);
     setGerenciarEdicao(null);
+  };
+
+  const handleOpenEditarModal = (edicao: Edicao) => {
+    setSelectedEdicao(edicao);
+    setIsEditarModalOpen(true);
+  };
+
+  const handleCloseEditarModal = () => {
+    setIsEditarModalOpen(false);
+    setSelectedEdicao(null);
   };
 
   return (
@@ -53,34 +67,37 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({ edicoes, atualizarLista }
           </tr>
         </thead>
         <tbody>
-          {edicoes.map((edicao, index) => (
-            <tr key={index}>
+          {edicoes.map((edicao) => (
+            <tr key={edicao.isbn}>
               <td>{edicao.isbn}</td>
               <td>{edicao.titulo}</td>
               <td>
-                <StatusTag status={edicao.status as "Disponível" | "Indisponível"} tipo="edicao" />
+                <StatusTag
+                  status={edicao.status as "Disponível" | "Indisponível"}
+                  tipo="edicao"
+                />
               </td>
               <td className={styles.acoes}>
                 <Link to={`/visualizar/${edicao.isbn}`} title="Visualizar">
                   <img
-                    src="/public/assets/iconOlho.svg"
+                    src="/assets/iconOlho.svg"
                     alt="Visualizar"
-                    className={styles.icone}
-                  />
-                </Link>
-                <Link to={`/editar/${edicao.isbn}`} title="Editar">
-                  <img
-                    src="/public/assets/iconLapis.svg"
-                    alt="Editar"
                     className={styles.icone}
                   />
                 </Link>
                 <button
                   className={styles.icone}
+                  title="Editar"
+                  onClick={() => handleOpenEditarModal(edicao)}
+                >
+                  <img src="/assets/iconLapis.svg" alt="Editar" />
+                </button>
+                <button
+                  className={styles.icone}
                   title="Apagar"
                   onClick={() => handleOpenExcluirModal(edicao)}
                 >
-                  <img src="/public/assets/iconlixeira.svg" alt="Apagar" />
+                  <img src="/assets/iconlixeira.svg" alt="Apagar" />
                 </button>
               </td>
               <td className={styles.gerenciarCopias}>
@@ -89,7 +106,7 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({ edicoes, atualizarLista }
                   onClick={() => handleOpenGerenciarModal(edicao)}
                 >
                   <img
-                    src="/public/assets/iconGerenciarcópias.svg"
+                    src="/assets/iconGerenciarCópias.svg"
                     alt="Gerenciar Cópias"
                     className={styles.icone}
                   />
@@ -117,7 +134,15 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({ edicoes, atualizarLista }
           isOpen={isGerenciarModalOpen}
           onClose={handleCloseGerenciarModal}
           edicao={gerenciarEdicao}
-          onSuccess={atualizarLista}
+        />
+      )}
+
+      {/* Modal de Editar Edição */}
+      {selectedEdicao && (
+        <ModalEditarEdicoes
+          isOpen={isEditarModalOpen}
+          onClose={handleCloseEditarModal}
+          edicao={selectedEdicao} // Verifique se `selectedEdicao` está preenchido
         />
       )}
     </div>

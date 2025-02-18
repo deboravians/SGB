@@ -3,8 +3,6 @@ package com.biblioteca.SGB.models;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 
@@ -33,17 +31,14 @@ public class Emprestimo{
 
     @ManyToOne
     @JoinColumn(name = "aluno_matricula")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Aluno aluno;
 
     @ManyToOne
     @JoinColumn(name = "professor_cpf")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Professor professor;
 
     @ManyToOne
     @JoinColumn(name = "copia_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Copia copia;
 
     public Emprestimo() {

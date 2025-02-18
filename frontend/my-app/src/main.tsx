@@ -1,4 +1,7 @@
+
 import React from 'react'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ReactDOM from 'react-dom/client'
 import Login from './pages/Login/Login'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
@@ -9,6 +12,10 @@ import LeitoresAlunos from './pages/LeitoresAlunos/LeitoresAlunos'
 import LeitoresProfessores from './pages/LeitoresProfessores/LeitoresProfessores'
 import GerenciamentoDeEmprestimoseDevolucoes from './pages/GerenciamentoDeEmprestimoseDevolucoes/GerenciamentoDeEmprestimoseDevolucoes';
 import GerenciamentoAcervo from './pages/GerenciamentoDoAcervo/GerenciamentoDoAcervo'
+import RelatoriosEstatisticas from "./pages/RelatoriosEstatisticas/RelatoriosEstatisticas";
+import InformacoesAluno from './pages/PerfilAluno/InformacoesAluno'; // Certifique-se de importar o componente InformacoesAluno
+import InformacoesProfessor from './pages/PerfilProfessor/InformacoesProfessor'; // Certifique-se de importar o componente InformacoesAluno
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,24 +37,34 @@ const router = createBrowserRouter([
         path: "/leitores/professores",
         element: <LeitoresProfessores />
       },
-
       {
-        path: "/livros",
+        path: "/leitores/alunos/:matricula", // Nova rota para visualização de informações do aluno
+        element: <InformacoesAluno />
+      },
+      {
+        path: "/leitores/professores/:cpf", // Nova rota para visualização de informações do aluno
+        element: <InformacoesProfessor />
+      },
+      {
+        path: "/edicoes",
         element: <GerenciamentoAcervo />
       },
-  
       {
         path: "/emprestimos",
         element: <GerenciamentoDeEmprestimoseDevolucoes />
       },
-  
-      
+      {
+        path: "/relatorios",  
+        element: <RelatoriosEstatisticas />
+      },
     ],
   },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+    <ToastContainer />
     <RouterProvider router={router} />
   </React.StrictMode>,
 )
+

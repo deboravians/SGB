@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { deletarClassificacao } from "../../api/classificacoes";
 import { Classificacao } from "../../types/classificacoes";
 import styles from "./ModalExcluirClassificacao.module.css";
@@ -16,9 +17,10 @@ const ModalExcluirClassificacao = ({ isOpen, onClose, classificacao, onSuccess }
     try {
       await deletarClassificacao(classificacao.codigo);
       onSuccess();
+      toast.success(`Classificação ${classificacao.titulo} deletada com sucesso!`);
       onClose();
-    } catch {
-      alert("Erro ao excluir a classificação. Tente novamente.");
+    } catch (error){
+      toast.error(error instanceof Error ? error.message : "Erro inesperado.");
     }
   };
 

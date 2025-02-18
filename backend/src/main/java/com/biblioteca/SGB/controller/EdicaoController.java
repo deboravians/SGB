@@ -3,7 +3,7 @@ package com.biblioteca.SGB.controller;
 import com.biblioteca.SGB.dto.EdicaoDTO;
 import com.biblioteca.SGB.mapper.EdicaoMapper;
 import com.biblioteca.SGB.models.Edicao;
-import com.biblioteca.SGB.services.EdicaoService;
+import com.biblioteca.SGB.services.interfaces.IEdicaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +14,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/edicoes")
 public class EdicaoController {
 
+    private final IEdicaoService edicaoService;
+
     @Autowired
-    private EdicaoService edicaoService;
+    public EdicaoController(IEdicaoService edicaoService) { this.edicaoService = edicaoService; }
 
     @PostMapping
     public EdicaoDTO cadastraEdicao(@RequestBody EdicaoDTO edicaoDTO, @RequestParam String classificacao_codigo) {
@@ -26,8 +28,8 @@ public class EdicaoController {
 
         return EdicaoMapper.toDTO(
                 edicaoCadastrada,
-                edicaoService.calcularStatus(edicaoCadastrada),
-                edicaoService.calcularQtdCopias(edicaoCadastrada));
+                edicaoService.calcularStatus(edicaoCadastrada.getIsbn()),
+                edicaoService.calcularQtdCopias(edicaoCadastrada.getIsbn()));
     }
 
     @GetMapping
@@ -38,8 +40,8 @@ public class EdicaoController {
         return edicoes.stream()
                 .map(edicao -> EdicaoMapper.toDTO(
                         edicao,
-                        edicaoService.calcularStatus(edicao),
-                        edicaoService.calcularQtdCopias(edicao)))
+                        edicaoService.calcularStatus(edicao.getIsbn()),
+                        edicaoService.calcularQtdCopias(edicao.getIsbn())))
                 .collect(Collectors.toList());
     }
 
@@ -55,7 +57,17 @@ public class EdicaoController {
 
         return EdicaoMapper.toDTO(
                 edicaoAtualizada,
-                edicaoService.calcularStatus(edicaoAtualizada),
-                edicaoService.calcularQtdCopias(edicaoAtualizada));
+                edicaoService.calcularStatus(edicaoAtualizada.getIsbn()),
+                edicaoService.calcularQtdCopias(edicaoAtualizada.getIsbn()));
+    }
+
+    @GetMapping("/{isbn}")
+    public EdicaoDTO getEdicao(@PathVariable String isbn){
+
+        Edicao edicao = edicaoService.getEdicao(isbn);
+
+        return EdicaoMapper.toDTO(edicao,
+                edicaoService.calcularStatus(edicao.getIsbn()),
+                edicaoService.calcularQtdCopias(edicao.getIsbn()));
     }
 }

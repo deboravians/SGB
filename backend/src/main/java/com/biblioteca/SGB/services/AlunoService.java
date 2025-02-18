@@ -1,7 +1,9 @@
 package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.models.Aluno;
-import com.biblioteca.SGB.repository.AlunoRepository;
+import com.biblioteca.SGB.repository.interfaces.AlunoRepository;
+import com.biblioteca.SGB.repository.interfaces.EmprestimoRepository;
+import com.biblioteca.SGB.services.interfaces.IAlunoService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,10 +11,17 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AlunoService {
+public class AlunoService implements IAlunoService {
+
+    private final AlunoRepository alunoRepository;
+    private final EmprestimoRepository emprestimoRepository;
 
     @Autowired
-    private AlunoRepository alunoRepository;
+    public AlunoService(AlunoRepository alunoRepository,
+                        EmprestimoRepository emprestimoRepository) {
+        this.emprestimoRepository = emprestimoRepository;
+        this.alunoRepository = alunoRepository;
+    }
 
     public Aluno cadastrarAluno(Aluno aluno){
 
@@ -26,6 +35,10 @@ public class AlunoService {
 
     public void excluirAluno(String matricula){
 
+        if (emprestimoRepository.existsByAlunoMatricula(matricula)){
+            throw new IllegalArgumentException("O aluno possui empréstimos e não pode ser excluído.");
+        }
+
         if(!alunoRepository.existsById(matricula)){
             throw new IllegalStateException("Aluno com matricula " + matricula + " não encontrado.");
         }
@@ -35,12 +48,18 @@ public class AlunoService {
     public Aluno atualizarAluno(String matricula, Aluno alunoAtualizado) {
 
         Aluno aluno = alunoRepository.findById(matricula)
-                .orElseThrow(() -> new EntityNotFoundException("Não existe uma aluno com essa matricula."));
+                .orElseThrow(() -> new EntityNotFoundException("Não existe um aluno com essa matricula."));
 
         if(!aluno.getMatricula().equals(alunoAtualizado.getMatricula())) {
-            throw new IllegalArgumentException("a matricula não pode ser alterada");
+            throw new IllegalArgumentException("A matricula não pode ser alterada");
         }
 
         return alunoRepository.save(alunoAtualizado);
     }
+
+    public Aluno getAluno(String matricula) {
+        return alunoRepository.findById(matricula)
+                .orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
+    }
+
 }

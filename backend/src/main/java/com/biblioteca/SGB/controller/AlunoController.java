@@ -3,7 +3,7 @@ package com.biblioteca.SGB.controller;
 import com.biblioteca.SGB.dto.AlunoDTO;
 import com.biblioteca.SGB.mapper.AlunoMapper;
 import com.biblioteca.SGB.models.Aluno;
-import com.biblioteca.SGB.services.AlunoService;
+import com.biblioteca.SGB.services.interfaces.IAlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +14,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/alunos")
 public class AlunoController {
 
+    private final IAlunoService alunoService;
+
     @Autowired
-    private AlunoService alunoService;
+    public AlunoController(IAlunoService alunoService) { this.alunoService = alunoService; }
 
     @PostMapping()
     public AlunoDTO cadastrarAluno(@RequestBody AlunoDTO alunoDTO) {
@@ -46,5 +48,12 @@ public class AlunoController {
 
         Aluno alunoAtualizado = alunoService.atualizarAluno(matricula, aluno);
         return AlunoMapper.toDTO(alunoAtualizado);
+    }
+
+    @GetMapping("/{matricula}")
+    public AlunoDTO getAluno(@PathVariable String matricula) {
+        Aluno aluno = alunoService.getAluno(matricula);
+
+        return AlunoMapper.toDTO(aluno);
     }
 }

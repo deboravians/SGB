@@ -1,4 +1,5 @@
 import { Aluno } from "../types/alunos";
+import { tratarErroResponse } from "./utils";
 
 export const cadastrarAluno = async (aluno: Aluno): Promise<Aluno> => {
   const response = await fetch("http://localhost:8080/alunos", {
@@ -10,21 +11,21 @@ export const cadastrarAluno = async (aluno: Aluno): Promise<Aluno> => {
   });
 
   if (!response.ok) {
-    throw new Error("Erro ao salvar os dados. Tente novamente.");
+    await tratarErroResponse(response);
   }
 
   return response.json();
 };
 
-export const listarAlunos = async () : Promise<Aluno[]> => {
+export const listarAlunos = async (): Promise<Aluno[]> => {
   const response = await fetch("http://localhost:8080/alunos");
 
-  if(!response.ok) {
-    throw new Error("Erro ao buscar os alunos.");
+  if (!response.ok) {
+    await tratarErroResponse(response);
   }
 
   return response.json();
-}
+};
 
 export const deletarAluno = async (matricula: string): Promise<void> => {
   const response = await fetch(`http://localhost:8080/alunos/${matricula}`, {
@@ -32,6 +33,31 @@ export const deletarAluno = async (matricula: string): Promise<void> => {
   });
 
   if (!response.ok) {
-    throw new Error("Erro ao deletar o aluno. Tente novamente.");
+    await tratarErroResponse(response);
   }
+};
+
+export const atualizarAluno = async (aluno: Aluno): Promise<Aluno> => {
+    const response = await fetch(`http://localhost:8080/alunos/${aluno.matricula}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          matricula: aluno.matricula,
+          serie: aluno.serie,
+          turma: aluno.turma,
+          anoLetivo: aluno.anoLetivo,
+          nome: aluno.nome,
+          telefone: aluno.telefone,
+          rua: aluno.rua,
+          bairro: aluno.bairro,
+        }),
+    });
+
+    if (!response.ok) {
+        await tratarErroResponse(response);
+    }
+
+    return response.json();
 };

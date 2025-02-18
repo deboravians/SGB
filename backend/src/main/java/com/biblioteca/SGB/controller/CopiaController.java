@@ -1,11 +1,9 @@
 package com.biblioteca.SGB.controller;
 
 import com.biblioteca.SGB.dto.CopiaDTO;
-import com.biblioteca.SGB.dto.EdicaoDTO;
 import com.biblioteca.SGB.mapper.CopiaMapper;
 import com.biblioteca.SGB.models.Copia;
-import com.biblioteca.SGB.models.Edicao;
-import com.biblioteca.SGB.services.CopiaService;
+import com.biblioteca.SGB.services.interfaces.ICopiaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +14,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/copias")
 public class CopiaController {
 
+    private final ICopiaService copiaService;
+
     @Autowired
-    private CopiaService copiaService;
+    public CopiaController(ICopiaService copiaService) { this.copiaService = copiaService; }
 
     @PostMapping
     public CopiaDTO cadastrarCopia(@RequestBody CopiaDTO copiaDTO, @RequestParam String isbnEdicao) {
@@ -30,19 +30,18 @@ public class CopiaController {
         return CopiaMapper.toDTO(novaCopia);
     }
 
-    @GetMapping
-    public List<CopiaDTO> listarCopias(@RequestBody EdicaoDTO edicaoDTO) {
+    @GetMapping("/{isbnEdicao}")
+    public List<CopiaDTO> listarCopias(@PathVariable String isbnEdicao) {
 
-        Edicao edicao = new Edicao();
-        edicao.setIsbn(edicaoDTO.getIsbn());
-        edicao.setTitulo(edicaoDTO.getTitulo());
-        edicao.setAnoPublicacao(edicaoDTO.getAnoPublicacao());
-        edicao.setAutor(edicaoDTO.getAutor());
-
-        List<Copia> copias = copiaService.listarCopias(edicao);
+        List<Copia> copias = copiaService.listarCopias(isbnEdicao);
 
         return copias.stream()
                 .map(CopiaMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @DeleteMapping("/{id}")
+    public void excluirCopia(@PathVariable int id) {
+        copiaService.excluirCopia(id);
     }
 }

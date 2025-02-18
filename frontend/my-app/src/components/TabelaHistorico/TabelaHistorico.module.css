@@ -1,0 +1,54 @@
+.historicoContainer {
+  width: 100%;
+  max-width: 1200px;
+  min-width: 600px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Evita scroll na tela inteira */
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+/* Adicionando o scroll apenas na tabela */
+.tabelaContainer {
+  width: 100%;
+  max-height: 400px; /* Define uma altura fixa para ativar a rolagem */
+  overflow-y: auto;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+.titu{
+  margin-bottom: 10px;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabelaHeader th {
+  background-color: #f1f1f1;
+  text-align: center;
+  padding: 8px;
+  position: sticky;
+  top: 0; /* Mantém os cabeçalhos visíveis ao rolar */
+  z-index: 2;
+}
+
+.tabela td {
+  background-color: #fafafa;
+  border-bottom: 1px solid #dcdcdc;
+  padding: 8px;
+  text-align: center;
+}
+
+.icone {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 15px;
+  grid-gap: 5px;
+}

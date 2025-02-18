@@ -3,7 +3,7 @@ package com.biblioteca.SGB.controller;
 import com.biblioteca.SGB.dto.ClassificacaoDTO;
 import com.biblioteca.SGB.mapper.ClassificacaoMapper;
 import com.biblioteca.SGB.models.Classificacao;
-import com.biblioteca.SGB.services.ClassificacaoService;
+import com.biblioteca.SGB.services.interfaces.IClassificacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +14,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/classificacoes")
 public class ClassificacaoController {
 
+    private final IClassificacaoService classificacaoService;
+
     @Autowired
-    private ClassificacaoService classificacaoService;
+    public ClassificacaoController(IClassificacaoService classificacaoService) {
+        this.classificacaoService = classificacaoService;
+    }
 
     @PostMapping
     public ClassificacaoDTO cadastrarClassificacao(@RequestBody ClassificacaoDTO classificacaoDTO) {
@@ -49,6 +53,5 @@ public class ClassificacaoController {
         Classificacao classificacaoAtualizada = classificacaoService.atualizarClassificacao(codigo, classificacao);
 
         return ClassificacaoMapper.toDTO(classificacaoAtualizada);
-
     }
 }

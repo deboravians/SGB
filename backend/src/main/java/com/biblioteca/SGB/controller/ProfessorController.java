@@ -3,7 +3,7 @@ package com.biblioteca.SGB.controller;
 import com.biblioteca.SGB.dto.ProfessorDTO;
 import com.biblioteca.SGB.mapper.ProfessorMapper;
 import com.biblioteca.SGB.models.Professor;
-import com.biblioteca.SGB.services.ProfessorService;
+import com.biblioteca.SGB.services.interfaces.IProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +14,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/professores")
 public class ProfessorController {
 
+    private final IProfessorService professorService;
+
     @Autowired
-    private ProfessorService professorService;
+    public ProfessorController(IProfessorService professorService) {
+        this.professorService = professorService;
+    }
 
     @PostMapping()
     public ProfessorDTO cadastrarProfessor(@RequestBody ProfessorDTO professorDTO) {
@@ -47,5 +51,12 @@ public class ProfessorController {
 
         Professor professorAtualizado = professorService.atualizarProfessor(cpf, professor);
         return ProfessorMapper.toDTO(professorAtualizado);
+    }
+
+    @GetMapping("/{cpf}")
+    public ProfessorDTO getProfessor(@PathVariable String cpf) {
+        Professor perfilProfessor = professorService.getProfessor(cpf);
+
+        return ProfessorMapper.toDTO(perfilProfessor);
     }
 }

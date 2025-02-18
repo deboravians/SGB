@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { deletarEdicao } from "../../api/edicoes";
 import { Edicao } from "../../types/edicoes";
 import styles from "./ModalExcluirEdicao.module.css";
@@ -16,9 +17,10 @@ const ModalExcluirEdicao = ({ isOpen, onClose, edicao, onSuccess }: ModalExcluir
     try {
       await deletarEdicao(edicao.isbn);
       onSuccess();
+      toast.success(`Edição ${edicao.titulo} deletada com sucesso!`);
       onClose();
-    } catch {
-      alert("Erro ao excluir a edição. Tente novamente.");
+    } catch (error){
+      toast.error(error instanceof Error ? error.message : "Erro inesperado.");
     }
   };
 

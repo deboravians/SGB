@@ -1,29 +1,67 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./ModalRealizarEmprestimo.module.css";
-import DropdownLivros from "../DropdownLivros/DropdownLivros";
+import DropdownEdicoes from "../DropdownEdicoes/DropdownEdicoes";
 import DropdownLeitores from "../DropdownLeitores/DropdownLeitores";
+import DropdownCopias from "../DropdownCopias/DropdownCopias";
+import { cadastrarEmprestimo } from "../../api/emprestimos";
+import { Edicao } from "../../types/edicoes";
+import { Copia } from "../../types/copias";
+import { Aluno } from "../../types/alunos";
+import { Professor } from "../../types/professores";
+import { toast } from "react-toastify";
 
 const ModalRealizarEmprestimo = ({
   isOpen,
   onClose,
   onConfirm,
+  tipoLeitor,
 }: {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
+  tipoLeitor: "aluno" | "professor" | null;
 }) => {
-  const [ano, setAno] = useState("");
-  const [leitorSelecionado, setLeitorSelecionado] = useState<any>(null);
-  const [livroSelecionado, setLivroSelecionado] = useState<any>(null);
+  const [edicaoSelecionada, setEdicaoSelecionada] = useState<Edicao | null>(
+    null
+  );
+  const [copiaSelecionada, setCopiaSelecionada] = useState<Copia | null>(null);
+  const [leitorSelecionado, setLeitorSelecionado] = useState<
+    Aluno | Professor | null
+  >(null);
+  const [dataEmprestimo, setDataEmprestimo] = useState("");
 
-   const handleLivroSelecionado = (livro: any) => {
-    setLivroSelecionado(livro); // Atualiza o livro selecionado
+  const handleCadastrarEmprestimo = async () => {
+    if (
+      !tipoLeitor ||
+      !copiaSelecionada ||
+      !leitorSelecionado ||
+      !dataEmprestimo
+    ) {
+      toast.warn("Preencha todos os campos!");
+      return;
+    }
+
+    const [ano, mes, dia] = dataEmprestimo.split("-");
+    const dataFormatada = `${dia}/${mes}/${ano}`;
+
+    const identificador =
+      tipoLeitor === "aluno"
+        ? (leitorSelecionado as Aluno).matricula
+        : (leitorSelecionado as Professor).cpf;
+
+    try {
+      await cadastrarEmprestimo(
+        tipoLeitor,
+        copiaSelecionada.id,
+        identificador,
+        dataFormatada
+      );
+      toast.success(`Empréstimo realizado com sucesso!`);
+      onConfirm();
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Erro inesperado.");
+    }
   };
- 
-const handleLeitorSelecionado = (leitor: any) => {
-  setLeitorSelecionado(leitor); // Atualiza o leitor selecionado
-};
-
 
   return isOpen ? (
     <div className={styles.modal}>
@@ -31,31 +69,52 @@ const handleLeitorSelecionado = (leitor: any) => {
         <h3>Realizar Empréstimo</h3>
         <div className={styles.form}>
           <div className={styles.row}>
-          <div className={styles.inputWrapper}>
-              <label className={styles.titulo}>Livro</label>
-              <DropdownLivros onSelectLivro={handleLivroSelecionado} />
+            <div className={styles.inputWrapper}>
+              <label className={styles.titulo}>Edição</label>
+              <DropdownEdicoes onSelectEdicao={setEdicaoSelecionada} />
             </div>
+
+            {edicaoSelecionada && (
+              <div className={styles.inputWrapper}>
+                <label className={styles.titulo}>Cópia</label>
+                <DropdownCopias
+                  isbn={edicaoSelecionada.isbn}
+                  onSelect={setCopiaSelecionada}
+                />
+              </div>
+            )}
+
             <div className={styles.inputWrapper}>
               <label className={styles.titulo}>Leitor</label>
-              <DropdownLeitores onSelectLeitor={handleLeitorSelecionado} />
+              {tipoLeitor && (
+                <DropdownLeitores
+                  tipoLeitor={tipoLeitor}
+                  onSelectLeitor={setLeitorSelecionado}
+                />
+              )}
             </div>
+
             <div className={styles.inputWrapper}>
               <label className={styles.titulo}>Data de Empréstimo</label>
               <input
                 type="date"
-                placeholder="Data de Empréstimo"
-                value={ano}
-                onChange={(e) => setAno(e.target.value)}
+                value={dataEmprestimo}
+                onChange={(e) => setDataEmprestimo(e.target.value)}
                 className={styles.input}
               />
             </div>
           </div>
         </div>
-
-        {/* Botões de Ação no canto inferior direito */}
         <div className={styles.actions}>
-          <button className={styles.botaoCancelar} onClick={onClose}>Cancelar</button>
-          <button className={styles.botaoCadastrar} onClick={onConfirm}>Cadastrar</button>
+          <button className={styles.botaoCancelar} onClick={onClose}>
+            Cancelar
+          </button>
+          <button
+            className={styles.botaoCadastrar}
+            onClick={handleCadastrarEmprestimo}
+          >
+            Cadastrar
+          </button>
         </div>
       </div>
     </div>
@@ -63,8 +122,3 @@ const handleLeitorSelecionado = (leitor: any) => {
 };
 
 export default ModalRealizarEmprestimo;
-2
-
-
-
-

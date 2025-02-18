@@ -13,7 +13,7 @@ CREATE TABLE Edicoes(
 
     classificacao_codigo VARCHAR(50) NOT NULL,
 
-    FOREIGN KEY (classificacao_codigo) REFERENCES Classificacoes(codigo) ON DELETE CASCADE
+    FOREIGN KEY (classificacao_codigo) REFERENCES Classificacoes(codigo)
 );
 
 CREATE TABLE Copias(
@@ -23,7 +23,7 @@ CREATE TABLE Copias(
 
     edicao_isbn VARCHAR(20) NOT NULL,
 
-    FOREIGN KEY (edicao_isbn) REFERENCES Edicoes(isbn) ON DELETE CASCADE
+    FOREIGN KEY (edicao_isbn) REFERENCES Edicoes(isbn)
 );
 
 CREATE TABLE Usuarios (
@@ -69,7 +69,7 @@ CREATE TABLE Emprestimos (
     professor_cpf VARCHAR(14),
     copia_id INT NOT NULL,
 
-    FOREIGN KEY (aluno_matricula) REFERENCES Alunos(matricula) ON DELETE CASCADE,
-    FOREIGN KEY (professor_cpf) REFERENCES Professores(cpf) ON DELETE CASCADE,
-    FOREIGN KEY (copia_id) REFERENCES Copias(id) ON DELETE CASCADE
+    FOREIGN KEY (aluno_matricula) REFERENCES Alunos(matricula),
+    FOREIGN KEY (professor_cpf) REFERENCES Professores(cpf),
+    FOREIGN KEY (copia_id) REFERENCES Copias(id),
 );

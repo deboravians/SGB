@@ -1,10 +1,13 @@
 package com.biblioteca.SGB.services;
 
 import com.biblioteca.SGB.models.Classificacao;
-import com.biblioteca.SGB.models.Copia;
 import com.biblioteca.SGB.models.Edicao;
-import com.biblioteca.SGB.repository.ClassificacaoRepository;
-import com.biblioteca.SGB.repository.EdicaoRepository;
+import com.biblioteca.SGB.repository.interfaces.ClassificacaoRepository;
+import com.biblioteca.SGB.repository.interfaces.CopiaRepository;
+import com.biblioteca.SGB.repository.interfaces.EdicaoRepository;
+import com.biblioteca.SGB.services.interfaces.ICopiaService;
+import com.biblioteca.SGB.services.interfaces.IEdicaoService;
+import com.biblioteca.SGB.strategies.statusEdicao.StatusCopiaTemplate;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,16 +15,26 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EdicaoService {
+public class EdicaoService implements IEdicaoService {
+
+    private final EdicaoRepository edicaoRepository;
+    private final ClassificacaoRepository classificacaoRepository;
+    private final CopiaRepository copiaRepository;
+    private final ICopiaService copiaService;
+    private final StatusCopiaTemplate statusCopiaTemplate;
 
     @Autowired
-    private EdicaoRepository edicaoRepository;
-
-    @Autowired
-    private ClassificacaoRepository classificacaoRepository;
-
-    @Autowired
-    private CopiaService copiaService;
+    public EdicaoService(EdicaoRepository edicaoRepository,
+                         ClassificacaoRepository classificacaoRepository,
+                         CopiaRepository copiaRepository,
+                         ICopiaService copiaService,
+                         StatusCopiaTemplate statusCopiaTemplate) {
+        this.edicaoRepository = edicaoRepository;
+        this.classificacaoRepository = classificacaoRepository;
+        this.copiaRepository = copiaRepository;
+        this.copiaService = copiaService;
+        this.statusCopiaTemplate = statusCopiaTemplate;
+    }
 
     public Edicao cadastrarEdicao(Edicao edicao, String classificacao_codigo) {
 
@@ -42,6 +55,10 @@ public class EdicaoService {
     }
 
     public void excluirEdicao(String isbn) {
+
+        if(copiaRepository.existsByEdicaoIsbn(isbn)){
+            throw new IllegalArgumentException("A edição possui cópias associadas e não pode ser excluída.");
+        }
 
         if(!edicaoRepository.existsById(isbn)) {
             throw new IllegalStateException("Edição com ISBN " + isbn + " não encontrada.");
@@ -67,16 +84,16 @@ public class EdicaoService {
         return edicaoRepository.save(edicaoAtualizada);
     }
 
-    public int calcularQtdCopias(Edicao edicao) {
-        return copiaService.listarCopias(edicao).size();
+    public int calcularQtdCopias(String edicaoIsbn) {
+        return copiaService.listarCopias(edicaoIsbn).size();
     }
 
-    public String calcularStatus(Edicao edicao) {
-        List<Copia> copias = copiaService.listarCopias(edicao);
+    public String calcularStatus(String edicaoIsbn) {
+        return statusCopiaTemplate.calcularStatus(copiaService.listarCopias(edicaoIsbn), calcularQtdCopias(edicaoIsbn));
+    }
 
-        int cont = 0;
-        for(Copia copia : copias){ if(copia.getStatus().equals("Emprestada")){ cont++; } }
-
-        return cont < calcularQtdCopias(edicao) ? "Disponível" : "Indisponível";
+    public Edicao getEdicao(String isbn) {
+        return edicaoRepository.findById(isbn)
+                .orElseThrow(() -> new RuntimeException("Edição não encontrada"));
     }
 }
