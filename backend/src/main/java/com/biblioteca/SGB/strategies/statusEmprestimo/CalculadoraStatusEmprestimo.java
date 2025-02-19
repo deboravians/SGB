@@ -8,9 +8,11 @@ import java.util.List;
 @Component
 public class CalculadoraStatusEmprestimo {
 
+    private static CalculadoraStatusEmprestimo instancia;
+
     private final List<EmprestimoStatusStrategy> estrategias;
 
-    public CalculadoraStatusEmprestimo() {
+    private CalculadoraStatusEmprestimo() {
         this.estrategias = List.of(
                 new StatusExtraviado(),
                 new StatusDevolvido(),
@@ -26,5 +28,12 @@ public class CalculadoraStatusEmprestimo {
             }
         }
         return "Status Desconhecido";
+    }
+
+    public static synchronized CalculadoraStatusEmprestimo getInstancia() {
+        if (instancia == null) {
+            instancia = new CalculadoraStatusEmprestimo();
+        }
+        return instancia;
     }
 }
