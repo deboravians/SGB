@@ -47,7 +47,7 @@ const DropdownCopias = ({
             {copiaSelecionada
               ? `Cópia: ${copiaSelecionada.id}`
               : "Selecionar Cópia"}
-            <img src="/assets/iconSeta.svg" alt="" />
+            <img src="assets/iconSeta.svg" alt="" />
           </a>
 
           {dropdownOpen && (

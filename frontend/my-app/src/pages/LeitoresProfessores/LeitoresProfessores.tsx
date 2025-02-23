@@ -72,7 +72,7 @@ const LeitoresProfessores: React.FC = () => {
           <button className={styles.botaoCadastrar} onClick={toggleModal}>
             <div className={styles.textAndIcon}>
               <img
-                src="/assets/iconCadastrar.svg"
+                src="assets/iconCadastrar.svg"
                 alt="Cadastrar"
                 className={styles.icone}
               />

@@ -81,7 +81,7 @@ function GerenciamentoDoAcervo() {
             onChange={handleFiltroChange}
           />
           <button className={styles.botaoCadastrar} onClick={toggleModal}>
-            <img src="/assets/iconCadastrar.svg" alt="Cadastrar" className={styles.icone} />
+            <img src="assets/iconCadastrar.svg" alt="Cadastrar" className={styles.icone} />
             Cadastrar Edição
           </button>
         </div>

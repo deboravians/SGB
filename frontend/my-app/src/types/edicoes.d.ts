@@ -1,3 +1,5 @@
+import { Classificacao } from "./classificacoes";
+
 export interface Edicao {
     isbn: string;
     titulo: string;
@@ -5,4 +7,5 @@ export interface Edicao {
     anoPublicacao: string;
     status: string;
     qtdCopias: number;
+    classificacao?: Classificacao;
 }

@@ -17,41 +17,21 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
   atualizarLista,
 }) => {
   const [selectedEdicao, setSelectedEdicao] = useState<Edicao | null>(null);
-  const [isExcluirModalOpen, setIsExcluirModalOpen] = useState(false);
+  const [modalAberto, setModalAberto] = useState<
+    "excluir" | "gerenciar" | "editar" | null
+  >(null);
 
-  const [isGerenciarModalOpen, setIsGerenciarModalOpen] = useState(false);
-  const [gerenciarEdicao, setGerenciarEdicao] = useState<Edicao | null>(null);
-
-  const [isEditarModalOpen, setIsEditarModalOpen] = useState(false);
-
-  const handleOpenExcluirModal = (edicao: Edicao) => {
+  const abrirModal = (
+    tipo: "excluir" | "gerenciar" | "editar",
+    edicao: Edicao
+  ) => {
     setSelectedEdicao(edicao);
-    setIsExcluirModalOpen(true);
+    setModalAberto(tipo);
   };
 
-  const handleCloseExcluirModal = () => {
-    setIsExcluirModalOpen(false);
+  const fecharModal = () => {
     setSelectedEdicao(null);
-  };
-
-  const handleOpenGerenciarModal = (edicao: Edicao) => {
-    setGerenciarEdicao(edicao);
-    setIsGerenciarModalOpen(true);
-  };
-
-  const handleCloseGerenciarModal = () => {
-    setIsGerenciarModalOpen(false);
-    setGerenciarEdicao(null);
-  };
-
-  const handleOpenEditarModal = (edicao: Edicao) => {
-    setSelectedEdicao(edicao);
-    setIsEditarModalOpen(true);
-  };
-
-  const handleCloseEditarModal = () => {
-    setIsEditarModalOpen(false);
-    setSelectedEdicao(null);
+    setModalAberto(null);
   };
 
   return (
@@ -80,7 +60,7 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
               <td className={styles.acoes}>
                 <Link to={`/visualizar/${edicao.isbn}`} title="Visualizar">
                   <img
-                    src="/assets/iconOlho.svg"
+                    src="assets/iconOlho.svg"
                     alt="Visualizar"
                     className={styles.icone}
                   />
@@ -88,25 +68,25 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
                 <button
                   className={styles.icone}
                   title="Editar"
-                  onClick={() => handleOpenEditarModal(edicao)}
+                  onClick={() => abrirModal("editar", edicao)}
                 >
-                  <img src="/assets/iconLapis.svg" alt="Editar" />
+                  <img src="assets/iconLapis.svg" alt="Editar" />
                 </button>
                 <button
                   className={styles.icone}
                   title="Apagar"
-                  onClick={() => handleOpenExcluirModal(edicao)}
+                  onClick={() => abrirModal("excluir", edicao)}
                 >
-                  <img src="/assets/iconlixeira.svg" alt="Apagar" />
+                  <img src="assets/iconlixeira.svg" alt="Apagar" />
                 </button>
               </td>
               <td className={styles.gerenciarCopias}>
                 <button
                   className={styles.gerenciarCopiass}
-                  onClick={() => handleOpenGerenciarModal(edicao)}
+                  onClick={() => abrirModal("gerenciar", edicao)}
                 >
                   <img
-                    src="/assets/iconGerenciarCópias.svg"
+                    src="assets/iconGerenciarCópias.svg"
                     alt="Gerenciar Cópias"
                     className={styles.icone}
                   />
@@ -118,31 +98,30 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
         </tbody>
       </table>
 
-      {/* Modal de confirmação de exclusão */}
-      {selectedEdicao && (
+      {/* Modais */}
+      {selectedEdicao && modalAberto === "excluir" && (
         <ModalExcluirEdicao
-          isOpen={isExcluirModalOpen}
-          onClose={handleCloseExcluirModal}
+          isOpen={true}
+          onClose={fecharModal}
           edicao={selectedEdicao}
           onSuccess={atualizarLista}
         />
       )}
 
-      {/* Modal de Gerenciar Cópias */}
-      {gerenciarEdicao && (
+      {selectedEdicao && modalAberto === "gerenciar" && (
         <ModalGerenciarCopias
-          isOpen={isGerenciarModalOpen}
-          onClose={handleCloseGerenciarModal}
-          edicao={gerenciarEdicao}
+          isOpen={true}
+          onClose={fecharModal}
+          edicao={selectedEdicao}
         />
       )}
 
-      {/* Modal de Editar Edição */}
-      {selectedEdicao && (
+      {selectedEdicao && modalAberto === "editar" && (
         <ModalEditarEdicoes
-          isOpen={isEditarModalOpen}
-          onClose={handleCloseEditarModal}
-          edicao={selectedEdicao} // Verifique se `selectedEdicao` está preenchido
+          isOpen={true}
+          onClose={fecharModal}
+          edicao={selectedEdicao}
+          onSuccess={atualizarLista}
         />
       )}
     </div>

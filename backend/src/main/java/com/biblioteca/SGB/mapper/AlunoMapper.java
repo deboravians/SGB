@@ -11,10 +11,7 @@ public class AlunoMapper {
                 aluno.getTelefone(),
                 aluno.getRua(),
                 aluno.getBairro(),
-                aluno.getMatricula(),
-                aluno.getSerie(),
-                aluno.getTurma(),
-                aluno.getAnoLetivo()
+                aluno.getMatricula()
         );
     }
 
@@ -25,10 +22,7 @@ public class AlunoMapper {
                 alunoDTO.getTelefone(),
                 alunoDTO.getRua(),
                 alunoDTO.getBairro(),
-                alunoDTO.getMatricula(),
-                alunoDTO.getSerie(),
-                alunoDTO.getTurma(),
-                alunoDTO.getAnoLetivo()
+                alunoDTO.getMatricula()
         );
     }
 }

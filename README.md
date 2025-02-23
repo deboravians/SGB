@@ -88,6 +88,26 @@ Depois, rode o spring diretamente dessa pasta, usando o comando:
 
 Se não funcionar, tente re-sincronizar as dependencias do maven, usando o comando:
  
-        - "./mvnw clean install -U"
+    - "./mvnw clean install -U"
 
 Depois, rode o spring novamente
+
+---
+
+## 🌐 Acesso à Instância do Banco de Dados na Nuvem
+
+### Credenciais de Acesso:
+
+- **Host name/address**: dpg-cut1ubvnoe9s7395reng-a.oregon-postgres.render.com
+- **Port**: 5432 (a porta padrão do PostgreSQL)
+- **Maintenance database**: sgb
+- **Username**: sgb_user
+- **Password**: uujNgUD6R7vco9xHWKGuhdz40q4wSqfv
+
+---
+
+## 🌍 Link de Acesso aos Endpoints do Back-end na Nuvem
+
+- **URL**: [https://sgb-fnex.onrender.com](https://sgb-fnex.onrender.com)
+
+---

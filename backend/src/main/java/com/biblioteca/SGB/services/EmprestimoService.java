@@ -25,12 +25,11 @@ public class EmprestimoService implements IEmprestimoService {
     @Autowired
     public EmprestimoService(EmprestimoRepository emprestimoRepository,
                              CopiaRepository copiaRepository,
-                             EdicaoRepository edicaoRepository,
-                             CalculadoraStatusEmprestimo calculadoraStatusEmprestimo) {
+                             EdicaoRepository edicaoRepository) {
         this.emprestimoRepository = emprestimoRepository;
         this.copiaRepository = copiaRepository;
         this.edicaoRepository = edicaoRepository;
-        this.calculadoraStatusEmprestimo = calculadoraStatusEmprestimo;
+        this.calculadoraStatusEmprestimo = CalculadoraStatusEmprestimo.getInstancia();
     }
 
     public Emprestimo aumentarPrazo(Integer idEmprestimo){

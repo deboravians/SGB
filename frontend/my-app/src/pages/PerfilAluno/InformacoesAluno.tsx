@@ -1,54 +1,38 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styles from "./InformacoesAluno.module.css";
 import TabelaHistorico from "../../components/TabelaHistorico/TabelaHistorico";
+import { informacoesAluno } from "../../api/alunos";
+import { Aluno } from "../../types/alunos";
+import { toast } from "react-toastify";
 
 const InformacoesAluno = () => {
-  // Dados fictícios do aluno
-  const aluno = {
-    nome: "Maria José de Oliveira",
-    matricula: "202320456",
-    telefone: "(88) 9 9999-9999",
-    serie: "3º Ano",
-    turma: "B",
-    anoLetivo: "2024",
-    endereco: {
-      rua: "Rua Francisco Eneas",
-      numero: 123,
-      bairro: "Centro",
-    },
-  };
+  const { matricula } = useParams<{ matricula: string }>();
+  const [aluno, setAluno] = useState<Aluno | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Histórico fictício de empréstimos e devoluções
-  const historicos = [
-    {
-      livro: "Harry Potter",
-      dataEmprestimo: "15/10/2024 12:34",
-      dataDevolucao: "15/10/2024 12:34",
-      status: "Extraviada",
-    },
-    {
-      livro: "O Senhor dos Anéis",
-      dataEmprestimo: "25/10/2024 15:25",
-      dataDevolucao: "15/10/2024 12:34",
-      status: "Devolvido",
-    },
-    {
-      livro: "O Senhor dos Anéis",
-      dataEmprestimo: "25/10/2024 15:25",
-      dataDevolucao: "15/10/2024 12:34",
-      status: "Devolvido",
-    },
-    {
-      livro: "O Senhor dos Anéis",
-      dataEmprestimo: "25/10/2024 15:25",
-      dataDevolucao: "15/10/2024 12:34",
-      status: "Devolvido",
-    },
-  ];
+  useEffect(() => {
+    const fetchAluno = async () => {
+      try {
+        if (matricula) {
+          const dadosAluno = await informacoesAluno(matricula);
+          setAluno(dadosAluno);
+        }
+      } catch (error) {
+        toast.warn("Erro ao buscar informações do aluno.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAluno();
+  }, [matricula]);
+
+  if (loading) return <p>Carregando...</p>;
+  if (!aluno) return <p>Aluno não encontrado.</p>;
 
   return (
     <div className={styles.mainContent}>
-      {/* Seção de informações do aluno */}
       <div className={styles.dadosPessoais}>
         <h1 className={styles.titulo}>Informações do Aluno</h1>
         <div className={styles.divisao}></div>
@@ -59,15 +43,26 @@ const InformacoesAluno = () => {
           <div className={styles.avatar}>{aluno.nome.charAt(0)}</div>
           <div className={styles.informacoes}>
             <h3>{aluno.nome}</h3>
-            <p><strong>Matrícula:</strong> {aluno.matricula}</p>
-            <p><strong>Telefone:</strong> {aluno.telefone}</p>
+            <p>
+              <strong>Matrícula:</strong> {aluno.matricula}
+            </p>
+            <p>
+              <strong>Telefone:</strong> {aluno.telefone}
+            </p>
           </div>
           <div className={styles.dadosComplementares}>
-            <p><strong>Série:</strong> {aluno.serie} | <strong>Turma:</strong> {aluno.turma} | <strong>Ano:</strong> {aluno.anoLetivo}</p>
-            <p><strong>Endereço:</strong> {aluno.endereco.rua}, {aluno.endereco.numero} - {aluno.endereco.bairro}</p>
+            <p>
+              <strong>Série:</strong> {aluno.serie} | <strong>Turma:</strong>{" "}
+              {aluno.turma} | <strong>Ano:</strong> {aluno.anoLetivo}
+            </p>
+            <p>
+              <strong>Endereço:</strong> {aluno.rua}, {aluno.bairro}
+            </p>
           </div>
         </div>
-        <TabelaHistorico historicos={historicos} />
+        {aluno?.matricula && (
+          <TabelaHistorico identificador={aluno.matricula} tipo="aluno" />
+        )}
       </div>
     </div>
   );
