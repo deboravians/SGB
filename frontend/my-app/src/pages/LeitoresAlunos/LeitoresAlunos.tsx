@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import styles from "./LeitoresAlunos.module.css";
 import ModalCadastroAluno from "../../components/ModalCadastroAluno/ModalCadastroAluno";
 import CardInfors from "../../components/CardInfors/CardInfors";

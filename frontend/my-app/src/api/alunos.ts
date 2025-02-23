@@ -1,4 +1,5 @@
 import { Aluno } from "../types/alunos";
+import { Emprestimo } from "../types/emprestimos";
 import { tratarErroResponse } from "./utils";
 
 export const cadastrarAluno = async (aluno: Aluno): Promise<Aluno> => {
@@ -60,4 +61,24 @@ export const atualizarAluno = async (aluno: Aluno): Promise<Aluno> => {
     }
 
     return response.json();
+};
+
+export const informacoesAluno = async (matricula: string): Promise<Aluno> => {
+  const response = await fetch(`http://localhost:8080/alunos/${matricula}`);
+
+  if (!response.ok) {
+    await tratarErroResponse(response);
+  }
+
+  return response.json();
+};
+
+export const historicoAluno = async (matricula: string): Promise<Emprestimo[]> => {
+  const response = await fetch(`http://localhost:8080/emprestimos/alunos/${matricula}`);
+
+  if (!response.ok) {
+    await tratarErroResponse(response);
+  }
+
+  return response.json();
 };

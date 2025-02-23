@@ -18,14 +18,13 @@
   width: 100%;
   max-width: 1200px;
   min-width: 600px;
-  height: auto;
+  height: 100%;
+  max-height: calc(100vh - 120px);
   background-color: white;
   padding: 30px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
 .infoCard {
