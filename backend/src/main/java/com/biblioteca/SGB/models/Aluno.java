@@ -18,17 +18,13 @@ public class Aluno extends Leitores {
     @Column(unique = true, nullable = false, length = 50)
     private String matricula;
 
-    @Column(nullable = false, length = 50)
-    private String anoLetivo;
-
     public Aluno(){
         super();
     }
 
     public Aluno(String nome, String telefone, String rua, String bairro,
-                 String matricula, String anoLetivo) {
+                 String matricula) {
         super(nome, telefone, rua, bairro);
         this.matricula = matricula;
-        this.anoLetivo = anoLetivo;
     }
 }

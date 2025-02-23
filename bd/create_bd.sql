@@ -41,7 +41,6 @@ CREATE TABLE Alunos(
     bairro VARCHAR(255) NOT NULL,
 
     matricula VARCHAR(50) PRIMARY KEY,
-    ano_letivo VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Professores(

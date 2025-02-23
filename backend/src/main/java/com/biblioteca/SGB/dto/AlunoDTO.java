@@ -13,17 +13,15 @@ public class AlunoDTO {
     private String rua;
     private String bairro;
     private String matricula;
-    private String anoLetivo;
 
     public AlunoDTO() {
     }
 
-    public AlunoDTO(String nome, String telefone, String rua, String bairro, String matricula, String anoLetivo) {
+    public AlunoDTO(String nome, String telefone, String rua, String bairro, String matricula) {
         this.nome = nome;
         this.telefone = telefone;
         this.rua = rua;
         this.bairro = bairro;
         this.matricula = matricula;
-        this.anoLetivo = anoLetivo;
     }
 }
