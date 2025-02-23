@@ -24,7 +24,7 @@ function SideBar() {
             }`}
             onClick={() => handleSelection("edicoes")}
           >
-            <img src="/assets/iconLivros.svg" alt="Ícone de Livros" />
+            <img src="assets/iconLivros.svg" alt="Ícone de Livros" />
             <Link to="/edicoes">Edições</Link>
           </li>
           <li
@@ -33,7 +33,7 @@ function SideBar() {
             }`}
             onClick={() => handleSelection("emprestimos")}
           >
-            <img src="/assets/iconEmprestimos.svg" alt="Ícone de Empréstimos" />
+            <img src="assets/iconEmprestimos.svg" alt="Ícone de Empréstimos" />
             <Link to="/emprestimos">Empréstimos</Link>
           </li>
           <li
@@ -44,11 +44,11 @@ function SideBar() {
           >
             <div className={style.dropdownToggle}>
               <div>
-                <img src="/assets/iconUsuarios.svg" alt="Ícone de Usuários" />
+                <img src="assets/iconUsuarios.svg" alt="Ícone de Usuários" />
                 <span>Leitores</span>
               </div>
               <img
-                src="/assets/iconSeta.svg"
+                src="assets/iconSeta.svg"
                 alt="Seta para baixo"
                 className={dropdownOpen ? style.rotated : ""}
               />
@@ -88,7 +88,7 @@ function SideBar() {
             }`}
             onClick={() => handleSelection("relatorios")}
           >
-            <img src="/assets/iconRelatorios.svg" alt="Ícone de Relatórios" />
+            <img src="assets/iconRelatorios.svg" alt="Ícone de Relatórios" />
             <Link to="/relatorios">Relatórios e Estatísticas</Link>
           </li>
         </ul>

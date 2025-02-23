@@ -53,7 +53,7 @@ const ModalGerenciarCopias: React.FC<ModalGerenciarCopiasProps> = ({
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <button className={styles.closeButton} onClick={onClose}>
-          <img src="/assets/iconSair.svg" alt="Fechar" />
+          <img src="assets/iconSair.svg" alt="Fechar" />
         </button>
         <h3>Gerenciamento de cópias de livros</h3>
         <div className={styles.nomeLivro}>{edicao.titulo}</div>
@@ -69,7 +69,7 @@ const ModalGerenciarCopias: React.FC<ModalGerenciarCopiasProps> = ({
 
           <button onClick={toggleModal} className={styles.botaoCadastrar}>
             <img
-              src="/assets/iconCadastrar.svg"
+              src="assets/iconCadastrar.svg"
               alt="Cadastrar"
               className={styles.icone}
             />

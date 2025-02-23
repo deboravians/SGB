@@ -48,7 +48,7 @@ const Home = () => {
         <div className={styles.header}>
           <img
             className={styles.icone}
-            src="/assets/iconEscola.svg"
+            src="assets/iconEscola.svg"
             alt="Ícone Escola"
           />
           <h1 className={styles.titulo}>
@@ -80,7 +80,7 @@ const Home = () => {
           </div>
           <div className={styles.imagemContainer}>
             <img
-              src="/assets/imagemEstudante.svg"
+              src="assets/imagemEstudante.svg"
               alt="Cadastrar"
               className={styles.imagem}
             />

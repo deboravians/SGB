@@ -49,7 +49,7 @@ const Login: React.FC = () => {
       <div className={styles.loginBox}>
         <div className={styles.conteudo}>
           <img
-            src="/assets/logoMinhaBiblioteca.svg"
+            src="assets/logoMinhaBiblioteca.svg"
             alt="Logo Minha Biblioteca"
             className={styles.logo}
           />

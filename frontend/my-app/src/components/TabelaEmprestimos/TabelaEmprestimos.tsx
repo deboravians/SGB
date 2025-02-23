@@ -64,28 +64,28 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos, atua
                   onClick={() => abrirModal("prorrogar", emprestimo)}
                   title="Prorrogar prazo"
                 >
-                  <img src="/assets/iconProrrogar.svg" alt="Prorrogar prazo" />
+                  <img src="assets/iconProrrogar.svg" alt="Prorrogar prazo" />
                 </button>
                 <button
                   className={styles.icone1}
                   onClick={() => abrirModal("extraviado", emprestimo)}
                   title="Livro Extraviado"
                 >
-                  <img src="/assets/iconExtraviado.svg" alt="Livro Extraviado" />
+                  <img src="assets/iconExtraviado.svg" alt="Livro Extraviado" />
                 </button>
                 <button
                   className={styles.icone}
                   onClick={() => abrirModal("excluir", emprestimo)}
                   title="Excluir empréstimo"
                 >
-                  <img src="/assets/iconlixeira.svg" alt="Excluir empréstimo" />
+                  <img src="assets/iconlixeira.svg" alt="Excluir empréstimo" />
                 </button>
                 <button
                   className={styles.icone}
                   onClick={() => abrirModal("devolvido", emprestimo)}
                   title="Registrar Devolução"
                 >
-                  <img src="/assets/iconOK.svg" alt="Registrar Devolução" />
+                  <img src="assets/iconOK.svg" alt="Registrar Devolução" />
                 </button>
               </td>
             </tr>
