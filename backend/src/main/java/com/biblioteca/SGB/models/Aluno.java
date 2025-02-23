@@ -19,12 +19,6 @@ public class Aluno extends Leitores {
     private String matricula;
 
     @Column(nullable = false, length = 50)
-    private String serie;
-
-    @Column(nullable = false, length = 50)
-    private String turma;
-
-    @Column(nullable = false, length = 50)
     private String anoLetivo;
 
     public Aluno(){
@@ -32,11 +26,9 @@ public class Aluno extends Leitores {
     }
 
     public Aluno(String nome, String telefone, String rua, String bairro,
-                 String matricula, String serie, String turma, String anoLetivo) {
+                 String matricula, String anoLetivo) {
         super(nome, telefone, rua, bairro);
         this.matricula = matricula;
-        this.serie = serie;
-        this.turma = turma;
         this.anoLetivo = anoLetivo;
     }
 }

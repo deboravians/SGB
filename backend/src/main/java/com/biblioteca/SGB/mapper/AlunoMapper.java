@@ -12,8 +12,6 @@ public class AlunoMapper {
                 aluno.getRua(),
                 aluno.getBairro(),
                 aluno.getMatricula(),
-                aluno.getSerie(),
-                aluno.getTurma(),
                 aluno.getAnoLetivo()
         );
     }
@@ -26,8 +24,6 @@ public class AlunoMapper {
                 alunoDTO.getRua(),
                 alunoDTO.getBairro(),
                 alunoDTO.getMatricula(),
-                alunoDTO.getSerie(),
-                alunoDTO.getTurma(),
                 alunoDTO.getAnoLetivo()
         );
     }
