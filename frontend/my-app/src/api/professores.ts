@@ -1,3 +1,4 @@
+import { Emprestimo } from "../types/emprestimos";
 import { Professor } from "../types/professores";
 import { tratarErroResponse } from "./utils";
 
@@ -59,6 +60,26 @@ export const atualizarProfessor = async (
       }),
     }
   );
+
+  if (!response.ok) {
+    await tratarErroResponse(response);
+  }
+
+  return response.json();
+};
+
+export const informacoesProfessor = async (cpf: string): Promise<Professor> => {
+  const response = await fetch(`http://localhost:8080/professores/${cpf}`);
+
+  if (!response.ok) {
+    await tratarErroResponse(response);
+  }
+
+  return response.json();
+};
+
+export const historicoProfessor = async (cpf: string): Promise<Emprestimo[]> => {
+  const response = await fetch(`http://localhost:8080/emprestimos/professores/${cpf}`);
 
   if (!response.ok) {
     await tratarErroResponse(response);

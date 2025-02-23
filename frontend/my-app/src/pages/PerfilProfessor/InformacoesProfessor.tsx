@@ -1,45 +1,35 @@
-import React from "react";
 import styles from "./InformacoesProfessor.module.css";
 import TabelaHistorico from "../../components/TabelaHistorico/TabelaHistorico";
+import { informacoesProfessor } from "../../api/professores";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Professor } from "../../types/professores";
+import { toast } from "react-toastify";
 
 const InformacoesProfessor = () => {
-  // Dados fictícios do aluno
-  const aluno = {
-    nome: "Maria José de Oliveira",
-    disciplina: "Português",
-    telefone: "(88) 9 9999-9999",
-    endereco: {
-      rua: "Rua Francisco Eneas",
-      numero: 123,
-      bairro: "Centro",
-    },
-  };
-  const historicos = [
-    {
-      livro: "Harry Potter",
-      dataEmprestimo: "15/10/2024 12:34",
-      dataDevolucao: "15/10/2024 12:34",
-      status: "Extraviada",
-    },
-    {
-      livro: "O Senhor dos Anéis",
-      dataEmprestimo: "25/10/2024 15:25",
-      dataDevolucao: "15/10/2024 12:34",
-      status: "Devolvido",
-    },
-    {
-      livro: "O Senhor dos Anéis",
-      dataEmprestimo: "25/10/2024 15:25",
-      dataDevolucao: "15/10/2024 12:34",
-      status: "Devolvido",
-    },
-    {
-      livro: "O Senhor dos Anéis",
-      dataEmprestimo: "25/10/2024 15:25",
-      dataDevolucao: "15/10/2024 12:34",
-      status: "Devolvido",
-    },
-  ];
+  const { cpf } = useParams<{ cpf: string }>();
+  const [professor, setProfessor] = useState<Professor | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProfessor = async () => {
+      try {
+        if (cpf) {
+          const dadosProfessor = await informacoesProfessor(cpf);
+          setProfessor(dadosProfessor);
+        }
+      } catch (error) {
+        toast.warn("Erro ao buscar informações do professor.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfessor();
+  }, [cpf]);
+
+  if (loading) return <p>Carregando...</p>;
+  if (!professor) return <p>Professor não encontrado.</p>;
 
   return (
     <div className={styles.mainContent}>
@@ -50,17 +40,25 @@ const InformacoesProfessor = () => {
           Visão geral dos dados pessoais do(a) professor
         </p>
         <div className={styles.infoCard}>
-          <div className={styles.avatar}>{aluno.nome.charAt(0)}</div>
+          <div className={styles.avatar}>{professor.nome.charAt(0)}</div>
           <div className={styles.informacoes}>
-            <h3>{aluno.nome}</h3>
-            <p><strong>Disciplina:</strong> {aluno.disciplina}</p>
-            <p><strong>Telefone:</strong> {aluno.telefone}</p>
+            <h3>{professor.nome}</h3>
+            <p>
+              <strong>Disciplina:</strong> {professor.disciplina}
+            </p>
+            <p>
+              <strong>Telefone:</strong> {professor.telefone}
+            </p>
           </div>
           <div className={styles.dadosComplementares}>
-            <p><strong>Endereço:</strong> {aluno.endereco.rua}, {aluno.endereco.numero} - {aluno.endereco.bairro}</p>
+            <p>
+              <strong>Endereço:</strong> {professor.rua} - {professor.bairro}
+            </p>
           </div>
         </div>
-        <TabelaHistorico historicos={historicos} />
+        {professor?.cpf && (
+          <TabelaHistorico identificador={professor.cpf} tipo="professor" />
+        )}
       </div>
     </div>
   );
