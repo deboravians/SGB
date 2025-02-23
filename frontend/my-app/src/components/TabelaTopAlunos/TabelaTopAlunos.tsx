@@ -6,9 +6,9 @@ interface TabelaTopAlunosProps {
 }
 
 const medalhas: Record<number, string> = {
-  1: "/assets/iconOuro.svg",
-  2: "/assets/iconPrata.svg",
-  3: "/assets/iconBronze.svg",
+  1: "assets/iconOuro.svg",
+  2: "assets/iconPrata.svg",
+  3: "assets/iconBronze.svg",
 };
 
 const medalhaNomes: Record<number, string> = {

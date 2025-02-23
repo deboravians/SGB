@@ -49,7 +49,7 @@ const TabelaCopias: React.FC<TabelaCopiasProps> = ({ copias, atualizarLista }) =
                   title="Excluir cópia"
                   onClick={() => handleOpenModal(copia)}
                 >
-                  <img src="/assets/iconlixeira.svg" alt="Excluir cópia" />
+                  <img src="assets/iconlixeira.svg" alt="Excluir cópia" />
                 </button>
               </td>
             </tr>

@@ -4,7 +4,11 @@ import { toast } from "react-toastify";
 
 type TipoLeitor = "aluno" | "professor";
 
-const DropdownLeitor = ({ onSelect }: { onSelect: (tipo: TipoLeitor) => void }) => {
+const DropdownLeitor = ({
+  onSelect,
+}: {
+  onSelect: (tipo: TipoLeitor) => void;
+}) => {
   const leitores = ["Aluno", "Professor"];
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selecionado, setSelecionado] = useState<string | null>(null);
@@ -21,7 +25,7 @@ const DropdownLeitor = ({ onSelect }: { onSelect: (tipo: TipoLeitor) => void }) 
             }}
           >
             {selecionado || "Selecionar o tipo de leitor"}
-            <img src="/assets/iconSeta.svg" alt="" />
+            <img src="assets/iconSeta.svg" alt="" />
           </a>
           {dropdownOpen && (
             <div className={styles.dropdownContent}>
@@ -54,10 +58,12 @@ const ModalLeitor = ({
 }: {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: (tipo: TipoLeitor) => void; // Agora recebe o tipo selecionado
+  onConfirm: (tipo: TipoLeitor) => void;
   setTipoLeitor: (tipo: TipoLeitor) => void;
 }) => {
-  const [tipoSelecionado, setTipoSelecionado] = useState<TipoLeitor | null>(null);
+  const [tipoSelecionado, setTipoSelecionado] = useState<TipoLeitor | null>(
+    null
+  );
 
   return isOpen ? (
     <div className={styles.modal}>
