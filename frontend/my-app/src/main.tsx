@@ -1,25 +1,24 @@
-
-import React from 'react'
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import ReactDOM from 'react-dom/client'
-import Login from './pages/Login/Login'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import './index.css'
-import App from './App'
-import Home from './pages/Home/Home'
-import LeitoresAlunos from './pages/LeitoresAlunos/LeitoresAlunos'
-import LeitoresProfessores from './pages/LeitoresProfessores/LeitoresProfessores'
-import GerenciamentoDeEmprestimoseDevolucoes from './pages/GerenciamentoDeEmprestimoseDevolucoes/GerenciamentoDeEmprestimoseDevolucoes';
-import GerenciamentoAcervo from './pages/GerenciamentoDoAcervo/GerenciamentoDoAcervo'
+import React from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ReactDOM from "react-dom/client";
+import { createHashRouter, RouterProvider } from "react-router-dom";
+import "./index.css";
+import App from "./App";
+import Login from "./pages/Login/Login";
+import Home from "./pages/Home/Home";
+import LeitoresAlunos from "./pages/LeitoresAlunos/LeitoresAlunos";
+import LeitoresProfessores from "./pages/LeitoresProfessores/LeitoresProfessores";
+import GerenciamentoDeEmprestimoseDevolucoes from "./pages/GerenciamentoDeEmprestimoseDevolucoes/GerenciamentoDeEmprestimoseDevolucoes";
+import GerenciamentoAcervo from "./pages/GerenciamentoDoAcervo/GerenciamentoDoAcervo";
 import RelatoriosEstatisticas from "./pages/RelatoriosEstatisticas/RelatoriosEstatisticas";
-import InformacoesAluno from './pages/PerfilAluno/InformacoesAluno'; // Certifique-se de importar o componente InformacoesAluno
-import InformacoesProfessor from './pages/PerfilProfessor/InformacoesProfessor'; // Certifique-se de importar o componente InformacoesAluno
+import InformacoesAluno from "./pages/PerfilAluno/InformacoesAluno";
+import InformacoesProfessor from "./pages/PerfilProfessor/InformacoesProfessor";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
-    element: <Login />
+    element: <Login />,
   },
   {
     path: "/",
@@ -27,44 +26,43 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/home",
-        element: <Home />
+        element: <Home />,
       },
       {
         path: "/leitores/alunos",
-        element: <LeitoresAlunos />
+        element: <LeitoresAlunos />,
       },
       {
         path: "/leitores/professores",
-        element: <LeitoresProfessores />
+        element: <LeitoresProfessores />,
       },
       {
-        path: "/leitores/alunos/:matricula", // Nova rota para visualização de informações do aluno
-        element: <InformacoesAluno />
+        path: "/leitores/alunos/:matricula",
+        element: <InformacoesAluno />,
       },
       {
-        path: "/leitores/professores/:cpf", // Nova rota para visualização de informações do aluno
-        element: <InformacoesProfessor />
+        path: "/leitores/professores/:cpf",
+        element: <InformacoesProfessor />,
       },
       {
         path: "/edicoes",
-        element: <GerenciamentoAcervo />
+        element: <GerenciamentoAcervo />,
       },
       {
         path: "/emprestimos",
-        element: <GerenciamentoDeEmprestimoseDevolucoes />
+        element: <GerenciamentoDeEmprestimoseDevolucoes />,
       },
       {
-        path: "/relatorios",  
-        element: <RelatoriosEstatisticas />
+        path: "/relatorios",
+        element: <RelatoriosEstatisticas />,
       },
     ],
   },
-])
+]);
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ToastContainer />
     <RouterProvider router={router} />
-  </React.StrictMode>,
-)
-
+  </React.StrictMode>
+);
