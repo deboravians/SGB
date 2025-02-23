@@ -5,7 +5,6 @@ import ModalExcluirEmprestimo from '../ModalExcluirEmprestimo/ModalExcluirEmpres
 import ModalProrrogarPrazo from '../ModalProrrogarPrazo/ModalProrrogarPrazo';
 import ModalEmprestimoExtraviado from "../ModalEmprestimoExtraviado/ModalEmprestimoExtraviado";
 import ModalRegistrarDevolucao from "../ModalRegistrarDevolucao/ModalRegistrarDevolucao";
-import ModalEditarEmprestimo from "../ModalEditarEmprestimo/ModalEditarEmprestimo";
 import { Emprestimo } from "../../types/emprestimos";
 
 interface TabelaEmprestimosProps {
@@ -13,7 +12,7 @@ interface TabelaEmprestimosProps {
   atualizarLista: () => void;
 }
 
-type ModalType = "excluir" | "prorrogar" | "extraviado" | "devolvido" | "editar" | null;
+type ModalType = "excluir" | "prorrogar" | "extraviado" | "devolvido" | null;
 
 const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos, atualizarLista }) => {
   const [modalAberto, setModalAberto] = useState<ModalType>(null);
@@ -75,13 +74,6 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos, atua
                   <img src="/assets/iconExtraviado.svg" alt="Livro Extraviado" />
                 </button>
                 <button
-                  className={styles.icone1}
-                  onClick={() => abrirModal("editar", emprestimo)}
-                  title="Editar livro"
-                >
-                  <img src="/assets/iconLapis.svg" alt="Editar livro" />
-                </button>
-                <button
                   className={styles.icone}
                   onClick={() => abrirModal("excluir", emprestimo)}
                   title="Excluir empréstimo"
@@ -129,11 +121,6 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos, atua
         onConfirm={handleConfirmarAcao}
         onSuccess={atualizarLista}
         emprestimo={selectedEmprestimo}
-      />
-      <ModalEditarEmprestimo
-        isOpen={modalAberto === "editar"}
-        onClose={fecharModal}
-        onConfirm={handleConfirmarAcao}
       />
     </>
   );
