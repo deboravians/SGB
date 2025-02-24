@@ -4,19 +4,24 @@ import StatusTag from "../StatusTag/StatusTag";
 import { historicoAluno } from "../../api/alunos";
 import { Emprestimo } from "../../types/emprestimos";
 import { historicoProfessor } from "../../api/professores";
-
+import Paginacao from "../Paginacao/Paginacao";
 interface TabelaHistoricoProps {
   identificador: string;
   tipo: "aluno" | "professor";
 }
-
+const ITENS_POR_PAGINA = 3;
 const TabelaHistorico: React.FC<TabelaHistoricoProps> = ({
   identificador,
   tipo,
 }) => {
+  const [paginaAtual, setPaginaAtual] = useState(1);
   const [historicos, setHistoricos] = useState<Emprestimo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const totalPaginas = Math.ceil(historicos.length / ITENS_POR_PAGINA);
+  const inicioIndex = (paginaAtual - 1) * ITENS_POR_PAGINA;
+  const historicosPaginados = historicos.slice(inicioIndex, inicioIndex + ITENS_POR_PAGINA);
 
   useEffect(() => {
     const fetchHistorico = async () => {
@@ -56,7 +61,7 @@ const TabelaHistorico: React.FC<TabelaHistoricoProps> = ({
             </tr>
           </thead>
           <tbody>
-            {historicos.map((historico) => (
+            {historicosPaginados.map((historico) => (
               <tr key={historico.id}>
                 <td>{historico.copia?.edicao?.titulo || "Desconhecido"}</td>
                 <td>{historico.dataEmprestimo}</td>
@@ -78,6 +83,11 @@ const TabelaHistorico: React.FC<TabelaHistoricoProps> = ({
             ))}
           </tbody>
         </table>
+        <Paginacao
+        paginaAtual={paginaAtual}
+        totalPaginas={totalPaginas}
+        onPageChange={setPaginaAtual}
+      />
       </div>
     </div>
   );
