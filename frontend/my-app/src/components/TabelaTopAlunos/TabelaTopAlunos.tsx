@@ -24,7 +24,6 @@ const TabelaTopAlunos: React.FC<TabelaTopAlunosProps> = ({ alunos }) => {
         <tr>
           <th>Aluno(a)</th>
           <th>Matrícula</th>
-          <th>Turma</th>
           <th>Quantidade de Empréstimos</th>
           <th>Colocação</th>
         </tr>
@@ -41,7 +40,6 @@ const TabelaTopAlunos: React.FC<TabelaTopAlunosProps> = ({ alunos }) => {
             <tr key={aluno.matricula}>
               <td>{aluno.nome}</td>
               <td>{aluno.matricula}</td>
-              <td>{aluno.turma}</td>
               <td>{aluno.totalEmprestimos}</td>
               <td>
                 <div className={styles.colocacaoContainer}>

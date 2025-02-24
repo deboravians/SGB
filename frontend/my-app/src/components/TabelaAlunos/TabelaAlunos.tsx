@@ -45,8 +45,6 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({
           <tr>
             <th>Matrícula</th>
             <th>Nome</th>
-            <th>Série</th>
-            <th>Turma</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -55,8 +53,6 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({
             <tr key={aluno.matricula}>
               <td>{aluno.matricula}</td>
               <td>{aluno.nome}</td>
-              <td>{aluno.serie}</td>
-              <td>{aluno.turma}</td>
               <td>
                 <Link
                   to={`/leitores/alunos/${aluno.matricula}`}
