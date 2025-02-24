@@ -3,15 +3,24 @@ import StatusTag from "../StatusTag/StatusTag";
 import { historicoEdicao } from "../../api/edicoes";
 import { Emprestimo } from "../../types/emprestimos";
 import { useEffect, useState } from "react";
+import Paginacao from "../Paginacao/Paginacao";
 
 interface TabelaHistoricoEdicoesProps {
   isbn: string;
 }
 
+const ITENS_POR_PAGINA = 3;
+
 const TabelaHistoricoEdicoes: React.FC<TabelaHistoricoEdicoesProps> = ({ isbn }) => {
+  const [paginaAtual, setPaginaAtual] = useState(1);
+
   const [historicos, setHistoricos] = useState<Emprestimo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const totalPaginas = Math.ceil(historicos.length / ITENS_POR_PAGINA);
+  const inicioIndex = (paginaAtual - 1) * ITENS_POR_PAGINA;
+  const historicosPaginados = historicos.slice(inicioIndex, inicioIndex + ITENS_POR_PAGINA);
+
 
   useEffect(() => {
     const fetchHistorico = async () => {
@@ -48,7 +57,7 @@ const TabelaHistoricoEdicoes: React.FC<TabelaHistoricoEdicoesProps> = ({ isbn })
             </tr>
           </thead>
           <tbody>
-            {historicos.map((historico, index) => (
+            {historicosPaginados.map((historico, index) => (
               <tr key={index}>
                 <td>{historico.copia.id}</td>
                 <td>{historico.dataDevolucao ? historico.dataDevolucao : "Não devolvido"}</td>
@@ -69,6 +78,11 @@ const TabelaHistoricoEdicoes: React.FC<TabelaHistoricoEdicoesProps> = ({ isbn })
             ))}
           </tbody>
         </table>
+        <Paginacao
+        paginaAtual={paginaAtual}
+        totalPaginas={totalPaginas}
+        onPageChange={setPaginaAtual}
+      />
       </div>
     </div>
   );
