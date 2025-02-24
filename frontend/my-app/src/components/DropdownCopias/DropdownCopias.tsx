@@ -77,7 +77,7 @@ const DropdownCopias = ({
                     </div>
                   ))
               ) : (
-                <div className={styles.copiaItem}>Nenhuma cópia disponível</div>
+                <div className={styles.copiaItem}>Nenhuma cópia disponível!</div>
               )}
             </div>
           )}
