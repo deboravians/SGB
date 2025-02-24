@@ -1,5 +1,6 @@
 import styles from "./PerfilEdicao.module.css";
-//import TabelaHistorico from "../../components/TabelaHistorico/TabelaHistorico";
+import TabelaHistoricoEdicoes from "../../components/TabelaHistoricoEdicoes/TabelaHistoricoEdicoes";
+
 
 const PerfilEdicao = () => {
   const edicao = {
@@ -9,7 +10,29 @@ const PerfilEdicao = () => {
     classificacao: "Fantasia",
     numerodecopias: "123 cópias cadastradas",
   };
+  const historicos = [
+    {
+      id: "1",
+      nome: "Harry Potter",
+      dataDevolucao: "15/10/2024 12:34",
+      status: "Extraviada",
+    },
 
+    {
+      id: "1",
+      nome: "Harry Potter",
+      dataDevolucao: "15/10/2024 12:34",
+      status: "Extraviada",
+    },
+
+    {
+      id: "1",
+      nome: "Harry Potter",
+      dataDevolucao: "15/10/2024 12:34",
+      status: "Extraviada",
+    },
+   
+  ];
   return (
     <div className={styles.mainContent}>
       <div className={styles.dadosPessoais}>
@@ -30,7 +53,7 @@ const PerfilEdicao = () => {
             <p><strong>Número de cópias:</strong> {edicao.numerodecopias}</p>
           </div>
         </div>
-      
+        <TabelaHistoricoEdicoes historicos={historicos} />
       </div>
     </div>
   );
