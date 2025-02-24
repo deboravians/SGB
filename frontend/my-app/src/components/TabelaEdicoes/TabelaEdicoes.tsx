@@ -58,7 +58,7 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
                 />
               </td>
               <td className={styles.acoes}>
-                <Link to={`/visualizar/${edicao.isbn}`} title="Visualizar">
+                <Link to={`/edicoes/${edicao.isbn}`} title="Visualizar">
                   <img
                     src="assets/iconOlho.svg"
                     alt="Visualizar"
