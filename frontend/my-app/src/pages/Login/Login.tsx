@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Login: React.FC = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const [login, setLogin] = useState("");
   const [senha, setSenha] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -19,7 +21,7 @@ const Login: React.FC = () => {
     setErrorMessage("");
 
     try {
-      const response = await fetch("http://localhost:8080/usuarios", {
+      const response = await fetch(`${API_URL}/usuarios`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ login, senha }),

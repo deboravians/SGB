@@ -1,11 +1,13 @@
 import { TopAlunos } from "../types/topAlunos";
 import { tratarErroResponse } from "./utils";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 // TELA HOME E TELA EMPRÉSTIMOS
 
 export const totalLeitores = async (): Promise<number> => {
   const response = await fetch(
-    "http://localhost:8080/estatisticas/leitores/totalCadastrado"
+    `${API_URL}/estatisticas/leitores/totalCadastrado`
   );
 
   if (!response.ok) {
@@ -18,7 +20,7 @@ export const totalLeitores = async (): Promise<number> => {
 
 export const totalCopias = async (): Promise<number> => {
   const response = await fetch(
-    "http://localhost:8080/estatisticas/copias/totalCadastrado"
+    `${API_URL}/estatisticas/copias/totalCadastrado`
   );
 
   if (!response.ok) {
@@ -31,7 +33,7 @@ export const totalCopias = async (): Promise<number> => {
 
 export const totalEmprestimosAtivos = async (): Promise<number> => {
   const response = await fetch(
-    "http://localhost:8080/estatisticas/emprestimos/totalAtivo"
+    `${API_URL}/estatisticas/emprestimos/totalAtivo`
   );
 
   if (!response.ok) {
@@ -44,7 +46,7 @@ export const totalEmprestimosAtivos = async (): Promise<number> => {
 
 export const totalEmprestimosAtrasados = async (): Promise<number> => {
   const response = await fetch(
-    "http://localhost:8080/estatisticas/emprestimos/totalAtrasado"
+    `${API_URL}/estatisticas/emprestimos/totalAtrasado`
   );
 
   if (!response.ok) {
@@ -59,7 +61,7 @@ export const totalEmprestimosAtrasados = async (): Promise<number> => {
 
 export const totalCopiasDisponiveis = async (): Promise<number> => {
   const response = await fetch(
-    "http://localhost:8080/estatisticas/copias/totalDisponivel"
+    `${API_URL}/estatisticas/copias/totalDisponivel`
   );
 
   if (!response.ok) {
@@ -72,7 +74,7 @@ export const totalCopiasDisponiveis = async (): Promise<number> => {
 
 export const totalCopiasEmprestadas = async (): Promise<number> => {
   const response = await fetch(
-    "http://localhost:8080/estatisticas/copias/totalEmprestado"
+    `${API_URL}/estatisticas/copias/totalEmprestado`
   );
 
   if (!response.ok) {
@@ -87,7 +89,7 @@ export const totalCopiasEmprestadas = async (): Promise<number> => {
 
 export const totalAlunos = async (): Promise<number> => {
   const response = await fetch(
-    "http://localhost:8080/estatisticas/alunos/totalCadastrado"
+    `${API_URL}/estatisticas/alunos/totalCadastrado`
   );
 
   if (!response.ok) {
@@ -102,7 +104,7 @@ export const totalAlunos = async (): Promise<number> => {
 
 export const totalProfessores = async (): Promise<number> => {
   const response = await fetch(
-    "http://localhost:8080/estatisticas/professores/totalCadastrado"
+    `${API_URL}/estatisticas/professores/totalCadastrado`
   );
 
   if (!response.ok) {
@@ -115,9 +117,12 @@ export const totalProfessores = async (): Promise<number> => {
 
 //TOP ALUNOS
 
-export const getTopAlunos = async (dataInicio: string, dataFim: string): Promise<TopAlunos[]> => {
+export const getTopAlunos = async (
+  dataInicio: string,
+  dataFim: string
+): Promise<TopAlunos[]> => {
   const response = await fetch(
-    `http://localhost:8080/estatisticas/topAlunos?dataInicio=${dataInicio}&dataFim=${dataFim}`
+    `${API_URL}/estatisticas/topAlunos?dataInicio=${dataInicio}&dataFim=${dataFim}`
   );
 
   if (!response.ok) {
