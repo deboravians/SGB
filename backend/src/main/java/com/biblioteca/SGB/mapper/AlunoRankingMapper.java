@@ -11,9 +11,8 @@ public class AlunoRankingMapper {
         return new AlunoRankingDTO(
                 (String) obj[0],
                 (String) obj[1],
-                (String) obj[2],
-                ((Number) obj[3]).intValue(),
-                ((Number) obj[4]).intValue()
+                ((Number) obj[2]).intValue(),
+                ((Number) obj[3]).intValue()
         );
     }
 }

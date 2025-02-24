@@ -32,13 +32,12 @@ public interface IEmprestimoRepository extends JpaRepository<Emprestimo, Integer
     SELECT 
         a.matricula AS matricula, 
         a.nome AS nome, 
-        a.turma AS turma,
         COUNT(e.id) AS totalEmprestimos,
         RANK() OVER (ORDER BY COUNT(e.id) DESC) AS colocacao
     FROM Emprestimos e
     JOIN Alunos a ON e.aluno_matricula = a.matricula
     WHERE e.data_emprestimo BETWEEN :dataInicio AND :dataFim
-    GROUP BY a.matricula, a.nome, a.turma
+    GROUP BY a.matricula, a.nome
     ORDER BY totalEmprestimos DESC
     LIMIT 10 """, nativeQuery = true)
     List<Object[]> findTopAlunosByPeriod(
