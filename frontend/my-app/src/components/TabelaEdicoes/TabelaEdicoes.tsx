@@ -6,20 +6,27 @@ import StatusTag from "../StatusTag/StatusTag";
 import ModalExcluirEdicao from "../ModalExcluirEdicao/ModalExcluirEdicao";
 import ModalGerenciarCopias from "../ModalGerenciarCopias/ModalGerenciarCopias";
 import ModalEditarEdicoes from "../ModalEditarEdicoes/ModalEditarEdicoes";
+import Paginacao from "../Paginacao/Paginacao";
 
 interface TabelaEdicoesProps {
   edicoes: Edicao[];
   atualizarLista: () => void;
 }
-
+const ITENS_POR_PAGINA = 4;
 const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
   edicoes,
   atualizarLista,
 }) => {
+  const [paginaAtual, setPaginaAtual] = useState(1);
+
   const [selectedEdicao, setSelectedEdicao] = useState<Edicao | null>(null);
   const [modalAberto, setModalAberto] = useState<
     "excluir" | "gerenciar" | "editar" | null
   >(null);
+
+  const totalPaginas = Math.ceil(edicoes.length / ITENS_POR_PAGINA);
+  const inicioIndex = (paginaAtual - 1) * ITENS_POR_PAGINA;
+  const edicoesPaginadas =edicoes.slice(inicioIndex, inicioIndex + ITENS_POR_PAGINA);
 
   const abrirModal = (
     tipo: "excluir" | "gerenciar" | "editar",
@@ -47,7 +54,7 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
           </tr>
         </thead>
         <tbody>
-          {edicoes.map((edicao) => (
+          {edicoesPaginadas.map((edicao) => (
             <tr key={edicao.isbn}>
               <td>{edicao.isbn}</td>
               <td>{edicao.titulo}</td>
@@ -97,6 +104,12 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
           ))}
         </tbody>
       </table>
+
+      <Paginacao
+        paginaAtual={paginaAtual}
+        totalPaginas={totalPaginas}
+        onPageChange={setPaginaAtual}
+      />
 
       {/* Modais */}
       {selectedEdicao && modalAberto === "excluir" && (
