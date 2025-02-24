@@ -1,10 +1,12 @@
 import styles from "./TabelaTopAlunos.module.css";
 import { TopAlunos } from "../../types/topAlunos";
-
+import Paginacao from "../Paginacao/Paginacao";
+import { useState } from "react";
 interface TabelaTopAlunosProps {
   alunos: TopAlunos[];
 }
 
+const ITENS_POR_PAGINA = 4;
 const medalhas: Record<number, string> = {
   1: "assets/iconOuro.svg",
   2: "assets/iconPrata.svg",
@@ -18,7 +20,13 @@ const medalhaNomes: Record<number, string> = {
 };
 
 const TabelaTopAlunos: React.FC<TabelaTopAlunosProps> = ({ alunos }) => {
+  const [paginaAtual, setPaginaAtual] = useState(1);
+  const totalPaginas = Math.ceil(alunos.length / ITENS_POR_PAGINA);
+  const inicioIndex = (paginaAtual - 1) * ITENS_POR_PAGINA;
+  const alunosPaginados = alunos.slice(inicioIndex, inicioIndex + ITENS_POR_PAGINA);
+
   return (
+    <div>
     <table className={styles.tabela}>
       <thead>
         <tr>
@@ -36,7 +44,7 @@ const TabelaTopAlunos: React.FC<TabelaTopAlunosProps> = ({ alunos }) => {
             </td>
           </tr>
         ) : (
-          alunos.map((aluno) => (
+          alunosPaginados.map((aluno) => (
             <tr key={aluno.matricula}>
               <td>{aluno.nome}</td>
               <td>{aluno.matricula}</td>
@@ -59,7 +67,13 @@ const TabelaTopAlunos: React.FC<TabelaTopAlunosProps> = ({ alunos }) => {
           ))
         )}
       </tbody>
+      
     </table>
+    <Paginacao
+    paginaAtual={paginaAtual}
+    totalPaginas={totalPaginas}
+    onPageChange={setPaginaAtual}
+  /></div>
   );
 };
 
