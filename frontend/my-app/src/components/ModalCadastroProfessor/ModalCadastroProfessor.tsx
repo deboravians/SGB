@@ -3,6 +3,8 @@ import styles from "./ModalCadastroProfessor.module.css";
 import { Professor } from "../../types/professores";
 import { cadastrarProfessor } from "../../api/professores";
 import { toast } from "react-toastify";
+import InputMaskComponent from "../InputMaskComponent/InputMaskComponent";
+
 
 interface ModalCadastroProfessorProps {
   fecharModal: () => void;
@@ -40,9 +42,7 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
     }
   };
 
-  const handleChange = ({
-    target: { id, value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (id: keyof Professor, value: string) => {
     setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
 
@@ -56,7 +56,7 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
             <label htmlFor="nome">Nome:</label>
             <input
               value={formData.nome}
-              onChange={handleChange}
+              onChange={(e) => handleChange("nome", e.target.value)}
               type="text"
               id="nome"
               placeholder="Digite o nome do professor"
@@ -66,12 +66,11 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
           </div>
           <div className={styles.row}>
             <div className={styles.formGroup}>
-              <label htmlFor="telefone">Telefone:</label>
-              <input
+              <InputMaskComponent
+                label="Telefone:"
                 value={formData.telefone}
-                onChange={handleChange}
-                type="text"
-                id="telefone"
+                onChange={(e) => handleChange("telefone", e.target.value)}
+                mask="(99) 99999-9999"
                 placeholder="(00) 00000-0000"
                 className={styles.inputField2}
               />
@@ -80,7 +79,7 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
               <label htmlFor="disciplina">Disciplina:</label>
               <input
                 value={formData.disciplina}
-                onChange={handleChange}
+                onChange={(e) => handleChange("disciplina", e.target.value)}
                 type="text"
                 id="disciplina"
                 placeholder="Português"
@@ -88,15 +87,13 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
               />
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="cpf">CPF:</label>
-              <input
+              <InputMaskComponent
+                label="CPF:"
                 value={formData.cpf}
-                onChange={handleChange}
-                type="text"
-                id="cpf"
+                onChange={(e) => handleChange("cpf", e.target.value)}
+                mask="999.999.999-99"
                 placeholder="000.000.000-00"
                 className={styles.inputField2}
-                required
               />
             </div>
           </div>
@@ -108,7 +105,7 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
                 <label htmlFor="rua">Rua:</label>
                 <input
                   value={formData.rua}
-                  onChange={handleChange}
+                  onChange={(e) => handleChange("rua", e.target.value)}
                   type="text"
                   id="rua"
                   placeholder="Digite a rua"
@@ -120,7 +117,7 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
               <label htmlFor="bairro">Bairro:</label>
               <input
                 value={formData.bairro}
-                onChange={handleChange}
+                onChange={(e) => handleChange("bairro", e.target.value)}
                 type="text"
                 id="bairro"
                 placeholder="Digite o bairro"
@@ -133,7 +130,7 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
             <button
               type="button"
               className={styles.botaoCancelar}
-              onClick={fecharModal} // Fecha a modal
+              onClick={fecharModal}
               disabled={isSubmitting}
             >
               Cancelar
