@@ -49,7 +49,7 @@ const InformacoesEmprestimo: React.FC<EmprestimoProps> = ({
               <span className={styles.date}>{dataEmprestimo}</span>
             </div>
             <div className={styles.infoBlock}>
-              <strong>Data de devolução:</strong>
+              <strong>Data prevista de devolução:</strong>
               <span className={styles.date}>{dataDevolucao}</span>
             </div>
           </div>
