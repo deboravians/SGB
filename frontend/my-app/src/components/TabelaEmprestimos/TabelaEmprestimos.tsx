@@ -7,11 +7,12 @@ import ModalEmprestimoExtraviado from "../ModalEmprestimoExtraviado/ModalEmprest
 import ModalRegistrarDevolucao from "../ModalRegistrarDevolucao/ModalRegistrarDevolucao";
 import InformacoesEmprestimo from "../InformacoesEmprestimo/InformacoesEmprestimo";
 import { Emprestimo } from "../../types/emprestimos";
-
+import Paginacao from "../Paginacao/Paginacao";
 interface TabelaEmprestimosProps {
   emprestimos: Emprestimo[];
   atualizarLista: () => void;
 }
+const ITENS_POR_PAGINA = 4;
 
 type ModalType = "excluir" | "prorrogar" | "extraviado" | "devolvido" | null;
 
@@ -19,10 +20,14 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({
   emprestimos,
   atualizarLista,
 }) => {
+  const [paginaAtual, setPaginaAtual] = useState(1);
   const [modalAberto, setModalAberto] = useState<ModalType>(null);
   const [selectedEmprestimo, setSelectedEmprestimo] =
     useState<Emprestimo | null>(null);
   const [modalInfoAberta, setModalInfoAberta] = useState(false);
+  const totalPaginas = Math.ceil(emprestimos.length / ITENS_POR_PAGINA);
+  const inicioIndex = (paginaAtual - 1) * ITENS_POR_PAGINA;
+  const emprestimosPaginados = emprestimos.slice(inicioIndex, inicioIndex + ITENS_POR_PAGINA);
 
   const abrirModal = (tipo: ModalType, emprestimo: Emprestimo) => {
     setSelectedEmprestimo(emprestimo);
@@ -52,7 +57,7 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({
           </tr>
         </thead>
         <tbody>
-          {emprestimos.map((emprestimo) => (
+          {emprestimosPaginados.map((emprestimo) => (
             <tr key={emprestimo.id}>
               <td>{emprestimo.copia.edicao.titulo}</td>
               <td>
@@ -115,6 +120,12 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({
           ))}
         </tbody>
       </table>
+
+      <Paginacao
+        paginaAtual={paginaAtual}
+        totalPaginas={totalPaginas}
+        onPageChange={setPaginaAtual}
+      />
 
       {/* 🔹 Modal de Informações do Empréstimo */}
       {modalInfoAberta && selectedEmprestimo && (
