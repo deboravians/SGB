@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron'
+import { app, BrowserWindow, Menu, screen } from 'electron'
 // import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
@@ -20,6 +20,7 @@ let win: BrowserWindow | null
 function createWindow() {
 
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+  Menu.setApplicationMenu(null);
 
   win = new BrowserWindow({
     width: width,
