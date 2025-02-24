@@ -97,7 +97,7 @@
   padding: 8px;
   width: calc(100% - 110px);
   /* Garante que o restante da linha seja ocupado */
-  width: 90%;
+  width: 50%;
   /* Evita inputs muito largos */
   border: 1px solid #ccc;
   border-radius: 4px;
