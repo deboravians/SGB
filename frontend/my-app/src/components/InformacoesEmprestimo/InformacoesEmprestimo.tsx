@@ -1,9 +1,8 @@
-import React from "react";
 import styles from "./InformacoesEmprestimo.module.css";
 
 interface EmprestimoProps {
   edicao: string;
-  copia: number;
+  copia: string;
   dataEmprestimo: string;
   dataDevolucao: string;
   tipoLeitor: string;

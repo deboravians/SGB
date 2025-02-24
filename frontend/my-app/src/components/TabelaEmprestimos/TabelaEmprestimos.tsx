@@ -1,8 +1,8 @@
 import styles from "./TabelaEmprestimos.module.css";
 import StatusTag from "../StatusTag/StatusTag";
 import { useState } from "react";
-import ModalExcluirEmprestimo from '../ModalExcluirEmprestimo/ModalExcluirEmprestimo';
-import ModalProrrogarPrazo from '../ModalProrrogarPrazo/ModalProrrogarPrazo';
+import ModalExcluirEmprestimo from "../ModalExcluirEmprestimo/ModalExcluirEmprestimo";
+import ModalProrrogarPrazo from "../ModalProrrogarPrazo/ModalProrrogarPrazo";
 import ModalEmprestimoExtraviado from "../ModalEmprestimoExtraviado/ModalEmprestimoExtraviado";
 import ModalRegistrarDevolucao from "../ModalRegistrarDevolucao/ModalRegistrarDevolucao";
 import InformacoesEmprestimo from "../InformacoesEmprestimo/InformacoesEmprestimo";
@@ -15,17 +15,21 @@ interface TabelaEmprestimosProps {
 
 type ModalType = "excluir" | "prorrogar" | "extraviado" | "devolvido" | null;
 
-const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos, atualizarLista }) => {
+const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({
+  emprestimos,
+  atualizarLista,
+}) => {
   const [modalAberto, setModalAberto] = useState<ModalType>(null);
-  const [selectedEmprestimo, setSelectedEmprestimo] = useState<Emprestimo | null>(null);
-  const [modalInfoAberta, setModalInfoAberta] = useState(false); // 🔹 Estado para a modal de informações
+  const [selectedEmprestimo, setSelectedEmprestimo] =
+    useState<Emprestimo | null>(null);
+  const [modalInfoAberta, setModalInfoAberta] = useState(false);
 
   const abrirModal = (tipo: ModalType, emprestimo: Emprestimo) => {
     setSelectedEmprestimo(emprestimo);
     setModalAberto(tipo);
   };
 
-  const abrirModalInfo = (emprestimo: Emprestimo) => {  // 🔹 Função para abrir a modal de informações
+  const abrirModalInfo = (emprestimo: Emprestimo) => {
     setSelectedEmprestimo(emprestimo);
     setModalInfoAberta(true);
   };
@@ -51,16 +55,25 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos, atua
           {emprestimos.map((emprestimo) => (
             <tr key={emprestimo.id}>
               <td>{emprestimo.copia.edicao.titulo}</td>
-              <td>{emprestimo.aluno?.nome ?? emprestimo.professor?.nome ?? "Não informado"}</td>
+              <td>
+                {emprestimo.aluno?.nome ??
+                  emprestimo.professor?.nome ??
+                  "Não informado"}
+              </td>
               <td>{emprestimo.dataPrevistaDevolucao}</td>
               <td>
                 <StatusTag
-                  status={emprestimo.status as "Atrasado" | "Em Andamento" | "Extraviado" | "Devolvido"}
+                  status={
+                    emprestimo.status as
+                      | "Atrasado"
+                      | "Em Andamento"
+                      | "Extraviado"
+                      | "Devolvido"
+                  }
                   tipo="emprestimo"
                 />
               </td>
               <td className={styles.acoes}>
-       
                 <button
                   className={styles.icone0}
                   onClick={() => abrirModal("prorrogar", emprestimo)}
@@ -107,12 +120,17 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos, atua
       {modalInfoAberta && selectedEmprestimo && (
         <InformacoesEmprestimo
           edicao={selectedEmprestimo.copia.edicao.titulo}
-          copia={selectedEmprestimo.copia.numero}
+          copia={selectedEmprestimo.copia.id}
           dataEmprestimo={selectedEmprestimo.dataEmprestimo}
           dataDevolucao={selectedEmprestimo.dataPrevistaDevolucao}
           tipoLeitor={selectedEmprestimo.aluno ? "Aluno" : "Professor"}
-          nomeLeitor={selectedEmprestimo.aluno?.nome ?? selectedEmprestimo.professor?.nome ?? "Não informado"}
+          nomeLeitor={
+            selectedEmprestimo.aluno?.nome ??
+            selectedEmprestimo.professor?.nome ??
+            "Não informado"
+          }
           onClose={() => setModalInfoAberta(false)}
+
         />
       )}
 
