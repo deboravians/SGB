@@ -15,10 +15,14 @@ const DropdownLeitores = ({
   onSelectLeitor: (leitor: Aluno | Professor) => void;
 }) => {
   const [leitores, setLeitores] = useState<(Aluno | Professor)[]>([]);
-  const [leitoresFiltrados, setLeitoresFiltrados] = useState<(Aluno | Professor)[]>([]);
+  const [leitoresFiltrados, setLeitoresFiltrados] = useState<
+    (Aluno | Professor)[]
+  >([]);
   const [loading, setLoading] = useState(true);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [leitorSelecionado, setLeitorSelecionado] = useState<Aluno | Professor | null>(null);
+  const [leitorSelecionado, setLeitorSelecionado] = useState<
+    Aluno | Professor | null
+  >(null);
   const [pesquisa, setPesquisa] = useState("");
 
   useEffect(() => {
@@ -77,7 +81,11 @@ const DropdownLeitores = ({
             }}
           >
             {leitorSelecionado
-              ? `${"matricula" in leitorSelecionado ? leitorSelecionado.matricula : leitorSelecionado.cpf} - ${leitorSelecionado.nome}`
+              ? `${
+                  "matricula" in leitorSelecionado
+                    ? leitorSelecionado.matricula
+                    : leitorSelecionado.cpf
+                } - ${leitorSelecionado.nome}`
               : "Selecionar Leitor"}
             <img src="assets/iconSeta.svg" alt="" />
           </a>
@@ -87,7 +95,9 @@ const DropdownLeitores = ({
               <div className={styles.leitorItemP}>
                 <input
                   type="text"
-                  placeholder={`Pesquisar ${tipoLeitor === "aluno" ? "Aluno" : "Professor"}...`}
+                  placeholder={`Pesquisar ${
+                    tipoLeitor === "aluno" ? "Aluno" : "Professor"
+                  }...`}
                   className={styles.campoPesquisa}
                   value={pesquisa}
                   onChange={(e) => setPesquisa(e.target.value)}
@@ -96,8 +106,6 @@ const DropdownLeitores = ({
 
               {loading ? (
                 <p>Carregando...</p>
-              ) : leitoresFiltrados.length === 0 ? (
-                <p>Nenhum leitor encontrado.</p>
               ) : (
                 leitoresFiltrados.map((leitor) => (
                   <div
@@ -105,7 +113,9 @@ const DropdownLeitores = ({
                     className={styles.leitorItem}
                     onClick={() => handleSelectLeitor(leitor)}
                   >
-                    <span>{"matricula" in leitor ? leitor.matricula : leitor.cpf}</span>
+                    <span>
+                      {"matricula" in leitor ? leitor.matricula : leitor.cpf}
+                    </span>
                     <span>{leitor.nome}</span>
                   </div>
                 ))
