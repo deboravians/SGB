@@ -1,59 +1,59 @@
 import styles from "./PerfilEdicao.module.css";
 import TabelaHistoricoEdicoes from "../../components/TabelaHistoricoEdicoes/TabelaHistoricoEdicoes";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Edicao } from "../../types/edicoes";
+import { informacoesEdicao } from "../../api/edicoes";
+import { toast } from "react-toastify";
 
 
 const PerfilEdicao = () => {
-  const edicao = {
-    nome: "Harry Potter",
-    isbn: "222222222222",
-    autor: "Anaildo Silva",
-    classificacao: "Fantasia",
-    numerodecopias: "123 cópias cadastradas",
-  };
-  const historicos = [
-    {
-      id: "1",
-      nome: "Harry Potter",
-      dataDevolucao: "15/10/2024 12:34",
-      status: "Extraviada",
-    },
+  const { isbn } = useParams<{ isbn: string }>();
+  const [edicao, setEdicao] = useState<Edicao | null>(null);
+  const [loading, setLoading] = useState(true);
 
-    {
-      id: "1",
-      nome: "Harry Potter",
-      dataDevolucao: "15/10/2024 12:34",
-      status: "Extraviada",
-    },
+  useEffect(() => {
+    const fetchEdicao = async () => {
+      try {
+        if (isbn) {
+          const dadosEdicao = await informacoesEdicao(isbn);
+          setEdicao(dadosEdicao);
+        }
+      } catch (error) {
+        toast.warn("Erro ao buscar informações da edição.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    {
-      id: "1",
-      nome: "Harry Potter",
-      dataDevolucao: "15/10/2024 12:34",
-      status: "Extraviada",
-    },
-   
-  ];
+    fetchEdicao();
+  }, [isbn]);
+
+  if (loading) return <p>Carregando...</p>;
+  if (!edicao) return <p>Edição não encontrada.</p>;
   return (
     <div className={styles.mainContent}>
-      <div className={styles.dadosPessoais}>
+      <div className={styles.dadosEdicao}>
         <h1 className={styles.titulo}>Informações da edição</h1>
         <div className={styles.divisao}></div>
         <p className={styles.descricao}>
           Visão geral dos dados da edição
         </p>
         <div className={styles.infoCard}>
-          <div className={styles.avatar}>{edicao.nome.charAt(0)}</div>
+          <div className={styles.avatar}>{edicao.titulo.charAt(0)}</div>
           <div className={styles.informacoes}>
-            <h3>{edicao.nome}</h3>
+            <h3>{edicao.titulo}</h3>
             <p><strong>ISBN:</strong> {edicao.isbn}</p>
             <p><strong>Autor(a):</strong> {edicao.autor}</p>
           </div>
           <div className={styles.dadosComplementares}>
-            <p><strong>Classificação:</strong> {edicao.classificacao}</p>
-            <p><strong>Número de cópias:</strong> {edicao.numerodecopias}</p>
+            <p><strong>Classificação:</strong> {edicao.classificacao?.titulo}</p>
+            <p><strong>Número de cópias:</strong> {edicao.qtdCopias}</p>
           </div>
         </div>
-        <TabelaHistoricoEdicoes historicos={historicos} />
+        {edicao?.isbn && (
+          <TabelaHistoricoEdicoes isbn={edicao.isbn} />
+        )}
       </div>
     </div>
   );

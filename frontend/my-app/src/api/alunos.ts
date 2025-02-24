@@ -48,9 +48,6 @@ export const atualizarAluno = async (aluno: Aluno): Promise<Aluno> => {
     },
     body: JSON.stringify({
       matricula: aluno.matricula,
-      serie: aluno.serie,
-      turma: aluno.turma,
-      anoLetivo: aluno.anoLetivo,
       nome: aluno.nome,
       telefone: aluno.telefone,
       rua: aluno.rua,

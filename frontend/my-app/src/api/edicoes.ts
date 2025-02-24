@@ -1,4 +1,5 @@
 import { Edicao } from "../types/edicoes";
+import { Emprestimo } from "../types/emprestimos";
 import { tratarErroResponse } from "./utils";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -81,6 +82,26 @@ export const atualizarEdicao = async (
       }),
     }
   );
+
+  if (!response.ok) {
+    await tratarErroResponse(response);
+  }
+
+  return response.json();
+};
+
+export const informacoesEdicao = async (isbn: string): Promise<Edicao> => {
+  const response = await fetch(`${API_URL}/edicoes/${isbn}`);
+
+  if (!response.ok) {
+    await tratarErroResponse(response);
+  }
+
+  return response.json();
+};
+
+export const historicoEdicao = async (isbn: string): Promise<Emprestimo[]> => {
+  const response = await fetch(`${API_URL}/emprestimos/edicoes/${isbn}`);
 
   if (!response.ok) {
     await tratarErroResponse(response);
