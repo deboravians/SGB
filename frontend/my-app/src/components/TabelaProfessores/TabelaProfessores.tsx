@@ -4,19 +4,26 @@ import styles from "./tabelaProfessores.module.css";
 import { Professor } from "../../types/professores";
 import ModalExcluirProfessor from "../ModalExcluirProfessor/ModalExcluirProfessor";
 import ModalEditarProfessor from "../ModalEditarProfessor/ModalEditarProfessor";
+import Paginacao from "../Paginacao/Paginacao";
 
 interface TabelaProfessoresProps {
   professores: Professor[];
   atualizarLista: () => void;
 }
+const ITENS_POR_PAGINA = 5;
 
 const TabelaProfessores: React.FC<TabelaProfessoresProps> = ({
   professores,
   atualizarLista,
 }) => {
+  const [paginaAtual, setPaginaAtual] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProf, setSelectedProf] = useState<Professor | null>(null);
   const [isModalEditarOpen, setIsModalEditarOpen] = useState(false);
+  const totalPaginas = Math.ceil(professores.length / ITENS_POR_PAGINA);
+  const inicioIndex = (paginaAtual - 1) * ITENS_POR_PAGINA;
+  const professoresPaginados = professores.slice(inicioIndex, inicioIndex + ITENS_POR_PAGINA);
+
 
   const handleOpenModal = (professor: Professor) => {
     setSelectedProf(professor);
@@ -50,7 +57,7 @@ const TabelaProfessores: React.FC<TabelaProfessoresProps> = ({
           </tr>
         </thead>
         <tbody>
-          {professores.map((professor) => (
+          {professoresPaginados.map((professor) => (
             <tr key={`${professor.nome}-${professor.telefone}`}>
               <td>{professor.nome}</td>
               <td>{professor.telefone}</td>
@@ -86,6 +93,13 @@ const TabelaProfessores: React.FC<TabelaProfessoresProps> = ({
           ))}
         </tbody>
       </table>
+
+      <Paginacao
+        paginaAtual={paginaAtual}
+        totalPaginas={totalPaginas}
+        onPageChange={setPaginaAtual}
+      />
+
 
       {/* Modal de confirmação de exclusão */}
       {selectedProf && (
