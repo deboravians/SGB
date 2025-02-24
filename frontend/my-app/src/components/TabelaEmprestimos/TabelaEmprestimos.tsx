@@ -5,6 +5,7 @@ import ModalExcluirEmprestimo from '../ModalExcluirEmprestimo/ModalExcluirEmpres
 import ModalProrrogarPrazo from '../ModalProrrogarPrazo/ModalProrrogarPrazo';
 import ModalEmprestimoExtraviado from "../ModalEmprestimoExtraviado/ModalEmprestimoExtraviado";
 import ModalRegistrarDevolucao from "../ModalRegistrarDevolucao/ModalRegistrarDevolucao";
+import InformacoesEmprestimo from "../InformacoesEmprestimo/InformacoesEmprestimo";
 import { Emprestimo } from "../../types/emprestimos";
 
 interface TabelaEmprestimosProps {
@@ -17,21 +18,21 @@ type ModalType = "excluir" | "prorrogar" | "extraviado" | "devolvido" | null;
 const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos, atualizarLista }) => {
   const [modalAberto, setModalAberto] = useState<ModalType>(null);
   const [selectedEmprestimo, setSelectedEmprestimo] = useState<Emprestimo | null>(null);
+  const [modalInfoAberta, setModalInfoAberta] = useState(false); // 🔹 Estado para a modal de informações
 
   const abrirModal = (tipo: ModalType, emprestimo: Emprestimo) => {
     setSelectedEmprestimo(emprestimo);
     setModalAberto(tipo);
   };
 
+  const abrirModalInfo = (emprestimo: Emprestimo) => {  // 🔹 Função para abrir a modal de informações
+    setSelectedEmprestimo(emprestimo);
+    setModalInfoAberta(true);
+  };
+
   const fecharModal = () => {
     setModalAberto(null);
     setSelectedEmprestimo(null);
-  };
-
-  const handleConfirmarAcao = () => {
-    if (selectedEmprestimo) {
-      fecharModal();
-    }
   };
 
   return (
@@ -59,6 +60,7 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos, atua
                 />
               </td>
               <td className={styles.acoes}>
+       
                 <button
                   className={styles.icone0}
                   onClick={() => abrirModal("prorrogar", emprestimo)}
@@ -73,6 +75,14 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos, atua
                 >
                   <img src="assets/iconExtraviado.svg" alt="Livro Extraviado" />
                 </button>
+                <button
+                  className={styles.icone}
+                  onClick={() => abrirModalInfo(emprestimo)}
+                  title="Ver Informações do Empréstimo"
+                >
+                  <img src="assets/iconOlho.svg" alt="Ver informações" />
+                </button>
+
                 <button
                   className={styles.icone}
                   onClick={() => abrirModal("excluir", emprestimo)}
@@ -93,32 +103,45 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({ emprestimos, atua
         </tbody>
       </table>
 
-      {/* Modais */}
+      {/* 🔹 Modal de Informações do Empréstimo */}
+      {modalInfoAberta && selectedEmprestimo && (
+        <InformacoesEmprestimo
+          edicao={selectedEmprestimo.copia.edicao.titulo}
+          copia={selectedEmprestimo.copia.numero}
+          dataEmprestimo={selectedEmprestimo.dataEmprestimo}
+          dataDevolucao={selectedEmprestimo.dataPrevistaDevolucao}
+          tipoLeitor={selectedEmprestimo.aluno ? "Aluno" : "Professor"}
+          nomeLeitor={selectedEmprestimo.aluno?.nome ?? selectedEmprestimo.professor?.nome ?? "Não informado"}
+          onClose={() => setModalInfoAberta(false)}
+        />
+      )}
+
+      {/* Modais existentes */}
       <ModalExcluirEmprestimo
         isOpen={modalAberto === "excluir"}
         onClose={fecharModal}
-        onConfirm={handleConfirmarAcao}
+        onConfirm={fecharModal}
         onSuccess={atualizarLista}
         emprestimo={selectedEmprestimo}
       />
       <ModalProrrogarPrazo
         isOpen={modalAberto === "prorrogar"}
         onClose={fecharModal}
-        onConfirm={handleConfirmarAcao}
+        onConfirm={fecharModal}
         onSuccess={atualizarLista}
         emprestimo={selectedEmprestimo}
       />
       <ModalEmprestimoExtraviado
         isOpen={modalAberto === "extraviado"}
         onClose={fecharModal}
-        onConfirm={handleConfirmarAcao}
+        onConfirm={fecharModal}
         onSuccess={atualizarLista}
         emprestimo={selectedEmprestimo}
       />
       <ModalRegistrarDevolucao
         isOpen={modalAberto === "devolvido"}
         onClose={fecharModal}
-        onConfirm={handleConfirmarAcao}
+        onConfirm={fecharModal}
         onSuccess={atualizarLista}
         emprestimo={selectedEmprestimo}
       />
