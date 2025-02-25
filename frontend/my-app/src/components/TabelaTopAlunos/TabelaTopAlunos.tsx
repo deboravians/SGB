@@ -6,7 +6,7 @@ interface TabelaTopAlunosProps {
   alunos: TopAlunos[];
 }
 
-const ITENS_POR_PAGINA = 4;
+const ITENS_POR_PAGINA = 8;
 const medalhas: Record<number, string> = {
   1: "assets/iconOuro.svg",
   2: "assets/iconPrata.svg",
