@@ -9,7 +9,7 @@ interface TabelaHistoricoEdicoesProps {
   isbn: string;
 }
 
-const ITENS_POR_PAGINA = 3;
+const ITENS_POR_PAGINA = 10;
 
 const TabelaHistoricoEdicoes: React.FC<TabelaHistoricoEdicoesProps> = ({ isbn }) => {
   const [paginaAtual, setPaginaAtual] = useState(1);
