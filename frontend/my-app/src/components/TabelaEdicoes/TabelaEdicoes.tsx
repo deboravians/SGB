@@ -47,7 +47,7 @@ const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
         <thead>
           <tr>
             <th>ISBN</th>
-            <th>Livro</th>
+            <th>Edição</th>
             <th>Status</th>
             <th>Ações</th>
             <th></th>

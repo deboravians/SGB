@@ -53,7 +53,7 @@ const TabelaHistorico: React.FC<TabelaHistoricoProps> = ({
         <table className={styles.tabela}>
           <thead className={styles.tabelaHeader}>
             <tr>
-              <th>Livro</th>
+              <th>Edição</th>
               <th>Data do Empréstimo</th>
               <th>Data Prevista de Devolução</th>
               <th>Data de Devolução</th>

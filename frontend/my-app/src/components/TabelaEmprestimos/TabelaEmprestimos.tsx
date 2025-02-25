@@ -49,7 +49,7 @@ const TabelaEmprestimos: React.FC<TabelaEmprestimosProps> = ({
       <table className={styles.tabelaEmprestimos}>
         <thead>
           <tr>
-            <th>Livro</th>
+            <th>Edição</th>
             <th>Leitor(a)</th>
             <th>Data prevista de devolução</th>
             <th>Status</th>

@@ -1,9 +1,29 @@
+.acoes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px; /* Reduzi o espaço entre os ícones */
+  white-space: nowrap;
+  padding-left: 10px; /* Adicionei um espaçamento extra à esquerda */
+}
+
 .icone {
   background: none;
   border: none;
   cursor: pointer;
-  margin-right: 15px;
-  grid-gap: 5px;
+  padding: 4px; /* Espaçamento interno para melhorar a área clicável */
+  height: 30px; /* Todos os ícones terão o mesmo tamanho */
+  width: 30px;
+}
+
+.icone img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Ajusta o espaçamento entre as colunas */
+.coluna-acoes {
+  padding-right: 10px; /* Espaçamento maior entre ações e status */
 }
 
 .icone0 {
