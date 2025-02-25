@@ -10,7 +10,7 @@ interface TabelaProfessoresProps {
   professores: Professor[];
   atualizarLista: () => void;
 }
-const ITENS_POR_PAGINA = 5;
+const ITENS_POR_PAGINA = 10;
 
 const TabelaProfessores: React.FC<TabelaProfessoresProps> = ({
   professores,
