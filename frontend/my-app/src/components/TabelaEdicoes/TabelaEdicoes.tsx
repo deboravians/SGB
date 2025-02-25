@@ -12,7 +12,7 @@ interface TabelaEdicoesProps {
   edicoes: Edicao[];
   atualizarLista: () => void;
 }
-const ITENS_POR_PAGINA = 4;
+const ITENS_POR_PAGINA = 10;
 const TabelaEdicoes: React.FC<TabelaEdicoesProps> = ({
   edicoes,
   atualizarLista,
