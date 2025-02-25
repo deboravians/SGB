@@ -12,7 +12,7 @@ interface TabelaEmprestimosProps {
   emprestimos: Emprestimo[];
   atualizarLista: () => void;
 }
-const ITENS_POR_PAGINA = 4;
+const ITENS_POR_PAGINA = 10;
 
 type ModalType = "excluir" | "prorrogar" | "extraviado" | "devolvido" | null;
 
