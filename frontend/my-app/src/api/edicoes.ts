@@ -1,8 +1,11 @@
 import { Edicao } from "../types/edicoes";
+import { Emprestimo } from "../types/emprestimos";
 import { tratarErroResponse } from "./utils";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const getEdicao = async (isbn: string): Promise<Edicao> => {
-  const response = await fetch(`http://localhost:8080/edicoes/${isbn}`);
+  const response = await fetch(`${API_URL}/edicoes/${isbn}`);
 
   if (!response.ok) {
     await tratarErroResponse(response);
@@ -16,7 +19,7 @@ export const cadastrarEdicao = async (
   classificacaoCodigo: string
 ): Promise<Edicao> => {
   const response = await fetch(
-    `http://localhost:8080/edicoes?classificacao_codigo=${classificacaoCodigo}`,
+    `${API_URL}/edicoes?classificacao_codigo=${classificacaoCodigo}`,
     {
       method: "POST",
       headers: {
@@ -41,7 +44,7 @@ export const cadastrarEdicao = async (
 };
 
 export const listarEdicoes = async (): Promise<Edicao[]> => {
-  const response = await fetch("http://localhost:8080/edicoes");
+  const response = await fetch(`${API_URL}/edicoes`);
 
   if (!response.ok) {
     await tratarErroResponse(response);
@@ -51,7 +54,7 @@ export const listarEdicoes = async (): Promise<Edicao[]> => {
 };
 
 export const deletarEdicao = async (isbn: string): Promise<void> => {
-  const response = await fetch(`http://localhost:8080/edicoes/${isbn}`, {
+  const response = await fetch(`${API_URL}/edicoes/${isbn}`, {
     method: "DELETE",
   });
 
@@ -65,7 +68,7 @@ export const atualizarEdicao = async (
   classificacao_codigo: string
 ): Promise<Edicao> => {
   const response = await fetch(
-    `http://localhost:8080/edicoes/${edicao.isbn}?classificacao_codigo=${classificacao_codigo}`,
+    `${API_URL}/edicoes/${edicao.isbn}?classificacao_codigo=${classificacao_codigo}`,
     {
       method: "PUT",
       headers: {
@@ -79,6 +82,26 @@ export const atualizarEdicao = async (
       }),
     }
   );
+
+  if (!response.ok) {
+    await tratarErroResponse(response);
+  }
+
+  return response.json();
+};
+
+export const informacoesEdicao = async (isbn: string): Promise<Edicao> => {
+  const response = await fetch(`${API_URL}/edicoes/${isbn}`);
+
+  if (!response.ok) {
+    await tratarErroResponse(response);
+  }
+
+  return response.json();
+};
+
+export const historicoEdicao = async (isbn: string): Promise<Emprestimo[]> => {
+  const response = await fetch(`${API_URL}/emprestimos/edicoes/${isbn}`);
 
   if (!response.ok) {
     await tratarErroResponse(response);

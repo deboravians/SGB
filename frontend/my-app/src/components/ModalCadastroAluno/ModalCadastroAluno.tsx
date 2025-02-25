@@ -17,11 +17,7 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
     nome: "",
     matricula: "",
     telefone: "",
-    serie: "",
-    turma: "",
-    anoLetivo: "",
     rua: "",
-    numero: "",
     bairro: "",
   });
 
@@ -100,49 +96,6 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
                 className={styles.inputField2}
               />
             </div>
-
-            <div className={styles.formGroup}>
-              <label className={styles.titu} htmlFor="serie">
-                Série:
-              </label>
-              <select
-                value={formData.serie}
-                onChange={handleChange}
-                id="serie"
-                className={styles.inputField3}
-              >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </select>
-            </div>
-
-            <div className={styles.formGroup}>
-              <label className={styles.titu} htmlFor="turma">
-                Turma:
-              </label>
-              <input
-                value={formData.turma}
-                onChange={handleChange}
-                type="text"
-                id="turma"
-                placeholder="A"
-                className={styles.inputField3}
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label className={styles.titulo} htmlFor="anoLetivo">
-                Ano Letivo
-              </label>
-              <input
-                type="text"
-                id="anoLetivo"
-                placeholder="Ano letivo"
-                value={formData.anoLetivo}
-                onChange={handleChange}
-                className={styles.inputFielddd}
-              />
-            </div>
           </div>
 
           <h3 className={styles.sectionTitle}>Endereço</h3>
@@ -159,17 +112,6 @@ const ModalCadastroAluno: React.FC<ModalCadastroAlunoProps> = ({
                   id="rua"
                   placeholder="Digite a rua"
                   className={styles.inputField2}
-                />
-              </div>
-              <div className={styles.formGroup}>
-                <label className={styles.titu} htmlFor="numero">
-                  Número:
-                </label>
-                <input
-                  type="text"
-                  id="numero"
-                  placeholder="0000"
-                  className={styles.inputField}
                 />
               </div>
             </div>

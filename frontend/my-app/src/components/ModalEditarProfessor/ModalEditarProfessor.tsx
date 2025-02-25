@@ -128,15 +128,6 @@ const ModalEditarProfessor: React.FC<ModalEditarProfessorProps> = ({
                   className={styles.inputField1}
                 />
               </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="numero">Número:</label>
-                <input
-                  type="text"
-                  id="numero"
-                  placeholder="0000"
-                  className={styles.inputField3}
-                />
-              </div>
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="bairro">Bairro:</label>

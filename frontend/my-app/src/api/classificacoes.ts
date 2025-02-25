@@ -1,8 +1,10 @@
 import { Classificacao } from "../types/classificacoes";
 import { tratarErroResponse } from "./utils";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const cadastrarClassificacao = async (classificacao: Classificacao): Promise<Classificacao> => {
-    const response = await fetch("http://localhost:8080/classificacoes", {
+    const response = await fetch(`${API_URL}/classificacoes`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -18,7 +20,7 @@ export const cadastrarClassificacao = async (classificacao: Classificacao): Prom
 };
 
 export const listarClassificacoes = async (): Promise<Classificacao[]> => {
-    const response = await fetch("http://localhost:8080/classificacoes");
+    const response = await fetch(`${API_URL}/classificacoes`);
 
     if (!response.ok) {
         await tratarErroResponse(response);
@@ -28,7 +30,7 @@ export const listarClassificacoes = async (): Promise<Classificacao[]> => {
 }
 
 export const deletarClassificacao = async (codigo: string): Promise<void> => {
-    const response = await fetch(`http://localhost:8080/classificacoes/${codigo}`, {
+    const response = await fetch(`${API_URL}/classificacoes/${codigo}`, {
         method: "DELETE",
     });
 
@@ -38,7 +40,7 @@ export const deletarClassificacao = async (codigo: string): Promise<void> => {
 };
 
 export const atualizarClassificacao = async (codigo: string, titulo: string): Promise<Classificacao> => {
-    const response = await fetch(`http://localhost:8080/classificacoes/${codigo}`, {
+    const response = await fetch(`${API_URL}/classificacoes/${codigo}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",

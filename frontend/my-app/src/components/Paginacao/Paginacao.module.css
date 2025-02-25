@@ -1,0 +1,30 @@
+.paginacao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    padding: 10px;
+    background: #ececec; /* Fundo claro */
+    border-radius: 8px;
+  }
+  
+  .paginacao button {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    color: #4b4a4a;
+    cursor: pointer;
+    padding: 5px 10px;
+  }
+  
+  .paginacao button:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .paginacao span {
+    font-size: 14px;
+    color: #555;
+    margin: 0 10px;
+  }
+  

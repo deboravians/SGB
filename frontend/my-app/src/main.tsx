@@ -14,6 +14,7 @@ import GerenciamentoAcervo from "./pages/GerenciamentoDoAcervo/GerenciamentoDoAc
 import RelatoriosEstatisticas from "./pages/RelatoriosEstatisticas/RelatoriosEstatisticas";
 import InformacoesAluno from "./pages/PerfilAluno/InformacoesAluno";
 import InformacoesProfessor from "./pages/PerfilProfessor/InformacoesProfessor";
+import PerfilEdicao from "./pages/PerfilEdicao/PerfilEdicao";
 
 const router = createHashRouter([
   {
@@ -47,6 +48,10 @@ const router = createHashRouter([
       {
         path: "/edicoes",
         element: <GerenciamentoAcervo />,
+      },
+      {
+        path: "/edicoes/:isbn",
+        element: <PerfilEdicao />,
       },
       {
         path: "/emprestimos",

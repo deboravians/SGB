@@ -19,13 +19,25 @@ function SideBar() {
       <nav>
         <ul className={style.navList}>
           <li
+            className={`${style.navItem} ${selectedItem === "home" ? style.selected : ""}`}
+            onClick={() => handleSelection("home")}
+          >
+            <Link to="/home" className={style.navLink}>
+              <img src="assets/iconHome.svg" alt="Ícone de Home" className={style.icon} />
+              <span>Home</span>
+            </Link>
+          </li>
+          
+          <li
             className={`${style.navItem} ${
               selectedItem === "edicoes" ? style.selected : ""
             }`}
             onClick={() => handleSelection("edicoes")}
           >
-            <img src="assets/iconLivros.svg" alt="Ícone de Livros" />
-            <Link to="/edicoes">Edições</Link>
+            <Link to="/edicoes" className={style.navLink}>
+              <img src="assets/iconLivros.svg" alt="Ícone de Livros" className={style.icon} />
+              <span>Edições</span>
+            </Link>
           </li>
           <li
             className={`${style.navItem} ${

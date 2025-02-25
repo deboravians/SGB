@@ -2,10 +2,12 @@ import { Emprestimo } from "../types/emprestimos";
 import { Professor } from "../types/professores";
 import { tratarErroResponse } from "./utils";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const cadastrarProfessor = async (
   professor: Professor
 ): Promise<Professor> => {
-  const response = await fetch("http://localhost:8080/professores", {
+  const response = await fetch(`${API_URL}/professores`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -21,7 +23,7 @@ export const cadastrarProfessor = async (
 };
 
 export const listarProfessores = async (): Promise<Professor[]> => {
-  const response = await fetch("http://localhost:8080/professores");
+  const response = await fetch(`${API_URL}/professores`);
 
   if (!response.ok) {
     await tratarErroResponse(response);
@@ -31,7 +33,7 @@ export const listarProfessores = async (): Promise<Professor[]> => {
 };
 
 export const deletarProfessor = async (cpf: string): Promise<void> => {
-  const response = await fetch(`http://localhost:8080/professores/${cpf}`, {
+  const response = await fetch(`${API_URL}/professores/${cpf}`, {
     method: "DELETE",
   });
 
@@ -43,23 +45,20 @@ export const deletarProfessor = async (cpf: string): Promise<void> => {
 export const atualizarProfessor = async (
   professor: Professor
 ): Promise<Professor> => {
-  const response = await fetch(
-    `http://localhost:8080/professores/${professor.cpf}`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        cpf: professor.cpf,
-        disciplina: professor.disciplina,
-        nome: professor.nome,
-        telefone: professor.telefone,
-        rua: professor.rua,
-        bairro: professor.bairro,
-      }),
-    }
-  );
+  const response = await fetch(`${API_URL}/professores/${professor.cpf}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      cpf: professor.cpf,
+      disciplina: professor.disciplina,
+      nome: professor.nome,
+      telefone: professor.telefone,
+      rua: professor.rua,
+      bairro: professor.bairro,
+    }),
+  });
 
   if (!response.ok) {
     await tratarErroResponse(response);
@@ -69,7 +68,7 @@ export const atualizarProfessor = async (
 };
 
 export const informacoesProfessor = async (cpf: string): Promise<Professor> => {
-  const response = await fetch(`http://localhost:8080/professores/${cpf}`);
+  const response = await fetch(`${API_URL}/professores/${cpf}`);
 
   if (!response.ok) {
     await tratarErroResponse(response);
@@ -78,8 +77,12 @@ export const informacoesProfessor = async (cpf: string): Promise<Professor> => {
   return response.json();
 };
 
-export const historicoProfessor = async (cpf: string): Promise<Emprestimo[]> => {
-  const response = await fetch(`http://localhost:8080/emprestimos/professores/${cpf}`);
+export const historicoProfessor = async (
+  cpf: string
+): Promise<Emprestimo[]> => {
+  const response = await fetch(
+    `${API_URL}/emprestimos/professores/${cpf}`
+  );
 
   if (!response.ok) {
     await tratarErroResponse(response);

@@ -12,7 +12,9 @@ const DropdownEdicoes = ({
   const [edicoesFiltradas, setEdicoesFiltradas] = useState<Edicao[]>([]);
   const [loading, setLoading] = useState(true);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [edicaoSelecionada, setEdicaoSelecionada] = useState<Edicao | null>(null);
+  const [edicaoSelecionada, setEdicaoSelecionada] = useState<Edicao | null>(
+    null
+  );
   const [pesquisa, setPesquisa] = useState("");
 
   useEffect(() => {
@@ -83,8 +85,6 @@ const DropdownEdicoes = ({
 
               {loading ? (
                 <p>Carregando...</p>
-              ) : edicoesFiltradas.length === 0 ? (
-                <p>Nenhuma edição encontrada.</p>
               ) : (
                 edicoesFiltradas.map((edicao) => (
                   <div

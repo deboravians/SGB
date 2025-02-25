@@ -1,8 +1,10 @@
 import { Emprestimo } from "../types/emprestimos";
 import { tratarErroResponse } from "./utils";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const listarEmprestimos = async (): Promise<Emprestimo[]> => {
-  const response = await fetch("http://localhost:8080/emprestimos");
+  const response = await fetch(`${API_URL}/emprestimos`);
 
   if (!response.ok) {
     await tratarErroResponse(response);
@@ -23,8 +25,8 @@ export const cadastrarEmprestimo = async (
 
   const endpoint =
     tipoLeitor === "aluno"
-      ? `http://localhost:8080/emprestimos/alunos?idCopia=${idCopia}&matriculaAluno=${identificador}`
-      : `http://localhost:8080/emprestimos/professores?idCopia=${idCopia}&cpfProfessor=${identificador}`;
+      ? `${API_URL}/emprestimos/alunos?idCopia=${idCopia}&matriculaAluno=${identificador}`
+      : `${API_URL}/emprestimos/professores?idCopia=${idCopia}&cpfProfessor=${identificador}`;
 
   const response = await fetch(endpoint, {
     method: "POST",
@@ -43,7 +45,7 @@ export const registrarDevolucao = async (
   id: string,
   dataDevolucao: string
 ): Promise<Emprestimo> => {
-  const response = await fetch(`http://localhost:8080/devolucoes?id=${id}`, {
+  const response = await fetch(`${API_URL}/devolucoes?id=${id}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ dataDevolucao }),
@@ -58,7 +60,7 @@ export const registrarDevolucao = async (
 
 export const registrarExtravio = async (id: string): Promise<Emprestimo> => {
   const response = await fetch(
-    `http://localhost:8080/emprestimos/registrarExtravio/${id}`,
+    `${API_URL}/emprestimos/registrarExtravio/${id}`,
     {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -74,7 +76,7 @@ export const registrarExtravio = async (id: string): Promise<Emprestimo> => {
 
 export const aumentarPrazo = async (id: string): Promise<Emprestimo> => {
   const response = await fetch(
-    `http://localhost:8080/emprestimos/aumentarPrazo/${id}`,
+    `${API_URL}/emprestimos/aumentarPrazo/${id}`,
     {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -89,7 +91,7 @@ export const aumentarPrazo = async (id: string): Promise<Emprestimo> => {
 };
 
 export const deletarEmprestimo = async (id: string): Promise<void> => {
-  const response = await fetch(`http://localhost:8080/emprestimos/${id}`, {
+  const response = await fetch(`${API_URL}/emprestimos/${id}`, {
     method: "DELETE",
   });
 

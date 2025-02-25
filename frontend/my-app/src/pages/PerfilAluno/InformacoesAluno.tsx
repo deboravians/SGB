@@ -52,10 +52,6 @@ const InformacoesAluno = () => {
           </div>
           <div className={styles.dadosComplementares}>
             <p>
-              <strong>Série:</strong> {aluno.serie} | <strong>Turma:</strong>{" "}
-              {aluno.turma} | <strong>Ano:</strong> {aluno.anoLetivo}
-            </p>
-            <p>
               <strong>Endereço:</strong> {aluno.rua}, {aluno.bairro}
             </p>
           </div>

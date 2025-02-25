@@ -4,19 +4,27 @@ import { Aluno } from "../../types/alunos";
 import { useState } from "react";
 import ModalExcluirAluno from "../ModalExcluirAluno/ModalExcluirAluno";
 import ModalEditarAluno from "../ModalEditarAluno/ModalEditarAluno";
+import Paginacao from "../Paginacao/Paginacao";
 
 interface TabelaAlunosProps {
   alunos: Aluno[];
   atualizarLista: () => void;
 }
 
+const ITENS_POR_PAGINA = 10; 
+
 const TabelaAlunos: React.FC<TabelaAlunosProps> = ({
   alunos,
   atualizarLista,
 }) => {
+  const [paginaAtual, setPaginaAtual] = useState(1);
   const [isModalExcluirOpen, setIsModalExcluirOpen] = useState(false);
   const [isModalEditarOpen, setIsModalEditarOpen] = useState(false);
   const [selectedAluno, setSelectedAluno] = useState<Aluno | null>(null);
+
+  const totalPaginas = Math.ceil(alunos.length / ITENS_POR_PAGINA);
+  const inicioIndex = (paginaAtual - 1) * ITENS_POR_PAGINA;
+  const alunosPaginados = alunos.slice(inicioIndex, inicioIndex + ITENS_POR_PAGINA);
 
   const handleOpenExcluirModal = (aluno: Aluno) => {
     setSelectedAluno(aluno);
@@ -45,18 +53,14 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({
           <tr>
             <th>Matrícula</th>
             <th>Nome</th>
-            <th>Série</th>
-            <th>Turma</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
-          {alunos.map((aluno) => (
+          {alunosPaginados.map((aluno) => (
             <tr key={aluno.matricula}>
               <td>{aluno.matricula}</td>
               <td>{aluno.nome}</td>
-              <td>{aluno.serie}</td>
-              <td>{aluno.turma}</td>
               <td>
                 <Link
                   to={`/leitores/alunos/${aluno.matricula}`}
@@ -88,6 +92,12 @@ const TabelaAlunos: React.FC<TabelaAlunosProps> = ({
           ))}
         </tbody>
       </table>
+
+      <Paginacao
+        paginaAtual={paginaAtual}
+        totalPaginas={totalPaginas}
+        onPageChange={setPaginaAtual}
+      />
 
       {isModalExcluirOpen && selectedAluno && (
         <ModalExcluirAluno
