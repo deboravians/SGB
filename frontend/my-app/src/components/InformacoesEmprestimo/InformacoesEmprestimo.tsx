@@ -29,29 +29,36 @@ const InformacoesEmprestimo: React.FC<EmprestimoProps> = ({
 
         <div className={styles.infoContainer}>
           <button className={styles.sectionTitle}>Informações gerais</button>
-
           <div className={styles.infoGrid}>
-            <div className={styles.infoBlock}>
-              <strong>Edição:</strong> {edicao}
-            </div>
-            <div className={styles.infoBlock}>
-              <strong>Tipo do leitor(a):</strong> {tipoLeitor}
-            </div>
-            <div className={styles.infoBlock}>
-              <strong>Cópia:</strong> {copia}
-            </div>
-            <div className={styles.infoBlock}>
-              <strong>Nome do leitor(a):</strong> {nomeLeitor}
-            </div>
-            <div className={styles.infoBlock}>
-              <strong>Data de empréstimo:</strong>
-              <span className={styles.date}>{dataEmprestimo}</span>
-            </div>
-            <div className={styles.infoBlock}>
-              <strong>Data prevista de devolução:</strong>
-              <span className={styles.date}>{dataDevolucao}</span>
-            </div>
-          </div>
+  <div className={styles.infoBlock}>
+    <strong>Edição:</strong> {edicao}
+  </div>
+  <div className={styles.infoBlock}>
+    <strong>Tipo do leitor(a):</strong> {tipoLeitor}
+  </div>
+  <div className={styles.infoBlock}>
+    <strong>Cópia:</strong> {copia}
+  </div>
+  <div className={styles.infoBlock}>
+    <strong>Nome do leitor(a):</strong> {nomeLeitor}
+  </div>
+
+  <div className={styles.dateContainer}>
+    <div className={styles.infoBlock}>
+      <strong>Data de empréstimo:</strong>
+      <span className={styles.date}>{dataEmprestimo}</span>
+    </div>
+    <div className={styles.infoBlock}>
+      <strong>Data prevista de devolução:</strong>
+      <span className={styles.date}>{dataDevolucao}</span>
+    </div>
+    <div className={styles.infoBlock}>
+      <strong>Data de devolução:</strong>
+      <span className={styles.date}>{dataDevolucao}</span>
+    </div>
+  </div>
+</div>
+
         </div>
       </div>
     </div>
