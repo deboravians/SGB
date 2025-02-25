@@ -11,7 +11,7 @@ interface TabelaAlunosProps {
   atualizarLista: () => void;
 }
 
-const ITENS_POR_PAGINA = 5; // Agora exibindo 5 alunos por página
+const ITENS_POR_PAGINA = 10; 
 
 const TabelaAlunos: React.FC<TabelaAlunosProps> = ({
   alunos,
