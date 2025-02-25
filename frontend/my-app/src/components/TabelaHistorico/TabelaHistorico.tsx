@@ -9,7 +9,7 @@ interface TabelaHistoricoProps {
   identificador: string;
   tipo: "aluno" | "professor";
 }
-const ITENS_POR_PAGINA = 3;
+const ITENS_POR_PAGINA = 10;
 const TabelaHistorico: React.FC<TabelaHistoricoProps> = ({
   identificador,
   tipo,
