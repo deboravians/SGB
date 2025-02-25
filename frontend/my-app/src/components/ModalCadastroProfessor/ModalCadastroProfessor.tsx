@@ -3,7 +3,7 @@ import styles from "./ModalCadastroProfessor.module.css";
 import { Professor } from "../../types/professores";
 import { cadastrarProfessor } from "../../api/professores";
 import { toast } from "react-toastify";
-import InputMaskComponent from "../InputMaskComponent/InputMaskComponent";
+
 
 
 interface ModalCadastroProfessorProps {
@@ -66,11 +66,10 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
           </div>
           <div className={styles.row}>
             <div className={styles.formGroup}>
-              <InputMaskComponent
-                label="Telefone:"
+            <label htmlFor="nome">Nome:</label>
+              <input
                 value={formData.telefone}
                 onChange={(e) => handleChange("telefone", e.target.value)}
-                mask="(99) 99999-9999"
                 placeholder="(00) 00000-0000"
                 className={styles.inputField2}
               />
@@ -87,11 +86,10 @@ const ModalCadastroProfessor: React.FC<ModalCadastroProfessorProps> = ({
               />
             </div>
             <div className={styles.formGroup}>
-              <InputMaskComponent
-                label="CPF:"
+            <label htmlFor="nome">Nome:</label>
+              <input
                 value={formData.cpf}
                 onChange={(e) => handleChange("cpf", e.target.value)}
-                mask="999.999.999-99"
                 placeholder="000.000.000-00"
                 className={styles.inputField2}
               />
